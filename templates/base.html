@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://unpkg.com/chota@latest">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/lemmy.svg" />
     <style>
+      :root {
+        --grid-maxWidth: 108rem;
+      }
       @font-face {
         font-family: 'CaviarDreams';
         src: url('/fonts/CaviarDreams.ttf') format('truetype');
@@ -26,8 +29,8 @@
       }
       .icon {
         display: inline-block;
-        max-width: 2rem;
-        max-height: 2rem;
+        max-width: 1.5rem;
+        max-height: 1.5rem;
         stroke-width: 0;
         stroke: currentColor;
         fill: currentColor;
@@ -42,13 +45,10 @@
     <div class="container">
       <nav class="nav">
         <div class="nav-left">
-          <a href="/join">Join</a>
+          <a class="brand" href="/"><img src="/images/lemmy.svg"></a>
           <a href="/apps">Apps</a>
           <a href="/sponsors">Sponsors</a>
           <a href="https://dev.lemmy.ml/docs/index.html">Docs</a>
-        </div>
-        <div class="nav-center">
-          <a class="brand" href="/"><img src="/images/lemmy.svg"></a>
         </div>
         <div class="nav-right">
           <a href="https://github.com/LemmyNet"><svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
