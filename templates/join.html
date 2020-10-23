@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %} 
+<div class="container">
+  <h1>Lemmy servers</h1>
+  <p>Choose and join a server from the approved servers below.</p>
+
+  <div class="row">
+
+    <div class="card col-6">
+      <header>
+        <div class="row">
+          <h4 class="col">dev.lemmy.ml</h4>
+          <h4 class="col text-right"><i>5.9k users</i></h4>
+        </div>
+      </header>
+      <div class="is-center">
+        <img class="join-banner" src="/images/lemmy.svg" />
+      </div>
+      <br />
+      <p>The main instance of lemmy.</p>
+      <footer>
+        <a class="button primary" href="https://dev.lemmy.ml">Join</a>
+      </footer>
+    </div>
+
+    <div class="card col-6">
+      <header>
+        <div class="row">
+          <h4 class="col">lemmygrad.ml</h4>
+          <h4 class="col text-right"><i>2.3k users</i></h4>
+        </div>
+      </header>
+      <div class="is-center">
+        <img class="join-banner" src="https://lemmygrad.ml/pictrs/image/YI2XNWaVUv.png?format=webp" />
+      </div>
+      <br />
+      <p>A collection of leftist communities, for memes, learning, news, discussion, media, or anything you like.</p>
+      <footer>
+        <a class="button primary" href="https://lemmygrad.ml">Join</a>
+      </footer>
+    </div>
+
+  </div>
+
+</div>
+{% endblock content %}
