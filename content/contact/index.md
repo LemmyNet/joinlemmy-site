@@ -5,7 +5,7 @@ template = "page.html"
 # Contact
 
 - [Mastodon](https://mastodon.social/@LemmyDev)
-- [Matrix](https://riot.im/app/#/room/#rust-reddit-fediverse:matrix.org)
+- [Matrix](https://matrix.to/#/#lemmy:matrix.org)
 - [GitHub](https://github.com/LemmyNet/lemmy)
 - [security@lemmy.ml](mailto:security@lemmy.ml)   *PGP key below*
 
