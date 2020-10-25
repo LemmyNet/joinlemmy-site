@@ -90,6 +90,12 @@
         <a href="https://matrix.to/#/#lemmy:matrix.org"><svg class="icon icon-matrix"><use xlink:href="#icon-matrix"></use></svg></a>
       </div>
     </nav>
+
+    <nav class="nav hide-sm hide-md hide-lg">
+      <div class="nav-center">
+        <a class="brand" href="/"><img src="/images/lemmy.svg"></a>
+      </div>
+    </nav>
     {% block content %} {% endblock %}
 
     <br />
@@ -101,7 +107,7 @@
         <div class="nav-left">
           <p style="padding-left:2rem">Made using <a style="display: inline-block" class="is-paddingless" href="https://www.getzola.org">Zola</a> and <a style="display: inline-block" class="is-paddingless" href="https://jenil.github.io/chota">Chota</a></p>
         </div>
-        <div class="nav-right hide-lg">
+        <div class="nav-right hide-sm hide-md hide-lg">
           <a class="brand" href="/"><img src="/images/lemmy.svg"></a>
           <a href="/join">Join</a>
           <a href="/apps">Apps</a>
