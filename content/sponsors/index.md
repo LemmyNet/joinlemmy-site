@@ -34,16 +34,13 @@ template = "page.html"
   <p>General Sponsors are those that pledged $10 to $39 to Lemmy.</p>
   <div class="row is-horizontal-align">
     <div class="col">
-      <div class="button outline primary">DQW</div>
-    </div>
-    <div class="col">
-      <div class="button outline primary">Discount Funeral</div>
-    </div>
-    <div class="col">
-      <div class="button outline primary">Oskenso Kashi</div>
-    </div>
-    <div class="col">
       <div class="button outline primary">Alex Benishek</div>
+    </div>
+    <div class="col">
+      <div class="button outline">Tommaso</div>
+    </div>
+    <div class="col">
+      <div class="button outline">Jamie Gray</div>
     </div>
     <div class="col">
       <div class="button outline">Brendan</div>
@@ -61,37 +58,16 @@ template = "page.html"
       <div class="button outline">comradeda</div>
     </div>
     <div class="col">
-      <div class="button outline">ybaumy</div>
-    </div>
-    <div class="col">
-      <div class="button outline">dude in phx</div>
-    </div>
-    <div class="col">
-      <div class="button outline">twilight loki</div>
-    </div>
-    <div class="col">
-      <div class="button outline">Andrew Plaza</div>
-    </div>
-    <div class="col">
       <div class="button outline">Jonathan Cremin</div>
     </div>
     <div class="col">
       <div class="button outline">Arthur Nieuwland</div>
     </div>
     <div class="col">
-      <div class="button outline">Ernest Wiśniewski</div>
-    </div>
-    <div class="col">
-      <div class="button outline">HN</div>
-    </div>
-    <div class="col">
       <div class="button outline">Forrest Weghorst</div>
     </div>
     <div class="col">
       <div class="button outline">Andre Vallestero</div>
-    </div>
-    <div class="col">
-      <div class="button outline">NotTooHighToHack</div>
     </div>
   </div>
 </div>
