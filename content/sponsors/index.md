@@ -34,6 +34,9 @@ template = "page.html"
   <p>General Sponsors are those that pledged $10 to $39 to Lemmy.</p>
   <div class="row is-horizontal-align">
     <div class="col">
+      <div class="button outline primary">seahorse</div>
+    </div>
+    <div class="col">
       <div class="button outline primary">DQW</div>
     </div>
     <div class="col">
