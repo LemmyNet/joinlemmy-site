@@ -77,3 +77,12 @@ template = "page.html"
     </div>
   </div>
 </div>
+
+<div class="text-center">
+  <h1>Crypto</h1>
+    <table>
+      <tr><td>bitcoin</td><td><code>1Hefs7miXS5ff5Ck5xvmjKjXf5242KzRtK</code></td></tr>
+      <tr><td>ethereum</td><td><code>0x400c96c96acbC6E7B3B43B1dc1BB446540a88A01</code></td></tr>
+      <tr><td>monero</td><td><code>41taVyY6e1xApqKyMVDRVxJ76sPkfZhALLTjRvVKpaAh2pBd4wv9RgYj1tSPrx8wc6iE1uWUfjtQdTmTy2FGMeChGVKPQuV</code></td></tr>
+    </table>
+</div>
