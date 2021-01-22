@@ -8,7 +8,7 @@ template = "page.html"
 
 - [lemmy-ui - The official web app for lemmy](https://github.com/LemmyNet/lemmy-ui)
 - [Lemmur - A mobile client for Lemmy (Android, Linux, Windows)](https://github.com/krawieck/lemmur)
-- [Lemmy-iOS](https://github.com/uuttff8/Lemmy-iOS)
+- [Lemmer - A native iOS app](https://github.com/uuttff8/Lemmy-iOS)
 
 ## Libraries
 
