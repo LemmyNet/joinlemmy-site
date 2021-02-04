@@ -1,5 +1,7 @@
 #!/bin/bash
+
 ./build_docs.sh
+zola build
 
 sudo mkdir -p /var/www/joinlemmy
 sudo rm -rf /var/www/joinlemmy/public
