@@ -1,0 +1,4 @@
+[submodule "lemmy-docs"]
+	path = lemmy-docs
+	url = https://github.com/LemmyNet/lemmy-docs
+	branch = main
