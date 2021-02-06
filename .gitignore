@@ -1,2 +1,4 @@
 public
 static/docs
+static/api
+node_modules
