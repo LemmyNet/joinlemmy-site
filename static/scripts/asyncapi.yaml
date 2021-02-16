@@ -43,6 +43,7 @@ externalDocs:
 tags:
   - name: User, authentication and admin
   - name: Site
+  - name: Community
 channels:
   Login:
     publish:
@@ -561,7 +562,7 @@ channels:
     publish:
       summary: GetModLog (request)
       description: |-
-        Forthcoming...
+        Details of the site's *Modlog*: sticky and lockwed posts and so on.
 
         #### HTTP API - operation and endpoint.
 
@@ -571,7 +572,16 @@ channels:
       - name: Site
       message:
         $ref: '#/components/messages/getModLogRequest'
-  # Could not get GetModLog response from server, hence no 'subscribe' option documented
+    subscribe:
+      summary: GetModLog (response)
+      description: Modlog request results
+      operationId: getModLogResponseMessage
+      tags:
+        - name: Site
+      message:
+        oneOf:
+          - $ref: '#/components/messages/getModLogResponse'
+          - $ref: '#/components/messages/errorResponse'
   CreateSite:
     publish:
       summary: CreateSite (request)
@@ -710,6 +720,175 @@ channels:
           - $ref: '#/components/messages/saveSiteConfigResponse'
           - $ref: '#/components/messages/errorResponse'
   # SaveSiteConfig response not verified. Did not get response from server
+  GetCommunity:
+    publish:
+      summary: GetCommunity (request)
+      description: |-
+        Request to get details of a specified community
+
+        #### HTTP API - operation and endpoint.
+
+        `GET /community`
+      operationId: getCommunityRequestMessage
+      tags: 
+      - name: Community
+      message:
+        $ref: '#/components/messages/getCommunityRequest'
+    subscribe:
+      summary: GetCommunity (response)
+      description: Return the details for a community
+      operationId: getCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/getCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  CreateCommunity:
+    publish:
+      summary: CreateCommunity (request)
+      description: |-
+        Request to create a new community
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community`
+      operationId: createCommunityRequestMessage
+      tags: 
+      - name: Community
+      message:
+        $ref: '#/components/messages/createCommunityRequest'
+    subscribe:
+      summary: CreateCommunity (response)
+      description: Return the details for a community
+      operationId: createCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  ListCommunities:
+    publish:
+      summary: ListCommunities (request)
+      description: |-
+        Request to list all communities on the Lemmy server
+
+        #### HTTP API - operation and endpoint.
+
+        `GET /community/list`
+      operationId: listCommunityRequestMessage
+      tags: 
+      - name: Community
+      message:
+        $ref: '#/components/messages/listCommunityRequest'    
+    subscribe:
+      summary: ListCommunities (response)
+      description: Return the details for all communities
+      operationId: listCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/listCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  BanFromCommunity:
+    publish:
+      summary: BanFromCommunity (request)
+      description: |-
+        Request to ban a user (`user_id`) from a specified community.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/ban_user`
+      operationId: banFromCommunityRequestMessage
+      tags: 
+      - name: Community
+      message:
+        $ref: '#/components/messages/banFromCommunityRequest'
+    # Issues with Docker, hence subscribe not documented
+  AddModToCommunity:
+    publish:
+      summary: AddModToCommunity (request)
+      description: |-
+        Request to add another moderator (`user_id`) to the specified community (`community_id`).
+
+        The account making the request (`auth`) must be either an admin or a moderator of that community.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/mod`
+      operationId: addModToCommunityRequestMessage
+      tags: 
+      - name: Community
+      message:
+        $ref: '#/components/messages/addModToCommunityRequest' 
+  # No response from server, hence subscribe not documented
+  TransferCommunity:
+    publish:
+      summary: TransferCommunity (Request)
+      description: |-
+        Request to transfer ownership of a community from one person (`auth`) to another (`user_id`).
+
+        The account making the request (`auth`) must be an admin user.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/transfer`
+      operationId: transferCommunityRequestMessage
+      tags: 
+      - name: Community
+      message:
+        $ref: '#/components/messages/transferCommunityRequest'
+  # Issues with Docker, hence subscribe not documented
+  CommunityJoin:
+    publish:
+      summary: CommunityJoin (request)
+      description: |-
+        Forthcoming...
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/join`
+      operationId: communityJoinRequestMessage
+      tags: 
+      - name: Community
+      message:
+        $ref: '#/components/messages/communityJoinRequest'
+    subscribe:
+      summary: CommunityJoin (response)
+      description: Forthcoming...
+      operationId: CommunityJoinResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/communityJoinResponse'
+          - $ref: '#/components/messages/errorResponse'
+  ModJoin:
+    publish:
+      summary: ModJoin (request)
+      description: |-
+        Forthcoming...
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/mod/join`
+      operationId: modJoinRequestMessage
+      tags: 
+      - name: Community
+      message:
+        $ref: '#/components/messages/modJoinRequest'
+    subscribe:
+      summary: ModJoin (response)
+      description: Forthcoming...
+      operationId: modJoinResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/modJoinResponse'
+          - $ref: '#/components/messages/errorResponse'
 components:
   messages:
     errorResponse:
@@ -950,34 +1129,30 @@ components:
             default: 'GetUserDetails'
           data:
             type: object
-            properties:
-              op:
-                type: string
-              data:
-                type: object
+            user:
+              $ref: '#/components/schemas/user_view'
+            posts:
+              $ref: '#/components/schemas/replies'
+            comments:
+              $ref: '#/components/schemas/comments'
+            moderates:
+              description: The list of moderators for each community
+              type: array
+              items:
                 properties:
-                  posts:
-                    $ref: '#/components/schemas/replies'
-                  comments:
-                    $ref: '#/components/schemas/comments'
-                  moderates:
-                    description: The list of moderators for each community
-                    type: array
-                    items:
-                      properties:
-                        moderator:
-                          $ref: '#/components/schemas/user'
-                        community:
-                          $ref: '#/components/schemas/community'
-                  follows:
-                    description: The list of followers (members) for each community
-                    type: array
-                    items:
-                      properties:
-                        follower:
-                          $ref: '#/components/schemas/user'
-                        community:
-                          $ref: '#/components/schemas/community'
+                  moderator:
+                    $ref: '#/components/schemas/user'
+                  community:
+                    $ref: '#/components/schemas/community'
+            follows:
+              description: The list of followers (members) for each community
+              type: array
+              items:
+                properties:
+                  follower:
+                    $ref: '#/components/schemas/user'
+                  community:
+                    $ref: '#/components/schemas/community'
     repliesResponse:
       name: Returning user replies response
       payload:
@@ -1077,7 +1252,6 @@ components:
             properties:
               private_messages:
                 type: array
-                uniqueItems: true
                 items:
                     $ref: '#/components/schemas/private_message_view'
           op:
@@ -1287,9 +1461,7 @@ components:
               user_id:
                 $ref: '#/components/schemas/user_id'
               added:
-                description: Forthcoming...
-                type: boolean
-                example: true
+                $ref: '#/components/schemas/added'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     addAdminResponse:
@@ -1297,15 +1469,15 @@ components:
       payload:
         type: object
         properties:
-          data:
-            type: object
-            properties:
-              admins:
-                $ref: '#/components/schemas/user'
           op:
             type: string
             pattern: '^AddAdmin$'
             default: 'AddAdmin'
+          data:
+            type: object
+            properties:
+              admins:
+                $ref: '#/components/schemas/user_view'
     banUserRequest:
       name: Request to ban a user
       payload:
@@ -1321,25 +1493,13 @@ components:
               user_id:
                 $ref: '#/components/schemas/user_id'
               ban:
-                description: |-
-                  - If set to *true*, ban the user
-                  - If set to *false*, do not ban them (use in combination with `remove_data` to restore comments, posts, and communities that were previously removed with `banUser`)
-                type: boolean
-                example: true
+                $ref: '#/components/schemas/ban'
               remove_data:
-                description: |-
-                  - If set to *true*, also delete their comments, posts, and communities
-                  - If set *false*, *restore* their comments, posts, and communities
-                type: boolean
-                example: false
+                $ref: '#/components/schemas/remove_data'
               reason:
-                description: Forthcoming...
-                type: string
-                example: 'Breach of terms and conditions'
+                $ref: '#/components/schemas/reason'
               expires:
-                description: Forthcoming...
-                type: integer
-                format: int64
+                $ref: '#/components/schemas/expires'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     banUserResponse:
@@ -1347,19 +1507,12 @@ components:
       payload:
         type: object
         properties:
-          data:
-            type: object
-            properties:
-              user:
-                $ref: '#/components/schemas/user'
-              banned:
-                description: Forthcoming...
-                type: boolean
-                example: true
           op:
             type: string
             pattern: '^BanUser$'
             default: 'BanUser'
+          data:
+            $ref: '#/components/schemas/ban_view'
     userJoinRequest:
       name: Request to join (something?)
       payload:
@@ -1456,9 +1609,7 @@ components:
                     id:
                       $ref: '#/components/schemas/category_id'                   
                     name:
-                      description: The category name
-                      type: string
-                      example: 'Politics'
+                      $ref: '#/components/schemas/category_name'             
           op:
             type: string
             pattern: '^ListCategories$'
@@ -1498,6 +1649,10 @@ components:
       payload:
         type: object
         properties:
+          op:
+            type: string
+            pattern: '^Search$'
+            default: 'Search' 
           data:
             type: object
             properties:
@@ -1516,15 +1671,11 @@ components:
                 items:
                   properties:
                     user:
-                      $ref: '#/components/schemas/user'
+                      $ref: '#/components/schemas/user_view'
               comments:
                 $ref: '#/components/schemas/comments'
-          op:
-            type: string
-            pattern: '^Search$'
-            default: 'Search' 
     getModLogRequest:
-      name: Forthcoming...
+      name: Request the site's Modlog
       payload:
         type: object
         properties:
@@ -1543,6 +1694,101 @@ components:
                 $ref: '#/components/schemas/page'
               limit:
                 $ref: '#/components/schemas/limit'
+    getModLogResponse:
+      name: Modlog request results
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetModLog$'
+            default: 'GetModLog'
+          data:
+            type: object
+            properties:
+              removed_posts:
+                type: array
+              locked_posts:
+                type: array
+                items:
+                  properties:
+                    mod_lock_post:
+                      type: object
+                      properties:
+                        id:
+                          description: Forthcoming...
+                          type: number
+                          example: 1
+                        mod_user_id:
+                          $ref: '#/components/schemas/user_id'
+                        post_id:
+                          description: Forthcoming...
+                          type: number
+                          example: 223
+                        locked:
+                          description: Set to *true* if the post is locked
+                          type: boolean
+                          example: true
+                        when_:
+                          description: 'The date this post was locked (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
+                          type: string
+                          example: '2021-01-26T14:15:21.922339'
+                    moderator:
+                      $ref: '#/components/schemas/creator'
+                    post:
+                      $ref: '#/components/schemas/post'
+                    community:
+                      $ref: '#/components/schemas/community'
+              stickied_posts:
+                type: array
+                items:
+                  properties:
+                    mod_sticky_post:
+                      type: object
+                      properties:
+                        id:
+                          description: Forthcoming...
+                          type: number
+                          example: 1
+                        mod_user_id:
+                          $ref: '#/components/schemas/user_id'
+                        post_id:
+                          description: Forthcoming...
+                          type: number
+                          example: 223
+                        stickied:
+                          description: |-
+                            Set to *true* if the post is 'sticky'
+                          type: boolean
+                          example: true
+                        when_:
+                          description: 'The date this post was made sticky (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
+                          type: string
+                          example: '2021-01-26T14:16:03.899093'
+                    moderator:
+                      $ref: '#/components/schemas/creator'
+                    post:
+                      $ref: '#/components/schemas/post'
+                    community:
+                      $ref: '#/components/schemas/community'
+              removed_comments:
+                description: Forthcoming...
+                type: array
+              removed_communities:
+                description: Forthcoming...
+                type: array
+              banned_from_community:
+                description: Forthcoming...
+                type: array
+              banned:
+                description: Forthcoming...
+                type: array
+              added_to_community:
+                description: Forthcoming...
+                type: array
+              added:
+                description: Forthcoming...
+                type: array
     createSiteRequest:
       name: Create Lemmy site on a server
       payload:
@@ -1620,7 +1866,6 @@ components:
                 $ref: '#/components/schemas/online'
               admins:
                 type: array
-                uniqueItems: true
                 items:
                   properties:
                     counts:
@@ -1713,7 +1958,7 @@ components:
           op:
             type: string
             pattern: '^GetSiteConfig$'
-            default: '^GetSiteConfig$'
+            default: 'GetSiteConfig'
           data:
             type: object
             properties:         
@@ -1727,7 +1972,7 @@ components:
           op:
             type: string
             pattern: '^GetSiteConfig$'
-            default: '^GetSiteConfig$'
+            default: 'GetSiteConfig'
           data:
             type: object
             properties:
@@ -1741,7 +1986,7 @@ components:
           op:
             type: string
             pattern: '^SaveSiteConfig$'
-            default: '^SaveSiteConfig$'
+            default: 'SaveSiteConfig'
           data:
             type: object
             properties:
@@ -1762,7 +2007,259 @@ components:
             type: object
             properties:
               config_hjson:
-                $ref: '#/components/schemas/config_hjson'        
+                $ref: '#/components/schemas/config_hjson'
+    getCommunityRequest:
+      name: Request to get details of a commmunity
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetCommunity$'
+            default: 'GetCommunity'
+          data:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/community_id'
+              name:
+                $ref: '#/components/schemas/community_name'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    getCommunityResponse:
+      name: Returns the details for a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetCommunity$'
+            default: 'GetCommunity'
+          data:
+            type: object
+            properties:
+              community_view:
+                $ref: '#/components/schemas/community_view'
+              online:
+                type: number
+              moderators:
+                type: array
+                items:
+                  properties:
+                    moderator:
+                      $ref: '#/components/schemas/creator'
+                    community:
+                      $ref: '#/components/schemas/community'
+    createCommunityRequest:
+      name: Request to get details of a commmunity
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateCommunity$'
+            default: 'CreateCommunity'
+          data:
+            type: object
+            properties:
+              name:
+                $ref: '#/components/schemas/community_name'
+              title:
+                description: Forthcoming...
+                type: string
+              description:
+                description: Forthcoming...
+                type: string
+              icon:
+                $ref: '#/components/schemas/icon'
+              banner:
+                $ref: '#/components/schemas/banner'
+              category_id:
+                $ref: '#/components/schemas/category_id'
+              nsfw:
+                $ref: '#/components/schemas/nsfw'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    createCommunityResponse:
+      name: Response to the request to create a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateCommunity$'
+            default: 'CreateCommunity'
+          data:
+            type: object
+            properties:
+              community_view:
+                $ref: '#/components/schemas/community_view'
+    listCommunityRequest:
+      name: Request to get list of commmunities on the Lemmy server
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ListCommunities$'
+            default: 'ListCommunities'
+          data:
+            type: object
+            properties:
+              type_:
+                $ref: '#/components/schemas/type_'
+              sort:
+                $ref: '#/components/schemas/sort'
+              page:
+                $ref: '#/components/schemas/page'
+              limit:
+                $ref: '#/components/schemas/limit'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    listCommunityResponse:
+      name: Response to the request to create a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ListCommunities$'
+            default: 'ListCommunities'
+          data:
+            type: object
+            properties:
+              communities:
+                type: array
+                $ref: '#/components/schemas/community_view'
+    banFromCommunityRequest:
+      name: Request to ban a user from a specified community.
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^BanFromCommunity$'
+            default: 'BanFromCommunity'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              user_id:
+                $ref: '#/components/schemas/user_id'
+              ban:
+                $ref: '#/components/schemas/ban'
+              remove_data:
+                $ref: '#/components/schemas/remove_data'
+              reason:
+                $ref: '#/components/schemas/reason'
+              expires:
+                $ref: '#/components/schemas/expires'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    banFromCommunityResponse:
+      name: Response to the request to ban a user from a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^BanFromCommunity$'
+            default: 'BanFromCommunity'
+          data:
+            $ref: '#/components/schemas/ban_view'
+    addModToCommunityRequest:
+      name: Request to add a moderator to a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^AddModToCommunity$'
+            default: 'AddModToCommunity'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              user_id:
+                $ref: '#/components/schemas/user_id'
+              added:
+                $ref: '#/components/schemas/added'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    transferCommunityRequest:
+      name: Request to transfer ownership of a community from one person to another
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^TransferCommunity$'
+            default: 'TransferCommunity'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              user_id:
+                $ref: '#/components/schemas/user_id'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    communityJoinRequest:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CommunityJoin$'
+            default: 'CommunityJoin'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+    communityJoinResponse:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CommunityJoin$'
+            default: 'CommunityJoin'
+          data:
+            properties:
+              joined:
+                $ref: '#/components/schemas/joined'
+    modJoinRequest:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ModJoin$'
+            default: 'ModJoin'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+    modJoinResponse:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ModJoin$'
+            default: 'ModJoin'
+          data:
+            properties:
+              joined:
+                $ref: '#/components/schemas/joined'
   schemas:
     'actor_id':
       type: string
@@ -1771,6 +2268,10 @@ components:
         - **User profile** - Site URL/u/username
         - **Community home page** - Site URL/c/commmunity name
       example: 'https:\/\/enterprise.lemmy.ml\/u\/griddle'
+    'added':
+      description: Forthcoming...
+      type: boolean
+      example: true
     'admin':
       type: boolean
       description: 'Set to *true* if this person is the Lemmy server administrator'
@@ -1793,6 +2294,21 @@ components:
       type: string
       nullable: true
       description: Forthcoming...
+    'ban':
+      description: |-
+        - If set to *true*, ban the user
+        - If set to *false*, do not ban them (use in combination with `remove_data` to restore comments and posts that were previously removed as part of a banning process)
+      type: boolean
+      example: true
+    'ban_view':
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/user_view'
+        banned:
+          description: Forthcoming...
+          type: boolean
+          example: true
     'banned':
       type: boolean
       description: 'Set to *true* if this account (username) has been banned from posting on the Lemmy server'
@@ -1815,6 +2331,10 @@ components:
       description: |-
         Matches the dropdown list in a community's *Category* setting. 1 = the topmost element, 2 = the second element, and so on.
       example: 15
+    'category_name':
+      description: The category name
+      type: string
+      example: 'Politics'
     'comment':
       type: object
       properties:
@@ -1852,6 +2372,10 @@ components:
           $ref: '#/components/schemas/deleted'
         published:
           $ref: '#/components/schemas/published'
+    'comment_count':
+      description: Total number of comments on the site or community                  
+      type: number
+      example: 231
     'comments':
       type: array
       items:
@@ -1869,7 +2393,7 @@ components:
           subscribed:
             $ref: '#/components/schemas/subscribed'
           my_vote:
-            $ref: '#/components/schemas/subscribed'
+            $ref: '#/components/schemas/my_vote'
           counts:
             $ref: '#/components/schemas/counts'
           saved:
@@ -1900,9 +2424,7 @@ components:
         creator_id:
           $ref: '#/components/schemas/creator_id'
         id:
-          description: Forthcoming...
-          type: number
-          example: 239
+          $ref: '#/components/schemas/community_id'
         description:
           type: string
           description: |-
@@ -1923,11 +2445,55 @@ components:
     'community_id':
       type: integer
       format: int32 # Or int64? It's stated as both in different parts of the API docs
-      description: The id number for a community
+      description: 'The id number for a community. The main/frontpage `community_id` is 0'
+      example: 2
     'community_name':
       description: The name of a community
       type: string
-      Example: 'The Default Community'
+      Example: 'main'
+    'community_view':
+      type: object
+      properties:
+        subscribed:
+          $ref: '#/components/schemas/subscribed'
+        counts:
+          type: object
+          properties:
+            published:
+              $ref: '#/components/schemas/published'
+            community_id:
+              $ref: '#/components/schemas/community_id'
+            users_active_day:
+              $ref: '#/components/schemas/users_active_day'
+            id:
+              description: 'Forthcoming...'
+              type: number
+              example: 1
+            users_active_half_year:
+              $ref: '#/components/schemas/users_active_half_year'
+            comments:
+              $ref: '#/components/schemas/comment_count'
+            users_active_month:
+              $ref: '#/components/schemas/users_active_month'
+            subscribers:
+              description: The total number of community subscribers (members)
+              type: number
+              example: 41
+            posts:
+              $ref: '#/components/schemas/posts'
+            users_active_week:
+              $ref: '#/components/schemas/users_active_week'
+        community:
+          $ref: '#/components/schemas/community'
+        creator:
+          $ref: '#/components/schemas/creator'
+        category:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/category_name'         
+            id:
+              $ref: '#/components/schemas/category_id'             
     'config_hjson':
       description: The configuration data for a Lemmy server (in JSON format)
       type: string
@@ -2052,6 +2618,10 @@ components:
         **(Required)** Set to *true* if downvoting is allowed on this site
       type: boolean
       example: false
+    'expires':
+      description: Forthcoming...
+      type: integer
+      format: int64
     'federated_instances':
       type: object
       properties:
@@ -2074,6 +2644,10 @@ components:
             description: Forthcoming...
             type: string
             example: 'ds9.lemmy.ml'
+    'joined':
+      description: '*true* if join request was successful'
+      type: boolean
+      example: true
     'lang':
       description: |-
         The language to display Lemmy's interface in
@@ -2246,6 +2820,10 @@ components:
           type: string
           description: 'The title of the post'
           example: 'Pot. Kettle. Black.'
+    'posts':
+      description: Total number of posts on the site or community
+      type: number
+      example: 115
     'preferred_username':
       type: string
       description: 'If set, this is the name shown instead of, or as well as, *username* in some contexts (also known as **Display name**)'
@@ -2299,10 +2877,20 @@ components:
       type: boolean
       description: Set to *true* if this post, comment or message has been read 
       example: false
+    'reason':
+      description: Why was this user banned?
+      type: string
+      example: 'Breach of terms and conditions'
     'recipient':
       description: Forthcoming...
       type: number
       example: 77
+    'remove_data':
+      description: |-
+        - If set to *true*, also delete that user's comments and posts
+        - If set *false*, *restore* that user's comments and posts
+      type: boolean
+      example: false
     'removed':
       type: boolean
       description: Forthcoming...What is the difference between deletion and removal?
@@ -2399,17 +2987,11 @@ components:
       type: object
       properties:
         users_active_week:
-          description: Forthcoming...
-          type: number
-          example: 5
+          $ref: '#/components/schemas/users_active_week'
         posts:
-          description: Total number of posts on the site
-          type: number
-          example: 115
+          $ref: '#/components/schemas/posts'
         comments:
-          description: Total number of comments on the site                    
-          type: number
-          example: 231
+          $ref: '#/components/schemas/comment_count'
         communities:
           description: Total number of communities on the site
           type: number
@@ -2427,17 +3009,11 @@ components:
           type: number
           example: 1
         users_active_day:
-          desciption: Number of 'active' users in the previous 24 hours
-          type: number
-          example: 2
+          $ref: '#/components/schemas/users_active_day'
         users_active_month:
-          desciption: Number of 'active' users in the previous 28 days
-          type: number
-          example: 10
+          $ref: '#/components/schemas/users_active_month'
         users_active_half_year:
-          desciption: Number of 'active' users in the previous six months
-          type: number
-          example: 10
+          $ref: '#/components/schemas/users_active_half_year'
     'site_description':
       description: |-
         A brief overview of the site's purpose
@@ -2589,6 +3165,29 @@ components:
       type: string
       description: 'The last time this user profile was updated (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
       example: '2021-01-21T16:26:16.285610'
+    'user_view':
+      type: object
+      properties:
+        counts:
+          $ref: '#/components/schemas/counts'
+        user:
+            $ref: '#/components/schemas/user'
+    'users_active_day':
+      desciption: Number of 'active' users in the previous 24 hours
+      type: number
+      example: 2
+    'users_active_half_year':
+      desciption: Number of 'active' users in the previous six months
+      type: number
+      example: 10
+    'users_active_month':
+      desciption: Number of 'active' users in the previous 28 days
+      type: number
+      example: 10
+    'users_active_week':
+      description: Number of 'active' users in the previous seven days
+      type: number
+      example: 5
     'version':
       description: The version of the software running the Lemmy server
       type: string
