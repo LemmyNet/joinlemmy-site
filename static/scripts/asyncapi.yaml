@@ -2,6 +2,9 @@ asyncapi: 2.0.0
 info:
   title: Lemmy WebSocket API
   version: '2.0'
+  contact:
+    name: Mastodon
+    url: https://mastodon.social/@LemmyDev
   description: |-
     ### About Lemmy
     [**Lemmy**](https://github.com/LemmyNet/lemmy) is a decentralized alternative to widely-used proprietary link aggregators like Reddit.
@@ -14,14 +17,14 @@ info:
 
     ### The HTTP API
 
-    Lemmy also has an HTTP API. The Websocket and HTTP API are almost identical:
+    Lemmy also has an HTTP API. The WebSocket and HTTP API are almost identical:
     - WebSocket API needs `let send = { op: userOperation[op], data: form}` as shown below
     - HTTP API requires the form at the top level and an HTTP operation (GET, PUT or POST) and endpoint. For example: `PUT /comment`. For more information,  see [http.ts](https://github.com/LemmyNet/lemmy-js-client/blob/main/src/http.ts)
   license:
     name: AGPL
     url: 'https://www.gnu.org/licenses/agpl-3.0.en.html'
 servers:
-  ds9: 
+  ds9:
     url: ds9.lemmy.ml/api/v2/ws
     protocol: WebSocket
     description: DS9 test server
@@ -29,7 +32,7 @@ servers:
     url: enterprise.lemmy.ml/api/v2/ws
     protocol: WebSocket
     description: Enterprise test server
-  voyager: 
+  voyager:
     url: voyager.lemmy.ml/api/v2/ws
     protocol: WebSocket
     description: Voyager test server
@@ -43,6 +46,8 @@ externalDocs:
 tags:
   - name: User, authentication and admin
   - name: Site
+  - name: Community
+  - name: Post
 channels:
   Login:
     publish:
@@ -151,7 +156,7 @@ channels:
 
         `PUT /user/save_user_settings`
       operationId: saverUserSettingsRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/saveUserSettingsRequest'
@@ -175,7 +180,7 @@ channels:
 
         `GET /user/replies`
       operationId: getUserRepliesRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/getUserRepliesRequest'
@@ -199,7 +204,7 @@ channels:
 
         `GET /user/mention`
       operationId: getUserMentionsRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/getUserMentionsRequest'
@@ -223,7 +228,7 @@ channels:
 
         `POST /user/mention/mark_as_read`
       operationId: markMentionsRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/markMentionsRequest'
@@ -247,7 +252,7 @@ channels:
 
         `GET /private_message/list`
       operationId: getPrivateMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/privateMessageRequest'
@@ -271,7 +276,7 @@ channels:
 
         `POST /private_message`
       operationId: createPrivateMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/createPrivateMessageRequest'
@@ -295,7 +300,7 @@ channels:
 
         `PUT /private_message`
       operationId: editPrivateMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/editPrivateMessageRequest'
@@ -319,7 +324,7 @@ channels:
 
         `POST /private_message/delete`
       operationId: deletePrivateMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/deletePrivateMessageRequest'
@@ -343,7 +348,7 @@ channels:
 
         `POST /private_message/mark_as_read`
       operationId: markPrivateMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/markPrivateMessageRequest'
@@ -367,7 +372,7 @@ channels:
 
         `POST /user/mark_all_as_read`
       operationId: markAllReadMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/markAllReadRequest'
@@ -391,7 +396,7 @@ channels:
 
         `POST /user/delete_account`
       operationId: deleteAccountRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/deleteAccountRequest'
@@ -410,14 +415,14 @@ channels:
       summary: AddAdmin (request)
       description: |-
         Grant admin rights to the specified user.
-        
+
         Only admin users can do this - `auth` must be the authentication string for an existing admin user.
 
         #### HTTP API - operation and endpoint.
 
         `POST /admin/add`
       operationId: addAdminRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/addAdminRequest'
@@ -443,7 +448,7 @@ channels:
 
         `POST /user/ban`
       operationId: banUserRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/banUserRequest'
@@ -467,7 +472,7 @@ channels:
 
         `POST /user/join`
       operationId: userJoinRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/userJoinRequest'
@@ -494,7 +499,7 @@ channels:
 
         `GET /user/report_count`
       operationId: getReportCountRequestMessage
-      tags: 
+      tags:
       - name: User, authentication and admin
       message:
         $ref: '#/components/messages/getReportCountRequest'
@@ -519,7 +524,7 @@ channels:
 
         `GET /categories`
       operationId: getCategoriesMessage
-      tags: 
+      tags:
       - name: Site
       message:
         $ref: '#/components/messages/getCategoriesRequest'
@@ -543,7 +548,7 @@ channels:
 
         `GET /search`
       operationId: searchMessage
-      tags: 
+      tags:
       - name: Site
       message:
         $ref: '#/components/messages/searchRequest'
@@ -561,17 +566,26 @@ channels:
     publish:
       summary: GetModLog (request)
       description: |-
-        Forthcoming...
+        Details of the site's *Modlog*: sticky and lockwed posts and so on.
 
         #### HTTP API - operation and endpoint.
 
         `GET /modlog`
       operationId: getmodLogRequestMessage
-      tags: 
+      tags:
       - name: Site
       message:
         $ref: '#/components/messages/getModLogRequest'
-  # Could not get GetModLog response from server, hence no 'subscribe' option documented
+    subscribe:
+      summary: GetModLog (response)
+      description: Modlog request results
+      operationId: getModLogResponseMessage
+      tags:
+        - name: Site
+      message:
+        oneOf:
+          - $ref: '#/components/messages/getModLogResponse'
+          - $ref: '#/components/messages/errorResponse'
   CreateSite:
     publish:
       summary: CreateSite (request)
@@ -582,7 +596,7 @@ channels:
 
         `POST /site`
       operationId: createSiteRequestMessage
-      tags: 
+      tags:
       - name: Site
       message:
         $ref: '#/components/messages/createSiteRequest'
@@ -599,10 +613,10 @@ channels:
 
         `PUT /site`
       operationId: editSiteRequestMessage
-      tags: 
+      tags:
       - name: Site
       message:
-        $ref: '#/components/messages/editSiteRequest'    
+        $ref: '#/components/messages/editSiteRequest'
     subscribe:
       summary: EditSite (response)
       description: Returns confirmation of site edit
@@ -623,10 +637,10 @@ channels:
 
         `GET /site`
       operationId: getSiteRequestMessage
-      tags: 
+      tags:
       - name: Site
       message:
-        $ref: '#/components/messages/getSiteRequest'    
+        $ref: '#/components/messages/getSiteRequest'
     subscribe:
       summary: GetSite (response)
       description: Return full details about the site
@@ -647,7 +661,7 @@ channels:
 
         `POST /site/transfer`
       operationId: transferSiteRequestMessage
-      tags: 
+      tags:
       - name: Site
       message:
         $ref: '#/components/messages/transferSiteRequest'
@@ -671,7 +685,7 @@ channels:
 
         `GET /site/config`
       operationId: getSiteConfigRequestMessage
-      tags: 
+      tags:
       - name: Site
       message:
         $ref: '#/components/messages/getSiteConfigRequest'
@@ -695,7 +709,7 @@ channels:
 
         `PUT /site/config`
       operationId: saveSiteConfigRequestMessage
-      tags: 
+      tags:
       - name: Site
       message:
         $ref: '#/components/messages/saveSiteConfigRequest'
@@ -710,6 +724,503 @@ channels:
           - $ref: '#/components/messages/saveSiteConfigResponse'
           - $ref: '#/components/messages/errorResponse'
   # SaveSiteConfig response not verified. Did not get response from server
+  GetCommunity:
+    publish:
+      summary: GetCommunity (request)
+      description: |-
+        Request to get details of a specified community
+
+        #### HTTP API - operation and endpoint.
+
+        `GET /community`
+      operationId: getCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/getCommunityRequest'
+    subscribe:
+      summary: GetCommunity (response)
+      description: Return the details for a community
+      operationId: getCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/getCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  CreateCommunity:
+    publish:
+      summary: CreateCommunity (request)
+      description: |-
+        Request to create a new community
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community`
+      operationId: createCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/createCommunityRequest'
+    subscribe:
+      summary: CreateCommunity (response)
+      description: Return the details for a community
+      operationId: createCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  ListCommunities:
+    publish:
+      summary: ListCommunities (request)
+      description: |-
+        Request to list all communities on the Lemmy server
+
+        #### HTTP API - operation and endpoint.
+
+        `GET /community/list`
+      operationId: listCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/listCommunityRequest'
+    subscribe:
+      summary: ListCommunities (response)
+      description: Return the details for all communities
+      operationId: listCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/listCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  BanFromCommunity:
+    publish:
+      summary: BanFromCommunity (request)
+      description: |-
+        Request to ban a user (`user_id`) from a specified community.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/ban_user`
+      operationId: banFromCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/banFromCommunityRequest'
+    # Issues with Docker, hence subscribe not documented
+  AddModToCommunity:
+    publish:
+      summary: AddModToCommunity (request)
+      description: |-
+        Request to add another moderator (`user_id`) to the specified community (`community_id`).
+
+        The account making the request (`auth`) must be either an admin or a moderator of that community.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/mod`
+      operationId: addModToCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/addModToCommunityRequest'
+  # No response from server, hence subscribe not documented
+  TransferCommunity:
+    publish:
+      summary: TransferCommunity (Request)
+      description: |-
+        Request to transfer ownership of a community from one person (`auth`) to another (`user_id`).
+
+        The account making the request (`auth`) must be an admin user.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/transfer`
+      operationId: transferCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/transferCommunityRequest'
+  # Issues with Docker, hence subscribe not documented
+  CommunityJoin:
+    publish:
+      summary: CommunityJoin (request)
+      description: |-
+        Forthcoming...
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/join`
+      operationId: communityJoinRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/communityJoinRequest'
+    subscribe:
+      summary: CommunityJoin (response)
+      description: Forthcoming...
+      operationId: CommunityJoinResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/communityJoinResponse'
+          - $ref: '#/components/messages/errorResponse'
+  ModJoin:
+    publish:
+      summary: ModJoin (request)
+      description: |-
+        Forthcoming...
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/mod/join`
+      operationId: modJoinRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/modJoinRequest'
+    subscribe:
+      summary: ModJoin (response)
+      description: Forthcoming...
+      operationId: modJoinResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/modJoinResponse'
+          - $ref: '#/components/messages/errorResponse'
+  CreatePost:
+    publish:
+      summary: CreatePost (request)
+      description: |-
+        Create a new post.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /post`
+      operationId: createPostRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/createPostRequest'
+    subscribe:
+      summary: CreatePost (response)
+      description: Forthcoming...
+      operationId: createPostResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createPostResponse'
+          - $ref: '#/components/messages/errorResponse'
+  GetPost:
+    publish:
+      summary: GetPost (request)
+      description: |-
+        Request details of a post.
+
+        #### HTTP API - operation and endpoint.
+
+        `GET /post`
+      operationId: getPostRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/getPostRequest'
+    subscribe:
+      summary: GetPost (response)
+      description: Details of a post
+      operationId: getPostResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/getPostResponse'
+          - $ref: '#/components/messages/errorResponse'
+  GetPosts:
+    publish:
+      summary: GetPosts (request)
+      description: |-
+        Request details of all posts on the Lemmy server (or, optionally, in a community).
+
+
+        If specifying a community, use:
+        - `community_name` for a local community
+        - `community_id` for a federated community.
+
+        #### HTTP API - operation and endpoint.
+
+        `GET /post/list`
+      operationId: getPostListRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/getPostListRequest'
+    subscribe:
+      summary: GetPost (response)
+      description: Details of a post
+      operationId: getPostListResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/getPostListResponse'
+          - $ref: '#/components/messages/errorResponse'
+  CreatePostLike:
+    publish:
+      summary: CreatePostLike (request)
+      description: |-
+        Forthcoming...
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /post/like`
+      operationId: createPostLikeRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/createPostLikeRequest'
+    subscribe:
+      summary: CreatePostLike (response)
+      description: Forthcoming...
+      operationId: createPostLikeResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createPostLikeResponse'
+          - $ref: '#/components/messages/errorResponse'
+  DeletePost:
+    publish:
+      summary: DeletePost (request)
+      description: |-
+        Request that a post is deleted. *Deleted posts can be restored later.*
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /post/delete`
+      operationId: deletePostRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/deletePostRequest'
+    subscribe:
+      summary: DeletePost (response)
+      description: Response to a post deletion request
+      operationId: deletePostResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/deletePostResponse'
+          - $ref: '#/components/messages/errorResponse'
+  RemovePost:
+    publish:
+      summary: RemovePost (request)
+      description: |-
+        Request that a post is *permanently* deleted.
+
+        Only admin and moderator roles can do this.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /post/remove`
+      operationId: removePostRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/removePostRequest'
+    subscribe:
+      summary: RemovePost (response)
+      description: Response to a post removal request
+      operationId: removePostResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/removePostResponse'
+          - $ref: '#/components/messages/errorResponse'
+  LockPost:
+    publish:
+      summary: LockPost (request)
+      description: |-
+        Request to lock a post.
+
+        Only admin and moderator roles can do this.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /post/lock`
+      operationId: postLockRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/postLockRequest'
+    subscribe:
+      summary: LockPost (response)
+      description: Response to a post lock request
+      operationId: postLockResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/postLockResponse'
+          - $ref: '#/components/messages/errorResponse'
+    # Request would not work ('variant not found') with post id set to either edit_id (as in the docs) or to post_id (as in StickyPost) 
+  StickyPost:
+    publish:
+      summary: StickyPost (request)
+      description: |-
+        Request to make a post 'sticky' (sit at the top of a list of posts).
+
+        Only admin and moderator roles can do this.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /post/sticky`
+      operationId: stickyPostRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/stickyPostRequest'
+    subscribe:
+      summary: StickyPost (response)
+      description: |-
+        Response to a request to make a post 'sticky'
+      operationId: stickyPostResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/stickyPostResponse'
+          - $ref: '#/components/messages/errorResponse'
+  SavePost:
+    publish:
+      summary: SavePost (request)
+      description: |-
+        Add a post to the user's list of saved posts.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `POST /post/save`
+      operationId: savePostRequestMessage
+      tags:
+        - name: Post
+      message:
+        $ref: '#/components/messages/savePostRequest'
+    subscribe:
+      summary: SavePost (response)
+      description: Response to a request to add a post to the list of saved posts
+      operationId: savePostResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/savePostResponse'
+          - $ref: '#/components/messages/errorResponse'
+  PostJoin:
+    publish:
+      summary: PostJoin (request)
+      description: |-
+        Forthcoming...
+        
+        #### HTTP API - operation and endpoint.
+        
+        `POST /post/join`
+      operationId: postJoinRequestMessage
+      tags:
+        - name: Post
+      message:
+        $ref: '#/components/messages/postJoinRequest'
+    subscribe:
+      summary: PostJoin (response)
+      description: Forthcoming...
+      operationId: postJoinResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/postJoinResponse'
+          - $ref: '#/components/messages/errorResponse'
+  CreatePostReport:
+    publish:
+      summary: CreatePostReport (request)
+      description: |-
+        Raise a report (query) against a post.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `POST /post/report`
+      operationId: createpostReportRequestMessage
+      tags:
+        - name: Post
+      message:
+        $ref: '#/components/messages/createPostReportRequest'
+    subscribe:
+      summary: CreatePostReport (response)
+      description: Forthcoming...
+      operationId: createPostReportResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createPostReportResponse'
+          - $ref: '#/components/messages/errorResponse'
+  ResolvePostReport:
+    publish:
+      summary: ResolvePostReport (request)
+      description: |-
+        Resolve (clear) a report against a post.
+
+        See `ListPostReports` for a list of all reported posts
+        
+        #### HTTP API - operation and endpoint.
+        
+        `PUT /post/report/resolve`
+      operationId: resolvePostReportRequestMessage
+      tags:
+        - name: Post
+      message:
+        $ref: '#/components/messages/resolvePostReportRequest'
+    subscribe:
+      summary: ResolvePostReport (response)
+      description: Response to request to resolve a report against a post
+      operationId: resolvePostReportResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/resolvePostReportResponse'
+          - $ref: '#/components/messages/errorResponse'
+  ListPostReports:
+    publish:
+      summary: ListPostReports (request)
+      description: |-
+        - If `community` is supplied, returns reports for only that community
+        - Otherwise returns reports for all communities the user (`auth`) moderates.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `GET /post/report/list`
+      operationId: listPostReportsRequestMessage
+      tags:
+        - name: Post
+      message:
+        $ref: '#/components/messages/listPostReportsRequest'
+    subscribe:
+      summary: ListPostReports (response)
+      description: Response to request to list all reports against posts
+      operationId: listPostReportsResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/listPostReportsResponse'
+          - $ref: '#/components/messages/errorResponse'
 components:
   messages:
     errorResponse:
@@ -950,34 +1461,23 @@ components:
             default: 'GetUserDetails'
           data:
             type: object
-            properties:
-              op:
-                type: string
-              data:
-                type: object
+            user:
+              $ref: '#/components/schemas/user_view'
+            posts:
+              $ref: '#/components/schemas/replies'
+            comments:
+              $ref: '#/components/schemas/comments'
+            moderates:
+              $ref: '#/components/schemas/moderators'
+            follows:
+              description: The list of followers (members) for each community
+              type: array
+              items:
                 properties:
-                  posts:
-                    $ref: '#/components/schemas/replies'
-                  comments:
-                    $ref: '#/components/schemas/comments'
-                  moderates:
-                    description: The list of moderators for each community
-                    type: array
-                    items:
-                      properties:
-                        moderator:
-                          $ref: '#/components/schemas/user'
-                        community:
-                          $ref: '#/components/schemas/community'
-                  follows:
-                    description: The list of followers (members) for each community
-                    type: array
-                    items:
-                      properties:
-                        follower:
-                          $ref: '#/components/schemas/user'
-                        community:
-                          $ref: '#/components/schemas/community'
+                  follower:
+                    $ref: '#/components/schemas/user'
+                  community:
+                    $ref: '#/components/schemas/community'
     repliesResponse:
       name: Returning user replies response
       payload:
@@ -1077,7 +1577,6 @@ components:
             properties:
               private_messages:
                 type: array
-                uniqueItems: true
                 items:
                     $ref: '#/components/schemas/private_message_view'
           op:
@@ -1287,9 +1786,7 @@ components:
               user_id:
                 $ref: '#/components/schemas/user_id'
               added:
-                description: Forthcoming...
-                type: boolean
-                example: true
+                $ref: '#/components/schemas/added'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     addAdminResponse:
@@ -1297,15 +1794,15 @@ components:
       payload:
         type: object
         properties:
-          data:
-            type: object
-            properties:
-              admins:
-                $ref: '#/components/schemas/user'
           op:
             type: string
             pattern: '^AddAdmin$'
             default: 'AddAdmin'
+          data:
+            type: object
+            properties:
+              admins:
+                $ref: '#/components/schemas/user_view'
     banUserRequest:
       name: Request to ban a user
       payload:
@@ -1321,25 +1818,13 @@ components:
               user_id:
                 $ref: '#/components/schemas/user_id'
               ban:
-                description: |-
-                  - If set to *true*, ban the user
-                  - If set to *false*, do not ban them (use in combination with `remove_data` to restore comments, posts, and communities that were previously removed with `banUser`)
-                type: boolean
-                example: true
+                $ref: '#/components/schemas/ban'
               remove_data:
-                description: |-
-                  - If set to *true*, also delete their comments, posts, and communities
-                  - If set *false*, *restore* their comments, posts, and communities
-                type: boolean
-                example: false
+                $ref: '#/components/schemas/remove_data'
               reason:
-                description: Forthcoming...
-                type: string
-                example: 'Breach of terms and conditions'
+                $ref: '#/components/schemas/reason'
               expires:
-                description: Forthcoming...
-                type: integer
-                format: int64
+                $ref: '#/components/schemas/expires'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     banUserResponse:
@@ -1347,21 +1832,14 @@ components:
       payload:
         type: object
         properties:
-          data:
-            type: object
-            properties:
-              user:
-                $ref: '#/components/schemas/user'
-              banned:
-                description: Forthcoming...
-                type: boolean
-                example: true
           op:
             type: string
             pattern: '^BanUser$'
             default: 'BanUser'
+          data:
+            $ref: '#/components/schemas/ban_view'
     userJoinRequest:
-      name: Request to join (something?)
+      name: Forthcoming...
       payload:
         type: object
         properties:
@@ -1379,17 +1857,15 @@ components:
       payload:
         type: object
         properties:
-          data:
-            type: object
-            properties:
-              joined:
-                description: Forthcoming...
-                type: boolean
-                example: true
           op:
             type: string
             pattern: '^UserJoin$'
             default: 'UserJoin'
+          data:
+            type: object
+            properties:
+              joined:
+                $ref: '#/components/schemas/joined'
     getReportCountRequest:
       name: Request to return report count numbers
       payload:
@@ -1454,11 +1930,9 @@ components:
                 items:
                   properties:
                     id:
-                      $ref: '#/components/schemas/category_id'                   
+                      $ref: '#/components/schemas/category_id'
                     name:
-                      description: The category name
-                      type: string
-                      example: 'Politics'
+                      $ref: '#/components/schemas/category_name'
           op:
             type: string
             pattern: '^ListCategories$'
@@ -1482,7 +1956,7 @@ components:
               type_:
                 $ref: '#/components/schemas/type_'
               community_id:
-                $ref: '#/components/schemas/community_id'   
+                $ref: '#/components/schemas/community_id'
               community_name:
                 $ref: '#/components/schemas/community_name'
               sort:
@@ -1498,6 +1972,10 @@ components:
       payload:
         type: object
         properties:
+          op:
+            type: string
+            pattern: '^Search$'
+            default: 'Search'
           data:
             type: object
             properties:
@@ -1516,15 +1994,11 @@ components:
                 items:
                   properties:
                     user:
-                      $ref: '#/components/schemas/user'
+                      $ref: '#/components/schemas/user_view'
               comments:
                 $ref: '#/components/schemas/comments'
-          op:
-            type: string
-            pattern: '^Search$'
-            default: 'Search' 
     getModLogRequest:
-      name: Forthcoming...
+      name: Request the site's Modlog
       payload:
         type: object
         properties:
@@ -1538,11 +2012,101 @@ components:
               mod_user_id:
                 $ref: '#/components/schemas/user_id'
               community_id:
-                $ref: '#/components/schemas/community_id'   
+                $ref: '#/components/schemas/community_id'
               page:
                 $ref: '#/components/schemas/page'
               limit:
                 $ref: '#/components/schemas/limit'
+    getModLogResponse:
+      name: Modlog request results
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetModLog$'
+            default: 'GetModLog'
+          data:
+            type: object
+            properties:
+              removed_posts:
+                type: array
+              locked_posts:
+                type: array
+                items:
+                  properties:
+                    mod_lock_post:
+                      type: object
+                      properties:
+                        id:
+                          description: Forthcoming...
+                          type: number
+                          example: 1
+                        mod_user_id:
+                          $ref: '#/components/schemas/user_id'
+                        post_id:
+                          description: Forthcoming...
+                          type: number
+                          example: 223
+                        locked:
+                          $ref: '#/components/schemas/locked'
+                        when_:
+                          description: 'The date this post was locked (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
+                          type: string
+                          example: '2021-01-26T14:15:21.922339'
+                    moderator:
+                      $ref: '#/components/schemas/creator'
+                    post:
+                      $ref: '#/components/schemas/post'
+                    community:
+                      $ref: '#/components/schemas/community'
+              stickied_posts:
+                type: array
+                items:
+                  properties:
+                    mod_sticky_post:
+                      type: object
+                      properties:
+                        id:
+                          description: Forthcoming...
+                          type: number
+                          example: 1
+                        mod_user_id:
+                          $ref: '#/components/schemas/user_id'
+                        post_id:
+                          description: Forthcoming...
+                          type: number
+                          example: 223
+                        stickied:
+                          $ref: '#/components/schemas/stickied'
+                        when_:
+                          description: 'The date this post was made sticky (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
+                          type: string
+                          example: '2021-01-26T14:16:03.899093'
+                    moderator:
+                      $ref: '#/components/schemas/creator'
+                    post:
+                      $ref: '#/components/schemas/post'
+                    community:
+                      $ref: '#/components/schemas/community'
+              removed_comments:
+                description: Forthcoming...
+                type: array
+              removed_communities:
+                description: Forthcoming...
+                type: array
+              banned_from_community:
+                description: Forthcoming...
+                type: array
+              banned:
+                description: Forthcoming...
+                type: array
+              added_to_community:
+                description: Forthcoming...
+                type: array
+              added:
+                description: Forthcoming...
+                type: array
     createSiteRequest:
       name: Create Lemmy site on a server
       payload:
@@ -1620,7 +2184,6 @@ components:
                 $ref: '#/components/schemas/online'
               admins:
                 type: array
-                uniqueItems: true
                 items:
                   properties:
                     counts:
@@ -1669,7 +2232,7 @@ components:
             type: object
             properties:
               user_id:
-                $ref: '#/components/schemas/user_id'              
+                $ref: '#/components/schemas/user_id'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     transferSiteResponse:
@@ -1696,7 +2259,7 @@ components:
                     counts:
                       $ref: '#/components/schemas/counts'
                     banned:
-                      $ref: '#/components/schemas/banned_list' 
+                      $ref: '#/components/schemas/banned_list'
                     online:
                       $ref: '#/components/schemas/online'
                     version:
@@ -1713,10 +2276,10 @@ components:
           op:
             type: string
             pattern: '^GetSiteConfig$'
-            default: '^GetSiteConfig$'
+            default: 'GetSiteConfig'
           data:
             type: object
-            properties:         
+            properties:
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     getSiteConfigResponse:
@@ -1727,12 +2290,12 @@ components:
           op:
             type: string
             pattern: '^GetSiteConfig$'
-            default: '^GetSiteConfig$'
+            default: 'GetSiteConfig'
           data:
             type: object
             properties:
               config_hjson:
-                $ref: '#/components/schemas/config_hjson' 
+                $ref: '#/components/schemas/config_hjson'
     saveSiteConfigRequest:
       name: Request to send a configuration data file for a Lemmy server
       payload:
@@ -1741,12 +2304,12 @@ components:
           op:
             type: string
             pattern: '^SaveSiteConfig$'
-            default: '^SaveSiteConfig$'
+            default: 'SaveSiteConfig'
           data:
             type: object
             properties:
               config_hjson:
-                $ref: '#/components/schemas/config_hjson'    
+                $ref: '#/components/schemas/config_hjson'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     saveSiteConfigResponse:
@@ -1762,7 +2325,751 @@ components:
             type: object
             properties:
               config_hjson:
-                $ref: '#/components/schemas/config_hjson'        
+                $ref: '#/components/schemas/config_hjson'
+    getCommunityRequest:
+      name: Request to get details of a commmunity
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetCommunity$'
+            default: 'GetCommunity'
+          data:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/community_id'
+              name:
+                $ref: '#/components/schemas/community_name'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    getCommunityResponse:
+      name: Returns the details for a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetCommunity$'
+            default: 'GetCommunity'
+          data:
+            type: object
+            properties:
+              community_view:
+                $ref: '#/components/schemas/community_view'
+              online:
+                type: number
+              moderators:
+                $ref: '#/components/schemas/moderators'
+    createCommunityRequest:
+      name: Request to get details of a commmunity
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateCommunity$'
+            default: 'CreateCommunity'
+          data:
+            type: object
+            properties:
+              name:
+                $ref: '#/components/schemas/community_name'
+              title:
+                description: Forthcoming...
+                type: string
+              description:
+                description: Forthcoming...
+                type: string
+              icon:
+                $ref: '#/components/schemas/icon'
+              banner:
+                $ref: '#/components/schemas/banner'
+              category_id:
+                $ref: '#/components/schemas/category_id'
+              nsfw:
+                $ref: '#/components/schemas/nsfw'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    createCommunityResponse:
+      name: Response to the request to create a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateCommunity$'
+            default: 'CreateCommunity'
+          data:
+            type: object
+            properties:
+              community_view:
+                $ref: '#/components/schemas/community_view'
+    listCommunityRequest:
+      name: Request to get list of commmunities on the Lemmy server
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ListCommunities$'
+            default: 'ListCommunities'
+          data:
+            type: object
+            properties:
+              type_:
+                $ref: '#/components/schemas/type_'
+              sort:
+                $ref: '#/components/schemas/sort'
+              page:
+                $ref: '#/components/schemas/page'
+              limit:
+                $ref: '#/components/schemas/limit'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    listCommunityResponse:
+      name: Response to the request to create a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ListCommunities$'
+            default: 'ListCommunities'
+          data:
+            type: object
+            properties:
+              communities:
+                type: array
+                $ref: '#/components/schemas/community_view'
+    banFromCommunityRequest:
+      name: Request to ban a user from a specified community.
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^BanFromCommunity$'
+            default: 'BanFromCommunity'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              user_id:
+                $ref: '#/components/schemas/user_id'
+              ban:
+                $ref: '#/components/schemas/ban'
+              remove_data:
+                $ref: '#/components/schemas/remove_data'
+              reason:
+                $ref: '#/components/schemas/reason'
+              expires:
+                $ref: '#/components/schemas/expires'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    banFromCommunityResponse:
+      name: Response to the request to ban a user from a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^BanFromCommunity$'
+            default: 'BanFromCommunity'
+          data:
+            $ref: '#/components/schemas/ban_view'
+    addModToCommunityRequest:
+      name: Request to add a moderator to a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^AddModToCommunity$'
+            default: 'AddModToCommunity'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              user_id:
+                $ref: '#/components/schemas/user_id'
+              added:
+                $ref: '#/components/schemas/added'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    transferCommunityRequest:
+      name: Request to transfer ownership of a community from one person to another
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^TransferCommunity$'
+            default: 'TransferCommunity'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              user_id:
+                $ref: '#/components/schemas/user_id'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    communityJoinRequest:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CommunityJoin$'
+            default: 'CommunityJoin'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+    communityJoinResponse:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CommunityJoin$'
+            default: 'CommunityJoin'
+          data:
+            properties:
+              joined:
+                $ref: '#/components/schemas/joined'
+    modJoinRequest:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ModJoin$'
+            default: 'ModJoin'
+          data:
+            type: object
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+    modJoinResponse:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ModJoin$'
+            default: 'ModJoin'
+          data:
+            properties:
+              joined:
+                $ref: '#/components/schemas/joined'
+    createPostRequest:
+      name: Request to create a new post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreatePost$'
+            default: 'CreatePost'
+          data:
+            type: object
+            properties:
+              name:
+                $ref: '#/components/schemas/post_name'
+              url:
+                $ref: '#/components/schemas/url'
+              body:
+                $ref: '#/components/schemas/body'
+              nsfw:
+                $ref: '#/components/schemas/nsfw'
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    createPostResponse:
+      name: Response to request to create a new post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreatePost$'
+            default: 'CreatePost'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
+    getPostRequest:
+      name: Request details of a post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetPost$'
+            default: 'GetPost'
+          data:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/post_id'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    getPostResponse:
+      name: Details of a post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetPost$'
+            default: 'GetPost'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
+              comments:
+                $ref: '#/components/schemas/comments'
+              community_view:
+                 $ref: '#/components/schemas/community_view'
+              moderators:
+                $ref: '#/components/schemas/moderators'
+    getPostListRequest:
+      name: Request details of all posts
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetPosts$'
+            default: 'GetPosts'
+          data:
+            type: object
+            properties:
+              type_:
+                description: Choose from one of three types of listing
+                type: string
+                example: 'All'
+                enum:
+                  - All
+                  - Subscribed
+                  - Community
+              sort:
+                $ref: '#/components/schemas/sort'
+              page:
+                $ref: '#/components/schemas/page'
+              limit:
+                $ref: '#/components/schemas/limit'
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              community_name:
+                $ref: '#/components/schemas/community_name'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    getPostListResponse:
+      name: Details of all posts
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetPosts$'
+            default: 'GetPosts'
+          data:
+            type: object
+            properties:
+              posts:
+                type: array
+                items:
+                  properties:
+                    post_view:
+                      $ref: '#/components/schemas/post_view'
+    createPostLikeRequest:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreatePostLike$'
+            default: 'CreatePostLike'
+          data:
+            type: object
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+              score:
+                description: Forthcoming...
+                type: integer
+                format: int16
+                example: 1
+                minimum: -1
+                maximum: 1
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    createPostLikeResponse:
+      name: Response to request to create a new post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreatePostLike$'
+            default: 'CreatePostLike'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
+    deletePostRequest:
+      name: Request that a post be deleted
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^DeletePost$'
+            default: 'DeletePost'
+          data:
+            type: object
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+              deleted:
+                $ref: '#/components/schemas/deleted'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    deletePostResponse:
+      name: Response to post deletion request
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^DeletePost$'
+            default: 'DeletePost'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
+    removePostRequest:
+      name: Request that a post be removed
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^RemovePost$'
+            default: 'RemovePost'
+          data:
+            type: object
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+              removed:
+                $ref: '#/components/schemas/removed'
+              reason:
+                $ref: '#/components/schemas/reason'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    removePostResponse:
+      name: Response to post removal request
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^RemovePost$'
+            default: 'RemovePost'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
+    postLockRequest:
+      name: Request that a post be locked
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^PostLock$'
+            default: 'PostLock'
+          data:
+            type: object
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+              locked:
+                $ref: '#/components/schemas/locked'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    postLockResponse:
+      name: Response to a 'post lock' request
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^PostLock$'
+            default: 'PostLock'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
+    stickyPostRequest:
+      name: Request that a post be made 'sticky'
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^StickyPost$'
+            default: 'StickyPost'
+          data:
+            type: object
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+              stickied:
+                $ref: '#/components/schemas/locked'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    stickyPostResponse:
+      name: Response to a request to make a post 'sticky'
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^StickyPost$'
+            default: 'StickyPost'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
+    savePostRequest:
+      name: Request to add a post to the user's list of saved posts
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^SavePost$'
+            default: 'SavePost'
+          data:
+            type: object
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+              save:
+                $ref: '#/components/schemas/saved'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    savePostResponse:
+      name: Response to a request to add a post to the list of saved posts
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^SavePost$'
+            default: 'SavePost'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
+    postJoinRequest:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^PostJoin$'
+            default: 'PostJoin'
+          data:
+            type: object
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+    postJoinResponse:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^PostJoin$'
+            default: 'PostJoin'
+          data:
+            type: object
+            properties:
+              joined:
+                $ref: '#/components/schemas/joined'
+    createPostReportRequest:
+      name: Request to raise a report against a post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreatePostReport$'
+            default: 'CreatePostReport'
+          data:
+            type: object
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+              reason:
+                $ref: '#/components/schemas/reason'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    createPostReportResponse:
+      name: Response to raising a report against a post.
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreatePostReport$'
+            default: 'CreatePostReport'
+          data:
+            type: object
+            properties:
+              success:
+                description: '*true* if report request was successful'
+                type: boolean
+                example: true
+    resolvePostReportRequest:
+      name: Request to resolve a report against a post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ResolvePostReport$'
+            default: 'ResolvePostReport'
+          data:
+            type: object
+            properties:
+              report_id:
+                $ref: '#/components/schemas/report_id'
+              resolved:
+                $ref: '#/components/schemas/resolved'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    resolvePostReportResponse:
+      name: Response to request to resolve a report against a post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ResolvePostReport$'
+            default: 'ResolvePostReport'
+          data:
+            type: object
+            properties:
+              report_id:
+                $ref: '#/components/schemas/report_id'
+              resolved:
+                $ref: '#/components/schemas/resolved'
+    listPostReportsRequest:
+      name: Request to list all reports against posts
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ListPostReports$'
+            default: 'ListPostReports'
+          data:
+            type: object
+            properties:
+              page:
+                $ref: '#/components/schemas/page'
+              limit:
+                $ref: '#/components/schemas/limit'
+              community:
+                $ref: '#/components/schemas/community_id'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    listPostReportsResponse:
+      name: Response to a request to list all reports against posts
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ListPostReports$'
+            default: 'ListPostReports'
+          data:
+            type: object
+            properties:
+              posts:
+                type: array
+                items:
+                  properties:
+                    resolver:
+                      description: Forthcoming...
+                      type: number
+                      nullable: true
+                    community:
+                      $ref: '#/components/schemas/community'
+                    creator:
+                      $ref: '#/components/schemas/creator'
+                    post_creator:
+                      $ref: '#/components/schemas/creator'
+                    post:
+                      $ref: '#/components/schemas/post'
+                    post_report:
+                      type: object
+                      properties:
+                        resolver_id:
+                          description: Forthcoming...
+                          type: number
+                          nullable: true
+                        original_post_body:
+                          $ref: '#/components/schemas/body'
+                        resolved:
+                          $ref: '#/components/schemas/resolved'
+                        published:
+                          $ref: '#/components/schemas/published'
+                        creator_id:
+                          $ref: '#/components/schemas/creator_id'
+                        reason:
+                          $ref: '#/components/schemas/reason'
+                        post_id:
+                          $ref: '#/components/schemas/post_id'
+                        id:
+                          $ref: '#/components/schemas/report_id'
+                        original_post_name:
+                          $ref: '#/components/schemas/post_name'
+                        updated:
+                          description: Forthcoming...
+                          type: string
+                          nullable: true
+                        original_post_url:
+                          description: Forthcoming...
+                          type: string
+                          nullable: true
   schemas:
     'actor_id':
       type: string
@@ -1771,6 +3078,10 @@ components:
         - **User profile** - Site URL/u/username
         - **Community home page** - Site URL/c/commmunity name
       example: 'https:\/\/enterprise.lemmy.ml\/u\/griddle'
+    'added':
+      description: Forthcoming...
+      type: boolean
+      example: true
     'admin':
       type: boolean
       description: 'Set to *true* if this person is the Lemmy server administrator'
@@ -1793,6 +3104,21 @@ components:
       type: string
       nullable: true
       description: Forthcoming...
+    'ban':
+      description: |-
+        - If set to *true*, ban the user
+        - If set to *false*, do not ban them (use in combination with `remove_data` to restore comments and posts that were previously removed as part of a banning process)
+      type: boolean
+      example: true
+    'ban_view':
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/user_view'
+        banned:
+          description: Forthcoming...
+          type: boolean
+          example: true
     'banned':
       type: boolean
       description: 'Set to *true* if this account (username) has been banned from posting on the Lemmy server'
@@ -1809,12 +3135,20 @@ components:
       nullable: true
       description: 'A self-written description of the user'
       example: 'I am a watercolour artist. I am happy to share the paintings I am working on, give and receive critiques, and post resources such as tutorials.'
+    'body':
+      description: 'The body text of the post'
+      type: string
+      nullable: true
     'category_id':
       type: number
       minimum: 1
       description: |-
         Matches the dropdown list in a community's *Category* setting. 1 = the topmost element, 2 = the second element, and so on.
       example: 15
+    'category_name':
+      description: The category name
+      type: string
+      example: 'Politics'
     'comment':
       type: object
       properties:
@@ -1827,7 +3161,7 @@ components:
           type: number
           example: 312
         read:
-          description: Is *true* if the author of the original post has read the comment 
+          description: Is *true* if the author of the original post has read the comment
           type: boolean
           example: true
         parent_id:
@@ -1852,6 +3186,10 @@ components:
           $ref: '#/components/schemas/deleted'
         published:
           $ref: '#/components/schemas/published'
+    'comment_count':
+      description: Total number of comments on the site or community
+      type: number
+      example: 231
     'comments':
       type: array
       items:
@@ -1869,7 +3207,7 @@ components:
           subscribed:
             $ref: '#/components/schemas/subscribed'
           my_vote:
-            $ref: '#/components/schemas/subscribed'
+            $ref: '#/components/schemas/my_vote'
           counts:
             $ref: '#/components/schemas/counts'
           saved:
@@ -1900,9 +3238,7 @@ components:
         creator_id:
           $ref: '#/components/schemas/creator_id'
         id:
-          description: Forthcoming...
-          type: number
-          example: 239
+          $ref: '#/components/schemas/community_id'
         description:
           type: string
           description: |-
@@ -1923,11 +3259,55 @@ components:
     'community_id':
       type: integer
       format: int32 # Or int64? It's stated as both in different parts of the API docs
-      description: The id number for a community
+      description: 'The id number for a community. The main/frontpage `community_id` is 0'
+      example: 2
     'community_name':
       description: The name of a community
       type: string
-      Example: 'The Default Community'
+      Example: 'main'
+    'community_view':
+      type: object
+      properties:
+        subscribed:
+          $ref: '#/components/schemas/subscribed'
+        counts:
+          type: object
+          properties:
+            published:
+              $ref: '#/components/schemas/published'
+            community_id:
+              $ref: '#/components/schemas/community_id'
+            users_active_day:
+              $ref: '#/components/schemas/users_active_day'
+            id:
+              description: 'Forthcoming...'
+              type: number
+              example: 1
+            users_active_half_year:
+              $ref: '#/components/schemas/users_active_half_year'
+            comments:
+              $ref: '#/components/schemas/comment_count'
+            users_active_month:
+              $ref: '#/components/schemas/users_active_month'
+            subscribers:
+              description: The total number of community subscribers (members)
+              type: number
+              example: 41
+            posts:
+              $ref: '#/components/schemas/posts'
+            users_active_week:
+              $ref: '#/components/schemas/users_active_week'
+        community:
+          $ref: '#/components/schemas/community'
+        creator:
+          $ref: '#/components/schemas/creator'
+        category:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/category_name'
+            id:
+              $ref: '#/components/schemas/category_id'
     'config_hjson':
       description: The configuration data for a Lemmy server (in JSON format)
       type: string
@@ -2035,7 +3415,8 @@ components:
       example: 1
     'deleted':
       type: boolean
-      description: 'Set to *true* if this community, post, comment, message or user account has been deleted'
+      description: |-
+        Set to *true* if this community, post, comment, message or user account should be or has been deleted. Unlike *removal*, deletion is not permanent. Deleted items can be recovered
       example: false
     'downvotes':
       type: number
@@ -2052,6 +3433,10 @@ components:
         **(Required)** Set to *true* if downvoting is allowed on this site
       type: boolean
       example: false
+    'expires':
+      description: Forthcoming...
+      type: integer
+      format: int64
     'federated_instances':
       type: object
       properties:
@@ -2074,6 +3459,10 @@ components:
             description: Forthcoming...
             type: string
             example: 'ds9.lemmy.ml'
+    'joined':
+      description: '*true* if join request was successful'
+      type: boolean
+      example: true
     'lang':
       description: |-
         The language to display Lemmy's interface in
@@ -2084,6 +3473,9 @@ components:
       description: |-
         - *true* if this is a local user
         - *false* if this is a federated user
+    'locked':
+      description: Set to *true* if the post is already, or should be, locked. A locked post cannot receive comments
+      type: boolean
       example: true
     'limit':
       type: integer
@@ -2098,6 +3490,15 @@ components:
     'mentions':
       description: 'Description and structure forthcoming...'
       type: object
+    'moderators':
+      description: The list of moderators for each community
+      type: array
+      items:
+        properties:
+          moderator:
+            $ref: '#/components/schemas/user'
+          community:
+            $ref: '#/components/schemas/community'
     'my_user':
       type: object
       properties:
@@ -2201,14 +3602,9 @@ components:
         removed:
           $ref: '#/components/schemas/removed'
         locked:
-          type: boolean
-          description: 'Set to *true* if this post is locked (that is, no comments can be added to it)'
-          example: false
+          $ref: '#/components/schemas/locked'
         url:
-          type: string
-          description: The link to the URL associated with the post
-          nullable: true
-          example: 'https:\/\/www.independent.co.uk\/news\/world\/europe\/covid-vaccine-novichok-russia-navalny-b1792778.html'
+          $ref: '#/components/schemas/url'
         published:
           $ref: '#/components/schemas/published'
         stickied:
@@ -2216,9 +3612,7 @@ components:
           description: 'Set to *true* if this post has been made *sticky* (that is, it is presented at the top of a list of posts)'
           example: false
         body:
-          description: 'The body text of the post'
-          type: string
-          nullable: true
+          $ref: '#/components/schemas/body'
         embed_html:
           type: string
           nullable: true
@@ -2230,9 +3624,7 @@ components:
           nullable: true
           description: Forthcoming...
         id:
-          type: number
-          description: The post number
-          example: 223
+          $ref: '#/components/schemas/post_id'
         ap_id:
           $ref: '#/components/schemas/ap_id'
         embed_description:
@@ -2243,9 +3635,65 @@ components:
         local:
           $ref: '#/components/schemas/local'
         name:
-          type: string
-          description: 'The title of the post'
-          example: 'Pot. Kettle. Black.'
+          $ref: '#/components/schemas/post_name'
+    'post_id':
+      type: number
+      description: The post number
+      example: 223
+    'post_name':
+      type: string
+      description: 'The title of the post'
+      example: 'Pot. Kettle. Black.'
+    'post_view':
+      type: object
+      properties:
+        community:
+          $ref: '#/components/schemas/community'
+        read:
+          $ref: '#/components/schemas/read'
+        counts:
+          type: object
+          properties:
+            score:
+              $ref: '#/components/schemas/score'
+            comments:
+              description: The number of comments on this post
+              type: number
+              example: 0
+            published:
+              $ref: '#/components/schemas/published'
+            post_id:
+              $ref: '#/components/schemas/post_id'
+            upvotes:
+              $ref: '#/components/schemas/upvotes'
+            id:
+              description: Forthcoming...
+              type: number
+              example: 117
+            newest_comment_time:
+              description: 'The date and time of the most recent comment (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
+              type: string
+              example: '2021-02-16T11:22:27.615111'
+            stickied:
+              $ref: '#/components/schemas/stickied'
+            downvotes:
+              $ref: '#/components/schemas/downvotes'
+        post:
+          $ref: '#/components/schemas/post'
+        creator_banned_from_community:
+          type: boolean
+        saved:
+          type: boolean
+        subscribed:
+          type: boolean
+        my_vote:
+          type: number
+        creator:
+          $ref: '#/components/schemas/creator'
+    'posts':
+      description: Total number of posts on the site or community
+      type: number
+      example: 115
     'preferred_username':
       type: string
       description: 'If set, this is the name shown instead of, or as well as, *username* in some contexts (also known as **Display name**)'
@@ -2288,24 +3736,37 @@ components:
         private_message:
           $ref: '#/components/schemas/private_message'
         creator:
-          $ref: '#/components/schemas/user'           
+          $ref: '#/components/schemas/user'
         recipient:
-          $ref: '#/components/schemas/user'          
+          $ref: '#/components/schemas/user'
     'published':
       type: string
       description: 'The date this site, community, post, comment or message was created (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
       example: '2021-01-21T16:42:39.897148'
     'read':
       type: boolean
-      description: Set to *true* if this post, comment or message has been read 
+      description: Set to *true* if this post, comment or message has been read
       example: false
+    'reason':
+      description: Give a reason for the action. Why was this post deleted? Why was this user banned?
+      type: string
+      example: 'Breach of terms and conditions'
     'recipient':
       description: Forthcoming...
       type: number
       example: 77
+    'remove_data':
+      description: |-
+        - If set to *true*, also delete that user's comments and posts
+        - If set *false*, *restore* that user's comments and posts
+      type: boolean
+      example: false
     'removed':
       type: boolean
-      description: Forthcoming...What is the difference between deletion and removal?
+      description: |-
+        Set to *true* if this community, post, comment or message should be or has been *permanently* deleted.
+        
+        Only admin and moderator roles can do this.
       example: false
     'replies':
       type: array
@@ -2344,6 +3805,15 @@ components:
           $ref: '#/components/schemas/unread_only'
         auth:
           $ref: '#/components/schemas/authStringSchema'
+    'report_id':
+      description: The number (id) of a raised report
+      type: integer
+      format: int32
+      example: 1
+    'resolved':
+      description: Forthcoming...
+      type: boolean
+      example: true
     'saved':
       description: Forthcoming...
       type: boolean
@@ -2373,7 +3843,7 @@ components:
         description:
           $ref: '#/components/schemas/site_description'
         banner:
-          $ref: '#/components/schemas/banner'                  
+          $ref: '#/components/schemas/banner'
         enable_downvotes:
           $ref: '#/components/schemas/enable_downvotes'
         published:
@@ -2399,17 +3869,11 @@ components:
       type: object
       properties:
         users_active_week:
-          description: Forthcoming...
-          type: number
-          example: 5
+          $ref: '#/components/schemas/users_active_week'
         posts:
-          description: Total number of posts on the site
-          type: number
-          example: 115
+          $ref: '#/components/schemas/posts'
         comments:
-          description: Total number of comments on the site                    
-          type: number
-          example: 231
+          $ref: '#/components/schemas/comment_count'
         communities:
           description: Total number of communities on the site
           type: number
@@ -2427,17 +3891,11 @@ components:
           type: number
           example: 1
         users_active_day:
-          desciption: Number of 'active' users in the previous 24 hours
-          type: number
-          example: 2
+          $ref: '#/components/schemas/users_active_day'
         users_active_month:
-          desciption: Number of 'active' users in the previous 28 days
-          type: number
-          example: 10
+          $ref: '#/components/schemas/users_active_month'
         users_active_half_year:
-          desciption: Number of 'active' users in the previous six months
-          type: number
-          example: 10
+          $ref: '#/components/schemas/users_active_half_year'
     'site_description':
       description: |-
         A brief overview of the site's purpose
@@ -2499,6 +3957,11 @@ components:
         - TopMonth
         - TopYear
         - TopAll
+    'stickied':
+      description: |-
+        Set to *true* if the post is 'sticky'
+      type: boolean
+      example: true
     'subscribed':
       type: boolean
       description: Forthcoming...
@@ -2541,6 +4004,11 @@ components:
       type: number
       description: Forthcoming...
       example: 1
+    'url':
+      type: string
+      description: The link to the URL associated with the post
+      nullable: true
+      example: 'https:\/\/www.independent.co.uk\/news\/world\/europe\/covid-vaccine-novichok-russia-navalny-b1792778.html'
     'user':
       type: object
       properties:
@@ -2589,6 +4057,29 @@ components:
       type: string
       description: 'The last time this user profile was updated (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
       example: '2021-01-21T16:26:16.285610'
+    'user_view':
+      type: object
+      properties:
+        counts:
+          $ref: '#/components/schemas/counts'
+        user:
+            $ref: '#/components/schemas/user'
+    'users_active_day':
+      desciption: Number of 'active' users in the previous 24 hours
+      type: number
+      example: 2
+    'users_active_half_year':
+      desciption: Number of 'active' users in the previous six months
+      type: number
+      example: 10
+    'users_active_month':
+      desciption: Number of 'active' users in the previous 28 days
+      type: number
+      example: 10
+    'users_active_week':
+      description: Number of 'active' users in the previous seven days
+      type: number
+      example: 5
     'version':
       description: The version of the software running the Lemmy server
       type: string
