@@ -9,7 +9,7 @@ info:
     ### About Lemmy
     [**Lemmy**](https://github.com/LemmyNet/lemmy) is a decentralized alternative to widely-used proprietary link aggregators like Reddit.
 
-    ### How to use this Websocket API document
+    ### How to use this WebSocket API document
 
     You can either use it to:
     - **Interactively browse the WebSocket API.** Browse the *Channels*, check out the responses and examples (tailor the *PUBLISH* requests to suit with your favorite WebSocket API client). For testing purposes, either [set up your own server](https://lemmy.ml/docs/en/administration/administration.html) or use the Enterprise server (*ws://enterprise.lemmy.ml/api/v2/ws*)
@@ -48,6 +48,7 @@ tags:
   - name: Site
   - name: Community
   - name: Post
+  - name: Comments
 channels:
   Login:
     publish:
@@ -1155,7 +1156,7 @@ channels:
         #### HTTP API - operation and endpoint.
         
         `POST /post/report`
-      operationId: createpostReportRequestMessage
+      operationId: createPostReportRequestMessage
       tags:
         - name: Post
       message:
@@ -1176,7 +1177,7 @@ channels:
       description: |-
         Resolve (clear) a report against a post.
 
-        See `ListPostReports` for a list of all reported posts
+        See `ListPostReports` for a list of all reported posts.
         
         #### HTTP API - operation and endpoint.
         
@@ -1220,6 +1221,280 @@ channels:
       message:
         oneOf:
           - $ref: '#/components/messages/listPostReportsResponse'
+          - $ref: '#/components/messages/errorResponse'
+  CreateComment:
+    publish:
+      summary: CreateComment (request)
+      description: |-
+        Add a comment to a post.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `POST /comment`
+      operationId: createCommentRequestMessage
+      tags:
+        - name: Comment
+      message:
+        $ref: '#/components/messages/createCommentRequest'
+    subscribe:
+      summary: CreateComment (response)
+      description: Response to request to create a comment
+      operationId: createCommentResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createCommentResponse'
+          - $ref: '#/components/messages/errorResponse'
+  EditComment:
+    publish:
+      summary: EditComment (request)
+      description: |-
+        Edit a comment (only the comment's creator can do this).
+        
+        #### HTTP API - operation and endpoint.
+        
+        `PUT /comment`
+      operationId: editCommentRequestMessage
+      tags:
+        - name: Comment
+      message:
+        $ref: '#/components/messages/createCommentRequest'
+    subscribe:
+      summary: EditComment (response)
+      description: Response to request to edit a comment
+      operationId: editCommentResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/editCommentResponse'
+          - $ref: '#/components/messages/errorResponse'
+  DeleteComment:
+    publish:
+      summary: DeleteComment (request)
+      description: |-
+        Delete a comment (only the comment's creator can do this).
+        
+        #### HTTP API - operation and endpoint.
+        
+        `POST /comment/delete`
+      operationId: deleteCommentRequestMessage
+      tags:
+        - name: Comment
+      message:
+        $ref: '#/components/messages/deleteCommentRequest'
+    subscribe:
+      summary: DeleteComment (response)
+      description: Response to request to delete a comment
+      operationId: deleteCommentResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/deleteCommentResponse'
+          - $ref: '#/components/messages/errorResponse'
+  RemoveComment:
+    publish:
+      summary: RemoveComment (request)
+      description: |-
+        Request that a comment is *permanently* deleted.
+
+        Only admin and moderator roles can do this.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `POST /comment/remove`
+      operationId: removeCommentRequestMessage
+      tags:
+        - name: Comment
+      message:
+        $ref: '#/components/messages/removeCommentRequest'
+    subscribe:
+      summary: RemoveComment (response)
+      description: Response to request to permanently delete a comment
+      operationId: removeCommentResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/removeCommentResponse'
+          - $ref: '#/components/messages/errorResponse'
+  GetComments:
+    publish:
+      summary: GetComments (request)
+      description: |-
+        Request details of all comments on the Lemmy server (or, optionally, in a community).
+
+
+        If specifying a community, use:
+        - `community_name` for a local community
+        - `community_id` for a federated community.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `GET /comment/list`
+      operationId: getCommentsRequestMessage
+      tags:
+        - name: Comment
+      message:
+        $ref: '#/components/messages/getCommentsRequest'
+    subscribe:
+      summary: GetComments (response)
+      description: Response to request to list all comments
+      operationId: getCommentsResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/getCommentsResponse'
+          - $ref: '#/components/messages/errorResponse'
+  MarkCommentAsRead:
+    publish:
+      summary: MarkCommentAsRead (request)
+      description: |-
+        Mark a specified comment as read. Only the recipient of a comment can do this.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /comment/mark_as_read`
+      operationId: markCommentRequestMessage
+      tags:
+      - name: Comment
+      message:
+        $ref: '#/components/messages/markCommentRequest'
+    subscribe:
+      summary: MarkCommentAsRead (response)
+      description: Response to request mark a comment as read
+      operationId: markCommentResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/markCommentResponse'
+          - $ref: '#/components/messages/errorResponse'
+  SaveComment:
+    publish:
+      summary: SaveComment (request)
+      description: |-
+        Add comment to the user's list of saved comments.
+
+        #### HTTP API - operation and endpoint.
+
+        `PUT /comment/save`
+      operationId: saveCommentRequestMessage
+      tags:
+      - name: Comment
+      message:
+        $ref: '#/components/messages/saveCommentRequest'
+    subscribe:
+      summary: SaveComment (response)
+      description: Response to request to save a comment
+      operationId: saveCommentResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/saveCommentResponse'
+          - $ref: '#/components/messages/errorResponse'
+  CreateCommentLike:
+    publish:
+      summary: CreateCommentLike (request)
+      description: |-
+        Forthcoming...
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /comment/like`
+      operationId: createCommentLikeRequestMessage
+      tags:
+      - name: Comment
+      message:
+        $ref: '#/components/messages/createCommentLikeRequest'
+    subscribe:
+      summary: CreateCommentLike (response)
+      description: Forthcoming...
+      operationId: createCommentLikeResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createCommentLikeResponse'
+          - $ref: '#/components/messages/errorResponse'
+  CreateCommentReport:
+    publish:
+      summary: CreateCommentReport (request)
+      description: |-
+        Raise a report (query) against a comment.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `POST /comment/report`
+      operationId: createCommentReportRequestMessage
+      tags:
+        - name: Comment
+      message:
+        $ref: '#/components/messages/createCommentReportRequest'
+    subscribe:
+      summary: CreateCommentReport(response)
+      description: Response to raising a report against a comment
+      operationId: createCommentReportResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createCommentReportResponse'
+          - $ref: '#/components/messages/errorResponse'
+  ResolveCommentReport:
+    publish:
+      summary: ResolveCommentReport (request)
+      description: |-
+        Resolve (clear) a report against a comment.
+
+        See `ListCommentReports` for a list of all reported comments.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `PUT /comment/report/resolve`
+      operationId: resolveCommentReportRequestMessage
+      tags:
+        - name: Comment
+      message:
+        $ref: '#/components/messages/resolveCommentReportRequest'
+    subscribe:
+      summary: ResolveCommentReport (response)
+      description: Response to a request to clear a report against a comment
+      operationId: resolveCommentReportResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/resolveCommentReportResponse'
+          - $ref: '#/components/messages/errorResponse'
+  ListCommentReports:
+    publish:
+      summary: ListCommentReports (request)
+      description: |-
+        - If `community` is supplied, returns reports for only that community
+        - Otherwise returns reports for all communities the user (`auth`) moderates.
+        
+        #### HTTP API - operation and endpoint.
+        
+        `GET /comment/report/list`
+      operationId: listCommentReportsRequestMessage
+      tags:
+        - name: Comment
+      message:
+        $ref: '#/components/messages/listCommentReportsRequest'
+    subscribe:
+      summary: ListCommentReports (response)
+      description: Response to a request to list all comment reports
+      operationId: listCommentReportsResponseMessage
+      tags:
+        - name: Comment
+      message:
+        oneOf:
+          - $ref: '#/components/messages/listCommentReportsResponse'
           - $ref: '#/components/messages/errorResponse'
 components:
   messages:
@@ -2045,9 +2320,7 @@ components:
                         mod_user_id:
                           $ref: '#/components/schemas/user_id'
                         post_id:
-                          description: Forthcoming...
-                          type: number
-                          example: 223
+                          $ref: '#/components/schemas/post_id'
                         locked:
                           $ref: '#/components/schemas/locked'
                         when_:
@@ -2074,9 +2347,7 @@ components:
                         mod_user_id:
                           $ref: '#/components/schemas/user_id'
                         post_id:
-                          description: Forthcoming...
-                          type: number
-                          example: 223
+                          $ref: '#/components/schemas/post_id'
                         stickied:
                           $ref: '#/components/schemas/stickied'
                         when_:
@@ -2656,28 +2927,7 @@ components:
             pattern: '^GetPosts$'
             default: 'GetPosts'
           data:
-            type: object
-            properties:
-              type_:
-                description: Choose from one of three types of listing
-                type: string
-                example: 'All'
-                enum:
-                  - All
-                  - Subscribed
-                  - Community
-              sort:
-                $ref: '#/components/schemas/sort'
-              page:
-                $ref: '#/components/schemas/page'
-              limit:
-                $ref: '#/components/schemas/limit'
-              community_id:
-                $ref: '#/components/schemas/community_id'
-              community_name:
-                $ref: '#/components/schemas/community_name'
-              auth:
-                $ref: '#/components/schemas/authStringSchema'
+            $ref: '#/components/schemas/list_request'
     getPostListResponse:
       name: Details of all posts
       payload:
@@ -2711,12 +2961,7 @@ components:
               post_id:
                 $ref: '#/components/schemas/post_id'
               score:
-                description: Forthcoming...
-                type: integer
-                format: int16
-                example: 1
-                minimum: -1
-                maximum: 1
+                $ref: '#/components/schemas/score_plus_minus'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     createPostLikeResponse:
@@ -2954,9 +3199,7 @@ components:
             type: object
             properties:
               success:
-                description: '*true* if report request was successful'
-                type: boolean
-                example: true
+                $ref: '#/components/schemas/success'
     resolvePostReportRequest:
       name: Request to resolve a report against a post
       payload:
@@ -2967,14 +3210,7 @@ components:
             pattern: '^ResolvePostReport$'
             default: 'ResolvePostReport'
           data:
-            type: object
-            properties:
-              report_id:
-                $ref: '#/components/schemas/report_id'
-              resolved:
-                $ref: '#/components/schemas/resolved'
-              auth:
-                $ref: '#/components/schemas/authStringSchema'
+            $ref: '#/components/schemas/resolve_request'
     resolvePostReportResponse:
       name: Response to request to resolve a report against a post
       payload:
@@ -2985,12 +3221,7 @@ components:
             pattern: '^ResolvePostReport$'
             default: 'ResolvePostReport'
           data:
-            type: object
-            properties:
-              report_id:
-                $ref: '#/components/schemas/report_id'
-              resolved:
-                $ref: '#/components/schemas/resolved'
+            $ref: '#/components/schemas/resolve_response'
     listPostReportsRequest:
       name: Request to list all reports against posts
       payload:
@@ -3001,16 +3232,7 @@ components:
             pattern: '^ListPostReports$'
             default: 'ListPostReports'
           data:
-            type: object
-            properties:
-              page:
-                $ref: '#/components/schemas/page'
-              limit:
-                $ref: '#/components/schemas/limit'
-              community:
-                $ref: '#/components/schemas/community_id'
-              auth:
-                $ref: '#/components/schemas/authStringSchema'
+            $ref: '#/components/schemas/report_request'
     listPostReportsResponse:
       name: Response to a request to list all reports against posts
       payload:
@@ -3028,9 +3250,7 @@ components:
                 items:
                   properties:
                     resolver:
-                      description: Forthcoming...
-                      type: number
-                      nullable: true
+                      $ref: '#/components/schemas/resolver_id'
                     community:
                       $ref: '#/components/schemas/community'
                     creator:
@@ -3043,9 +3263,7 @@ components:
                       type: object
                       properties:
                         resolver_id:
-                          description: Forthcoming...
-                          type: number
-                          nullable: true
+                          $ref: '#/components/schemas/resolver_id'
                         original_post_body:
                           $ref: '#/components/schemas/body'
                         resolved:
@@ -3070,6 +3288,366 @@ components:
                           description: Forthcoming...
                           type: string
                           nullable: true
+    createCommentRequest:
+      name: Request to create a comment on a post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateComment$'
+            default: 'CreateComment'
+          data:
+            $ref: '#/components/schemas/comment_request'
+    createCommentResponse:
+      name: Response to a request to create a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateComment$'
+            default: 'CreateComment'
+          data:
+            type: object
+            properties:
+              comment_view:
+                $ref: '#/components/schemas/comment_view'
+    editCommentRequest:
+      name: Request to edit a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^EditComment$'
+            default: 'EditComment'
+          data:
+            $ref: '#/components/schemas/comment_request'
+    editCommentResponse:
+      name: Response to a request to edit a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^EditComment$'
+            default: 'EditComment'
+          data:
+            type: object
+            properties:
+              comment_view:
+                $ref: '#/components/schemas/comment_view'
+    deleteCommentRequest:
+      name: Request to delete a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^DeleteComment$'
+            default: 'DeleteComment'
+          data:
+            type: object
+            properties:
+              comment_id:
+                $ref: '#/components/schemas/comment_id'
+              deleted:
+                $ref: '#/components/schemas/deleted'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    deleteCommentResponse:
+      name: Response to a request to delete a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^DeleteComment$'
+            default: 'DeleteComment'
+          data:
+            type: object
+            properties:
+              comment_view:
+                $ref: '#/components/schemas/comment_view'
+    removeCommentRequest:
+      name: Request to permanently delete a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^RemoveComment$'
+            default: 'RemoveComment'
+          data:
+            type: object
+            properties:
+              comment_id:
+                $ref: '#/components/schemas/comment_id'
+              removed:
+                $ref: '#/components/schemas/removed'
+              reason:
+                $ref: '#/components/schemas/reason'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    removeCommentResponse:
+      name: Response to a request to permanently delete a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^RemoveComment$'
+            default: 'RemoveComment'
+          data:
+            type: object
+            properties:
+              comment_view:
+                $ref: '#/components/schemas/comment_view'
+    getCommentsRequest:
+      name: Request to retrieve all comments
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetComments$'
+            default: 'GetComments'
+          data:
+            $ref: '#/components/schemas/list_request'
+    getCommentsResponse:
+      name: Response to a request to retrieve all comments
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetComments$'
+            default: 'GetComments'
+          data:
+            type: object
+            properties:
+              comments:
+                description: 'The list of comments'
+                type: array
+                items:
+                  properties:
+                    comment_view:
+                      $ref: '#/components/schemas/comment_view'
+    markCommentRequest:
+      name: Request to mark a commment as read
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^MarkCommentAsRead$'
+            default: 'MarkCommentAsRead'
+          data:
+            type: object
+            properties:
+              comment_id:
+                $ref: '#/components/schemas/comment_id'
+              read:
+                $ref: '#/components/schemas/read'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    markCommentResponse:
+      name: Response to a request to mark a comment as read
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^MarkCommentAsRead$'
+            default: 'MarkCommentAsRead'
+          data:
+            type: object
+            properties:
+              comment_view:
+                $ref: '#/components/schemas/comment_view'
+    saveCommentRequest:
+      name: Request to save a commment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^SaveComment$'
+            default: 'SaveComment'
+          data:
+            type: object
+            properties:
+              comment_id:
+                $ref: '#/components/schemas/comment_id'
+              save:
+                $ref: '#/components/schemas/saved'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    saveCommentResponse:
+      name: Response to a request to save a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^SaveComment$'
+            default: 'SaveComment'
+          data:
+            type: object
+            properties:
+              comment_view:
+                $ref: '#/components/schemas/comment_view'
+    createCommentLikeRequest:
+      name: Forthcoming...
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateCommentLike$'
+            default: 'CreateCommentLike'
+          data:
+            type: object
+            properties:
+              comment_id:
+                $ref: '#/components/schemas/comment_id'
+              score:
+                $ref: '#/components/schemas/score_plus_minus'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    createCommentLikeResponse:
+      name: Response to a request to save a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateCommentLike$'
+            default: 'CreateCommentLike'
+          data:
+            type: object
+            properties:
+              comment_view:
+                $ref: '#/components/schemas/comment_view'
+    createCommentReportRequest:
+      name: Request to report a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateCommentReport$'
+            default: 'CreateCommentReport'
+          data:
+            type: object
+            properties:
+              comment_id:
+                $ref: '#/components/schemas/comment_id'
+              reason:
+                $ref: '#/components/schemas/reason'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    createCommentReportResponse:
+      name: Response to raising a report against a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateCommentReport$'
+            default: 'CreateCommentReport'
+          data:
+            type: object
+            properties:
+              success:
+                $ref: '#/components/schemas/success'
+    resolveCommentReportRequest:
+      name: Request to clear a report against a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ResolveCommentReport$'
+            default: 'ResolveCommentReport'
+          data:
+            $ref: '#/components/schemas/resolve_request'
+    resolveCommentReportResponse:
+      name: Response to a request to clear a report against a comment
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ResolveCommentReport$'
+            default: 'ResolveCommentReport'
+          data:
+            $ref: '#/components/schemas/resolve_response'
+    listCommentReportsRequest:
+      name: Request to list all reports against comments
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ListCommemtReports$'
+            default: 'ListCommentReports'
+          data:
+            $ref: '#/components/schemas/report_request'
+    listCommentReportsResponse:
+      name: Response to a request to list all comment reports
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^ListCommemtReports$'
+            default: 'ListCommentReports'
+          data:
+            type: object
+            properties:
+              comments:
+                type: array
+                items:
+                  properties:
+                    comment_report:
+                      type: object
+                      properties:
+                        resolver_id:
+                          $ref: '#/components/schemas/resolver_id'
+                        published:
+                          $ref: '#/components/schemas/published'
+                        comment_id:
+                          $ref: '#/components/schemas/comment_id'
+                        creator_id:
+                          $ref: '#/components/schemas/creator_id'
+                        reason:
+                          $ref: '#/components/schemas/reason'
+                        original_comment_text:
+                          $ref: '#/components/schemas/body'
+                        id:
+                          description: Forthcoming...
+                          type: number
+                          example: 2
+                        resolved:
+                          $ref: '#/components/schemas/resolved'
+                        updated:
+                          description: Forthcoming...
+                          type: string
+                          nullable: true
+                    resolver:
+                      $ref: '#/components/schemas/resolver_id'
+                    community:
+                      $ref: '#/components/schemas/community'
+                    creator:
+                      $ref: '#/components/schemas/creator'
+                    post:
+                      $ref: '#/components/schemas/post'
+                    comment_creator:
+                      $ref: '#/components/schemas/creator'
+                    comment:
+                      $ref: '#/components/schemas/comment'
   schemas:
     'actor_id':
       type: string
@@ -3136,7 +3714,7 @@ components:
       description: 'A self-written description of the user'
       example: 'I am a watercolour artist. I am happy to share the paintings I am working on, give and receive critiques, and post resources such as tutorials.'
     'body':
-      description: 'The body text of the post'
+      description: 'The body text of the post or comment'
       type: string
       nullable: true
     'category_id':
@@ -3157,9 +3735,7 @@ components:
         content:
           $ref: '#/components/schemas/content'
         id:
-          description: Forthcoming...
-          type: number
-          example: 312
+          $ref: '#/components/schemas/comment_id'
         read:
           description: Is *true* if the author of the original post has read the comment
           type: boolean
@@ -3171,9 +3747,7 @@ components:
         removed:
           $ref: '#/components/schemas/removed'
         post_id:
-          description: Forthcoming...
-          type: number
-          example: 208
+          $ref: '#/components/schemas/post_id'
         local:
           $ref: '#/components/schemas/local'
         updated:
@@ -3190,6 +3764,51 @@ components:
       description: Total number of comments on the site or community
       type: number
       example: 231
+    'comment_id':
+      description: The number (id) of a comment
+      type: number
+      example: 374
+    'comment_request':
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/content'
+        post_id:
+          $ref: '#/components/schemas/post_id'
+        form_id:
+          $ref: '#/components/schemas/form_id'
+        auth:
+          $ref: '#/components/schemas/authStringSchema'
+    'comment_view':
+      type: object
+      properties:
+        community:
+          $ref: '#/components/schemas/community'
+        recipient:
+          $ref: '#/components/schemas/recipient'
+        counts:
+          $ref: '#/components/schemas/counts'
+        post:
+          ref: '#/components/schemas/post'
+        creator_banned_from_community:
+          $ref: '#/components/schemas/creator_banned_from_community'
+        saved:
+          $ref: '#/components/schemas/saved'
+        subscribed:
+          $ref: '#/components/schemas/subscribed'
+        my_vote:
+          $ref: '#/components/schemas/my_vote'
+        comment:
+          $ref: '#/components/schemas/comment'
+        creator:
+          $ref: '#/components/schemas/creator'
+        recipient_ids:
+          type: array
+          items:
+            recipient:
+              $ref: '#/components/schemas/recipient'
+        form_id:
+          $ref: '#/components/schemas/authStringSchema'
     'comments':
       type: array
       items:
@@ -3446,6 +4065,11 @@ components:
           $ref: '#/components/schemas/instance'
         linked:
           $ref: '#/components/schemas/instance'
+    'form_id':
+      description: Forthcoming... (so you know which message came back)
+      type: string
+      nullable: true
+      example: 'IMPORTANT'
     'icon':
       type: string
       nullable: true
@@ -3474,7 +4098,8 @@ components:
         - *true* if this is a local user
         - *false* if this is a federated user
     'locked':
-      description: Set to *true* if the post is already, or should be, locked. A locked post cannot receive comments
+      description: |-
+        Set to *true* if the post is already, or should be, locked. A locked post cannot receive comments
       type: boolean
       example: true
     'limit':
@@ -3483,6 +4108,23 @@ components:
       minimum: 1
       description: Forthcoming...
       example: 20
+    'list_request':
+      type: object
+      properties:
+        type_:
+          $ref: '#/components/schemas/type_listing'
+        sort:
+          $ref: '#/components/schemas/sort'
+        page:
+          $ref: '#/components/schemas/page'
+        limit:
+          $ref: '#/components/schemas/limit'
+        community_id:
+          $ref: '#/components/schemas/community_id'
+        community_name:
+          $ref: '#/components/schemas/community_name'
+        auth:
+          $ref: '#/components/schemas/authStringSchema'
     'matrix_user_id':
       type: string
       nullable: true
@@ -3745,7 +4387,7 @@ components:
       example: '2021-01-21T16:42:39.897148'
     'read':
       type: boolean
-      description: Set to *true* if this post, comment or message has been read
+      description: Set to *true* if this post, comment or message has been read (or should be marked as being read)
       example: false
     'reason':
       description: Give a reason for the action. Why was this post deleted? Why was this user banned?
@@ -3810,18 +4452,57 @@ components:
       type: integer
       format: int32
       example: 1
+    'report_request':
+      type: object
+      properties:
+        page:
+          $ref: '#/components/schemas/page'
+        limit:
+          $ref: '#/components/schemas/limit'
+        community:
+          $ref: '#/components/schemas/community_id'
+        auth:
+          $ref: '#/components/schemas/authStringSchema'
+    'resolve_request':
+      type: object
+      properties:
+        report_id:
+          $ref: '#/components/schemas/report_id'
+        resolved:
+          $ref: '#/components/schemas/resolved'
+        auth:
+          $ref: '#/components/schemas/authStringSchema'
+    'resolve_response':
+      type: object
+      properties:
+        report_id:
+          $ref: '#/components/schemas/report_id'
+        resolved:
+          $ref: '#/components/schemas/resolved'
     'resolved':
       description: Forthcoming...
       type: boolean
       example: true
+    'resolver_id':
+      description: The user_id of the person who resolved the report
+      type: number
+      nullable: true
     'saved':
-      description: Forthcoming...
+      description: |-
+        *true* if this post or comment has been or should be saved on the user's profile
       type: boolean
       example: false
     'score':
       type: number
       description: Forthcoming...
       example: 1
+    'score_plus_minus':
+      description: Forthcoming...
+      type: integer
+      format: int16
+      example: 1
+      minimum: -1
+      maximum: 1
     'send_notifications_to_email':
       description: 'If set to *true*, the user will receive email notifications for any username mentions, post and comment replies'
       type: boolean
@@ -3966,6 +4647,10 @@ components:
       type: boolean
       description: Forthcoming...
       example: true
+    'success':
+      description: '*true* if report request was successful'
+      type: boolean
+      example: true
     'theme':
       description: 'The theme style to use'
       type: string
@@ -3996,6 +4681,14 @@ components:
         - Communities
         - Users
         - Url
+    'type_listing':
+      description: Choose from one of three types of listing
+      type: string
+      example: 'All'
+      enum:
+        - All
+        - Subscribed
+        - Community
     'unread_only':
       description: If *true*, only fetch unread comments or messages
       type: boolean
