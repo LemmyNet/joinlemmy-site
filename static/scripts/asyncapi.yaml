@@ -601,7 +601,7 @@ channels:
       - name: Site
       message:
         $ref: '#/components/messages/createSiteRequest'
-  # Not sure how to set up virgin server to test CreateSite, hence no 'subscribe' option documented
+  # COMMENT. Not sure how to set up virgin server to test CreateSite, hence no 'subscribe' option documented
   EditSite:
     publish:
       summary: EditSite (Request)
@@ -811,7 +811,7 @@ channels:
       - name: Community
       message:
         $ref: '#/components/messages/banFromCommunityRequest'
-    # Issues with Docker, hence subscribe not documented
+    # COMMENT Issues with Docker, hence subscribe not documented
   AddModToCommunity:
     publish:
       summary: AddModToCommunity (request)
@@ -828,7 +828,7 @@ channels:
       - name: Community
       message:
         $ref: '#/components/messages/addModToCommunityRequest'
-  # No response from server, hence subscribe not documented
+  # COMMENT Issues with Docker, hence subscribe not documented
   TransferCommunity:
     publish:
       summary: TransferCommunity (Request)
@@ -845,7 +845,7 @@ channels:
       - name: Community
       message:
         $ref: '#/components/messages/transferCommunityRequest'
-  # Issues with Docker, hence subscribe not documented
+  # COMMENT Issues with Docker, hence subscribe not documented
   CommunityJoin:
     publish:
       summary: CommunityJoin (request)
@@ -1071,7 +1071,7 @@ channels:
         oneOf:
           - $ref: '#/components/messages/postLockResponse'
           - $ref: '#/components/messages/errorResponse'
-    # Request would not work ('variant not found') with post id set to either edit_id (as in the docs) or to post_id (as in StickyPost) 
+    # COMMENT. Request would not work ('variant not found') with post id set to either edit_id (as in the docs) or to post_id (as in StickyPost) 
   StickyPost:
     publish:
       summary: StickyPost (request)
