@@ -829,6 +829,132 @@ channels:
       message:
         $ref: '#/components/messages/addModToCommunityRequest'
   # COMMENT Issues with Docker, hence subscribe not documented
+  EditCommunity:
+    publish:
+      description: |-
+        Request to edit a community.
+
+        The account making the request (`auth`) must be either an admin or a moderator of that community.
+
+        #### HTTP API - operation and endpoint.
+
+        `PUT /community`
+      operationId: editCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/editCommunityRequest'
+    subscribe:
+      summary: EditCommunity (response)
+      description: Return the details for the requested community
+      operationId: editCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/editCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  DeleteCommunity:
+    publish:
+      summary: DeleteCommunity (request)
+      description: |-
+        Request to delete a community.
+
+        The account making the request (`auth`) must be the creator of that community.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/delete`
+      operationId: deleteCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/deleteCommunityRequest'
+    subscribe:
+      summary: DeleteCommunity (response)
+      description: Return the details for the deleted community
+      operationId: deleteCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/deleteCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  RemoveCommunity:
+    publish:
+      summary: RemoveCommunity (request)
+      description: |-
+        Request to *permanently* delete a community.
+
+        The account making the request (`auth`) must be and admin.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/remove`
+      operationId: removeCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/removeCommunityRequest'
+    subscribe:
+      summary: RemoveCommunity (response)
+      description: Return the details for the deleted community
+      operationId: deleteCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/removeCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+      # COMMENT Issues with Docker, hence not tested
+  FollowCommunity:
+    publish:
+      summary: FollowCommunity (request)
+      description: |-
+        Request to follow (join) a community.
+
+        #### HTTP API - operation and endpoint.
+
+        `POST /community/follow`
+      operationId: followCommunityRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/followCommunityRequest'
+    subscribe:
+      summary: FollowCommunity (response)
+      description: Return the details for the followed community
+      operationId: followCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/followCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
+  GetFollowedCommunities:
+    publish:
+      summary: GetFollowedCommunities (request)
+      description: |-
+        Request to list all followed (joined) communities.
+
+        #### HTTP API - operation and endpoint.
+
+        `GET /user/followed_communities`
+      operationId: getFollowedCommunitiesRequestMessage
+      tags:
+      - name: Community
+      message:
+        $ref: '#/components/messages/getFollowedCommunitiesRequest'
+    subscribe:
+      summary: GetFollowedCommunities (response)
+      description: Return the details for the followed communities
+      operationId: getFollowedCommunitiesResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/getFollowedCommunitiesResponse'
+          - $ref: '#/components/messages/errorResponse'
   TransferCommunity:
     publish:
       summary: TransferCommunity (Request)
@@ -994,6 +1120,30 @@ channels:
       message:
         oneOf:
           - $ref: '#/components/messages/createPostLikeResponse'
+          - $ref: '#/components/messages/errorResponse'
+  EditPost:
+    publish:
+      summary: EditPost (request)
+      description: |-
+        Request to edit an existing post
+
+        #### HTTP API - operation and endpoint.
+
+        `PUT /post`
+      operationId: editPostRequestMessage
+      tags:
+      - name: Post
+      message:
+        $ref: '#/components/messages/editPostRequest'
+    subscribe:
+      summary: EditPost (response)
+      description: Response to request to edit a post
+      operationId: editPostResponseMessage
+      tags:
+        - name: Post
+      message:
+        oneOf:
+          - $ref: '#/components/messages/editPostResponse'
           - $ref: '#/components/messages/errorResponse'
   DeletePost:
     publish:
@@ -1511,6 +1661,9 @@ components:
       name: Login request
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1518,13 +1671,16 @@ components:
             default: 'Login'
           data:
             type: object
+            required:
+              - username_or_email
+              - password
             properties:
               username_or_email:
                 type: string
-                description: '**(Required)** Username or registered email'
+                description: 'Username or registered email'
                 example: 'lemmy'
               password:
-                $ref: '#/components/schemas/passwordRequired'
+                $ref: '#/components/schemas/password'
     loginResponse:
       name: Login response
       payload:
@@ -1540,6 +1696,9 @@ components:
       name: User replies request
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1551,6 +1710,9 @@ components:
       name: User mentions request
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1562,6 +1724,9 @@ components:
       name: Captcha request
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1599,6 +1764,9 @@ components:
       name: Register a user on the Lemmy server
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1606,15 +1774,26 @@ components:
             default: 'Register'
           data:
             type: object
+            required:
+              - username
+              - password
+              - admin
+              - password_verify
+              - show_nsfw
             properties:
               username:
                 type: string
-                description: '**(Required)** The username for the new user'
+                description: 'The name for the new user'
                 example: 'testuser'
+              email:
+                description: |-
+                  The user's email address
+                type: string
+                format: email
               password:
-                $ref: '#/components/schemas/passwordRequired'
+                $ref: '#/components/schemas/password'
               password_verify:
-                $ref: '#/components/schemas/passwordRequired'
+                $ref: '#/components/schemas/password'
               admin:
                 type: boolean
                 description: 'Set to *true* if this is to be the admin user. Only the user who was *first* registered on the Lemmy server is allowed to be admin.'
@@ -1645,6 +1824,9 @@ components:
       name: Save user settings - response
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1652,6 +1834,8 @@ components:
             default: 'SaveUserSettings'
           data:
             type: object
+            required:
+              - show_nsfw
             properties:
               show_nsfw:
                 $ref: '#/components/schemas/show_nsfw'
@@ -1676,11 +1860,11 @@ components:
               matrix_user_id:
                 $ref: '#/components/schemas/matrix_user_id'
               new_password:
-                $ref: '#/components/schemas/passwordOptional'
+                $ref: '#/components/schemas/password'
               new_password_verify:
-                $ref: '#/components/schemas/passwordOptional'
+                $ref: '#/components/schemas/password'
               old_password:
-                $ref: '#/components/schemas/passwordOptional'
+                $ref: '#/components/schemas/password'
               show_avatars:
                 $ref: '#/components/schemas/show_avatars'
               send_notifications_to_email:
@@ -1691,6 +1875,9 @@ components:
       name: Return requested user details
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1698,6 +1885,9 @@ components:
             default: 'GetUserDetails'
           data:
             type: object
+            required:
+              - sort
+              - saved_only
             properties:
               sort:
                 $ref: '#/components/schemas/sort'
@@ -1729,6 +1919,9 @@ components:
       name: Registration request response
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1790,6 +1983,9 @@ components:
       name: Request to make a user mention as read
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1813,19 +2009,22 @@ components:
       payload:
         type: object
         properties:
+          op:
+            type: string
+            pattern: '^MarkUserMentionAsRead$'
+            default: 'MarkUserMentionAsRead'
           data:
             type: object
             properties:
               mention:
                 $ref: '#/components/schemas/mentions'
-          op:
-            type: string
-            pattern: '^MarkUserMentionAsRead$'
-            default: 'MarkUserMentionAsRead'
     privateMessageRequest:
       name: Request to list all a user's private messages
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1833,6 +2032,9 @@ components:
             default: 'GetPrivateMessages'
           data:
             type: object
+            required:
+              - unread_only
+              - auth
             properties:
               unread_only:
                 $ref: '#/components/schemas/unread_only'
@@ -1863,6 +2065,9 @@ components:
         Request to create a private message
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1870,6 +2075,10 @@ components:
             default: 'CreatePrivateMessage'
           data:
             type: object
+            required:
+              - content
+              - recipient_id
+              - auth
             properties:
               content:
                 $ref: '#/components/schemas/content'
@@ -1896,6 +2105,9 @@ components:
       name: Request to edit a private message
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1903,6 +2115,10 @@ components:
             default: 'EditPrivateMessage'
           data:
             type: object
+            required:
+              - private_message_id
+              - content
+              - auth
             properties:
               private_message_id:
                 $ref: '#/components/schemas/private_message_id'
@@ -1928,6 +2144,9 @@ components:
       name: Request to delete a private message
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1935,6 +2154,10 @@ components:
             default: 'DeletePrivateMessage'
           data:
             type: object
+            required:
+              - private_message_id
+              - deleted
+              - auth
             properties:
               private_message_id:
                 $ref: '#/components/schemas/private_message_id'
@@ -1960,6 +2183,9 @@ components:
       name: Request to mark a private message as read
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1967,6 +2193,10 @@ components:
             default: 'MarkPrivateMessageAsRead'
           data:
             type: object
+            required:
+              - private_message_id
+              - read
+              - auth
             properties:
               private_message_id:
                 $ref: '#/components/schemas/private_message_id'
@@ -1992,6 +2222,9 @@ components:
       name: Request to mark all user replies and mentions as read
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -1999,6 +2232,8 @@ components:
             default: 'MarkAllAsRead'
           data:
             type: object
+            required:
+              - auth
             properties:
               auth:
                 $ref: '#/components/schemas/authStringSchema'
@@ -2020,6 +2255,9 @@ components:
       name: Request to delete a user account
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2027,9 +2265,12 @@ components:
             default: 'DeleteAccount'
           data:
             type: object
+            required:
+              - password
+              - auth
             properties:
               password:
-                $ref: '#/components/schemas/passwordRequired'
+                $ref: '#/components/schemas/password'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     deleteAccountResponse:
@@ -2050,6 +2291,9 @@ components:
       name: Request to grant admin privileges to a user
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2057,6 +2301,10 @@ components:
             default: 'AddAdmin'
           data:
             type: object
+            required:
+              - user_id
+              - added
+              - auth
             properties:
               user_id:
                 $ref: '#/components/schemas/user_id'
@@ -2082,6 +2330,9 @@ components:
       name: Request to ban a user
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2089,6 +2340,10 @@ components:
             default: 'BanUser'
           data:
             type: object
+            required:
+              - user_id
+              - ban
+              - auth
             properties:
               user_id:
                 $ref: '#/components/schemas/user_id'
@@ -2117,6 +2372,9 @@ components:
       name: Forthcoming...
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2124,6 +2382,8 @@ components:
             default: 'UserJoin'
           data:
             type: object
+            required:
+              - auth
             properties:
               auth:
                 $ref: '#/components/schemas/authStringSchema'
@@ -2145,6 +2405,9 @@ components:
       name: Request to return report count numbers
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2152,6 +2415,8 @@ components:
             default: 'GetReportCount'
           data:
             type: object
+            required:
+              - auth
             properties:
               community:
                 $ref: '#/components/schemas/community_id'
@@ -2162,6 +2427,10 @@ components:
       payload:
         type: object
         properties:
+          op:
+            type: string
+            pattern: '^GetReportCount$'
+            default: 'GetReportCount'
           data:
             type: object
             properties:
@@ -2177,14 +2446,12 @@ components:
                 type: integer
                 format: int64
                 example: 23
-          op:
-            type: string
-            pattern: '^GetReportCount$'
-            default: 'GetReportCount'
     getCategoriesRequest:
       name: Request to list categories on the Lemmy server
       payload:
         type: object
+        required:
+          - op
         properties:
           op:
             type: string
@@ -2216,6 +2483,9 @@ components:
       name: Request to find information on the Lemmy server
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2223,6 +2493,10 @@ components:
             default: 'Search'
           data:
             type: object
+            required:
+              - q
+              - type_
+              - sort
             properties:
               q:
                 description: The text to search for on the Lemmy server
@@ -2276,6 +2550,9 @@ components:
       name: Request the site's Modlog
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2296,6 +2573,9 @@ components:
       name: Modlog request results
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2382,6 +2662,9 @@ components:
       name: Create Lemmy site on a server
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2393,6 +2676,9 @@ components:
       name: Request to edit Lemmy site details
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2418,6 +2704,9 @@ components:
       name: Request to return Lemmy site details
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2425,6 +2714,8 @@ components:
             default: 'GetSite'
           data:
             type: object
+            required:
+              - auth
             properties:
               auth:
                 $ref: '#/components/schemas/authStringSchema'
@@ -2494,6 +2785,9 @@ components:
       name: Request to transfer ownership of the site
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2501,6 +2795,9 @@ components:
             default: 'TransferSite'
           data:
             type: object
+            required:
+              - user_id
+              - auth
             properties:
               user_id:
                 $ref: '#/components/schemas/user_id'
@@ -2510,6 +2807,9 @@ components:
       name: Request to transfer ownership of the site
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2543,6 +2843,9 @@ components:
       name: Request the configuration data for a Lemmy server
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2550,6 +2853,8 @@ components:
             default: 'GetSiteConfig'
           data:
             type: object
+            required:
+              - auth
             properties:
               auth:
                 $ref: '#/components/schemas/authStringSchema'
@@ -2571,6 +2876,9 @@ components:
       name: Request to send a configuration data file for a Lemmy server
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2578,6 +2886,9 @@ components:
             default: 'SaveSiteConfig'
           data:
             type: object
+            required:
+              - config_hjson
+              - auth
             properties:
               config_hjson:
                 $ref: '#/components/schemas/config_hjson'
@@ -2601,6 +2912,9 @@ components:
       name: Request to get details of a commmunity
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2637,6 +2951,9 @@ components:
       name: Request to get details of a commmunity
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2644,15 +2961,19 @@ components:
             default: 'CreateCommunity'
           data:
             type: object
+            required:
+              - name
+              - title
+              - category_id
+              - nsfw
+              - auth
             properties:
               name:
                 $ref: '#/components/schemas/community_name'
               title:
-                description: Forthcoming...
-                type: string
+                $ref: '#/components/schemas/title'
               description:
-                description: Forthcoming...
-                type: string
+                $ref: '#/components/schemas/description'
               icon:
                 $ref: '#/components/schemas/icon'
               banner:
@@ -2667,6 +2988,9 @@ components:
       name: Response to the request to create a community
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2678,9 +3002,12 @@ components:
               community_view:
                 $ref: '#/components/schemas/community_view'
     listCommunityRequest:
-      name: Request to get list of commmunities on the Lemmy server
+      name: Request to get list of communities on the Lemmy server
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2688,6 +3015,8 @@ components:
             default: 'ListCommunities'
           data:
             type: object
+            required:
+              - sort
             properties:
               type_:
                 $ref: '#/components/schemas/type_'
@@ -2700,7 +3029,7 @@ components:
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     listCommunityResponse:
-      name: Response to the request to create a community
+      name: Response to the request to list all communities
       payload:
         type: object
         properties:
@@ -2718,6 +3047,9 @@ components:
       name: Request to ban a user from a specified community.
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2725,6 +3057,11 @@ components:
             default: 'BanFromCommunity'
           data:
             type: object
+            required:
+              - community_id
+              - user_id
+              - ban
+              - auth
             properties:
               community_id:
                 $ref: '#/components/schemas/community_id'
@@ -2755,6 +3092,9 @@ components:
       name: Request to add a moderator to a community
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2762,6 +3102,11 @@ components:
             default: 'AddModToCommunity'
           data:
             type: object
+            required:
+              - community_id
+              - user_id
+              - added
+              - auth
             properties:
               community_id:
                 $ref: '#/components/schemas/community_id'
@@ -2771,10 +3116,226 @@ components:
                 $ref: '#/components/schemas/added'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
+    editCommunityRequest:
+      name: Request to edit a community
+      payload:
+        type: object
+        required:
+          - op
+          - data
+        properties:
+          op:
+            type: string
+            pattern: '^EditCommunity$'
+            default: 'EditCommunity'
+          data:
+            type: object
+            required:
+              - community_id
+              - title
+              - category_id
+              - nsfw
+              - auth
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              title:
+                $ref: '#/components/schemas/title'
+              description:
+                $ref: '#/components/schemas/description'
+              icon:
+                $ref: '#/components/schemas/icon'
+              banner:
+                $ref: '#/components/schemas/banner'
+              category_id:
+                $ref: '#/components/schemas/category_id'
+              nsfw:
+                $ref: '#/components/schemas/nsfw'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    editCommunityResponse:
+      name: Response to the request to edit a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^EditCommunity$'
+            default: 'EditCommunity'
+          data:
+            type: object
+            properties:
+              community_view:
+                $ref: '#/components/schemas/community_view'
+    deleteCommunityRequest:
+      name: Request to delete a community
+      payload:
+        type: object
+        required:
+          - op
+          - data
+        properties:
+          op:
+            type: string
+            pattern: '^DeleteCommunity$'
+            default: 'DeleteCommunity'
+          data:
+            type: object
+            required:
+              - community_id
+              - deleted
+              - auth
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              deleted:
+                $ref: '#/components/schemas/deleted'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    deleteCommunityResponse:
+      name: Response to the request to delete a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^DeleteCommunity$'
+            default: 'DeleteCommunity'
+          data:
+            type: object
+            properties:
+              community_view:
+                $ref: '#/components/schemas/community_view'
+    removeCommunityRequest:
+      name: Request to permanently delete a community
+      payload:
+        type: object
+        required:
+          - op
+          - data
+        properties:
+          op:
+            type: string
+            pattern: '^RemoveCommunity$'
+            default: 'RemoveCommunity'
+          data:
+            type: object
+            required:
+              - community_id
+              - removed
+              - auth
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              removed:
+                $ref: '#/components/schemas/removed'
+              reason:
+                $ref: '#/components/schemas/reason'
+              expires:
+                $ref: '#/components/schemas/expires'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    removeCommunityResponse:
+      name: Response to the request to permanently delete a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^RemoveCommunity$'
+            default: 'RemoveCommunity'
+          data:
+            type: object
+            properties:
+              community_view:
+                $ref: '#/components/schemas/community_view'
+    followCommunityRequest:
+      name: Request to follow a community
+      payload:
+        type: object
+        required:
+          - op
+          - data
+        properties:
+          op:
+            type: string
+            pattern: '^FollowCommunity$'
+            default: 'FollowCommunity'
+          data:
+            type: object
+            required:
+              - community_id
+              - follow
+              - auth
+            properties:
+              community_id:
+                $ref: '#/components/schemas/community_id'
+              follow:
+                description: Forthcoming...
+                type: boolean
+                example: true
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    followCommunityResponse:
+      name: Response to the request to follow a community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^FollowCommunity$'
+            default: 'FollowCommunity'
+          data:
+            type: object
+            properties:
+              community_view:
+                $ref: '#/components/schemas/community_view'
+    getFollowedCommunitiesRequest:
+      name: Request to list all followed communities
+      payload:
+        type: object
+        required:
+          - op
+          - data
+        properties:
+          op:
+            type: string
+            pattern: '^GetFollowedCommunities$'
+            default: 'GetFollowedCommunities'
+          data:
+            type: object
+            required:
+              - auth
+            properties:
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    getFollowedCommunitiesResponse:
+      name: List of followed communities
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^GetFollowedCommunities$'
+            default: 'GetFollowedCommunities'
+          data:
+            type: object
+            properties:
+              communities:
+                type: array
+                items:
+                  properties:
+                    community:
+                      $ref: '#/components/schemas/community'
+                    follower:
+                      $ref: '#/components/schemas/user'
     transferCommunityRequest:
       name: Request to transfer ownership of a community from one person to another
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2782,6 +3343,10 @@ components:
             default: 'TransferCommunity'
           data:
             type: object
+            required:
+              - community_id
+              - user_id
+              - auth
             properties:
               community_id:
                 $ref: '#/components/schemas/community_id'
@@ -2793,6 +3358,9 @@ components:
       name: Forthcoming...
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2800,6 +3368,8 @@ components:
             default: 'CommunityJoin'
           data:
             type: object
+            required:
+              - community_id
             properties:
               community_id:
                 $ref: '#/components/schemas/community_id'
@@ -2820,6 +3390,9 @@ components:
       name: Forthcoming...
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2827,6 +3400,8 @@ components:
             default: 'ModJoin'
           data:
             type: object
+            required:
+              - community_id
             properties:
               community_id:
                 $ref: '#/components/schemas/community_id'
@@ -2847,6 +3422,9 @@ components:
       name: Request to create a new post
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2854,6 +3432,11 @@ components:
             default: 'CreatePost'
           data:
             type: object
+            required:
+              - name
+              - nsfw
+              - community_id
+              - auth
             properties:
               name:
                 $ref: '#/components/schemas/post_name'
@@ -2885,6 +3468,9 @@ components:
       name: Request details of a post
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2892,6 +3478,9 @@ components:
             default: 'GetPost'
           data:
             type: object
+            required:
+              - id
+              - auth
             properties:
               id:
                 $ref: '#/components/schemas/post_id'
@@ -2921,6 +3510,9 @@ components:
       name: Request details of all posts
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2950,6 +3542,9 @@ components:
       name: Forthcoming...
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2957,6 +3552,10 @@ components:
             default: 'CreatePostLike'
           data:
             type: object
+            required:
+              - post_id
+              - score
+              - auth
             properties:
               post_id:
                 $ref: '#/components/schemas/post_id'
@@ -2978,10 +3577,57 @@ components:
             properties:
               post_view:
                 $ref: '#/components/schemas/post_view'
+    editPostRequest:
+      name: Request to edit an existing post
+      payload:
+        type: object
+        required:
+          - op
+          - data
+        properties:
+          op:
+            type: string
+            pattern: '^EditPost$'
+            default: 'EditPost'
+          data:
+            type: object
+            required:
+              - post_id
+              - name
+              - nsfw
+              - auth
+            properties:
+              post_id:
+                $ref: '#/components/schemas/post_id'
+              name:
+                $ref: '#/components/schemas/post_name'
+              url:
+                $ref: '#/components/schemas/url'
+              nsfw:
+                $ref: '#/components/schemas/nsfw'
+              auth:
+                $ref: '#/components/schemas/authStringSchema'
+    editPostResponse:
+      name: Response to request to edit a post
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^EditPost$'
+            default: 'EditPost'
+          data:
+            type: object
+            properties:
+              post_view:
+                $ref: '#/components/schemas/post_view'
     deletePostRequest:
       name: Request that a post be deleted
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -2989,6 +3635,10 @@ components:
             default: 'DeletePost'
           data:
             type: object
+            required:
+              - post_id
+              - deleted
+              - auth
             properties:
               post_id:
                 $ref: '#/components/schemas/post_id'
@@ -3014,6 +3664,9 @@ components:
       name: Request that a post be removed
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3021,6 +3674,10 @@ components:
             default: 'RemovePost'
           data:
             type: object
+            required:
+              - post_id
+              - removed
+              - auth
             properties:
               post_id:
                 $ref: '#/components/schemas/post_id'
@@ -3048,6 +3705,9 @@ components:
       name: Request that a post be locked
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3055,6 +3715,10 @@ components:
             default: 'PostLock'
           data:
             type: object
+            required:
+              - post_id
+              - locked
+              - auth
             properties:
               post_id:
                 $ref: '#/components/schemas/post_id'
@@ -3080,6 +3744,9 @@ components:
       name: Request that a post be made 'sticky'
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3087,6 +3754,10 @@ components:
             default: 'StickyPost'
           data:
             type: object
+            required:
+              - post_id
+              - stickied
+              - auth
             properties:
               post_id:
                 $ref: '#/components/schemas/post_id'
@@ -3112,6 +3783,9 @@ components:
       name: Request to add a post to the user's list of saved posts
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3119,6 +3793,10 @@ components:
             default: 'SavePost'
           data:
             type: object
+            required:
+              - post_id
+              - save
+              - auth
             properties:
               post_id:
                 $ref: '#/components/schemas/post_id'
@@ -3144,6 +3822,9 @@ components:
       name: Forthcoming...
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3151,6 +3832,8 @@ components:
             default: 'PostJoin'
           data:
             type: object
+            required:
+              - post_id
             properties:
               post_id:
                 $ref: '#/components/schemas/post_id'
@@ -3179,6 +3862,10 @@ components:
             default: 'CreatePostReport'
           data:
             type: object
+            required:
+              - post_id
+              - reason
+              - auth
             properties:
               post_id:
                 $ref: '#/components/schemas/post_id'
@@ -3204,6 +3891,9 @@ components:
       name: Request to resolve a report against a post
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3226,6 +3916,9 @@ components:
       name: Request to list all reports against posts
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3292,6 +3985,9 @@ components:
       name: Request to create a comment on a post
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3317,6 +4013,9 @@ components:
       name: Request to edit a comment
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3349,6 +4048,10 @@ components:
             default: 'DeleteComment'
           data:
             type: object
+            required:
+              - comment_id
+              - deleted
+              - auth
             properties:
               comment_id:
                 $ref: '#/components/schemas/comment_id'
@@ -3374,6 +4077,9 @@ components:
       name: Request to permanently delete a comment
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3381,6 +4087,10 @@ components:
             default: 'RemoveComment'
           data:
             type: object
+            required:
+              - comment_id
+              - removed
+              - auth
             properties:
               comment_id:
                 $ref: '#/components/schemas/comment_id'
@@ -3408,6 +4118,9 @@ components:
       name: Request to retrieve all comments
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3438,6 +4151,9 @@ components:
       name: Request to mark a commment as read
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3445,6 +4161,10 @@ components:
             default: 'MarkCommentAsRead'
           data:
             type: object
+            required:
+              - comment_id
+              - read
+              - auth
             properties:
               comment_id:
                 $ref: '#/components/schemas/comment_id'
@@ -3470,6 +4190,9 @@ components:
       name: Request to save a commment
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3477,6 +4200,10 @@ components:
             default: 'SaveComment'
           data:
             type: object
+            required:
+              - comment_id
+              - save
+              - auth
             properties:
               comment_id:
                 $ref: '#/components/schemas/comment_id'
@@ -3502,6 +4229,9 @@ components:
       name: Forthcoming...
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3509,6 +4239,10 @@ components:
             default: 'CreateCommentLike'
           data:
             type: object
+            required:
+              - comment_id
+              - score
+              - auth
             properties:
               comment_id:
                 $ref: '#/components/schemas/comment_id'
@@ -3534,6 +4268,9 @@ components:
       name: Request to report a comment
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3541,6 +4278,10 @@ components:
             default: 'CreateCommentReport'
           data:
             type: object
+            required:
+              - comment_id
+              - reason
+              - auth
             properties:
               comment_id:
                 $ref: '#/components/schemas/comment_id'
@@ -3566,6 +4307,9 @@ components:
       name: Request to clear a report against a comment
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3588,6 +4332,9 @@ components:
       name: Request to list all reports against comments
       payload:
         type: object
+        required:
+          - op
+          - data
         properties:
           op:
             type: string
@@ -3770,6 +4517,10 @@ components:
       example: 374
     'comment_request':
       type: object
+      required:
+        - content
+        - post_id
+        - auth
       properties:
         content:
           $ref: '#/components/schemas/content'
@@ -3859,20 +4610,13 @@ components:
         id:
           $ref: '#/components/schemas/community_id'
         description:
-          type: string
-          description: |-
-            The title for the community's **Sidebar** area
-          example: 'All about the Rolex/Björn Borg collaboration'
+          $ref: '#/components/schemas/description'
         actor_id:
           $ref: '#/components/schemas/actor_id'
         local:
           $ref: '#/components/schemas/local'
         title:
-          type: string
-          description: |-
-            The title (**Display name**) of this community.
-
-            If set, this is the name shown instead of, or as well as, *name* in some contexts
+          $ref: '#/components/schemas/title'
         banner:
           $ref: '#/components/schemas/banner'
     'community_id':
@@ -4037,6 +4781,11 @@ components:
       description: |-
         Set to *true* if this community, post, comment, message or user account should be or has been deleted. Unlike *removal*, deletion is not permanent. Deleted items can be recovered
       example: false
+    'description':
+      type: string
+      description: |-
+        The information in the community's **Sidebar** area
+      example: 'All about the Rolex/Björn Borg collaboration'
     'downvotes':
       type: number
       description: Forthcoming...
@@ -4048,8 +4797,7 @@ components:
       format: email
       example: 'jane.doe@humanity.org'
     'enable_downvotes':
-      description: |-
-        **(Required)** Set to *true* if downvoting is allowed on this site
+      description: Set to *true* if downvoting is allowed on this site
       type: boolean
       example: false
     'expires':
@@ -4110,6 +4858,9 @@ components:
       example: 20
     'list_request':
       type: object
+      required:
+        - type_
+        - sort
       properties:
         type_:
           $ref: '#/components/schemas/type_listing'
@@ -4130,8 +4881,21 @@ components:
       nullable: true
       description: 'The [Matrix](https://matrix.org/docs/projects/try-matrix-now/) id of the user'
     'mentions':
-      description: 'Description and structure forthcoming...'
+      description: 'Forthcoming...'
       type: object
+      required:
+        - user_mention_id
+        - read
+        - auth
+      properties:
+        user_mention_id:
+          description: Forthcoming...
+          type: integer
+          format: int32
+        read:
+          $ref: '#/components/schemas/read'
+        auth:
+          $ref: '#/components/schemas/authStringSchema'         
     'moderators':
       description: The list of moderators for each community
       type: array
@@ -4143,6 +4907,8 @@ components:
             $ref: '#/components/schemas/community'
     'my_user':
       type: object
+      required:
+        - show_nsfw
       properties:
         show_nsfw:
           $ref: '#/components/schemas/show_nsfw'
@@ -4205,8 +4971,7 @@ components:
       type: number
       example: 1
     'open_registration':
-      description: |-
-        **(Required)** Forthcoming...
+      description: Forthcoming...
       type: boolean
       example: true
     'page':
@@ -4215,11 +4980,7 @@ components:
       minimum: 1
       description: Forthcoming...
       example: 1
-    'passwordRequired':
-      type: string
-      description: '**(Required)** *Exact* password'
-      example: 'lemmy'
-    'passwordOptional':
+    'password':
       type: string
       description: '*Exact* password'
       example: 'lemmy'
@@ -4436,6 +5197,10 @@ components:
             $ref: '#/components/schemas/subscribed'
     'repliesMentionsRequest':
       type: object
+      required:
+        - sort
+        - unread_only
+        - auth
       properties:
         sort:
           $ref: '#/components/schemas/sort'
@@ -4465,6 +5230,10 @@ components:
           $ref: '#/components/schemas/authStringSchema'
     'resolve_request':
       type: object
+      required:
+        - report_id
+        - resolved
+        - auth
       properties:
         report_id:
           $ref: '#/components/schemas/report_id'
@@ -4515,11 +5284,13 @@ components:
     'show_nsfw':
       type: boolean
       description: |-
-        **(Required)** Set to *true* if you wish [NSFW](https://en.wikipedia.org/wiki/Not_safe_for_work) content to be viewable by this person/site
+        Set to *true* if you wish [NSFW](https://en.wikipedia.org/wiki/Not_safe_for_work) content to be viewable by this person/site
       example: false
       default: false
     'site':
       type: object
+      required:
+        - show_nsfw
       properties:
         description:
           $ref: '#/components/schemas/site_description'
@@ -4583,12 +5354,17 @@ components:
       type: string
       example: 'Federation test instance'
     'site_name':
-      description: |-
-        **(Required) ** The name of this site
+      description: The name of this site
       type: string
       example: 'Enterprise'
     'site_properties':
       type: object
+      required:
+        - name
+        - auth
+        - enable_downvotes
+        - open_registration
+        - enable_nsfw
       properties:
         name:
           $ref: '#/components/schemas/site_name'
@@ -4618,8 +5394,6 @@ components:
     'sort':
       type: string
       description: |-
-        **(Required)**
-
         Sort the response from the server according to one of the following criteria:
         - *Active* - the hottest posts/communities, depending on votes, and newest comment publish date
         - *Hot* - the hottest posts/communities, depending on votes and publish date
@@ -4670,6 +5444,13 @@ components:
         - united
         - vaporwave
         - vaporwave-dark
+    'title':
+      type: string
+      description: |-
+        The title (**Display name**) of this community.
+
+        If set, this is the name shown instead of, or as well as, *name* in some contexts
+      example: 'BorgWatch'
     'type_':
       description: What is the scope of the search?
       type: string
