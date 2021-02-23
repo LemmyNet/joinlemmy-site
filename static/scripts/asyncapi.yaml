@@ -66,7 +66,7 @@ channels:
         $ref: '#/components/messages/loginRequest'
     subscribe:
       summary: Login (response)
-      description: Returns authentication string (`jwt`) for the supplier username or emal
+      description: Returns an authentication string (`jwt`) for the supplied username or emal
       operationId: loginResponseMessage
       tags:
         - name: User, authentication and admin
