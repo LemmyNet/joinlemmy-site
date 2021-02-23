@@ -66,7 +66,7 @@ channels:
         $ref: '#/components/messages/loginRequest'
     subscribe:
       summary: Login (response)
-      description: 'You will receive an authentication string (`jwt`)'
+      description: Returns authentication string (`jwt`) for the supplier username or emal
       operationId: loginResponseMessage
       tags:
         - name: User, authentication and admin
@@ -125,7 +125,7 @@ channels:
       summary: GetUserDetails (request)
       description: |-
         - Use the `username` field to return details about a local user
-        - Use the `user-id` field to return details about a federated user.
+        - Use the `user_id` field to return details about a federated user.
 
         #### HTTP API - operation and endpoint.
 
@@ -601,7 +601,16 @@ channels:
       - name: Site
       message:
         $ref: '#/components/messages/createSiteRequest'
-  # COMMENT. Not sure how to set up virgin server to test CreateSite, hence no 'subscribe' option documented
+    subscribe:
+      summary: CreateSite (response)
+      description: Returns site details
+      operationId: createSiteResponseMessage
+      tags:
+        - name: Site
+      message:
+        oneOf:
+          - $ref: '#/components/messages/createSiteResponse'
+          - $ref: '#/components/messages/errorResponse'
   EditSite:
     publish:
       summary: EditSite (Request)
@@ -724,7 +733,6 @@ channels:
         oneOf:
           - $ref: '#/components/messages/saveSiteConfigResponse'
           - $ref: '#/components/messages/errorResponse'
-  # SaveSiteConfig response not verified. Did not get response from server
   GetCommunity:
     publish:
       summary: GetCommunity (request)
@@ -811,7 +819,16 @@ channels:
       - name: Community
       message:
         $ref: '#/components/messages/banFromCommunityRequest'
-    # COMMENT Issues with Docker, hence subscribe not documented
+    subscribe:
+      summary: BanFromCommunity (response)
+      description: Confirmation after a ban request
+      operationId: banFromCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/banFromCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
   AddModToCommunity:
     publish:
       summary: AddModToCommunity (request)
@@ -828,7 +845,16 @@ channels:
       - name: Community
       message:
         $ref: '#/components/messages/addModToCommunityRequest'
-  # COMMENT Issues with Docker, hence subscribe not documented
+    subscribe:
+      summary: AddModToCommunity (response)
+      description: Confirmation that the new moderator has been added
+      operationId: addModToCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/addModToCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
   EditCommunity:
     publish:
       description: |-
@@ -899,14 +925,13 @@ channels:
     subscribe:
       summary: RemoveCommunity (response)
       description: Return the details for the deleted community
-      operationId: deleteCommunityResponseMessage
+      operationId: removeCommunityResponseMessage
       tags:
         - name: Community
       message:
         oneOf:
           - $ref: '#/components/messages/removeCommunityResponse'
           - $ref: '#/components/messages/errorResponse'
-      # COMMENT Issues with Docker, hence not tested
   FollowCommunity:
     publish:
       summary: FollowCommunity (request)
@@ -971,7 +996,16 @@ channels:
       - name: Community
       message:
         $ref: '#/components/messages/transferCommunityRequest'
-  # COMMENT Issues with Docker, hence subscribe not documented
+    subscribe:
+      summary: TransferCommunity (response)
+      description: Response to a request to transfer community ownership
+      operationId: transferCommunityResponseMessage
+      tags:
+        - name: Community
+      message:
+        oneOf:
+          - $ref: '#/components/messages/transferCommunityResponse'
+          - $ref: '#/components/messages/errorResponse'
   CommunityJoin:
     publish:
       summary: CommunityJoin (request)
@@ -1221,7 +1255,6 @@ channels:
         oneOf:
           - $ref: '#/components/messages/postLockResponse'
           - $ref: '#/components/messages/errorResponse'
-    # COMMENT. Request would not work ('variant not found') with post id set to either edit_id (as in the docs) or to post_id (as in StickyPost) 
   StickyPost:
     publish:
       summary: StickyPost (request)
@@ -1889,6 +1922,10 @@ components:
               - sort
               - saved_only
             properties:
+              user_id:
+                $ref: '#/components/schemas/user_id'
+              username:
+                $ref: '#/components/schemas/user_name'             
               sort:
                 $ref: '#/components/schemas/sort'
               page:
@@ -1909,19 +1946,19 @@ components:
       payload:
         type: object
         properties:
-          jwt:
-            $ref: '#/components/schemas/authStringSchema'
           op:
             type: string
             pattern: '^SaveUserSettings$'
             default: 'SaveUserSettings'
+          data:
+            type: object
+            properties:
+              jwt:
+                $ref: '#/components/schemas/authStringSchema'
     getUserDetailsResponse:
-      name: Registration request response
+      name: User details request response
       payload:
         type: object
-        required:
-          - op
-          - data
         properties:
           op:
             type: string
@@ -2672,6 +2709,20 @@ components:
             default: 'CreateSite'
           data:
             $ref: '#/components/schemas/site_properties'
+    createSiteResponse:
+      name: Returns Lemmy site details
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^CreateSite$'
+            default: 'CreateSite'
+          data:
+            type: object
+            properties:
+              site_view:
+                $ref: '#/components/schemas/site_view'
     editSiteRequest:
       name: Request to edit Lemmy site details
       payload:
@@ -2724,16 +2775,15 @@ components:
       payload:
         type: object
         properties:
+          op:
+            type: string
+            pattern: '^GetSite$'
+            default: 'GetSite'
           data:
             type: object
             properties:
               site_view:
-                counts:
-                  $ref: '#/components/schemas/site_counts'
-                site:
-                  $ref: '#/components/schemas/site'
-                creator:
-                  $ref: '#/components/schemas/creator'
+                $ref: '#/components/schemas/site_view'
               federated_instances:
                 $ref: '#/components/schemas/federated_instances'
               my_user:
@@ -2756,9 +2806,7 @@ components:
                           type: number
                           example: 8
                         user_id:
-                          description: Forthcoming...
-                          type: number
-                          example: 2
+                          $ref: '#/components/schemas/user_id'
                         post_score:
                           description: Forthcoming...
                           type: number
@@ -2777,10 +2825,6 @@ components:
                           example: 9
                     user:
                       $ref: '#/components/schemas/creator'
-        op:
-          type: string
-          pattern: '^GetSite$'
-          default: 'GetSite'
     transferSiteRequest:
       name: Request to transfer ownership of the site
       payload:
@@ -3002,7 +3046,7 @@ components:
               community_view:
                 $ref: '#/components/schemas/community_view'
     listCommunityRequest:
-      name: Request to get list of communities on the Lemmy server
+      name: Request list of communities on the Lemmy server
       payload:
         type: object
         required:
@@ -3016,6 +3060,7 @@ components:
           data:
             type: object
             required:
+              - type_
               - sort
             properties:
               type_:
@@ -3116,6 +3161,20 @@ components:
                 $ref: '#/components/schemas/added'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
+    addModToCommunityResponse:
+      name: Confirmation that a moderator has been added to the community
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^AddModToCommunity$'
+            default: 'AddModToCommunity'
+          data:
+            type: object
+            properties:
+              moderators:
+                $ref: '#/components/schemas/moderators'
     editCommunityRequest:
       name: Request to edit a community
       payload:
@@ -3354,6 +3413,24 @@ components:
                 $ref: '#/components/schemas/user_id'
               auth:
                 $ref: '#/components/schemas/authStringSchema'
+    transferCommunityResponse:
+      name: Response to a request to transfer community ownership
+      payload:
+        type: object
+        properties:
+          op:
+            type: string
+            pattern: '^TransferCommunity$'
+            default: 'TransferCommunity'
+          data:
+            type: object
+            properties:
+              moderators:
+                $ref: '#/components/schemas/moderators'
+              online:
+                $ref: '#/components/schemas/online'
+              community_view:
+                $ref: '#/components/schemas/community_view'
     communityJoinRequest:
       name: Forthcoming...
       payload:
@@ -3711,8 +3788,8 @@ components:
         properties:
           op:
             type: string
-            pattern: '^PostLock$'
-            default: 'PostLock'
+            pattern: '^LockPost$'
+            default: 'LockPost'
           data:
             type: object
             required:
@@ -3733,8 +3810,8 @@ components:
         properties:
           op:
             type: string
-            pattern: '^PostLock$'
-            default: 'PostLock'
+            pattern: '^LockPost$'
+            default: 'LockPost'
           data:
             type: object
             properties:
@@ -4417,7 +4494,7 @@ components:
       example: 'https:\/\/enterprise.lemmy.ml\/post\/223'
     'authSchema':
       type: object
-      description: 'The authentication string returned by **Login**, **Register** and **Save user settings**.'
+      description: 'The authentication string returned by **Login** and **Register**'
       properties:
         jwt:
           $ref: '#/components/schemas/authStringSchema'
@@ -4441,9 +4518,7 @@ components:
         user:
           $ref: '#/components/schemas/user_view'
         banned:
-          description: Forthcoming...
-          type: boolean
-          example: true
+          $ref: '#/components/schemas/banned'
     'banned':
       type: boolean
       description: 'Set to *true* if this account (username) has been banned from posting on the Lemmy server'
@@ -4826,7 +4901,7 @@ components:
       type: array
       items:
         properties:
-        # 'instance' is a guess at the name for this field
+        # COMMENT 'instance' is a guess at the name for this field. Unable to test federation
           instance:
             description: Forthcoming...
             type: string
@@ -5077,6 +5152,10 @@ components:
               description: 'The date and time of the most recent comment (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))'
               type: string
               example: '2021-02-16T11:22:27.615111'
+            newest_comment_time_necro:
+              description: Forthcoming...
+              type: string
+              example: '2021-02-23T13:26:54.956691'
             stickied:
               $ref: '#/components/schemas/stickied'
             downvotes:
