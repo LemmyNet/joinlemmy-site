@@ -7,20 +7,66 @@ info:
     url: https://mastodon.social/@LemmyDev
   description: |-
     ### About Lemmy
-    [**Lemmy**](https://github.com/LemmyNet/lemmy) is a decentralized alternative to widely-used proprietary link aggregators like Reddit.
-
+    [**Lemmy**](https://github.com/LemmyNet/lemmy) is a decentralized alternative to proprietary link aggregators such as Reddit.
+    #### More information...
+    - [Install your own server](https://join.lemmy.ml/docs/en/administration/administration.html)
+    - [WebSocket](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#websocket)
+    - [Lemmy data types](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#data-types)
+    - [Images](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#images)
+    - [RSS/Atom feeds](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#rss--atom-feeds)
+    - [Rate limiting](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#default-rate-limits)
     ### How to use this WebSocket API document
-
     You can either use it to:
-    - **Interactively browse the WebSocket API.** Browse the *Channels*, check out the responses and examples (tailor the *PUBLISH* requests to suit with your favorite WebSocket API client). For testing purposes, either [set up your own server](https://lemmy.ml/docs/en/administration/administration.html) or use the Enterprise server (*ws://enterprise.lemmy.ml/api/v2/ws*)
+    - **Interactively browse the WebSocket API.** Browse the *Channels*, check out the responses and examples (tailor the *PUBLISH* requests to suit with your favorite WebSocket client - such as [websocat](https://github.com/vi/websocat)).
+    For testing purposes, either [set up your own server](https://join.lemmy.ml/docs/en/administration/administration.html) or use the Enterprise server (*ws://enterprise.lemmy.ml/api/v2/ws*)
     - **[Open and save](asyncapi.yaml) this specification file** and use it with the various [AsyncAPI tools](https://www.asyncapi.com/docs/community/tooling) (perhaps to generate code or documentation).
-
+    #### Structure of this document
+    - **Channels** - Documents the requests (marked with the PUBLISH button) and responses (marked with SUBSCRIBE) for each endpoint (*channel*)
+    - **Servers** - Lists some publicly-accessible test servers
+    - **Messages** - A summary of the requests and responses (a duplication of the information in **=Channels*)
+    - **Schemas** - An alphabetical list of the most commonly accessed data structures in the API.
     ### The HTTP API
-
-    Lemmy also has an HTTP API. The WebSocket and HTTP API are almost identical:
+    Lemmy also has an HTTP API which is almost identical to the WebSocket API:
     - WebSocket API needs `let send = { op: userOperation[op], data: form}` as shown below
-    - HTTP API requires the form at the top level and an HTTP operation (GET, PUT or POST) and endpoint. For example: `PUT /comment`. For more information,  see [http.ts](https://github.com/LemmyNet/lemmy-js-client/blob/main/src/http.ts)
-  license:
+    - HTTP API requires the form (data) at the top level and an HTTP operation (GET, PUT or POST) and endpoint.
+    For example: `POST {username_or_email: X, password: X}`. Endpoints are at `http(s)://host/api/v2/endpoint`. *All request and response strings are in [JSON format](https://www.json.org/json-en.html).*
+    
+
+    For more information,  see the [http.ts](https://github.com/LemmyNet/lemmy-js-client/blob/main/src/http.ts) file.
+    #### Example (TypeScript)
+
+    ```ts
+      async editComment(form: EditComment): Promise<CommentResponse> {
+      return this.wrapper(HttpType.Put, '/comment', form);
+      }
+    ```
+
+    | Type | URL | Body type | Return type |
+    | --- | --- | --- | --- |
+    | `PUT` | `/comment` | `EditComment` | `CommentResponse` |
+
+    #### Examples (Curl)
+    **GET example**
+
+    ```
+    curl "http://localhost:8536/api/v2/community/list?sort=Hot"`
+    ```
+
+    **POST example**
+
+    ```
+    curl -i -H \
+    "Content-Type: application/json" \
+    -X POST \
+    -d '{
+      "comment_id": 374,
+      "score": 1,
+      "auth": eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiaXNzIjoidGVzdC5sZW1teS5tbCJ9.P77RX_kpz1a_geY5eCp29sl_5mAm-k27Cwnk8JcIZJk
+    }' \
+    http://localhost:8536/api/v2/comment/like
+    ```
+
+  license: 
     name: AGPL
     url: 'https://www.gnu.org/licenses/agpl-3.0.en.html'
 servers:
@@ -36,10 +82,6 @@ servers:
     url: voyager.lemmy.ml/api/v2/ws
     protocol: WebSocket
     description: Voyager test server
-  local:
-    url: localhost:1235/api/v2/ws
-    protocol: WebSocket
-    description: Local Docker container
 externalDocs:
   description: Lemmy documentation
   url: 'https://lemmy.ml/docs/index.html'
@@ -4854,7 +4896,9 @@ components:
     'deleted':
       type: boolean
       description: |-
-        Set to *true* if this community, post, comment, message or user account should be or has been deleted. Unlike *removal*, deletion is not permanent. Deleted items can be recovered
+        Set to *true* if this community, post, comment, message or user account should be, or has been, deleted. Unlike *removal*, deletion is not permanent. Deleted items *can* be recovered.
+
+        You can undo a delete yourself by setting this value to *false*.
       example: false
     'description':
       type: string
@@ -4922,7 +4966,9 @@ components:
         - *false* if this is a federated user
     'locked':
       description: |-
-        Set to *true* if the post is already, or should be, locked. A locked post cannot receive comments
+        Set to *true* if the post is already, or should be, locked. A locked post cannot receive comments.
+
+        You can undo a lock yourself by setting this value to *false*.
       type: boolean
       example: true
     'limit':
@@ -5227,7 +5273,10 @@ components:
       example: '2021-01-21T16:42:39.897148'
     'read':
       type: boolean
-      description: Set to *true* if this post, comment or message has been read (or should be marked as being read)
+      description: |-
+        Set to *true* if this post, comment or message has been read (or should be marked as being read).
+
+        If you have marked something as being read, you can undo this yourself by setting this value to *false*.
       example: false
     'reason':
       description: Give a reason for the action. Why was this post deleted? Why was this user banned?
@@ -5247,8 +5296,8 @@ components:
       type: boolean
       description: |-
         Set to *true* if this community, post, comment or message should be or has been *permanently* deleted.
-        
-        Only admin and moderator roles can do this.
+
+        An admin or moderator can undo a removal by setting this value to *false*.
       example: false
     'replies':
       type: array
