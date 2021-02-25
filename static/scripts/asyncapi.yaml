@@ -10,7 +10,6 @@ info:
     [**Lemmy**](https://github.com/LemmyNet/lemmy) is a decentralized alternative to proprietary link aggregators such as Reddit.
     #### More information...
     - [Install your own server](https://join.lemmy.ml/docs/en/administration/administration.html)
-    - [WebSocket](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#websocket)
     - [Lemmy data types](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#data-types)
     - [Images](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#images)
     - [RSS/Atom feeds](https://join.lemmy.ml/docs/en/contributing/websocket_http_api.html#rss--atom-feeds)
@@ -509,7 +508,7 @@ channels:
     publish:
       summary: UserJoin (request)
       description: |-
-        Forthcoming...
+        Join to receive WebSocket replies, private messages and so on for this user.
 
         #### HTTP API - operation and endpoint.
 
@@ -521,7 +520,7 @@ channels:
         $ref: '#/components/messages/userJoinRequest'
     subscribe:
       summary: UserJoin (response)
-      description: Forthcoming...
+      description: Verification that you will receive these WebSocket messages
       operationId: userJoinResponseMessage
       tags:
         - name: User, authentication and admin
@@ -1052,7 +1051,7 @@ channels:
     publish:
       summary: CommunityJoin (request)
       description: |-
-        Forthcoming...
+        Join to receive WebSocket messages for this community's posts.
 
         #### HTTP API - operation and endpoint.
 
@@ -1064,7 +1063,7 @@ channels:
         $ref: '#/components/messages/communityJoinRequest'
     subscribe:
       summary: CommunityJoin (response)
-      description: Forthcoming...
+      description: Verification that you will receive these WebSocket messages
       operationId: CommunityJoinResponseMessage
       tags:
         - name: Community
@@ -1076,7 +1075,7 @@ channels:
     publish:
       summary: ModJoin (request)
       description: |-
-        Forthcoming...
+        Join to receive WebSocket messages for community moderator updates such as reports.
 
         #### HTTP API - operation and endpoint.
 
@@ -1088,7 +1087,7 @@ channels:
         $ref: '#/components/messages/modJoinRequest'
     subscribe:
       summary: ModJoin (response)
-      description: Forthcoming...
+      description: Verification that you will receive these WebSocket messages
       operationId: modJoinResponseMessage
       tags:
         - name: Community
@@ -1352,7 +1351,7 @@ channels:
     publish:
       summary: PostJoin (request)
       description: |-
-        Forthcoming...
+        Join to receive WebSocket messages for this post's comments.
         
         #### HTTP API - operation and endpoint.
         
@@ -1364,7 +1363,7 @@ channels:
         $ref: '#/components/messages/postJoinRequest'
     subscribe:
       summary: PostJoin (response)
-      description: Forthcoming...
+      description: Verification that you will receive these WebSocket messages
       operationId: postJoinResponseMessage
       tags:
         - name: Post
@@ -2448,7 +2447,7 @@ components:
           data:
             $ref: '#/components/schemas/ban_view'
     userJoinRequest:
-      name: Forthcoming...
+      name: Request to receive WebSocket messages for this user.
       payload:
         type: object
         required:
@@ -2467,7 +2466,7 @@ components:
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     userJoinResponse:
-      name: Forthcoming...
+      name: Verification that you will receive these WebSocket messages
       payload:
         type: object
         properties:
@@ -3474,7 +3473,7 @@ components:
               community_view:
                 $ref: '#/components/schemas/community_view'
     communityJoinRequest:
-      name: Forthcoming...
+      name: Request to receive WebSocket messages for this community's posts
       payload:
         type: object
         required:
@@ -3493,7 +3492,7 @@ components:
               community_id:
                 $ref: '#/components/schemas/community_id'
     communityJoinResponse:
-      name: Forthcoming...
+      name: Verification that you will receive these WebSocket messages
       payload:
         type: object
         properties:
@@ -3506,7 +3505,7 @@ components:
               joined:
                 $ref: '#/components/schemas/joined'
     modJoinRequest:
-      name: Forthcoming...
+      name: Request to receive WebSocket messages for community moderator updates such as reports.
       payload:
         type: object
         required:
@@ -3525,7 +3524,7 @@ components:
               community_id:
                 $ref: '#/components/schemas/community_id'
     modJoinResponse:
-      name: Forthcoming...
+      name: Verification that you will receive these WebSocket messages
       payload:
         type: object
         properties:
@@ -3938,7 +3937,7 @@ components:
               post_view:
                 $ref: '#/components/schemas/post_view'
     postJoinRequest:
-      name: Forthcoming...
+      name: Request to receive WebSocket messages for this post's comments
       payload:
         type: object
         required:
@@ -3957,7 +3956,7 @@ components:
               post_id:
                 $ref: '#/components/schemas/post_id'
     postJoinResponse:
-      name: Forthcoming...
+      name: Verification that you will receive these WebSocket messages
       payload:
         type: object
         properties:
