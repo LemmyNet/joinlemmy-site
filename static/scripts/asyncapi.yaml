@@ -7,20 +7,49 @@ info:
     url: https://mastodon.social/@LemmyDev
   description: |-
     ### About Lemmy
-    [**Lemmy**](https://github.com/LemmyNet/lemmy) is a decentralized alternative to widely-used proprietary link aggregators like Reddit.
-
+    [**Lemmy**](https://github.com/LemmyNet/lemmy) is a decentralized alternative to proprietary link aggregators such as Reddit.
+    #### More information...
+    - [Install your own server](https://join.lemmy.ml/docs/en/administration/administration.html)
+    - [API reference](link_here)
     ### How to use this WebSocket API document
-
     You can either use it to:
-    - **Interactively browse the WebSocket API.** Browse the *Channels*, check out the responses and examples (tailor the *PUBLISH* requests to suit with your favorite WebSocket API client). For testing purposes, either [set up your own server](https://lemmy.ml/docs/en/administration/administration.html) or use the Enterprise server (*ws://enterprise.lemmy.ml/api/v2/ws*)
+    - **Interactively browse the WebSocket API.** Browse the *Channels*, check out the responses and examples (tailor the *PUBLISH* requests to suit with your favorite WebSocket client).
+    For testing purposes, either [set up your own server](https://join.lemmy.ml/docs/en/administration/administration.html) or use the Enterprise server (*ws://enterprise.lemmy.ml/api/v2/ws*)
     - **[Open and save](asyncapi.yaml) this specification file** and use it with the various [AsyncAPI tools](https://www.asyncapi.com/docs/community/tooling) (perhaps to generate code or documentation).
 
-    ### The HTTP API
+    Connect to <code>ws://***host***/api/v2/ws</code> to get started. If the server supports secure connections, you can use `wss://**server**/api/v1/ws`.
+    #### Testing with websocat
 
-    Lemmy also has an HTTP API. The WebSocket and HTTP API are almost identical:
-    - WebSocket API needs `let send = { op: userOperation[op], data: form}` as shown below
-    - HTTP API requires the form at the top level and an HTTP operation (GET, PUT or POST) and endpoint. For example: `PUT /comment`. For more information,  see [http.ts](https://github.com/LemmyNet/lemmy-js-client/blob/main/src/http.ts)
-  license:
+    For example a simple test using [websocat](https://github.com/vi/websocat) might be:
+
+    `websocat ws://127.0.0.1:8536/api/v2/ws -nt`
+
+    A simple test command:
+
+    `{"op": "ListCategories", "data": {}}`
+
+    #### Testing with the [WebSocket JavaScript API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+
+    ```javascript
+    var ws = new WebSocket("ws://" + host + "/api/v2/ws");
+    ws.onopen = function () {
+      console.log("Connection succeed!");
+      ws.send(JSON.stringify({
+        op: "ListCategories",
+        data: {}
+      }));
+    };
+    ```
+
+    ### Structure of this document
+    - **Channels** - Documents the requests (marked with the PUBLISH button) and responses (marked with SUBSCRIBE) for each endpoint (*channel*)
+    - **Servers** - Lists some publicly-accessible test servers
+    - **Messages** - A summary of the requests and responses (a duplication of the information in **Channels**)
+    - **Schemas** - An alphabetical list of the most commonly accessed data structures in the API.
+    ### The HTTP API
+    Lemmy also has an [HTTP API](link_here) which is almost identical to the WebSocket API; however, this WebSocket API is the primary source since it also details the specifics of HTTP API calls.
+
+  license: 
     name: AGPL
     url: 'https://www.gnu.org/licenses/agpl-3.0.en.html'
 servers:
@@ -36,10 +65,6 @@ servers:
     url: voyager.lemmy.ml/api/v2/ws
     protocol: WebSocket
     description: Voyager test server
-  local:
-    url: localhost:1235/api/v2/ws
-    protocol: WebSocket
-    description: Local Docker container
 externalDocs:
   description: Lemmy documentation
   url: 'https://lemmy.ml/docs/index.html'
@@ -467,7 +492,7 @@ channels:
     publish:
       summary: UserJoin (request)
       description: |-
-        Forthcoming...
+        Join to receive WebSocket replies, private messages and so on for this user.
 
         #### HTTP API - operation and endpoint.
 
@@ -479,7 +504,7 @@ channels:
         $ref: '#/components/messages/userJoinRequest'
     subscribe:
       summary: UserJoin (response)
-      description: Forthcoming...
+      description: Verification that you will receive these WebSocket messages
       operationId: userJoinResponseMessage
       tags:
         - name: User, authentication and admin
@@ -1010,7 +1035,7 @@ channels:
     publish:
       summary: CommunityJoin (request)
       description: |-
-        Forthcoming...
+        Join to receive WebSocket messages for this community's posts.
 
         #### HTTP API - operation and endpoint.
 
@@ -1022,7 +1047,7 @@ channels:
         $ref: '#/components/messages/communityJoinRequest'
     subscribe:
       summary: CommunityJoin (response)
-      description: Forthcoming...
+      description: Verification that you will receive these WebSocket messages
       operationId: CommunityJoinResponseMessage
       tags:
         - name: Community
@@ -1034,7 +1059,7 @@ channels:
     publish:
       summary: ModJoin (request)
       description: |-
-        Forthcoming...
+        Join to receive WebSocket messages for community moderator updates such as reports.
 
         #### HTTP API - operation and endpoint.
 
@@ -1046,7 +1071,7 @@ channels:
         $ref: '#/components/messages/modJoinRequest'
     subscribe:
       summary: ModJoin (response)
-      description: Forthcoming...
+      description: Verification that you will receive these WebSocket messages
       operationId: modJoinResponseMessage
       tags:
         - name: Community
@@ -1310,7 +1335,7 @@ channels:
     publish:
       summary: PostJoin (request)
       description: |-
-        Forthcoming...
+        Join to receive WebSocket messages for this post's comments.
         
         #### HTTP API - operation and endpoint.
         
@@ -1322,7 +1347,7 @@ channels:
         $ref: '#/components/messages/postJoinRequest'
     subscribe:
       summary: PostJoin (response)
-      description: Forthcoming...
+      description: Verification that you will receive these WebSocket messages
       operationId: postJoinResponseMessage
       tags:
         - name: Post
@@ -1709,9 +1734,7 @@ components:
               - password
             properties:
               username_or_email:
-                type: string
-                description: 'Username or registered email'
-                example: 'lemmy'
+                $ref: '#/components/schemas/username_or_email'
               password:
                 $ref: '#/components/schemas/password'
     loginResponse:
@@ -2406,7 +2429,7 @@ components:
           data:
             $ref: '#/components/schemas/ban_view'
     userJoinRequest:
-      name: Forthcoming...
+      name: Request to receive WebSocket messages for this user.
       payload:
         type: object
         required:
@@ -2425,7 +2448,7 @@ components:
               auth:
                 $ref: '#/components/schemas/authStringSchema'
     userJoinResponse:
-      name: Forthcoming...
+      name: Verification that you will receive these WebSocket messages
       payload:
         type: object
         properties:
@@ -3432,7 +3455,7 @@ components:
               community_view:
                 $ref: '#/components/schemas/community_view'
     communityJoinRequest:
-      name: Forthcoming...
+      name: Request to receive WebSocket messages for this community's posts
       payload:
         type: object
         required:
@@ -3451,7 +3474,7 @@ components:
               community_id:
                 $ref: '#/components/schemas/community_id'
     communityJoinResponse:
-      name: Forthcoming...
+      name: Verification that you will receive these WebSocket messages
       payload:
         type: object
         properties:
@@ -3464,7 +3487,7 @@ components:
               joined:
                 $ref: '#/components/schemas/joined'
     modJoinRequest:
-      name: Forthcoming...
+      name: Request to receive WebSocket messages for community moderator updates such as reports.
       payload:
         type: object
         required:
@@ -3483,7 +3506,7 @@ components:
               community_id:
                 $ref: '#/components/schemas/community_id'
     modJoinResponse:
-      name: Forthcoming...
+      name: Verification that you will receive these WebSocket messages
       payload:
         type: object
         properties:
@@ -3896,7 +3919,7 @@ components:
               post_view:
                 $ref: '#/components/schemas/post_view'
     postJoinRequest:
-      name: Forthcoming...
+      name: Request to receive WebSocket messages for this post's comments
       payload:
         type: object
         required:
@@ -3915,7 +3938,7 @@ components:
               post_id:
                 $ref: '#/components/schemas/post_id'
     postJoinResponse:
-      name: Forthcoming...
+      name: Verification that you will receive these WebSocket messages
       payload:
         type: object
         properties:
@@ -4854,7 +4877,9 @@ components:
     'deleted':
       type: boolean
       description: |-
-        Set to *true* if this community, post, comment, message or user account should be or has been deleted. Unlike *removal*, deletion is not permanent. Deleted items can be recovered
+        Set to *true* if this community, post, comment, message or user account should be, or has been, deleted. Unlike *removal*, deletion is not permanent. Deleted items *can* be recovered.
+
+        You can undo a delete yourself by setting this value to *false*.
       example: false
     'description':
       type: string
@@ -4922,7 +4947,9 @@ components:
         - *false* if this is a federated user
     'locked':
       description: |-
-        Set to *true* if the post is already, or should be, locked. A locked post cannot receive comments
+        Set to *true* if the post is already, or should be, locked. A locked post cannot receive comments.
+
+        You can undo a lock yourself by setting this value to *false*.
       type: boolean
       example: true
     'limit':
@@ -5227,7 +5254,10 @@ components:
       example: '2021-01-21T16:42:39.897148'
     'read':
       type: boolean
-      description: Set to *true* if this post, comment or message has been read (or should be marked as being read)
+      description: |-
+        Set to *true* if this post, comment or message has been read (or should be marked as being read).
+
+        If you have marked something as being read, you can undo this yourself by setting this value to *false*.
       example: false
     'reason':
       description: Give a reason for the action. Why was this post deleted? Why was this user banned?
@@ -5247,8 +5277,8 @@ components:
       type: boolean
       description: |-
         Set to *true* if this community, post, comment or message should be or has been *permanently* deleted.
-        
-        Only admin and moderator roles can do this.
+
+        An admin or moderator can undo a removal by setting this value to *false*.
       example: false
     'replies':
       type: array
@@ -5617,6 +5647,10 @@ components:
           $ref: '#/components/schemas/counts'
         user:
             $ref: '#/components/schemas/user'
+    'username_or_email':
+      type: string
+      description: 'Username or registered email'
+      example: 'lemmy'
     'users_active_day':
       desciption: Number of 'active' users in the previous 24 hours
       type: number
