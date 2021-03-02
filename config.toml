@@ -11,5 +11,18 @@ highlight_code = false
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
+default_language = 'en'
+
+languages = [
+  {code = "fr"},
+]
+
+[translations]
+  [translations.en]
+  hello = "A title"
+
+  [translations.fr]
+  hello = "Un titre"
+
 [extra]
 # Put all your custom variables here
