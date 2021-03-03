@@ -34,7 +34,7 @@ info:
 
     A simple test command:
 
-    `{"op": "ListCategories", "data": {}}`
+    `{"op": "GetSite", "data": {}}`
 
     #### Testing with the [WebSocket JavaScript API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 
@@ -43,7 +43,7 @@ info:
     ws.onopen = function () {
       console.log("Connection succeed!");
       ws.send(JSON.stringify({
-        op: "ListCategories",
+        op: "GetSite",
         data: {}
       }));
     };
@@ -550,30 +550,6 @@ channels:
       message:
         oneOf:
           - $ref: '#/components/messages/getReportCountResponse'
-          - $ref: '#/components/messages/errorResponse'
-  ListCategories:
-    publish:
-      summary: ListCategories (request)
-      description: |-
-        List all community categories.
-
-        #### HTTP API - operation and endpoint.
-
-        `GET /categories`
-      operationId: getCategoriesMessage
-      tags:
-      - name: Site
-      message:
-        $ref: '#/components/messages/getCategoriesRequest'
-    subscribe:
-      summary: ListCategories (response)
-      description: List all options for community categories
-      operationId: getCategoriesResponseMessage
-      tags:
-        - name: Site
-      message:
-        oneOf:
-          - $ref: '#/components/messages/getCategoriesResponse'
           - $ref: '#/components/messages/errorResponse'
   Search:
     publish:
@@ -2517,39 +2493,6 @@ components:
                 type: integer
                 format: int64
                 example: 23
-    getCategoriesRequest:
-      name: Request to list categories on the Lemmy server
-      payload:
-        type: object
-        required:
-          - op
-        properties:
-          op:
-            type: string
-            pattern: '^ListCategories$'
-            default: 'ListCategories'
-          data:
-            type: object
-    getCategoriesResponse:
-      name: Returns list of categories on the server
-      payload:
-        type: object
-        properties:
-          data:
-            type: object
-            properties:
-              categories:
-                type: array
-                items:
-                  properties:
-                    id:
-                      $ref: '#/components/schemas/category_id'
-                    name:
-                      $ref: '#/components/schemas/category_name'
-          op:
-            type: string
-            pattern: '^ListCategories$'
-            default: 'ListCategories'
     searchRequest:
       name: Request to find information on the Lemmy server
       payload:
@@ -3042,7 +2985,6 @@ components:
             required:
               - name
               - title
-              - category_id
               - nsfw
               - auth
             properties:
@@ -3056,8 +2998,6 @@ components:
                 $ref: '#/components/schemas/icon'
               banner:
                 $ref: '#/components/schemas/banner'
-              category_id:
-                $ref: '#/components/schemas/category_id'
               nsfw:
                 $ref: '#/components/schemas/nsfw'
               auth:
@@ -3226,7 +3166,6 @@ components:
             required:
               - community_id
               - title
-              - category_id
               - nsfw
               - auth
             properties:
@@ -3240,8 +3179,6 @@ components:
                 $ref: '#/components/schemas/icon'
               banner:
                 $ref: '#/components/schemas/banner'
-              category_id:
-                $ref: '#/components/schemas/category_id'
               nsfw:
                 $ref: '#/components/schemas/nsfw'
               auth:
@@ -4573,16 +4510,6 @@ components:
       description: 'The body text of the post or comment'
       type: string
       nullable: true
-    'category_id':
-      type: number
-      minimum: 1
-      description: |-
-        Matches the dropdown list in a community's *Category* setting. 1 = the topmost element, 2 = the second element, and so on.
-      example: 15
-    'category_name':
-      description: The category name
-      type: string
-      example: 'Politics'
     'comment':
       type: object
       properties:
@@ -4702,8 +4629,6 @@ components:
           example: '2020-11-14T13:35:10.270578'
         name:
           $ref: '#/components/schemas/community_name'
-        category_id:
-          $ref: '#/components/schemas/category_id'
         icon:
           $ref: '#/components/schemas/icon'
         nsfw:
@@ -4773,13 +4698,6 @@ components:
           $ref: '#/components/schemas/community'
         creator:
           $ref: '#/components/schemas/creator'
-        category:
-          type: object
-          properties:
-            name:
-              $ref: '#/components/schemas/category_name'
-            id:
-              $ref: '#/components/schemas/category_id'
     'config_hjson':
       description: The configuration data for a Lemmy server (in JSON format)
       type: string
