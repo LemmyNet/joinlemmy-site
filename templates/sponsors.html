@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %} 
+<div class="container">
+  <div class="text-center">
+    <h2>{{ trans(key="support_donate", lang=lang) }}</h2>
+    <p>{{ trans(key="lemmy_is_free", lang=lang) }}</p>
+    <div class="row is-horizontal-align">
+      <div class="col-3">
+        <a class="button primary" href="https://liberapay.com/Lemmy">{{ trans(key="support_liberapay", lang=lang) }}</a>
+      </div>
+      <div class="col-3">
+        <a class="button primary" href="https://www.patreon.com/dessalines">{{ trans(key="support_patreon", lang=lang) }}</a>
+      </div>
+      <div class="col-3">
+        <a class="col button primary" href="https://opencollective.com/lemmy">{{ trans(key="support_opencollective", lang=lang) }}</a>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="text-center">
+    <h2>{{ trans(key="sponsors", lang=lang) }}</h2>
+    <p>{{ trans(key="silver_sponsors", lang=lang) }}</p>
+    <div class="row is-horizontal-align">
+      <div class="col">
+        <a class="button outline primary" href="https://iww.org/">💎 RedJoker</a>
+      </div>
+    </div>
+    <br />
+    <p>{{ trans(key="general_sponsors", lang=lang) }}</p>
+    <div class="row is-horizontal-align">
+      <div class="col">
+        <div class="button outline primary">DQW</div>
+      </div>
+      <div class="col">
+        <div class="button outline primary">Alex Benishek</div>
+      </div>
+      <div class="col">
+        <div class="button outline">seahorse</div>
+      </div>
+      <div class="col">
+        <div class="button outline">Tommaso</div>
+      </div>
+      <div class="col">
+        <div class="button outline">Jamie Gray</div>
+      </div>
+      <div class="col">
+        <div class="button outline">Brendan</div>
+      </div>
+      <div class="col">
+        <div class="button outline">mexicanhalloween</div>
+      </div>
+      <div class="col">
+        <div class="button outline">William Moore</div>
+      </div>
+      <div class="col">
+        <div class="button outline">Rachel Schmitz</div>
+      </div>
+      <div class="col">
+        <div class="button outline">comradeda</div>
+      </div>
+      <div class="col">
+        <div class="button outline">Jonathan Cremin</div>
+      </div>
+      <div class="col">
+        <div class="button outline">Arthur Nieuwland</div>
+      </div>
+      <div class="col">
+        <div class="button outline">Forrest Weghorst</div>
+      </div>
+      <div class="col">
+        <div class="button outline">Andre Vallestero</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <h1>{{ trans(key="crypto", lang=lang) }}</h1>
+      <table>
+        <tr><td>bitcoin</td><td><code>1Hefs7miXS5ff5Ck5xvmjKjXf5242KzRtK</code></td></tr>
+        <tr><td>ethereum</td><td><code>0x400c96c96acbC6E7B3B43B1dc1BB446540a88A01</code></td></tr>
+        <tr><td>monero</td><td><code>41taVyY6e1xApqKyMVDRVxJ76sPkfZhALLTjRvVKpaAh2pBd4wv9RgYj1tSPrx8wc6iE1uWUfjtQdTmTy2FGMeChGVKPQuV</code></td></tr>
+      </table>
+  </div>
+</div>
+{% endblock content %}

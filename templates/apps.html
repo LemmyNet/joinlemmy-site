@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %} 
 <div class="container">
-  <h1>Lemmy Apps</h1>
-  <p>Choose from any of the apps below.</p>
+  <h1>Lemmy {{ trans(key="apps", lang=lang) }}</h1>
+  <p>{{ trans(key="choose_apps", lang=lang) }}</p>
 
   <div class="row">
 
@@ -19,7 +19,7 @@
         <img class="app-banner" src="/images/lemmur_screen.webp" />
       </div>
       <br />
-      <p class="is-center">A Lemmy client for Android, Linux, and Windows.</p>
+      <p class="is-center">{{ trans(key="lemmur_desc", lang=lang) }}</p>
       <footer class="is-center">
         <a class="button primary" href="https://f-droid.org/packages/com.krawieck.lemmur"><svg class="icon icon-f-droid"><use xlink:href="#icon-f-droid"></use></svg></a>
         <a class="button primary" href="https://play.google.com/store/apps/details?id=com.krawieck.lemmur"><svg class="icon icon-googleplay"><use xlink:href="#icon-googleplay"></use></svg></a>
@@ -40,7 +40,7 @@
         <img class="app-banner" src="/images/remmel_screen.webp" />
       </div>
       <br />
-      <p class="is-center">An iOS client for lemmy.</p>
+      <p class="is-center">{{ trans(key="remmel_desc", lang=lang) }}</p>
       <footer class="is-center">
         <a class="button primary" href="https://apps.apple.com/us/app/remmel-for-lemmy/id1547988171"><svg class="icon icon-appleinc"><use xlink:href="#icon-appleinc"></use></svg></a>
         <a class="button primary" href="https://github.com/uuttff8/Lemmy-iOS"><svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
@@ -49,7 +49,7 @@
 
   </div>
 
-  <h1>Web Apps</h1>
+  <h1>{{ trans(key="web_apps", lang=lang) }}</h1>
 
   <div class="row">
 
@@ -66,7 +66,7 @@
         <img class="app-banner" src="/images/mobile_pic.webp" />
       </div>
       <br />
-      <p class="is-center">The official web app for lemmy.</p>
+      <p class="is-center">{{ trans(key="lemmy_desc", lang=lang) }}</p>
       <footer class="is-center">
         <a class="button primary" href="https://github.com/LemmyNet/lemmy-ui"><svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
       </footer>
@@ -85,7 +85,7 @@
         <img class="app-banner" src="/images/lemmy_lite_screen.webp" />
       </div>
       <br />
-      <p class="is-center">A static, JSless, touch-friendly Lemmy frontend built for legacy web clients and maximum performance</p>
+      <p class="is-center">{{ trans(key="lemmy_lite_desc", lang=lang) }}</p>
       <footer class="is-center">
         <a class="button primary" href="https://github.com/IronOxidizer/lemmy-lite"><svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
       </footer>
@@ -93,13 +93,13 @@
 
   </div>
 
-  <h1>Lemmy API Libraries</h1>
+  <h1>{{ trans(key="api_libraries", lang=lang) }}</h1>
   <ul>
     <li>
-      <a href="https://github.com/LemmyNet/lemmy-js-client">lemmy-js-client</a> - a javascript / typescript client.
+      <a href="https://github.com/LemmyNet/lemmy-js-client">lemmy-js-client</a> - {{ trans(key="lemmy_js_client_desc", lang=lang) }}
     </li>
     <li>
-      <a href="https://github.com/krawieck/lemmy_api_client">lemmy-dart client</a> - a dart / flutter client.
+      <a href="https://github.com/krawieck/lemmy_api_client">lemmy-dart client</a> - {{ trans(key="lemmy_dart_client_desc", lang=lang) }}
     </li>
   </ul>
 

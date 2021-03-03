@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lemmy - A link aggregator for the fediverse</title>
+    <title>Lemmy - {{ trans(key="lemmy_link_agg", lang=lang) }}</title>
     <link rel="stylesheet" href="/scripts/chota.min.css">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/lemmy.svg" />
     <style>
@@ -99,12 +99,12 @@
     <nav class="nav hide-xs">
       <div class="nav-left">
         <a class="brand" href="/"><img src="/images/lemmy.svg" height=32 width=32></a>
-        <a href="/join">Join</a>
-        <a href="/apps">Apps</a>
-        <a href="/sponsors">Sponsors</a>
-        <a href="/docs/en/index.html">Docs</a>
-        <a href="/docs/en/code_of_conduct.html" title="Code of Conduct">CoC</a>
-        <a href="/contact">Contact</a>
+        <a href="/join">{{ trans(key="join", lang=lang) }}</a>
+        <a href="/apps">{{ trans(key="apps", lang=lang) }}</a>
+        <a href="/sponsors">{{ trans(key="sponsors", lang=lang) }}</a>
+        <a href="/docs/en/index.html">{{ trans(key="docs", lang=lang) }}</a>
+        <a href="/docs/en/code_of_conduct.html" title="{{ trans(key="code_of_conduct", lang=lang) }}">{{ trans(key="coc", lang=lang) }}</a>
+        <a href="/contact">{{ trans(key="contact", lang=lang) }}</a>
       </div>
       <div class="nav-right">
         <a href="https://github.com/LemmyNet"><svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
@@ -127,15 +127,15 @@
     <footer>
       <nav class="nav">
         <div class="nav-left">
-          <p style="padding-left:2rem">Made using <a style="display: inline-block" class="is-paddingless" href="https://www.getzola.org">Zola</a> and <a style="display: inline-block" class="is-paddingless" href="https://jenil.github.io/chota">Chota</a></p>
+          <p style="padding-left:2rem">{{ trans(key="made_using_1", lang=lang) }} <a style="display: inline-block" class="is-paddingless" href="https://www.getzola.org">Zola</a> {{ trans(key="and", lang=lang) }} <a style="display: inline-block" class="is-paddingless" href="https://jenil.github.io/chota">Chota</a></p>
         </div>
         <div class="nav-right hide-sm hide-md hide-lg">
-          <a href="/join">Join</a>
-          <a href="/apps">Apps</a>
-          <a href="/sponsors">Sponsors</a>
-          <a href="/docs/en/index.html">Docs</a>
-          <a href="/docs/en/code_of_conduct.html" title="Code of Conduct">CoC</a>
-          <a href="/contact">Contact</a>
+          <a href="/join">{{ trans(key="join", lang=lang) }}</a>
+          <a href="/apps">{{ trans(key="apps", lang=lang) }}</a>
+          <a href="/sponsors">{{ trans(key="sponsors", lang=lang) }}</a>
+          <a href="/docs/en/index.html">{{ trans(key="docs", lang=lang) }}</a>
+          <a href="/docs/en/code_of_conduct.html" title="{{ trans(key="code_of_conduct", lang=lang) }}">{{ trans(key="coc", lang=lang) }}</a>
+          <a href="/contact">{{ trans(key="contact", lang=lang) }}</a>
         </div>
       </nav>
     </footer>

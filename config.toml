@@ -13,16 +13,103 @@ build_search_index = false
 
 default_language = 'en'
 
-languages = [
-  {code = "fr"},
-]
+# languages = [
+#   {code = "fr"},
+# ]
 
 [translations]
   [translations.en]
-  hello = "A title"
 
-  [translations.fr]
-  hello = "Un titre"
+  # base.html
+  lemmy_link_agg = "A link aggregator for the fediverse"
+  docs = "docs"
+  code_of_conduct = "Code of Conduct"
+  coc = "CoC"
+  contact = "Contact"
+  made_using_1= "Made using"
+
+  # index.html
+  link_aggregator_fediverse = "A link aggregator for the fediverse."
+  join_a_server = "Join a Server"
+  run_a_server = "Run a Server"
+  follow_communities = "Follow communities anywhere in the world"
+  is_similar_to_sites = "is similar to sites like"
+  you_subscribe_to_create = "you subscribe to communities you're interested in, post links and discussions, then vote and comment on them. Lemmy isn't just a reddit alternative; its a network of interconnected communities ran by different people and organizations, all combining to create"
+  a_single_frontpage = "a single, personalized front page"
+  of_favorite_memes = "of your favorite news, articles, and memes."
+  open_source = "Open Source"
+  lemmy_remain_free = "Lemmy is and will always remain free,"
+  using_the_strong = "software, using the strong"
+  copyleft = "copyleft"
+  agpl_license = "AGPL License"
+  blazing_fast = "Blazing Fast"
+  made_using = "Made using some of the fastest frameworks and tools, including"
+  and = "and"
+  or = "or"
+  powerful_mod_tools = "Powerful Mod Tools"
+  each_server_can = "Each server can set its own moderation policy, to help foster a healthy environment where all can feel comfortable contributing."
+  create_platform = "Create your own discussion platform"
+  with_lemmy = "With Lemmy, you can"
+  easily_host = "easily host your own server"
+  and_all_these = "and all these servers are"
+  federated = "federated"
+  fediverse = "fediverse"
+  think_email = "(think email), and connected to the same universe, called the"
+  for_a_link_aggregator= "For a link aggregator, this means that someone registered on one server can subscribe to communities elsewhere, and can have discussions with people on a completely different server."
+  live_updates = "Live Updates"
+  new_comments = "New comments and posts stream in to your front page and inbox; No more page refreshes required."
+  more_features = "More Features"
+  self_hostable = "Self hostable, easy to deploy, via"
+  clean_interface = "Clean, mobile-friendly interface."
+  avatar_support = "User avatar support."
+  full_vote = "Full vote scores"
+  like_old_reddit = "like old Reddit"
+  themes_including = "Themes, including light, dark, and solarized."
+  emojis_with = "Emojis with autocomplete support. Start typing"
+  user_tagging = "User tagging using"
+  community_tagging = "Community tagging using"
+  image_uploading = "Integrated image uploading in both posts and comments."
+  notifications_including = "Notifications, including via email."
+  i18n_support = "i18n / internationalization support for > 30 languages."
+  rss_feeds = "RSS / Atom feeds for"
+  all = "All"
+  subscribed = "Subscribed"
+  inbox = "Inbox"
+  user = "User"
+  community = "Community"
+  can_fully_erase = "Can fully erase your data, replacing all posts and comments."
+  nsfw_support = "NSFW post / community support."
+  support_donate = "Support / Donate"
+  lemmy_is_free = "Lemmy is free, open-source software, meaning no advertising, monetizing, or venture capital, ever. Your donations directly support full-time development of the project."
+  support_liberapay = "Support on Liberapay"
+  support_patreon = "Support on Patreon"
+  support_opencollective = "Support on OpenCollective"
+ 
+  # join.html
+  servers = "servers"
+  choose_and_join = "Choose and join a server from the approved servers below."
+  users = "users"
+  join = "Join"
+
+  # apps.html
+  apps = "Apps"
+  choose_apps = "Choose from any of the apps below."
+  lemmur_desc = "A Lemmy client for Android, Linux, and Windows."
+  remmel_desc = "An iOS client for lemmy."
+  web_apps = "Web Apps"
+  lemmy_desc = "The official web app for lemmy."
+  lemmy_lite_desc = "A static, JSless, touch-friendly Lemmy frontend built for legacy web clients and maximum performance."
+  api_libraries = "API Libraries"
+  lemmy_js_client_desc = "a javascript / typescript client."
+  lemmy_dart_client_desc = "a dart / flutter client."
+
+  # sponsors.html
+  donate_to_lemmy = "Donate to Lemmy"
+  sponsors = "Sponsors"
+  silver_sponsors = "Silver Sponsors are those that pledged $40 to Lemmy."
+  general_sponsors = "General Sponsors are those that pledged $10 to $39 to Lemmy."
+  crypto = "Crypto"
+
 
 [extra]
 # Put all your custom variables here

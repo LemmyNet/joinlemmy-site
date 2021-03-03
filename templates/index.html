@@ -5,13 +5,13 @@
 <div class="container">
   <div class="text-center">
     <h1 class="stylized">Lemmy</h1>
-    <h4>A link aggregator for the fediverse.</h4>
+    <h4>{{ trans(key="link_aggregator_fediverse", lang=lang) }}</h4>
     <div class="row is-horizontal-align">
       <div class="col-2-lg">
-        <a class="button primary" href="/join">Join a Server</a>
+        <a class="button primary" href="/join">{{ trans(key="join_a_server", lang=lang) }}</a>
       </div>
       <div class="col-2-lg">
-        <a class="button primary" href="/docs/en/administration/administration.html">Run a Server</a>
+        <a class="button primary" href="/docs/en/administration/administration.html">{{ trans(key="run_a_server", lang=lang) }}</a>
       </div>
     </div>
   </div>
@@ -21,12 +21,9 @@
 
 <div class="container">
   <div class="text-center">
-    {{lang}}
-{{ trans(key="hello", lang=lang) }}
-
-    <h2>Follow communities anywhere in the world</h2>
-    <p><a href="https://github.com/LemmyNet">Lemmy</a> is similar to sites like <a href="https://reddit.com">Reddit</a>, <a href="https://lobste.rs">Lobste.rs</a>, or <a href="https://news.ycombinator.com/">Hacker News</a>: you subscribe to communities you're interested in, post links and discussions, then vote and comment on them. Lemmy isn't just a reddit alternative; its a network of interconnected communities ran by different people and organizations, all combining to create <b>a single, personalized front page</b> of your favorite news, articles, and memes. </p>
-    <p><a class="button primary" href="/join">Join a Server</a></p>
+    <h2>{{ trans(key="follow_communities", lang=lang) }}</h2>
+    <p><a href="https://github.com/LemmyNet">Lemmy</a> {{ trans(key="is_similar_to_sites", lang=lang) }} <a href="https://reddit.com">Reddit</a>, <a href="https://lobste.rs">Lobste.rs</a>, or <a href="https://news.ycombinator.com/">Hacker News</a>: {{ trans(key="you_subscribe_to_create", lang=lang) }} <b>{{ trans(key="a_single_frontpage", lang=lang) }}</b> {{ trans(key="of_favorite_memes", lang=lang) }} </p>
+    <p><a class="button primary" href="/join">{{ trans(key="join_a_server", lang=lang) }}</a></p>
   </div>
 </div>
 <br />
@@ -42,8 +39,8 @@
             <img height=180 src="images/review_pic.webp">
           </header>
           <br />
-          <h4 class="text-center">Open Source</h4>
-          <p>Lemmy is and will always remain free, <a href="https://github.com/LemmyNet">open source</a> software, using the strong <a href="https://en.wikipedia.org/wiki/Copyleft">copyleft</a> <a href="https://github.com/LemmyNet/lemmy/blob/master/LICENSE">AGPL License</a>.</p>
+          <h4 class="text-center">{{ trans(key="open_source", lang=lang) }}</h4>
+          <p> {{ trans(key="lemmy_remain_free", lang=lang) }} <a href="https://github.com/LemmyNet">{{ trans(key="open_source", lang=lang) }}</a>  {{ trans(key="using_the_strong", lang=lang) }} <a href="https://en.wikipedia.org/wiki/Copyleft">{{ trans(key="copyleft", lang=lang) }}</a> <a href="https://github.com/LemmyNet/lemmy/blob/master/LICENSE">{{ trans(key="agpl_license", lang=lang) }}</a>.</p>
         </div>
       </div>
       <div class="col-4">
@@ -52,8 +49,8 @@
             <img height=180 src="/images/code_pic.webp">
           </header>
           <br />
-          <h4 class="text-center">Blazing Fast</h4>
-          <p>Made using some of the fastest frameworks and tools, including <a href="https://www.rust-lang.org">Rust</a>, <a href="https://actix.rs/">Actix</a>, <a href="http://diesel.rs/">Diesel</a>, <a href="https://infernojs.org">Inferno</a>,  and <a href="https://www.typescriptlang.org/">Typescript</a>.</p>
+          <h4 class="text-center">{{ trans(key="blazing_fast", lang=lang) }}</h4>
+          <p>{{ trans(key="made_using", lang=lang) }} <a href="https://www.rust-lang.org">Rust</a>, <a href="https://actix.rs/">Actix</a>, <a href="http://diesel.rs/">Diesel</a>, <a href="https://infernojs.org">Inferno</a>, {{ trans(key="and", lang=lang) }} <a href="https://www.typescriptlang.org/">Typescript</a>.</p>
         </div>
       </div>
       <div class="col-4">
@@ -62,8 +59,8 @@
             <img height=180 src="/images/mod_pic.webp">
           </header>
           <br />
-          <h4 class="text-center">Powerful Mod Tools</h4>
-          <p>Each server can set its own moderation policy, to help foster a healthy environment where all can feel comfortable contributing.</p>
+          <h4 class="text-center">{{ trans(key="powerful_mod_tools", lang=lang) }}</h4>
+          <p>{{ trans(key="each_server_can", lang=lang) }}</p>
         </div>
       </div>
     </div>
@@ -74,10 +71,10 @@
 
   <div class="container">
     <div class="text-center">
-      <h2>Create your own discussion platform</h2>
-      <p>With Lemmy, you can <a href="/docs/en/administration/administration.html">easily host your own server</a>, and all these servers are <i>federated</i> (think email), and connected to the same universe, called the <a href="https://en.wikipedia.org/wiki/Fediverse">Fediverse</a>. For a link aggregator, this means that someone registered on one server can subscribe to communities elsewhere, and can have discussions with people on a completely different server.</p>
+      <h2>{{ trans(key="create_platform", lang=lang) }}</h2>
+      <p>{{ trans(key="with_lemmy", lang=lang) }} <a href="/docs/en/administration/administration.html">{{ trans(key="easily_host", lang=lang) }}</a>, {{ trans(key="and_all_these", lang=lang) }} <i>{{ trans(key="federated", lang=lang) }}</i> {{ trans(key="think_email", lang=lang) }} <a href="https://en.wikipedia.org/wiki/Fediverse">{{ trans(key="fediverse", lang=lang) }}</a>. {{ trans(key="for_a_link_aggregator", lang=lang) }}</p>
       <p>
-      <a class="button primary" href="/docs/en/administration/administration.html">Run a Server</a>
+      <a class="button primary" href="/docs/en/administration/administration.html">{{ trans(key="run_a_server", lang=lang) }}</a>
       </p>
     </div>
   </div>
@@ -89,8 +86,8 @@
 <div class="container">
   <div class="row">
     <div class="col-6">
-      <h4>Live Updates</h4>
-      <p>New comments and posts stream in to your front page and inbox; No more page refreshes required.</p>
+      <h4>{{ trans(key="live_updates", lang=lang) }}</h4>
+      <p>{{ trans(key="new_comments", lang=lang) }}</p>
     </div>
     <div class="col-6 is-center">
       <video height=325 autoplay loop>
@@ -109,22 +106,22 @@
       <img height=325 src="/images/mobile_pic.webp">
     </div>
     <div class="col-6">
-      <h4 class="is-marginless">More Features</h4>
+      <h4 class="is-marginless">{{ trans(key="more_features", lang=lang) }}</h4>
       <ul class="is-marginless">
-        <li>Self hostable, easy to deploy, via <a href="/docs/en/administration/install_docker.html">Docker</a>, or <a href="/docs/en/administration/install_ansible.html">Ansible</a>.
+        <li>{{ trans(key="self_hostable", lang=lang) }} <a href="/docs/en/administration/install_docker.html">Docker</a>, {{ trans(key="or", lang=lang) }} <a href="/docs/en/administration/install_ansible.html">Ansible</a>.
         </li>
-        <li>Clean, mobile-friendly interface.</li>
-        <li>User avatar support.</li>
-        <li>Full vote scores <code>(+/-)</code> like old Reddit.</li>
-        <li>Themes, including light, dark, and solarized.</li>
-        <li>Emojis with autocomplete support. Start typing <code>:</code></li>
-        <li>User tagging using <code>@</code>, Community tagging using <code>!</code>.</li>
-        <li>Integrated image uploading in both posts and comments.</li>
-        <li>Notifications, including via email.</li>
-        <li><a href="https://weblate.yerbamate.ml/projects/lemmy/lemmy/">i18n / internationalization support for > 30 languages.</a></li>
-        <li>RSS / Atom feeds for <code>All</code>, <code>Subscribed</code>, <code>Inbox</code>, <code>User</code>, and <code>Community</code>.</li>
-        <li>Can fully erase your data, replacing all posts and comments.</li>
-        <li>NSFW post / community support.</li>
+        <li>{{ trans(key="clean_interface", lang=lang) }}</li>
+        <li>{{ trans(key="avatar_support", lang=lang) }}</li>
+        <li>{{ trans(key="full_vote", lang=lang) }} <code>(+/-)</code> {{ trans(key="like_old_reddit", lang=lang) }}.</li>
+        <li>{{ trans(key="themes_including", lang=lang) }}</li>
+        <li>{{ trans(key="emojis_with", lang=lang) }} <code>:</code></li>
+        <li>{{ trans(key="user_tagging", lang=lang) }} <code>@</code>, {{ trans(key="community_tagging", lang=lang) }} <code>!</code>.</li>
+        <li>{{ trans(key="image_uploading", lang=lang) }}</li>
+        <li>{{ trans(key="notifications_including", lang=lang) }}</li>
+        <li><a href="https://weblate.yerbamate.ml/projects/lemmy/lemmy/">{{ trans(key="i18n_support", lang=lang) }}</a></li>
+        <li>{{ trans(key="rss_feeds", lang=lang) }} <code>{{ trans(key="all", lang=lang) }}</code>, <code>{{ trans(key="subscribed", lang=lang) }}</code>, <code>{{ trans(key="inbox", lang=lang) }}</code>, <code>{{ trans(key="user", lang=lang) }}</code>, {{ trans(key="and", lang=lang) }} <code>{{ trans(key="community", lang=lang) }}</code>.</li>
+        <li>{{ trans(key="can_fully_erase", lang=lang) }}</li>
+        <li>{{ trans(key="nsfw_support", lang=lang) }}</li>
       </ul>
       </p>
     </div>
@@ -136,17 +133,17 @@
   <br />
   <div class="container">
     <div class="text-center">
-      <h2><a href="/sponsors">Support / Donate</a></h2>
-      <p>Lemmy is free, open-source software, meaning no advertising, monetizing, or venture capital, ever. <a href="/sponsors">Your donations</a> directly support full-time development of the project.
+      <h2><a href="/sponsors">{{ trans(key="support_donate", lang=lang) }}</a></h2>
+      <p>{{ trans(key="lemmy_is_free", lang=lang) }}</p>
       <div class="row is-horizontal-align">
         <div class="col-3">
-          <a class="button primary" href="https://liberapay.com/Lemmy">Support on Liberapay</a>
+          <a class="button primary" href="https://liberapay.com/Lemmy">{{ trans(key="support_liberapay", lang=lang) }}</a>
         </div>
         <div class="col-3">
-          <a class="button primary" href="https://www.patreon.com/dessalines">Support on Patreon</a>
+          <a class="button primary" href="https://www.patreon.com/dessalines">{{ trans(key="support_patreon", lang=lang) }}</a>
         </div>
         <div class="col-3">
-          <a class="col button primary" href="https://opencollective.com/lemmy">Support on OpenCollective</a>
+          <a class="col button primary" href="https://opencollective.com/lemmy">{{ trans(key="support_opencollective", lang=lang) }}</a>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %} 
 <div class="container">
-  <h1>Lemmy servers</h1>
-  <p>Choose and join a server from the approved servers below.</p>
+  <h1>Lemmy {{ trans(key="servers", lang=lang) }}</h1>
+  <p>{{ trans(key="choose_and_join", lang=lang) }}</p>
 
   <div class="row">
 
@@ -10,7 +10,7 @@
       <header>
         <div class="row">
           <h4 class="col">lemmy.ml</h4>
-          <h4 class="col text-right"><i>5.9k users</i></h4>
+          <h4 class="col text-right"><i>5.9k {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -19,7 +19,7 @@
       <br />
       <p class="join-desc">The flagship instance of lemmy.</p>
       <footer>
-        <a class="button primary" href="https://lemmy.ml">Join</a>
+        <a class="button primary" href="https://lemmy.ml">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -27,7 +27,7 @@
       <header>
         <div class="row">
           <h4 class="col">lemmygrad.ml</h4>
-          <h4 class="col text-right"><i>2.3k users</i></h4>
+          <h4 class="col text-right"><i>2.3k {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -36,7 +36,7 @@
       <br />
       <p class="join-desc">A collection of leftist communities, for memes, learning, news, discussion, media, or anything you like.</p>
       <footer>
-        <a class="button primary" href="https://lemmygrad.ml">Join</a>
+        <a class="button primary" href="https://lemmygrad.ml">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -44,7 +44,7 @@
       <header>
         <div class="row">
           <h4 class="col">lemmy.161.social</h4>
-          <h4 class="col text-right"><i>50 users</i></h4>
+          <h4 class="col text-right"><i>50 {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -53,7 +53,7 @@
       <br />
       <p class="join-desc">An anti-authoritarian and emancipatory space for german speaking anti-fascists.</p>
       <footer>
-        <a class="button primary" href="https://lemmy.161.social">Join</a>
+        <a class="button primary" href="https://lemmy.161.social">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -61,7 +61,7 @@
       <header>
         <div class="row">
           <h4 class="col">baraza.africa</h4>
-          <h4 class="col text-right"><i>20 users</i></h4>
+          <h4 class="col text-right"><i>20 {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -70,7 +70,7 @@
       <br />
       <p class="join-desc">baraza is a digital public square as imagined in Bantu philosophy, one premised on the assumption that deliberative dialogue is a path to better societies.</p>
       <footer>
-        <a class="button primary" href="https://baraza.africa">Join</a>
+        <a class="button primary" href="https://baraza.africa">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -78,7 +78,7 @@
       <header>
         <div class="row">
           <h4 class="col">lemmy.glasgow.social</h4>
-          <h4 class="col text-right"><i>60 users</i></h4>
+          <h4 class="col text-right"><i>60 {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -87,7 +87,7 @@
       <br />
       <p class="join-desc">A place for communities in and around Glasgow, Scotland.</p>
       <footer>
-        <a class="button primary" href="https://lemmy.glasgow.social">Join</a>
+        <a class="button primary" href="https://lemmy.glasgow.social">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -95,7 +95,7 @@
       <header>
         <div class="row">
           <h4 class="col">lemmy.cat</h4>
-          <h4 class="col text-right"><i>30 users</i></h4>
+          <h4 class="col text-right"><i>30 {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -104,7 +104,7 @@
       <br />
       <p class="join-desc">A Lemmy instance for people of Catalan culture.</p>
       <footer>
-        <a class="button primary" href="https://lemmy.cat">Join</a>
+        <a class="button primary" href="https://lemmy.cat">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -112,7 +112,7 @@
       <header>
         <div class="row">
           <h4 class="col">lemmy.ca</h4>
-          <h4 class="col text-right"><i>11 users</i></h4>
+          <h4 class="col text-right"><i>11 {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -121,7 +121,7 @@
       <br />
       <p class="join-desc">A Lemmy geared toward Canucks, hosted in Canuckistan, and run by a Canuck.</p>
       <footer>
-        <a class="button primary" href="https://lemmy.ca">Join</a>
+        <a class="button primary" href="https://lemmy.ca">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -129,7 +129,7 @@
       <header>
         <div class="row">
           <h4 class="col">lemmy.eus</h4>
-          <h4 class="col text-right"><i>100 users</i></h4>
+          <h4 class="col text-right"><i>100 {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -138,7 +138,7 @@
       <br />
       <p class="join-desc">A Basque Lemmy instance.</p>
       <footer>
-        <a class="button primary" href="https://lemmy.eus">Join</a>
+        <a class="button primary" href="https://lemmy.eus">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -146,7 +146,7 @@
       <header>
         <div class="row">
           <h4 class="col">sopuli.xyz</h4>
-          <h4 class="col text-right"><i>10 users</i></h4>
+          <h4 class="col text-right"><i>10 {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -155,7 +155,7 @@
       <br />
       <p class="join-desc">A general-purpose Finnish instance.</p>
       <footer>
-        <a class="button primary" href="https://sopuli.xyz">Join</a>
+        <a class="button primary" href="https://sopuli.xyz">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
@@ -163,7 +163,7 @@
       <header>
         <div class="row">
           <h4 class="col">stammtisch.hallertau.social</h4>
-          <h4 class="col text-right"><i>~10 users</i></h4>
+          <h4 class="col text-right"><i>~10 {{ trans(key="users", lang=lang) }}</i></h4>
         </div>
       </header>
       <div class="is-center">
@@ -172,7 +172,7 @@
       <br />
       <p class="join-desc">Sitz de hera, samma mehra.</p>
       <footer>
-        <a class="button primary" href="https://stammtisch.hallertau.social">Join</a>
+        <a class="button primary" href="https://stammtisch.hallertau.social">{{ trans(key="join", lang=lang) }}</a>
       </footer>
     </div>
 
