@@ -3,4 +3,5 @@ git submodule update --remote
 git add lemmy-docs
 git commit -m"Updating docs"
 git push
-ssh tyler@5.196.14.162 'cd ~/joinlemmy-site && git pull --recurse-submodules && bash -l build.sh'
+rsync --rsync-path="sudo rsync" -chavzP /var/www/joinlemmy --stats tyler@lemmy.ml:/var/www/
+ssh tyler@lemmy.ml 'sudo systemctl reload nginx'
