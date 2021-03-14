@@ -28,7 +28,10 @@ export class Join extends Component<any, any> {
                 </div>
               </header>
               <div class="is-center">
-                <img class="join-banner" src="/static/assets/images/lemmy.svg" />
+                <img
+                  class="join-banner"
+                  src="/static/assets/images/lemmy.svg"
+                />
               </div>
               <br />
               <p class="join-desc">The flagship instance of lemmy.</p>
@@ -103,7 +106,10 @@ export class Join extends Component<any, any> {
                 </div>
               </header>
               <div class="is-center">
-                <img class="join-banner" src="/static/assets/images/lemmy.svg" />
+                <img
+                  class="join-banner"
+                  src="/static/assets/images/lemmy.svg"
+                />
               </div>
               <br />
               <p class="join-desc">
@@ -207,7 +213,10 @@ export class Join extends Component<any, any> {
                 </div>
               </header>
               <div class="is-center">
-                <img class="join-banner" src="/static/assets/images/lemmy.svg" />
+                <img
+                  class="join-banner"
+                  src="/static/assets/images/lemmy.svg"
+                />
               </div>
               <br />
               <p class="join-desc">A Basque Lemmy instance.</p>
@@ -279,7 +288,10 @@ export class Join extends Component<any, any> {
                 </div>
               </header>
               <div class="is-center">
-                <img class="join-banner" src="/static/assets/images/lemmy.svg" />
+                <img
+                  class="join-banner"
+                  src="/static/assets/images/lemmy.svg"
+                />
               </div>
               <br />
               <p class="join-desc">A polish anti-fascist instance.</p>

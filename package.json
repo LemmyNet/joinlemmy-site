@@ -8,6 +8,7 @@
     "build:prod": "webpack --mode=production",
     "clean": "yarn run rimraf dist",
     "lint": "tsc --noEmit && eslint --report-unused-disable-directives --ext .js,.ts,.tsx src",
+    "postinstall": "husky install",
     "prebuild:dev": "yarn clean",
     "prebuild:prod": "yarn clean",
     "start": "yarn build:dev --watch"

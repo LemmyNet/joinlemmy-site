@@ -32,7 +32,7 @@ export class Footer extends Component<any, any> {
             </p>
           </div>
           <div class="nav-right hide-sm hide-md hide-lg">
-          <LinkLine />
+            <LinkLine />
           </div>
         </nav>
       </footer>
