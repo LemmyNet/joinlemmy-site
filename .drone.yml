@@ -8,9 +8,10 @@ platform:
 
 steps:
 
-  - name: submodules
+  - name: fetch git submodules
     image: alpine/git
     commands:
+    - git submodule init
     - git submodule update --recursive --remote
     - ls lemmy-docs/src
 
