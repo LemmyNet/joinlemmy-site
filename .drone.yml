@@ -8,12 +8,11 @@ platform:
 
 steps:
 
-  - name: fetch git submodules
-    image: node:14-alpine
+  - name: submodules
+    image: alpine/git
     commands:
-      - apk add git
-      - git submodule update --recursive --remote
-      - ls lemmy-docs
+    - git submodule update --recursive --remote
+    - ls lemmy-docs/src
 
   - name: yarn
     image: node:14-alpine
