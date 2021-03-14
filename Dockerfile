@@ -7,7 +7,6 @@ RUN cargo install mdbook \
   --rev 0982a82
 COPY lemmy-docs ./lemmy-docs
 RUN mdbook build lemmy-docs -d ../docs
-RUN find /app
 
 # Build the asyncapi API docs
 FROM asyncapi/generator:1.1.7 as api
@@ -39,8 +38,6 @@ COPY --from=api /app/api ./src/assets/api
 
 RUN yarn
 RUN yarn build:prod
-
-RUN find ./src/assets
 
 FROM node:14-alpine as runner
 COPY --from=builder /app/dist /app/dist
