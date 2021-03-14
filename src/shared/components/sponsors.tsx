@@ -1,6 +1,19 @@
-+++
-template = "page.html"
-+++
+import { Component } from "inferno";
+import { Helmet } from "inferno-helmet";
+
+const title = "Lemmy - Sponsors";
+
+export class Sponsors extends Component<any, any> {
+  constructor(props: any, context: any) {
+    super(props, context);
+  }
+  render() {
+    return (
+      <div>
+        <Helmet title={title}>
+          <meta property={"title"} content={title} />
+        </Helmet>
+        <div class="container">
 
 <div class="text-center">
   <h1>Donate to Lemmy</h1>
@@ -17,10 +30,9 @@ template = "page.html"
       <a class="col button primary" href="https://opencollective.com/lemmy">Support on OpenCollective</a>
     </div>
   </div>
-  </p>
 </div>
 
----
+<hr />
 
 <div class="text-center">
   <h2>Sponsors</h2>
@@ -86,3 +98,8 @@ template = "page.html"
       <tr><td>monero</td><td><code>41taVyY6e1xApqKyMVDRVxJ76sPkfZhALLTjRvVKpaAh2pBd4wv9RgYj1tSPrx8wc6iE1uWUfjtQdTmTy2FGMeChGVKPQuV</code></td></tr>
     </table>
 </div>
+</div>
+</div>
+);
+    }
+}

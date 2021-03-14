@@ -1,15 +1,28 @@
-+++
-template = "page.html"
-+++
+import { Component } from "inferno";
+import { Helmet } from "inferno-helmet";
 
-# Contact
+const title = "Lemmy - Contact";
 
-- [Mastodon](https://mastodon.social/@LemmyDev)
-- [Matrix](https://matrix.to/#/#lemmy:matrix.org)
-- [GitHub](https://github.com/LemmyNet/lemmy)
-- [security@lemmy.ml](mailto:security@lemmy.ml)   *PGP key below*
+export class Contact extends Component<any, any> {
+  constructor(props: any, context: any) {
+    super(props, context);
+  }
+  render() {
+    return (
+      <div>
+        <Helmet title={title}>
+          <meta property={"title"} content={title} />
+        </Helmet>
+        <div class="container">
+<h1>Contact</h1>
 
-```
+<ul>
+<li><a href="https://mastodon.social/@LemmyDev">Mastodon</a></li>
+<li><a href="https://matrix.to/#/#lemmy:matrix.org">Matrix</a></li>
+<li><a href="https://github.com/LemmyNet/lemmy">GitHub</a></li>
+<li><a href="mailto:security@lemmy.ml">security@lemmy.ml</a>   <em>PGP key below</em></li>
+</ul>
+<pre><code>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQGNBF+Fv+QBDACZO6MZiGq60I0UxsSyl3XCyYa2RD2gGJy4rjYe7m/cYvOBrjbb
@@ -51,5 +64,9 @@ qmD9J124tdP1q/HWq/VTL9CgLbpi9QXNt4NNwo9OJAQf3I2SjqywjhIzGzYrj0PP
 RnELNHhlJZ4s
 =VWLX
 -----END PGP PUBLIC KEY BLOCK-----
-
-```
+</code></pre>
+        </div>
+        </div>
+        );
+  }
+}

@@ -1,0 +1,324 @@
+import { Component } from "inferno";
+import { Helmet } from "inferno-helmet";
+
+const title = "Lemmy - Join a Server";
+
+export class Join extends Component<any, any> {
+  constructor(props: any, context: any) {
+    super(props, context);
+  }
+  render() {
+    return (
+      <div>
+        <Helmet title={title}>
+          <meta property={"title"} content={title} />
+        </Helmet>
+        <div class="container">
+          <h1>Lemmy servers</h1>
+          <p>Choose and join a server from the approved servers below.</p>
+
+          <div class="row">
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">lemmy.ml</h4>
+                  <h4 class="col text-right">
+                    <i>5.9k users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img class="join-banner" src="/static/assets/images/lemmy.svg" />
+              </div>
+              <br />
+              <p class="join-desc">The flagship instance of lemmy.</p>
+              <footer>
+                <a class="button primary" href="https://lemmy.ml">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">lemmygrad.ml</h4>
+                  <h4 class="col text-right">
+                    <i>2.3k users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src="https://lemmygrad.ml/pictrs/image/YI2XNWaVUv.png?format=webp"
+                />
+              </div>
+              <br />
+              <p class="join-desc">
+                A collection of leftist communities, for memes, learning, news,
+                discussion, media, or anything you like.
+              </p>
+              <footer>
+                <a class="button primary" href="https://lemmygrad.ml">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">lemmy.161.social</h4>
+                  <h4 class="col text-right">
+                    <i>50 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src="https://lemmy.161.social/pictrs/image/n3Stw3I1g0.png?format=webp"
+                />
+              </div>
+              <br />
+              <p class="join-desc">
+                An anti-authoritarian and emancipatory space for german speaking
+                anti-fascists.
+              </p>
+              <footer>
+                <a class="button primary" href="https://lemmy.161.social">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">baraza.africa</h4>
+                  <h4 class="col text-right">
+                    <i>20 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img class="join-banner" src="/static/assets/images/lemmy.svg" />
+              </div>
+              <br />
+              <p class="join-desc">
+                baraza is a digital public square as imagined in Bantu
+                philosophy, one premised on the assumption that deliberative
+                dialogue is a path to better societies.
+              </p>
+              <footer>
+                <a class="button primary" href="https://baraza.africa">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">lemmy.glasgow.social</h4>
+                  <h4 class="col text-right">
+                    <i>60 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src="https://glasgow.social/system/site_uploads/files/000/000/001/original/fuller_street1_sq.jpg?1579523706"
+                />
+              </div>
+              <br />
+              <p class="join-desc">
+                A place for communities in and around Glasgow, Scotland.
+              </p>
+              <footer>
+                <a class="button primary" href="https://lemmy.glasgow.social">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">lemmy.cat</h4>
+                  <h4 class="col text-right">
+                    <i>30 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src="https://lemmy.cat/pictrs/image/p63LCl9dD2.jpg?format=webp&thumbnail=3000"
+                />
+              </div>
+              <br />
+              <p class="join-desc">
+                A Lemmy instance for people of Catalan culture.
+              </p>
+              <footer>
+                <a class="button primary" href="https://lemmy.cat">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">lemmy.ca</h4>
+                  <h4 class="col text-right">
+                    <i>11 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src="https://lemmy.ca/pictrs/image/YMyO670EYs.png?format=webp&thumbnail=3000"
+                />
+              </div>
+              <br />
+              <p class="join-desc">
+                A Lemmy geared toward Canucks, hosted in Canuckistan, and run by
+                a Canuck.
+              </p>
+              <footer>
+                <a class="button primary" href="https://lemmy.ca">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">lemmy.eus</h4>
+                  <h4 class="col text-right">
+                    <i>100 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img class="join-banner" src="/static/assets/images/lemmy.svg" />
+              </div>
+              <br />
+              <p class="join-desc">A Basque Lemmy instance.</p>
+              <footer>
+                <a class="button primary" href="https://lemmy.eus">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">sopuli.xyz</h4>
+                  <h4 class="col text-right">
+                    <i>10 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src="https://sopuli.xyz/pictrs/image/RmuyRzuchU.png?format=webp&thumbnail=3000"
+                />
+              </div>
+              <br />
+              <p class="join-desc">A general-purpose Finnish instance.</p>
+              <footer>
+                <a class="button primary" href="https://sopuli.xyz">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">stammtisch.hallertau.social</h4>
+                  <h4 class="col text-right">
+                    <i>~10 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src="https://stammtisch.hallertau.social/pictrs/image/TbUbi4vFwZ.jpg?format=webp&thumbnail=3000"
+                />
+              </div>
+              <br />
+              <p class="join-desc">Sitz de hera, samma mehra.</p>
+              <footer>
+                <a
+                  class="button primary"
+                  href="https://stammtisch.hallertau.social"
+                >
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">szmer.info</h4>
+                  <h4 class="col text-right">
+                    <i>300 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img class="join-banner" src="/static/assets/images/lemmy.svg" />
+              </div>
+              <br />
+              <p class="join-desc">A polish anti-fascist instance.</p>
+              <footer>
+                <a class="button primary" href="https://szmer.info">
+                  Join
+                </a>
+              </footer>
+            </div>
+
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">diversa.social</h4>
+                  <h4 class="col text-right">
+                    <i>~ 10 users</i>
+                  </h4>
+                </div>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src="https://diversa.social/pictrs/image/Slw1Nu62Gm.png?format=webp&thumbnail=3000"
+                />
+              </div>
+              <br />
+              <p class="join-desc">
+                Instancia multitemática en español con un enfoque constructivo y
+                solidario.
+              </p>
+              <footer>
+                <a class="button primary" href="https://diversa.social">
+                  Join
+                </a>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
