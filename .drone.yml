@@ -13,6 +13,7 @@ steps:
     commands:
       - apk add git
       - git submodule update --recursive --remote
+      - ls lemmy-docs
 
   - name: yarn
     image: node:14-alpine
