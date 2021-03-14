@@ -1,5 +1,4 @@
 import { Component } from "inferno";
-import { Link } from "inferno-router";
 import { LinkLine } from "./link-line";
 
 export class Footer extends Component<any, any> {

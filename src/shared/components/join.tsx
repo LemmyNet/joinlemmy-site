@@ -3,6 +3,8 @@ import { Helmet } from "inferno-helmet";
 
 const title = "Lemmy - Join a Server";
 
+// TODO wait until new lemmy-instances is written to refactor this
+
 export class Join extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
