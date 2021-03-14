@@ -12,7 +12,6 @@ steps:
     image: node:14-alpine
     commands:
       - apk add git
-      - git submodule init
       - git submodule update --recursive --remote
 
   - name: yarn
