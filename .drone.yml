@@ -55,59 +55,6 @@ steps:
       template: "dessalines/joinlemmy-site:${DRONE_TAG}-OS-ARCH"
       platforms:
         - linux/amd64
-        - linux/arm64
-      ignore_missing: true
-    when:
-      ref:
-      - refs/tags/*
-
----
-kind: pipeline
-name: arm64
-
-platform:
-  os: linux
-  arch: arm64
-
-steps:
-
-  - name: fetch git submodules
-    image: node:14-alpine
-    commands:
-      - apk add git
-      - git submodule init
-      - git submodule update --recursive --remote
-    when:
-      ref:
-        - refs/tags/*
-
-  - name: make release build and push to docker hub
-    image: plugins/docker
-    settings:
-      dockerfile: Dockerfile
-      repo: dessalines/joinlemmy-site
-      auto_tag: true
-      auto_tag_suffix: linux-arm64
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-    when:
-      ref:
-        - refs/tags/*
-
-  - name: push to docker manifest
-    image: plugins/manifest
-    settings: 
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      target: "dessalines/joinlemmy-site:${DRONE_TAG}"
-      template: "dessalines/joinlemmy-site:${DRONE_TAG}-OS-ARCH"
-      platforms:
-        - linux/amd64
-        - linux/arm64
       ignore_missing: true
     when:
       ref:
