@@ -1,4 +1,5 @@
 import { Component } from "inferno";
+import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { DonateLines } from "./donate-lines";
 
@@ -8,6 +9,26 @@ export class Main extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
   }
+
+  joinServer() {
+    return (
+      <Link className="button primary" to="/join">
+        Join a Server
+      </Link>
+    );
+  }
+
+  runServer() {
+    return (
+      <a
+        class="button primary"
+        href="/docs/en/administration/administration.html"
+      >
+        Run a Server
+      </a>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -20,19 +41,8 @@ export class Main extends Component<any, any> {
             <h1 class="stylized">Lemmy</h1>
             <h4>A link aggregator for the fediverse.</h4>
             <div class="row is-horizontal-align">
-              <div class="col-2-lg">
-                <a class="button primary" href="/join">
-                  Join a Server
-                </a>
-              </div>
-              <div class="col-2-lg">
-                <a
-                  class="button primary"
-                  href="/docs/en/administration/administration.html"
-                >
-                  Run a Server
-                </a>
-              </div>
+              <div class="col-2-lg">{this.joinServer()}</div>
+              <div class="col-2-lg">{this.runServer()}</div>
             </div>
           </div>
         </div>
@@ -54,11 +64,7 @@ export class Main extends Component<any, any> {
               <b>a single, personalized front page</b> of your favorite news,
               articles, and memes.{" "}
             </p>
-            <p>
-              <a class="button primary" href="/join">
-                Join a Server
-              </a>
-            </p>
+            <p>{this.joinServer()}</p>
           </div>
         </div>
         <br />
@@ -150,14 +156,7 @@ export class Main extends Component<any, any> {
                 server can subscribe to communities elsewhere, and can have
                 discussions with people on a completely different server.
               </p>
-              <p>
-                <a
-                  class="button primary"
-                  href="/docs/en/administration/administration.html"
-                >
-                  Run a Server
-                </a>
-              </p>
+              <p>{this.runServer()}</p>
             </div>
           </div>
           <br />

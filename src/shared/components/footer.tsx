@@ -9,21 +9,17 @@ export class Footer extends Component<any, any> {
   render() {
     return (
       <footer>
+        <br />
         <nav class="nav">
           <div class="nav-left">
             <p style="padding-left: 2rem">
-              Made using
-              <a
-                style="display: inline-block"
-                class="is-paddingless"
-                href="https://www.getzola.org"
-              >
-                Zola
+              Made with
+              <a style="display: inline-block" href="https://infernojs.org">
+                Inferno
               </a>
               and
               <a
                 style="display: inline-block"
-                class="is-paddingless"
                 href="https://jenil.github.io/chota"
               >
                 Chota

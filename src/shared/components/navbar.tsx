@@ -13,7 +13,7 @@ export class Navbar extends Component<any, any> {
       <>
         <nav class="nav hide-xs">
           <div class="nav-left">
-            <Link class="brand" to="/">
+            <Link className="brand" to="/">
               <img
                 src="/static/assets/images/lemmy.svg"
                 height="32"
@@ -36,7 +36,7 @@ export class Navbar extends Component<any, any> {
         </nav>
         <nav class="nav hide-sm hide-md hide-lg">
           <div class="nav-center">
-            <Link class="brand" to="/">
+            <Link className="brand" to="/">
               <img src="/static/assets/images/lemmy.svg" />
             </Link>
           </div>
