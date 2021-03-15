@@ -43,19 +43,3 @@ steps:
     when:
       ref:
         - refs/tags/*
-
-  - name: push to docker manifest
-    image: plugins/manifest
-    settings: 
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      target: "dessalines/joinlemmy-site:${DRONE_TAG}"
-      template: "dessalines/joinlemmy-site:${DRONE_TAG}-OS-ARCH"
-      platforms:
-        - linux/amd64
-      ignore_missing: true
-    when:
-      ref:
-      - refs/tags/*
