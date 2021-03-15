@@ -36,6 +36,8 @@ steps:
       repo: dessalines/joinlemmy-site
       auto_tag: true
       auto_tag_suffix: linux-amd64
+      tags:
+        - latest
       username:
         from_secret: docker_username
       password:
