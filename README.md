@@ -1,15 +1,15 @@
-# Join lemmy site
+# JoinLemmy-site
 
 ## Requirements
-- [zola](https://www.getzola.org/)
-- `yarn` to build the API docs
-- `cargo` to build the mdbook docs
+
+- Docker
 
 ## Running
 
-To test / make changes: 
+```
+docker build -t joinlemmy-site
+docker run -p 3000:1234 joinlemmy-site
+```
 
-- run `./serve.sh`
-- Goto http://127.0.0.1:1111
-- Goto http://127.0.0.1:1111/docs/en/index.html for docs
-- Goto http://127.0.0.1:1111/api/index.html for API
+and goto http://localhost:3000
+
