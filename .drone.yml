@@ -34,8 +34,6 @@ steps:
     settings:
       dockerfile: Dockerfile
       repo: dessalines/joinlemmy-site
-      auto_tag: true
-      auto_tag_suffix: linux-amd64
       tags:
         - latest
       username:
