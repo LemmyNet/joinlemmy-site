@@ -102,7 +102,19 @@ channels:
         $ref: "#/components/messages/loginRequest"
     subscribe:
       summary: Login (response)
-      description: Returns an authentication string (`jwt`) for the supplied username or emal
+      description: |-
+        Returns an authentication string (`jwt`) for the supplied username or email.
+        The JWT claim is in the following format: 
+
+        ```
+        Claims {
+          // local_user_id, standard claim by RFC 7519.
+          sub: i32,
+          iss: String,
+          // Time when this token was issued as UNIX-timestamp in seconds
+          iat: i64,
+        }
+        ```
       operationId: loginResponseMessage
       tags:
         - name: User, authentication and admin
