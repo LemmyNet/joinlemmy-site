@@ -7,10 +7,10 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production",
     "clean": "yarn run rimraf dist",
-    "lint": "tsc --noEmit && eslint --report-unused-disable-directives --ext .js,.ts,.tsx src",
+    "lint": "node generate_translations.js && tsc --noEmit && eslint --report-unused-disable-directives --ext .js,.ts,.tsx src",
     "postinstall": "husky install",
-    "prebuild:dev": "yarn clean",
-    "prebuild:prod": "yarn clean",
+    "prebuild:dev": "yarn clean && node generate_translations.js",
+    "prebuild:prod": "yarn clean && node generate_translations.js",
     "start": "yarn build:dev --watch"
   },
   "repository": "https://github.com/LemmyNet/joinlemmy-site",
@@ -23,6 +23,7 @@
     "inferno-create-element": "^7.4.8",
     "inferno-helmet": "^5.2.1",
     "inferno-hydrate": "^7.4.8",
+    "inferno-i18next": "github:nimbusec-oss/inferno-i18next#semver:^7.4.2",
     "inferno-router": "^7.4.8",
     "inferno-server": "^7.4.8"
   },

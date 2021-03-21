@@ -1,5 +1,6 @@
 import { Component } from "inferno";
 import { Link } from "inferno-router";
+import { i18n } from "../i18next";
 
 export class LinkLine extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -8,14 +9,17 @@ export class LinkLine extends Component<any, any> {
   render() {
     return (
       <>
-        <Link to="/join">Join</Link>
-        <Link to="/apps">Apps</Link>
-        <Link to="/sponsors">Sponsors</Link>
-        <a href="/docs/en/index.html">Docs</a>
-        <a href="/docs/en/code_of_conduct.html" title="Code of Conduct">
-          CoC
+        <Link to="/join">{i18n.t("join")}</Link>
+        <Link to="/apps">{i18n.t("apps")}</Link>
+        <Link to="/sponsors">{i18n.t("sponsors")}</Link>
+        <a href="/docs/en/index.html">{i18n.t("docs")}</a>
+        <a
+          href="/docs/en/code_of_conduct.html"
+          title={i18n.t("code_of_conduct")}
+        >
+          {i18n.t("coc")}
         </a>
-        <Link to="/contact">Contact</Link>
+        <Link to="/contact">{i18n.t("contact")}</Link>
       </>
     );
   }

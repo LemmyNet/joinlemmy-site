@@ -1,4 +1,7 @@
 import { Component } from "inferno";
+import { Link } from "inferno-router";
+import { i18n } from "../i18next";
+import { T } from "inferno-i18next";
 
 export class DonateLines extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -8,20 +11,19 @@ export class DonateLines extends Component<any, any> {
     return (
       <>
         <p>
-          Lemmy is free, open-source software, meaning no advertising,
-          monetizing, or venture capital, ever.{" "}
-          <a href="/sponsors">Your donations</a> directly support full-time
-          development of the project.
+          <T i18nKey="donate_desc">
+            #<Link to="/sponsors">#</Link>#
+          </T>
         </p>
         <div class="row is-horizontal-align">
           <div class="col-3">
             <a class="button primary" href="https://liberapay.com/Lemmy">
-              Support on Liberapay
+              {i18n.t("support_on_liberapay")}
             </a>
           </div>
           <div class="col-3">
             <a class="button primary" href="https://www.patreon.com/dessalines">
-              Support on Patreon
+              {i18n.t("support_on_patreon")}
             </a>
           </div>
           <div class="col-3">
@@ -29,7 +31,7 @@ export class DonateLines extends Component<any, any> {
               class="col button primary"
               href="https://opencollective.com/lemmy"
             >
-              Support on OpenCollective
+              {i18n.t("support_on_opencollective")}
             </a>
           </div>
         </div>

@@ -1,8 +1,9 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { DonateLines } from "./donate-lines";
+import { i18n } from "../i18next";
 
-const title = "Lemmy - Sponsors";
+const title = i18n.t("sponsors_title");
 
 interface LinkedSponsor {
   name: string;
@@ -40,15 +41,15 @@ export class Sponsors extends Component<any, any> {
         </Helmet>
         <div class="container">
           <div class="text-center">
-            <h1>Donate to Lemmy</h1>
+            <h1>{i18n.t("donate_to_lemmy")}</h1>
             <DonateLines />
           </div>
 
           <hr />
 
           <div class="text-center">
-            <h2>Sponsors</h2>
-            <p>Silver Sponsors are those that pledged $40 to Lemmy.</p>
+            <h2>{i18n.t("sponsors")}</h2>
+            <p>{i18n.t("silver_sponsors_desc")}</p>
             <div class="row is-horizontal-align">
               {silverSponsors.map(s => (
                 <div class="col">
@@ -59,7 +60,7 @@ export class Sponsors extends Component<any, any> {
               ))}
             </div>
             <br />
-            <p>General Sponsors are those that pledged $10 to $39 to Lemmy.</p>
+            <p>{i18n.t("general_sponsors_desc")}</p>
             <div class="row is-horizontal-align">
               {highlightedSponsors.map(s => (
                 <div class="col">

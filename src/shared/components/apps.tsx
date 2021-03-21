@@ -1,8 +1,9 @@
 import { Component } from "inferno";
 import { AppDetails } from "./app-details";
 import { Helmet } from "inferno-helmet";
+import { i18n } from "../i18next";
 
-const title = "Lemmy - Apps and Libraries";
+const title = i18n.t("apps_title");
 
 export class Apps extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -15,8 +16,8 @@ export class Apps extends Component<any, any> {
           <meta property={"title"} content={title} />
         </Helmet>
         <div class="container">
-          <h1>Lemmy Apps</h1>
-          <p>Choose from any of the apps below.</p>
+          <h1>{i18n.t("lemmy_apps")}</h1>
+          <p>{i18n.t("choose_from_apps")}</p>
 
           <div class="row">
             <div class="card col-6">
@@ -66,7 +67,7 @@ export class Apps extends Component<any, any> {
             </div>
           </div>
 
-          <h1>Web Apps</h1>
+          <h1>{i18n.t("web_apps")}</h1>
 
           <div class="row">
             <div class="card col-6">
@@ -100,7 +101,7 @@ export class Apps extends Component<any, any> {
             </div>
           </div>
 
-          <h1>Lemmy API Libraries</h1>
+          <h1>{i18n.t("api_libraries")}</h1>
           <ul>
             <li>
               <a href="https://github.com/LemmyNet/lemmy-js-client">

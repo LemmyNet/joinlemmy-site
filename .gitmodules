@@ -2,3 +2,7 @@
 	path = lemmy-docs
 	url = https://github.com/lemmynet/lemmy-docs
 	branch = main
+[submodule "joinlemmy-translations"]
+	path = joinlemmy-translations
+	url = https://github.com/lemmynet/joinlemmy-translations
+	branch = main

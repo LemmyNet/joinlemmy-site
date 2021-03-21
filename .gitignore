@@ -13,3 +13,4 @@ node_modules
 *.log
 *.swp
 *.orig
+src/shared/translations
