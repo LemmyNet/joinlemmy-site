@@ -16,13 +16,10 @@ export class Footer extends Component<any, any> {
             <p style="padding-left: 2rem">
               <T i18nKey="footer_desc">
                 #
-                <a style="display: inline-block" href="https://infernojs.org">
+                <a class="footer-name" href="https://infernojs.org">
                   #
                 </a>
-                <a
-                  style="display: inline-block"
-                  href="https://jenil.github.io/chota"
-                >
+                <a class="footer-name" href="https://jenil.github.io/chota">
                   #
                 </a>
               </T>
