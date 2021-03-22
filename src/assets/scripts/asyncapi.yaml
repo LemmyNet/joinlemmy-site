@@ -102,7 +102,19 @@ channels:
         $ref: "#/components/messages/loginRequest"
     subscribe:
       summary: Login (response)
-      description: Returns an authentication string (`jwt`) for the supplied username or emal
+      description: |-
+        Returns an authentication string (`jwt`) for the supplied username or email.
+        The JWT claim is in the following format: 
+
+        ```
+        Claims {
+          // local_user_id, standard claim by RFC 7519.
+          sub: i32,
+          iss: String,
+          // Time when this token was issued as UNIX-timestamp in seconds
+          iat: i64,
+        }
+        ```
       operationId: loginResponseMessage
       tags:
         - name: User, authentication and admin
@@ -156,30 +168,30 @@ channels:
         - name: User, authentication and admin
       message:
         $ref: "#/components/messages/registerResponse"
-  GetUserDetails:
+  GetPersonDetails:
     publish:
-      summary: GetUserDetails (request)
+      summary: GetPersonDetails (request)
       description: |-
         - Use the `username` field to return details about a local user
-        - Use the `user_id` field to return details about a federated user.
+        - Use the `person_id` field to return details about a federated user.
 
         #### HTTP API - operation and endpoint.
 
         `GET /user`
-      operationId: getUserDetailsMessage
+      operationId: getPersonDetailsMessage
       tags:
         - name: User, authentication and admin
       message:
-        $ref: "#/components/messages/getUserDetailsRequest"
+        $ref: "#/components/messages/getPersonDetailsRequest"
     subscribe:
-      summary: GetUserDetails (response)
-      description: Returns full details about a specified user (including the last post the user wrote)
-      operationId: getUserDetailsResponseMessage
+      summary: GetPersonDetails (response)
+      description: Returns full details about a specified person (including the last post the person wrote)
+      operationId: getPersonDetailsResponseMessage
       tags:
         - name: User, authentication and admin
       message:
         oneOf:
-          - $ref: "#/components/messages/getUserDetailsResponse"
+          - $ref: "#/components/messages/getPersonDetailsResponse"
           - $ref: "#/components/messages/errorResponse"
   SaveUserSettings:
     publish:
@@ -220,7 +232,7 @@ channels:
       tags:
         - name: User, authentication and admin
       message:
-        $ref: "#/components/messages/getUserRepliesRequest"
+        $ref: "#/components/messages/getRepliesRequest"
     subscribe:
       summary: GetReplies (response)
       description: Returns detailed reply data
@@ -231,22 +243,22 @@ channels:
         oneOf:
           - $ref: "#/components/messages/repliesResponse"
           - $ref: "#/components/messages/errorResponse"
-  GetUserMentions:
+  GetPersonMentions:
     publish:
-      summary: GetUserMentions (request)
+      summary: GetPersonMentions (request)
       description: |-
         Return any @ mentions of the user in posts and comments
 
         #### HTTP API - operation and endpoint.
 
         `GET /user/mention`
-      operationId: getUserMentionsRequestMessage
+      operationId: getPersonMentionsRequestMessage
       tags:
         - name: User, authentication and admin
       message:
-        $ref: "#/components/messages/getUserMentionsRequest"
+        $ref: "#/components/messages/getPersonMentionsRequest"
     subscribe:
-      summary: GetUserMentions (response)
+      summary: GetPersonMentions (response)
       description: Returns detailed data about mentions
       operationId: getMentionsResponseMessage
       tags:
@@ -255,9 +267,9 @@ channels:
         oneOf:
           - $ref: "#/components/messages/mentionsResponse"
           - $ref: "#/components/messages/errorResponse"
-  MarkUserMentionAsRead:
+  MarkPersonMentionAsRead:
     publish:
-      summary: MarkUserMentionAsRead (request)
+      summary: MarkPersonMentionAsRead (request)
       description: |-
         Mark a specified mention as read. Only the recipient of a mention can do this.
 
@@ -270,7 +282,7 @@ channels:
       message:
         $ref: "#/components/messages/markMentionsRequest"
     subscribe:
-      summary: MarkUserMentionAsRead (response)
+      summary: MarkPersonMentionAsRead (response)
       description: Returns detailed data about the mention
       operationId: markMentionResponseMessage
       tags:
@@ -453,7 +465,7 @@ channels:
       description: |-
         Grant admin rights to the specified user.
 
-        Only admin users can do this - `auth` must be the authentication string for an existing admin user.
+        Only admins can do this - `auth` must be the authentication string for an existing admin user.
 
         #### HTTP API - operation and endpoint.
 
@@ -473,9 +485,9 @@ channels:
         oneOf:
           - $ref: "#/components/messages/addAdminResponse"
           - $ref: "#/components/messages/errorResponse"
-  BanUser:
+  BanPerson:
     publish:
-      summary: BanUser (request)
+      summary: BanPerson (request)
       description: |-
         Ban user from posting, commenting or adding communities. Optionally, remove all comments, posts and communities at the same time.
 
@@ -484,20 +496,20 @@ channels:
         #### HTTP API - operation and endpoint.
 
         `POST /user/ban`
-      operationId: banUserRequestMessage
+      operationId: banPersonRequestMessage
       tags:
         - name: User, authentication and admin
       message:
-        $ref: "#/components/messages/banUserRequest"
+        $ref: "#/components/messages/banPersonRequest"
     subscribe:
-      summary: BanUser (response)
+      summary: BanPerson (response)
       description: Confirm that the user has been banned
-      operationId: banUserResponseMessage
+      operationId: banPersonnosrePnabnosrePnabe
       tags:
         - name: User, authentication and admin
       message:
         oneOf:
-          - $ref: "#/components/messages/banUserResponse"
+          - $ref: "#/components/messages/banPersonResponse"
           - $ref: "#/components/messages/errorResponse"
   UserJoin:
     publish:
@@ -677,7 +689,7 @@ channels:
     publish:
       summary: TransferSite (request)
       description: |-
-        Transfer ownership of the site from one admin user (`auth`) to another (`user_id`)
+        Transfer ownership of the site from one admin user (`auth`) to another (`person_id`)
 
         #### HTTP API - operation and endpoint.
 
@@ -821,7 +833,7 @@ channels:
     publish:
       summary: BanFromCommunity (request)
       description: |-
-        Request to ban a user (`user_id`) from a specified community.
+        Request to ban a person (`person_id`) from a specified community.
 
         #### HTTP API - operation and endpoint.
 
@@ -845,7 +857,7 @@ channels:
     publish:
       summary: AddModToCommunity (request)
       description: |-
-        Request to add another moderator (`user_id`) to the specified community (`community_id`).
+        Request to add another moderator (`person_id`) to the specified community (`community_id`).
 
         The account making the request (`auth`) must be either an admin or a moderator of that community.
 
@@ -996,7 +1008,7 @@ channels:
     publish:
       summary: TransferCommunity (Request)
       description: |-
-        Request to transfer ownership of a community from one person (`auth`) to another (`user_id`).
+        Request to transfer ownership of a community from one person (`auth`) to another (`person_id`).
 
         The account making the request (`auth`) must be an admin user.
 
@@ -1735,7 +1747,7 @@ components:
             default: "Login"
           data:
             $ref: "#/components/schemas/authSchema"
-    getUserRepliesRequest:
+    getRepliesRequest:
       name: User replies request
       payload:
         type: object
@@ -1749,7 +1761,7 @@ components:
             default: "GetReplies"
           data:
             $ref: "#/components/schemas/repliesMentionsRequest"
-    getUserMentionsRequest:
+    getPersonMentionsRequest:
       name: User mentions request
       payload:
         type: object
@@ -1759,8 +1771,8 @@ components:
         properties:
           op:
             type: string
-            pattern: "^GetUserMentions$"
-            default: "GetUserMentions"
+            pattern: "^GetPersonMentions$"
+            default: "GetPersonMentions"
           data:
             $ref: "#/components/schemas/repliesMentionsRequest"
     getCaptchaRequest:
@@ -1914,7 +1926,7 @@ components:
                 $ref: "#/components/schemas/send_notifications_to_email"
               auth:
                 $ref: "#/components/schemas/authStringSchema"
-    getUserDetailsRequest:
+    getPersonDetailsRequest:
       name: Return requested user details
       payload:
         type: object
@@ -1924,16 +1936,16 @@ components:
         properties:
           op:
             type: string
-            pattern: "^GetUserDetails$"
-            default: "GetUserDetails"
+            pattern: "^GetPersonDetails$"
+            default: "GetPersonDetails"
           data:
             type: object
             required:
               - sort
               - saved_only
             properties:
-              user_id:
-                $ref: "#/components/schemas/user_id"
+              person_id:
+                $ref: "#/components/schemas/person_id"
               username:
                 $ref: "#/components/schemas/user_name"
               sort:
@@ -1965,19 +1977,19 @@ components:
             properties:
               jwt:
                 $ref: "#/components/schemas/authStringSchema"
-    getUserDetailsResponse:
+    getPersonDetailsResponse:
       name: User details request response
       payload:
         type: object
         properties:
           op:
             type: string
-            pattern: "^GetUserDetails$"
-            default: "GetUserDetails"
+            pattern: "^GetPersonDetails$"
+            default: "GetPersonDetails"
           data:
             type: object
-            user:
-              $ref: "#/components/schemas/user_view"
+            person_view:
+              $ref: "#/components/schemas/person_view"
             posts:
               $ref: "#/components/schemas/replies"
             comments:
@@ -1990,7 +2002,7 @@ components:
               items:
                 properties:
                   follower:
-                    $ref: "#/components/schemas/user"
+                    $ref: "#/components/schemas/person"
                   community:
                     $ref: "#/components/schemas/community"
     repliesResponse:
@@ -2020,12 +2032,12 @@ components:
                 type: array
                 items:
                   properties:
-                    UserMentionView:
+                    PersonMentionView:
                       $ref: "#/components/schemas/mentions"
           op:
             type: string
-            pattern: "^GetUserMentions$"
-            default: "GetUserMentions"
+            pattern: "^GetPersonMentions$"
+            default: "GetPersonMentions"
     markMentionsRequest:
       name: Request to make a user mention as read
       payload:
@@ -2036,12 +2048,12 @@ components:
         properties:
           op:
             type: string
-            pattern: "^MarkUserMentionAsRead$"
-            default: "MarkUserMentionAsRead"
+            pattern: "^MarkPersonMentionAsRead$"
+            default: "MarkPersonMentionAsRead"
           data:
             type: object
             properties:
-              user_mention_id:
+              person_mention_id:
                 description: "The id of the recipient"
                 type: integer
                 format: int32
@@ -2058,8 +2070,8 @@ components:
         properties:
           op:
             type: string
-            pattern: "^MarkUserMentionAsRead$"
-            default: "MarkUserMentionAsRead"
+            pattern: "^MarkPersonMentionAsRead$"
+            default: "MarkPersonMentionAsRead"
           data:
             type: object
             properties:
@@ -2349,12 +2361,12 @@ components:
           data:
             type: object
             required:
-              - user_id
+              - person_id
               - added
               - auth
             properties:
-              user_id:
-                $ref: "#/components/schemas/user_id"
+              person_id:
+                $ref: "#/components/schemas/person_id"
               added:
                 $ref: "#/components/schemas/added"
               auth:
@@ -2372,8 +2384,8 @@ components:
             type: object
             properties:
               admins:
-                $ref: "#/components/schemas/user_view"
-    banUserRequest:
+                $ref: "#/components/schemas/person_view"
+    banPersonRequest:
       name: Request to ban a user
       payload:
         type: object
@@ -2383,17 +2395,17 @@ components:
         properties:
           op:
             type: string
-            pattern: "^BanUser$"
-            default: "BanUser"
+            pattern: "^BanPerson$"
+            default: "BanPerson"
           data:
             type: object
             required:
-              - user_id
+              - person_id
               - ban
               - auth
             properties:
-              user_id:
-                $ref: "#/components/schemas/user_id"
+              person_id:
+                $ref: "#/components/schemas/person_id"
               ban:
                 $ref: "#/components/schemas/ban"
               remove_data:
@@ -2404,15 +2416,15 @@ components:
                 $ref: "#/components/schemas/expires"
               auth:
                 $ref: "#/components/schemas/authStringSchema"
-    banUserResponse:
+    banPersonResponse:
       name: Confirmation that the user has been banned
       payload:
         type: object
         properties:
           op:
             type: string
-            pattern: "^BanUser$"
-            default: "BanUser"
+            pattern: "^BanPerson$"
+            default: "BanPerson"
           data:
             $ref: "#/components/schemas/ban_view"
     userJoinRequest:
@@ -2557,7 +2569,7 @@ components:
                 items:
                   properties:
                     user:
-                      $ref: "#/components/schemas/user_view"
+                      $ref: "#/components/schemas/person_view"
               comments:
                 $ref: "#/components/schemas/comments"
     getModLogRequest:
@@ -2575,8 +2587,8 @@ components:
           data:
             type: object
             properties:
-              mod_user_id:
-                $ref: "#/components/schemas/user_id"
+              mod_person_id:
+                $ref: "#/components/schemas/person_id"
               community_id:
                 $ref: "#/components/schemas/community_id"
               page:
@@ -2611,8 +2623,8 @@ components:
                           description: Forthcoming...
                           type: number
                           example: 1
-                        mod_user_id:
-                          $ref: "#/components/schemas/user_id"
+                        mod_person_id:
+                          $ref: "#/components/schemas/person_id"
                         post_id:
                           $ref: "#/components/schemas/post_id"
                         locked:
@@ -2638,8 +2650,8 @@ components:
                           description: Forthcoming...
                           type: number
                           example: 1
-                        mod_user_id:
-                          $ref: "#/components/schemas/user_id"
+                        mod_person_id:
+                          $ref: "#/components/schemas/person_id"
                         post_id:
                           $ref: "#/components/schemas/post_id"
                         stickied:
@@ -2782,8 +2794,8 @@ components:
                           description: Forthcoming...
                           type: number
                           example: 8
-                        user_id:
-                          $ref: "#/components/schemas/user_id"
+                        person_id:
+                          $ref: "#/components/schemas/person_id"
                         post_score:
                           description: Forthcoming...
                           type: number
@@ -2817,11 +2829,11 @@ components:
           data:
             type: object
             required:
-              - user_id
+              - person_id
               - auth
             properties:
-              user_id:
-                $ref: "#/components/schemas/user_id"
+              person_id:
+                $ref: "#/components/schemas/person_id"
               auth:
                 $ref: "#/components/schemas/authStringSchema"
     transferSiteResponse:
@@ -2846,8 +2858,8 @@ components:
                 type: array
                 items:
                   properties:
-                    user:
-                      $ref: "#/components/schemas/user"
+                    person:
+                      $ref: "#/components/schemas/person"
                     counts:
                       $ref: "#/components/schemas/counts"
                     banned:
@@ -3078,14 +3090,14 @@ components:
             type: object
             required:
               - community_id
-              - user_id
+              - person_id
               - ban
               - auth
             properties:
               community_id:
                 $ref: "#/components/schemas/community_id"
-              user_id:
-                $ref: "#/components/schemas/user_id"
+              person_id:
+                $ref: "#/components/schemas/person_id"
               ban:
                 $ref: "#/components/schemas/ban"
               remove_data:
@@ -3123,14 +3135,14 @@ components:
             type: object
             required:
               - community_id
-              - user_id
+              - person_id
               - added
               - auth
             properties:
               community_id:
                 $ref: "#/components/schemas/community_id"
-              user_id:
-                $ref: "#/components/schemas/user_id"
+              person_id:
+                $ref: "#/components/schemas/person_id"
               added:
                 $ref: "#/components/schemas/added"
               auth:
@@ -3358,7 +3370,7 @@ components:
                     community:
                       $ref: "#/components/schemas/community"
                     follower:
-                      $ref: "#/components/schemas/user"
+                      $ref: "#/components/schemas/person"
     transferCommunityRequest:
       name: Request to transfer ownership of a community from one person to another
       payload:
@@ -3375,13 +3387,13 @@ components:
             type: object
             required:
               - community_id
-              - user_id
+              - person_id
               - auth
             properties:
               community_id:
                 $ref: "#/components/schemas/community_id"
-              user_id:
-                $ref: "#/components/schemas/user_id"
+              person_id:
+                $ref: "#/components/schemas/person_id"
               auth:
                 $ref: "#/components/schemas/authStringSchema"
     transferCommunityResponse:
@@ -4486,8 +4498,8 @@ components:
     "ban_view":
       type: object
       properties:
-        user:
-          $ref: "#/components/schemas/user_view"
+        person_view:
+          $ref: "#/components/schemas/person_view"
         banned:
           $ref: "#/components/schemas/banned"
     "banned":
@@ -4607,7 +4619,7 @@ components:
           post:
             $ref: "#/components/schemas/post"
           creator:
-            $ref: "#/components/schemas/user"
+            $ref: "#/components/schemas/person"
           creator_banned_from_community:
             $ref: "#/components/schemas/creator_banned_from_community"
           subscribed:
@@ -4736,7 +4748,7 @@ components:
         updated:
           $ref: "#/components/schemas/user_updated"
         id:
-          $ref: "#/components/schemas/user_id"
+          $ref: "#/components/schemas/person_id"
         shared_inbox_url:
           description: Forthcoming...
           type: string
@@ -4874,6 +4886,48 @@ components:
       description: |-
         - *true* if this is a local user
         - *false* if this is a federated user
+    "local_user_id":
+      description: |-
+        That user's local id
+      type: integer
+      format: int32
+      example: 78
+    "local_user_settings":
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/local_user_id"
+        person_id:
+          $ref: "#/components/schemas/person_id"
+        email:
+          $ref: "#/components/schemas/email"
+        admin:
+          $ref: "#/components/schemas/admin"
+        show_nsfw:
+          $ref: "#/components/schemas/show_nsfw"
+        theme:
+          $ref: "#/components/schemas/theme"
+        default_sort_type:
+          $ref: "#/components/schemas/default_sort_type"
+        default_listing_type:
+          $ref: "#/components/schemas/default_listing_type"
+        lang:
+          $ref: "#/components/schemas/lang"
+        show_avatars:
+          $ref: "#/components/schemas/show_avatars"
+        send_notifications_to_email:
+          $ref: "#/components/schemas/send_notifications_to_email"
+        matrix_user_id:
+          $ref: "#/components/schemas/matrix_user_id"
+    "my_user":
+      type: object
+      properties:
+        local_user:
+          $ref: "#/components/schemas/local_user_settings"
+        counts:
+          $ref: "#/components/schemas/counts"
+        person:
+          $ref: "#/components/schemas/person"
     "locked":
       description: |-
         Set to *true* if the post is already, or should be, locked. A locked post cannot receive comments.
@@ -4915,11 +4969,11 @@ components:
       description: "Forthcoming..."
       type: object
       required:
-        - user_mention_id
+        - person_mention_id
         - read
         - auth
       properties:
-        user_mention_id:
+        person_mention_id:
           description: Forthcoming...
           type: integer
           format: int32
@@ -4933,62 +4987,9 @@ components:
       items:
         properties:
           moderator:
-            $ref: "#/components/schemas/user"
+            $ref: "#/components/schemas/person"
           community:
             $ref: "#/components/schemas/community"
-    "my_user":
-      type: object
-      required:
-        - show_nsfw
-      properties:
-        show_nsfw:
-          $ref: "#/components/schemas/show_nsfw"
-        preferred_username:
-          $ref: "#/components/schemas/preferred_username"
-        default_sort_type:
-          $ref: "#/components/schemas/default_sort_type"
-        banned:
-          $ref: "#/components/schemas/banned"
-        default_listing_type:
-          $ref: "#/components/schemas/default_listing_type"
-        updated:
-          $ref: "#/components/schemas/user_updated"
-        matrix_user_id:
-          $ref: "#/components/schemas/matrix_user_id"
-        id:
-          $ref: "#/components/schemas/user_id"
-        show_avatars:
-          $ref: "#/components/schemas/show_avatars"
-        actor_id:
-          $ref: "#/components/schemas/actor_id"
-        deleted:
-          $ref: "#/components/schemas/deleted"
-        published:
-          $ref: "#/components/schemas/published"
-        banner:
-          $ref: "#/components/schemas/banner"
-        name:
-          $ref: "#/components/schemas/user_name"
-        avatar:
-          $ref: "#/components/schemas/avatar"
-        email:
-          $ref: "#/components/schemas/email"
-        lang:
-          $ref: "#/components/schemas/lang"
-        local:
-          $ref: "#/components/schemas/local"
-        bio:
-          $ref: "#/components/schemas/bio"
-        last_refreshed_at:
-          description: Forthcoming...
-          type: string
-          example: "2021-01-21T16:19:08.725191"
-        send_notifications_to_email:
-          $ref: "#/components/schemas/send_notifications_to_email"
-        theme:
-          $ref: "#/components/schemas/theme"
-        admin:
-          $ref: "#/components/schemas/admin"
     "my_vote":
       type: number
       description: Forthcoming...
@@ -5174,9 +5175,9 @@ components:
         private_message:
           $ref: "#/components/schemas/private_message"
         creator:
-          $ref: "#/components/schemas/user"
+          $ref: "#/components/schemas/person"
         recipient:
-          $ref: "#/components/schemas/user"
+          $ref: "#/components/schemas/person"
     "published":
       type: string
       description: "The date this site, community, post, comment or message was created (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))"
@@ -5218,7 +5219,7 @@ components:
           post:
             $ref: "#/components/schemas/post"
           creator:
-            $ref: "#/components/schemas/user"
+            $ref: "#/components/schemas/person"
           creator_banned_from_community:
             $ref: "#/components/schemas/creator_banned_from_community"
           community:
@@ -5291,7 +5292,7 @@ components:
       type: boolean
       example: true
     "resolver_id":
-      description: The user_id of the person who resolved the report
+      description: The person_id of the person who resolved the report
       type: number
       nullable: true
     "saved":
@@ -5521,41 +5522,53 @@ components:
       description: The link to the URL associated with the post
       nullable: true
       example: 'https:\/\/www.independent.co.uk\/news\/world\/europe\/covid-vaccine-novichok-russia-navalny-b1792778.html'
-    "user":
+    "person":
       type: object
+      decription: The federated person.
       properties:
-        user:
-          type: object
-          properties:
-            updated:
-              $ref: "#/components/schemas/user_updated"
-            bio:
-              $ref: "#/components/schemas/bio"
-            admin:
-              $ref: "#/components/schemas/admin"
-            preferred_username:
-              $ref: "#/components/schemas/preferred_username"
-            deleted:
-              $ref: "#/components/schemas/deleted"
-            banned:
-              $ref: "#/components/schemas/banned"
-            published:
-              $ref: "#/components/schemas/published"
-            matrix_user_id:
-              $ref: "#/components/schemas/matrix_user_id"
-            avatar:
-              $ref: "#/components/schemas/avatar"
-            id:
-              $ref: "#/components/schemas/user_id"
-            actor_id:
-              $ref: "#/components/schemas/actor_id"
-            local:
-              $ref: "#/components/schemas/local"
-            banner:
-              $ref: "#/components/schemas/banner"
-            name:
-              $ref: "#/components/schemas/user_name"
-    "user_id":
+        updated:
+          $ref: "#/components/schemas/user_updated"
+        bio:
+          $ref: "#/components/schemas/bio"
+        admin:
+          $ref: "#/components/schemas/admin"
+        preferred_username:
+          $ref: "#/components/schemas/preferred_username"
+        deleted:
+          $ref: "#/components/schemas/deleted"
+        banned:
+          $ref: "#/components/schemas/banned"
+        published:
+          $ref: "#/components/schemas/published"
+        matrix_user_id:
+          $ref: "#/components/schemas/matrix_user_id"
+        avatar:
+          $ref: "#/components/schemas/avatar"
+        id:
+          $ref: "#/components/schemas/person_id"
+        actor_id:
+          $ref: "#/components/schemas/actor_id"
+        local:
+          $ref: "#/components/schemas/local"
+        banner:
+          $ref: "#/components/schemas/banner"
+        name:
+          $ref: "#/components/schemas/user_name"
+        inbox_url:
+          $ref: "#/components/schemas/inbox_url"
+        shared_inbox_url:
+          $ref: "#/components/schemas/shared_inbox_url"
+    "inbox_url": 
+      description: |-
+        That user's inbox url
+      type: string
+      example: "http://domain.com/u/fisher/inbox"
+    "shared_inbox_url": 
+      description: |-
+        That instance's shared inbox url
+      type: string
+      example: "http://domain.com/inbox"
+    "person_id":
       description: |-
         That user's id number
       type: integer
@@ -5569,13 +5582,13 @@ components:
       type: string
       description: "The last time this user profile was updated (in [ISO8601 format](https://www.w3.org/TR/NOTE-datetime))"
       example: "2021-01-21T16:26:16.285610"
-    "user_view":
+    "person_view":
       type: object
       properties:
         counts:
           $ref: "#/components/schemas/counts"
-        user:
-          $ref: "#/components/schemas/user"
+        person:
+          $ref: "#/components/schemas/person"
     "username_or_email":
       type: string
       description: "Username or registered email"
