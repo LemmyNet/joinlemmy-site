@@ -2,8 +2,10 @@ import { Component } from "inferno";
 import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { DonateLines } from "./donate-lines";
+import { i18n } from "../i18next";
+import { T } from "inferno-i18next";
 
-const title = "Lemmy - A link aggregator for the fediverse";
+const title = i18n.t("lemmy_title");
 
 export class Main extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -13,7 +15,7 @@ export class Main extends Component<any, any> {
   joinServer() {
     return (
       <Link className="button primary" to="/join">
-        Join a Server
+        {i18n.t("join_a_server")}
       </Link>
     );
   }
@@ -24,7 +26,7 @@ export class Main extends Component<any, any> {
         class="button primary"
         href="/docs/en/administration/administration.html"
       >
-        Run a Server
+        {i18n.t("run_a_server")}
       </a>
     );
   }
@@ -38,8 +40,8 @@ export class Main extends Component<any, any> {
         <div class="bg-image"></div>
         <div class="container">
           <div class="text-center">
-            <h1 class="stylized">Lemmy</h1>
-            <h4>A link aggregator for the fediverse.</h4>
+            <h1 class="stylized">{i18n.t("lemmy")}</h1>
+            <h4>{i18n.t("lemmy_desc")}</h4>
             <div class="row is-horizontal-align">
               <div class="col-2-lg">{this.joinServer()}</div>
               <div class="col-2-lg">{this.runServer()}</div>
@@ -51,18 +53,15 @@ export class Main extends Component<any, any> {
 
         <div class="container">
           <div class="text-center">
-            <h2>Follow communities anywhere in the world</h2>
+            <h2>{i18n.t("follow_communities")}</h2>
             <p>
-              <a href="https://github.com/LemmyNet">Lemmy</a> is similar to
-              sites like <a href="https://reddit.com">Reddit</a>,{" "}
-              <a href="https://lobste.rs">Lobste.rs</a>, or{" "}
-              <a href="https://news.ycombinator.com/">Hacker News</a>: you
-              subscribe to communities you're interested in, post links and
-              discussions, then vote and comment on them. Lemmy isn't just a
-              reddit alternative; its a network of interconnected communities
-              ran by different people and organizations, all combining to create{" "}
-              <b>a single, personalized front page</b> of your favorite news,
-              articles, and memes.{" "}
+              <T i18nKey="lemmy_long_desc">
+                #<a href="https://github.com/LemmyNet">#</a>
+                <a href="https://reddit.com">#</a>
+                <a href="https://lobste.rs">#</a>
+                <a href="https://news.ycombinator.com/">#</a>
+                <b>#</b>
+              </T>
             </p>
             <p>{this.joinServer()}</p>
           </div>
@@ -83,18 +82,15 @@ export class Main extends Component<any, any> {
                     />
                   </header>
                   <br />
-                  <h4 class="text-center">Open Source</h4>
+                  <h4 class="text-center">{i18n.t("open_source")}</h4>
                   <p>
-                    Lemmy is and will always remain free,{" "}
-                    <a href="https://github.com/LemmyNet">open source</a>{" "}
-                    software, using the strong{" "}
-                    <a href="https://en.wikipedia.org/wiki/Copyleft">
-                      copyleft
-                    </a>{" "}
-                    <a href="https://github.com/LemmyNet/lemmy/blob/master/LICENSE">
-                      AGPL License
-                    </a>
-                    .
+                    <T i18nKey="open_source_desc">
+                      #<a href="https://github.com/LemmyNet">#</a>
+                      <a href="https://en.wikipedia.org/wiki/Copyleft">#</a>
+                      <a href="https://github.com/LemmyNet/lemmy/blob/master/LICENSE">
+                        #
+                      </a>
+                    </T>
                   </p>
                 </div>
               </div>
@@ -107,14 +103,15 @@ export class Main extends Component<any, any> {
                     />
                   </header>
                   <br />
-                  <h4 class="text-center">Blazing Fast</h4>
+                  <h4 class="text-center">{i18n.t("blazing_fast")}</h4>
                   <p>
-                    Made using some of the fastest frameworks and tools,
-                    including <a href="https://www.rust-lang.org">Rust</a>,{" "}
-                    <a href="https://actix.rs/">Actix</a>,{" "}
-                    <a href="http://diesel.rs/">Diesel</a>,{" "}
-                    <a href="https://infernojs.org">Inferno</a>, and{" "}
-                    <a href="https://www.typescriptlang.org/">Typescript</a>.
+                    <T i18nKey="blazing_fast_desc">
+                      #<a href="https://www.rust-lang.org">#</a>
+                      <a href="https://actix.rs/">#</a>
+                      <a href="http://diesel.rs/">#</a>
+                      <a href="https://infernojs.org">#</a>
+                      <a href="https://www.typescriptlang.org/">#</a>
+                    </T>
                   </p>
                 </div>
               </div>
@@ -127,12 +124,8 @@ export class Main extends Component<any, any> {
                     />
                   </header>
                   <br />
-                  <h4 class="text-center">Powerful Mod Tools</h4>
-                  <p>
-                    Each server can set its own moderation policy, to help
-                    foster a healthy environment where all can feel comfortable
-                    contributing.
-                  </p>
+                  <h4 class="text-center">{i18n.t("mod_tools")}</h4>
+                  <p>{i18n.t("mod_tools_desc")}</p>
                 </div>
               </div>
             </div>
@@ -143,18 +136,13 @@ export class Main extends Component<any, any> {
 
           <div class="container">
             <div class="text-center">
-              <h2>Create your own discussion platform</h2>
+              <h2>{i18n.t("create_discussion_platform")}</h2>
               <p>
-                With Lemmy, you can{" "}
-                <a href="/docs/en/administration/administration.html">
-                  easily host your own server
-                </a>
-                , and all these servers are <i>federated</i> (think email), and
-                connected to the same universe, called the{" "}
-                <a href="https://en.wikipedia.org/wiki/Fediverse">Fediverse</a>.
-                For a link aggregator, this means that someone registered on one
-                server can subscribe to communities elsewhere, and can have
-                discussions with people on a completely different server.
+                <T i18nKey="create_discussion_platform_desc">
+                  #<a href="/docs/en/administration/administration.html">#</a>
+                  <i>#</i>
+                  <a href="https://en.wikipedia.org/wiki/Fediverse">#</a>
+                </T>
               </p>
               <p>{this.runServer()}</p>
             </div>
@@ -167,11 +155,8 @@ export class Main extends Component<any, any> {
         <div class="container">
           <div class="row">
             <div class="col-6">
-              <h4>Live Updates</h4>
-              <p>
-                New comments and posts stream in to your front page and inbox;
-                No more page refreshes required.
-              </p>
+              <h4>{i18n.t("live_updates")}</h4>
+              <p>{i18n.t("live_updates_desc")}</p>
             </div>
             <div class="col-6 is-center">
               <video height={325} autoPlay loop>
@@ -190,48 +175,54 @@ export class Main extends Component<any, any> {
               <img height={325} src="/static/assets/images/mobile_pic.webp" />
             </div>
             <div class="col-6">
-              <h4 class="is-marginless">More Features</h4>
+              <h4 class="is-marginless">{i18n.t("more_features")}</h4>
               <ul class="is-marginless">
                 <li>
-                  Self hostable, easy to deploy, via{" "}
-                  <a href="/docs/en/administration/install_docker.html">
-                    Docker
-                  </a>
-                  , or{" "}
-                  <a href="/docs/en/administration/install_ansible.html">
-                    Ansible
-                  </a>
-                  .
+                  <T i18nKey="self_hostable">
+                    #<a href="/docs/en/administration/install_docker.html">#</a>
+                    <a href="/docs/en/administration/install_ansible.html">#</a>
+                  </T>
                 </li>
-                <li>Clean, mobile-friendly interface.</li>
-                <li>User avatar support.</li>
+                <li>{i18n.t("clean_interface")}</li>
+                <li>{i18n.t("avatar_support")}</li>
                 <li>
-                  Full vote scores <code>(+/-)</code> like old Reddit.
+                  <T i18nKey="full_vote_scores">
+                    #<code>#</code>#
+                  </T>
                 </li>
-                <li>Themes, including light, dark, and solarized.</li>
+                <li>{i18n.t("themes_including")}</li>
                 <li>
-                  Emojis with autocomplete support. Start typing <code>:</code>
-                </li>
-                <li>
-                  User tagging using <code>@</code>, Community tagging using{" "}
-                  <code>!</code>.
-                </li>
-                <li>Integrated image uploading in both posts and comments.</li>
-                <li>Notifications, including via email.</li>
-                <li>
-                  <a href="https://weblate.yerbamate.ml/projects/lemmy/lemmy/">
-                    i18n / internationalization support for &gt; 30 languages.
-                  </a>
+                  <T i18nKey="emojis_autocomplete">
+                    #<code>#</code>
+                  </T>
                 </li>
                 <li>
-                  RSS / Atom feeds for <code>All</code>, <code>Subscribed</code>
-                  , <code>Inbox</code>, <code>User</code>, and{" "}
-                  <code>Community</code>.
+                  <T i18nKey="user_tagging">
+                    #<code>#</code>
+                    <code>#</code>
+                  </T>
+                </li>
+                <li>{i18n.t("integrated_image_uploading")}</li>
+                <li>{i18n.t("notifications_including")}</li>
+                <li>
+                  <T i18nKey="i18n_support">
+                    #
+                    <a href="https://weblate.yerbamate.ml/projects/lemmy/lemmy/">
+                      #
+                    </a>
+                  </T>
                 </li>
                 <li>
-                  Can fully erase your data, replacing all posts and comments.
+                  <T i18nKey="rss_feeds">
+                    #<code>#</code>
+                    <code>#</code>
+                    <code>#</code>
+                    <code>#</code>
+                    <code>#</code>
+                  </T>
                 </li>
-                <li>NSFW post / community support.</li>
+                <li>{i18n.t("can_fully_erase")}</li>
+                <li>{i18n.t("nsfw_support")}</li>
               </ul>
             </div>
           </div>
@@ -243,7 +234,7 @@ export class Main extends Component<any, any> {
           <div class="container">
             <div class="text-center">
               <h2>
-                <a href="/sponsors">Support / Donate</a>
+                <Link to="/sponsors">{i18n.t("support_donate")}</Link>
               </h2>
               <DonateLines />
             </div>

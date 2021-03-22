@@ -1,7 +1,8 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
+import { i18n } from "../i18next";
 
-const title = "Lemmy - Join a Server";
+const title = i18n.t("join_title");
 
 // TODO wait until new lemmy-instances is written to refactor this
 
@@ -16,8 +17,8 @@ export class Join extends Component<any, any> {
           <meta property={"title"} content={title} />
         </Helmet>
         <div class="container">
-          <h1>Lemmy servers</h1>
-          <p>Choose and join a server from the approved servers below.</p>
+          <h1>{i18n.t("lemmy_servers")}</h1>
+          <p>{i18n.t("choose_and_join")}</p>
 
           <div class="row">
             <div class="card col-6">

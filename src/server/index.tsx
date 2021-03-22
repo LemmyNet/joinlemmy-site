@@ -7,6 +7,7 @@ import { App } from "../shared/components/app";
 // import { routes } from "../shared/routes";
 import process from "process";
 import { Helmet } from "inferno-helmet";
+import { i18n } from "../shared/i18next";
 
 const server = express();
 const port = 1234;
@@ -20,6 +21,12 @@ server.use("/api", express.static(path.resolve("./dist/assets/api")));
 server.get("/*", async (req, res) => {
   // const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
   const context = {} as any;
+
+  // Setting the language for non-js browsers
+  let lang = req.headers["accept-language"]
+    ? req.headers["accept-language"].split(",")[0]
+    : "en";
+  i18n.changeLanguage(lang);
 
   const wrapper = (
     <StaticRouter location={req.url} context={context}>
