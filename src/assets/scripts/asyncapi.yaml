@@ -59,7 +59,7 @@ info:
     ### The 'join' channels - CommunityJoin, ModJoin, PostJoin, UserJoin
 
     Most API responses generate an immediate and direct (synchronous) response to to the preceding API request: one of an error or a success response. 
-    However, for the ‘join’ requests (**CommunityJoin**, **ModJoin**, **PostJoin** and **UserJoin**), you can also receive any of several ‘as it happens’ (asynchronous) responses.
+    However, for the ‘join’ requests (**CommunityJoin**, **ModJoin**, **PostJoin** and **UserJoin**), you can also receive one of several ‘as it happens’ (asynchronous) responses.
 
     ### The HTTP API
 
@@ -539,7 +539,7 @@ channels:
       tags:
         - name: User, authentication and admin
       message:
-        anyOf:
+        oneOf:
           - $ref: "#/components/messages/userJoinResponse"
           - $ref: "#/components/messages/errorResponse"
           - $ref: "#/components/messages/createCommentLikeResponse"
@@ -1062,7 +1062,7 @@ channels:
       tags:
         - name: Community
       message:
-        anyOf:
+        oneOf:
           - $ref: "#/components/messages/communityJoinResponse"
           - $ref: "#/components/messages/errorResponse"
           - $ref: "#/components/messages/createPostResponse"
@@ -1366,7 +1366,7 @@ channels:
       tags:
         - name: Post
       message:
-        anyOf:
+        oneOf:
           - $ref: "#/components/messages/postJoinResponse"
           - $ref: "#/components/messages/errorResponse"
           - $ref: "#/components/messages/createCommentResponse"
