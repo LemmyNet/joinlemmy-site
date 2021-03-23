@@ -1976,10 +1976,7 @@ components:
               community_id:
                 $ref: "#/components/schemas/community_id"
               saved_only:
-                type: boolean
-                description: Forthcoming...
-                default: false
-                example: false
+                $ref: "#/components/schemas/saved_only"
               auth:
                 $ref: "#/components/schemas/authStringSchema"
     saveUserSettingsResponse:
@@ -3016,7 +3013,6 @@ components:
             required:
               - name
               - title
-              - nsfw
               - auth
             properties:
               name:
@@ -3197,7 +3193,6 @@ components:
             required:
               - community_id
               - title
-              - nsfw
               - auth
             properties:
               community_id:
@@ -4965,6 +4960,7 @@ components:
       required:
         - type_
         - sort
+        - saved_only
       properties:
         type_:
           $ref: "#/components/schemas/type_listing"
@@ -4978,6 +4974,8 @@ components:
           $ref: "#/components/schemas/community_id"
         community_name:
           $ref: "#/components/schemas/community_name"
+        saved_only:
+          $ref: "#/components/schemas/saved_only"
         auth:
           $ref: "#/components/schemas/authStringSchema"
     "matrix_user_id":
@@ -5015,7 +5013,7 @@ components:
       example: 1
     "nsfw":
       type: boolean
-      description: "Set to *true* if this commmunity, post or comment is deemed [NSFW](https://en.wikipedia.org/wiki/Not_safe_for_work) (hence invisble to users who have the NSFW option selected in their profile"
+      description: "Set to *true* if this commmunity, post or comment is deemed [NSFW](https://en.wikipedia.org/wiki/Not_safe_for_work) (hence invisble to users who have the NSFW option selected in their profile. If not provided, defaults to false."
       example: false
     "online":
       description: Number of registered users who are currently on the system
@@ -5318,6 +5316,12 @@ components:
       description: |-
         *true* if this post or comment has been or should be saved on the user's profile
       type: boolean
+      example: false
+    "saved_only":
+      description: |-
+        If *true*, only fetches the saved items.
+      type: boolean
+      default: false
       example: false
     "score":
       type: number
