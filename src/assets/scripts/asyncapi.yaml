@@ -5013,7 +5013,7 @@ components:
       example: 1
     "nsfw":
       type: boolean
-      description: "Set to *true* if this commmunity, post or comment is deemed [NSFW](https://en.wikipedia.org/wiki/Not_safe_for_work) (hence invisble to users who have the NSFW option selected in their profile. If not provided, defaults to false."
+      description: "Set to *true* if this commmunity, post or comment is deemed [NSFW](https://en.wikipedia.org/wiki/Not_safe_for_work) (hence invisible to users who have the NSFW option selected in their profile. If not provided, defaults to false."
       example: false
     "online":
       description: Number of registered users who are currently on the system
