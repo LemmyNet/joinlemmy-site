@@ -1,7 +1,7 @@
 import { IRouteProps } from "inferno-router/dist/Route";
 import { Main } from "./components/main";
 import { Apps } from "./components/apps";
-import { Join } from "./components/join";
+import { Instances } from "./components/instances";
 import { Contact } from "./components/contact";
 import { Sponsors } from "./components/sponsors";
 
@@ -17,9 +17,9 @@ export const routes: IRouteProps[] = [
     component: Apps,
   },
   {
-    path: `/join`,
+    path: `/instances`,
     exact: true,
-    component: Join,
+    component: Instances,
   },
   {
     path: `/contact`,

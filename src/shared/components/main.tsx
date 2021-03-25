@@ -14,7 +14,7 @@ export class Main extends Component<any, any> {
 
   joinServer() {
     return (
-      <Link className="button primary" to="/join">
+      <Link className="button primary" to="/instances">
         {i18n.t("join_a_server")}
       </Link>
     );
