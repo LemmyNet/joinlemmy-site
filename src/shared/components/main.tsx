@@ -234,7 +234,7 @@ export class Main extends Component<any, any> {
           <div class="container">
             <div class="text-center">
               <h2>
-                <Link to="/sponsors">{i18n.t("support_donate")}</Link>
+                <Link to="/support">{i18n.t("support_donate")}</Link>
               </h2>
               <DonateLines />
             </div>

@@ -2,6 +2,8 @@ const fs = require("fs");
 
 const translationDir = "joinlemmy-translations/translations/";
 const outDir = "src/shared/translations/";
+const translatorsJsonFile = "lemmy-translations/translators.json";
+
 fs.mkdirSync(outDir, { recursive: true });
 fs.readdir(translationDir, (_err, files) => {
   files.forEach(filename => {
@@ -24,6 +26,16 @@ fs.readdir(translationDir, (_err, files) => {
       console.error(err);
     }
   });
+  // Add the translators.json file
+  try {
+    const json = JSON.parse(fs.readFileSync(translatorsJsonFile, "utf8"));
+    let data = `export const translators = \n `;
+    data += JSON.stringify(json, null, 2) + ";";
+    const target = outDir + "translators.ts";
+    fs.writeFileSync(target, data);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 // generate types for i18n keys

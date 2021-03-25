@@ -11,7 +11,7 @@ export class LinkLine extends Component<any, any> {
       <>
         <Link to="/join">{i18n.t("join")}</Link>
         <Link to="/apps">{i18n.t("apps")}</Link>
-        <Link to="/sponsors">{i18n.t("sponsors")}</Link>
+        <Link to="/support">{i18n.t("support")}</Link>
         <a href="/docs/en/index.html">{i18n.t("docs")}</a>
         <a
           href="/docs/en/code_of_conduct.html"
