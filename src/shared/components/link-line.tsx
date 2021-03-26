@@ -9,7 +9,7 @@ export class LinkLine extends Component<any, any> {
   render() {
     return (
       <>
-        <Link to="/join">{i18n.t("join")}</Link>
+        <Link to="/instances">{i18n.t("join")}</Link>
         <Link to="/apps">{i18n.t("apps")}</Link>
         <Link to="/support">{i18n.t("support")}</Link>
         <a href="/docs/en/index.html">{i18n.t("docs")}</a>
