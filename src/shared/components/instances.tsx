@@ -6,7 +6,7 @@ const title = i18n.t("join_title");
 
 // TODO wait until new lemmy-instances is written to refactor this
 
-export class Join extends Component<any, any> {
+export class Instances extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
   }
