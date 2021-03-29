@@ -4,7 +4,7 @@ import { DonateLines } from "./donate-lines";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { translators } from "../translations/translators";
-import ISO6391 from "iso-639-1";
+import { languagesAll, countries } from "countries-list";
 
 const title = i18n.t("support_title");
 
@@ -52,6 +52,7 @@ let coders: Coder[] = [
 
 export interface Translation {
   lang: string;
+  country?: string;
   translators: Translator[];
 }
 
@@ -147,7 +148,8 @@ export class Support extends Component<any, any> {
           <span>{i18n.t("thanks_translators")}</span>
           {convertTranslators().map(t => (
             <span>
-              <code>{ISO6391.getNativeName(t.lang) || t.lang}</code>
+              <b>{languagesAll[t.lang].native}</b>
+              {t.country && <b> {countries[t.country].native}</b>}
               <span>: </span>
               {t.translators.map((translator, i) => (
                 <span>
@@ -195,8 +197,13 @@ export class Support extends Component<any, any> {
 function convertTranslators(): Translation[] {
   let trans: Translation[] = [];
   for (const [key, value] of Object.entries(translators)) {
+    let split = key.split("_");
+    let lang = split[0];
+    let country = split[1] !== undefined ? split[1].toUpperCase() : undefined;
+
     let t: Translation = {
-      lang: key,
+      lang,
+      country,
       translators: value,
     };
     trans.push(t);
