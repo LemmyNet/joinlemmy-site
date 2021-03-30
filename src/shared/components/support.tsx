@@ -148,8 +148,10 @@ export class Support extends Component<any, any> {
           <span>{i18n.t("thanks_translators")}</span>
           {convertTranslators().map(t => (
             <span>
-              <b>{languagesAll[t.lang].native}</b>
-              {t.country && <b> {countries[t.country].native}</b>}
+              <span class="text-error">{languagesAll[t.lang].native}</span>
+              {t.country && (
+                <span class="text-error"> {countries[t.country].native}</span>
+              )}
               <span>: </span>
               {t.translators.map((translator, i) => (
                 <span>
