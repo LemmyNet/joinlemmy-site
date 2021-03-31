@@ -56,13 +56,11 @@ export class Main extends Component<any, any> {
             <h2>{i18n.t("follow_communities")}</h2>
             <p>
               <T i18nKey="lemmy_long_desc">
-                <!-- Default / English version links -->
                 #<a href="https://github.com/LemmyNet">#</a>
                 <a href="https://reddit.com">#</a>
                 <a href="https://lobste.rs">#</a>
                 <a href="https://news.ycombinator.com/">#</a>
                 <b>#</b>
-                <!-- Spanish version links -->
                 <a href="https://meneame.net/">#</a>
               </T>
             </p>
@@ -142,11 +140,9 @@ export class Main extends Component<any, any> {
               <h2>{i18n.t("create_discussion_platform")}</h2>
               <p>
                 <T i18nKey="create_discussion_platform_desc">
-                  <!-- Default / English version links -->
                   #<a href="/docs/en/administration/administration.html">#</a>
                   <i>#</i>
                   <a href="https://en.wikipedia.org/wiki/Fediverse">#</a>
-                  <!-- Spanish version links -->
                   <a href="/docs/es/administration/administration.html">#</a>
                   <a href="https://es.wikipedia.org/wiki/Fediverso">#</a>
                 </T>
