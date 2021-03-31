@@ -57,6 +57,7 @@ export class Main extends Component<any, any> {
             <p>
               <T i18nKey="lemmy_long_desc">
                 #<a href="https://github.com/LemmyNet">#</a>
+                <a href="https://meneame.net/">#</a>
                 <a href="https://reddit.com">#</a>
                 <a href="https://lobste.rs">#</a>
                 <a href="https://news.ycombinator.com/">#</a>
