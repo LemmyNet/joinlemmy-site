@@ -3,6 +3,8 @@
 git submodule update --remote
 git add lemmy-docs
 git commit -m"Updating docs"
+git add joinlemmy-translations
+git commit -m"Updating translations"
 git push
 
 new_tag="$1"
