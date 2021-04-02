@@ -4,6 +4,7 @@ import { Helmet } from "inferno-helmet";
 import { DonateLines } from "./donate-lines";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
+import { getDocsLanguage } from "../utils";
 
 const title = i18n.t("lemmy_title");
 
@@ -24,7 +25,9 @@ export class Main extends Component<any, any> {
     return (
       <a
         class="button primary"
-        href="/docs/en/administration/administration.html"
+        href={`/docs/${getDocsLanguage(
+          i18n.language
+        )}/administration/administration.html`}
       >
         {i18n.t("run_a_server")}
       </a>
@@ -139,7 +142,14 @@ export class Main extends Component<any, any> {
               <h2>{i18n.t("create_discussion_platform")}</h2>
               <p>
                 <T i18nKey="create_discussion_platform_desc">
-                  #<a href="/docs/en/administration/administration.html">#</a>
+                  #
+                  <a
+                    href={`/docs/${getDocsLanguage(
+                      i18n.language
+                    )}/administration/administration.html`}
+                  >
+                    #
+                  </a>
                   <i>#</i>
                   <a href="https://en.wikipedia.org/wiki/Fediverse">#</a>
                 </T>
@@ -179,8 +189,21 @@ export class Main extends Component<any, any> {
               <ul class="is-marginless">
                 <li>
                   <T i18nKey="self_hostable">
-                    #<a href="/docs/en/administration/install_docker.html">#</a>
-                    <a href="/docs/en/administration/install_ansible.html">#</a>
+                    #
+                    <a
+                      href={`/docs/${getDocsLanguage(
+                        i18n.language
+                      )}/administration/install_docker.html`}
+                    >
+                      #
+                    </a>
+                    <a
+                      href={`/docs/${getDocsLanguage(
+                        i18n.language
+                      )}/administration/install_ansible.html`}
+                    >
+                      #
+                    </a>
                   </T>
                 </li>
                 <li>{i18n.t("clean_interface")}</li>
