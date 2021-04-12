@@ -5,6 +5,14 @@ import { en } from "./translations/en";
 import { ru } from "./translations/ru";
 import { zh } from "./translations/zh";
 import { es } from "./translations/es";
+import { eu } from "./translations/eu";
+import { bg } from "./translations/bg";
+import { nl } from "./translations/nl";
+import { fi } from "./translations/fi";
+import { fr } from "./translations/fr";
+import { el } from "./translations/el";
+import { ko } from "./translations/ko";
+import { pl } from "./translations/pl";
 
 // https://github.com/nimbusec-oss/inferno-i18next/blob/master/tests/T.test.js#L66
 const resources = {
@@ -12,6 +20,14 @@ const resources = {
   ru,
   zh,
   es,
+  eu,
+  bg,
+  nl,
+  fi,
+  fr,
+  el,
+  ko,
+  pl,
 };
 
 function format(value: any, format: any): any {
