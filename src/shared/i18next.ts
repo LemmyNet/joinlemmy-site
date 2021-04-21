@@ -13,6 +13,8 @@ import { fr } from "./translations/fr";
 import { el } from "./translations/el";
 import { ko } from "./translations/ko";
 import { pl } from "./translations/pl";
+import { ar } from "./translations/ar";
+import { eo } from "./translations/eo";
 
 // https://github.com/nimbusec-oss/inferno-i18next/blob/master/tests/T.test.js#L66
 const resources = {
@@ -28,6 +30,8 @@ const resources = {
   el,
   ko,
   pl,
+  ar,
+  eo,
 };
 
 function format(value: any, format: any): any {
