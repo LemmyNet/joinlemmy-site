@@ -15,6 +15,13 @@ import { ko } from "./translations/ko";
 import { pl } from "./translations/pl";
 import { ar } from "./translations/ar";
 import { eo } from "./translations/eo";
+import { de } from "./translations/de";
+import { gl } from "./translations/gl";
+import { it } from "./translations/it";
+import { ja } from "./translations/ja";
+import { km } from "./translations/km";
+import { nb_NO } from "./translations/nb_NO";
+import { zh_Hant } from "./translations/zh_Hant";
 
 // https://github.com/nimbusec-oss/inferno-i18next/blob/master/tests/T.test.js#L66
 const resources = {
