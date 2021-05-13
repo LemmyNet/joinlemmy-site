@@ -39,6 +39,13 @@ const resources = {
   pl,
   ar,
   eo,
+  de,
+  gl,
+  it,
+  ja,
+  km,
+  nb_NO,
+  zh_Hant,
 };
 
 function format(value: any, format: any): any {
