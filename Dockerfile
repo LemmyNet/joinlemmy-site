@@ -9,7 +9,7 @@ COPY lemmy-docs ./lemmy-docs
 RUN mdbook build lemmy-docs -d ../docs
 
 # Build the asyncapi API docs
-FROM asyncapi/generator:1.1.7 as api
+FROM asyncapi/generator:1.7.0 as api
 WORKDIR /app
 COPY src/assets/scripts/asyncapi.yaml ./
 RUN ag -o ./api ./asyncapi.yaml @asyncapi/html-template --force-write
