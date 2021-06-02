@@ -16,19 +16,22 @@ info:
     - [API reference](https://join.lemmy.ml/docs/en/contributing/api_reference.html)
     - [HTTP API](https://join.lemmy.ml/docs/en/contributing/http_api.html)
 
-    ### How to use this WebSocket API document
+    ### Browse this WebSocket API document
 
-    You can either use it to:
+    For testing purposes, either [set up your own server](https://join.lemmy.ml/docs/en/administration/administration.html) or one of the test servers: Enterprise, DS9 or Voyager (see below). You can then scan through the *Operations* in this document:
+    
+    - **PUB** - these are the messages sent (published) to the API. The _Payload_ describes the required format. Following this are a list of _EXAMPLES_ (in JSON format) of each of the preceding publish messages.
+    - **SUB** - these are the messages received from the API (subscribed to). Again, each message has its its own _Payload_ descriptions and _EXAMPLES_.
 
-    - **Interactively browse the WebSocket API.** Browse the *Channels*, check out the responses and examples (tailor the *PUBLISH* requests to suit with your favorite WebSocket client).
-    For testing purposes, either [set up your own server](https://join.lemmy.ml/docs/en/administration/administration.html) or use the Enterprise server (*ws://enterprise.lemmy.ml/api/v2/ws*)
-    - **[Open and save](asyncapi.yaml) this specification file** and use it with the various [AsyncAPI tools](https://www.asyncapi.com/docs/community/tooling) (perhaps to generate code or documentation).
+    ### Generate code or documentation
 
-    Connect to <code>ws://***host***/api/v2/ws</code> to get started. If the server supports secure connections, you can use `wss://**server**/api/v1/ws`.
+    **[Open and save](asyncapi.yaml) this specification file** and use it with the various [AsyncAPI tools](https://www.asyncapi.com/docs/community/tooling) to test out the various code and documentation options.
 
-    #### Testing with websocat
+    ### Test with websocat
 
-    For example a simple test using [websocat](https://github.com/vi/websocat) might be:
+    Test with your favorite WebSocket client (_[websocat](https://github.com/vi/websocat)_ is recommended). Connect the client to `ws://***host***/api/v2/ws` to get started. If the server supports secure connections, you can use `wss://**server**/api/v1/ws`.
+
+    For example a simple test using websocat might be:
 
     `websocat ws://127.0.0.1:8536/api/v2/ws -nt`
 
@@ -36,7 +39,7 @@ info:
 
     `{"op": "GetSite", "data": {}}`
 
-    #### Testing with the [WebSocket JavaScript API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+    ### Test with the [WebSocket JavaScript API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 
     ```javascript
     var ws = new WebSocket("ws://" + host + "/api/v2/ws");
@@ -48,13 +51,6 @@ info:
       }));
     };
     ```
-
-    ### Structure of this document
-
-    - **Channels** - Documents the requests (marked with the PUBLISH button) and responses (marked with SUBSCRIBE) for each endpoint (*channel*)
-    - **Servers** - Lists some publicly-accessible test servers
-    - **Messages** - A summary of the requests and responses (a duplication of the information in **Channels**)
-    - **Schemas** - An alphabetical list of the most commonly accessed data structures in the API.
 
     ### The 'join' channels - CommunityJoin, ModJoin, PostJoin, UserJoin
 
