@@ -12,16 +12,16 @@ info:
 
     #### More information...
 
-    - [Install your own server](https://join.lemmy.ml/docs/en/administration/administration.html)
-    - [API reference](https://join.lemmy.ml/docs/en/contributing/api_reference.html)
-    - [HTTP API](https://join.lemmy.ml/docs/en/contributing/http_api.html)
+    - [Install your own server](https://join-lemmy.org/docs/en/administration/administration.html)
+    - [API reference](https://join-lemmy.org/docs/en/contributing/api_reference.html)
+    - [HTTP API](https://join-lemmy.org/docs/en/contributing/http_api.html)
 
     ### How to use this WebSocket API document
 
     You can either use it to:
 
     - **Interactively browse the WebSocket API.** Browse the *Channels*, check out the responses and examples (tailor the *PUBLISH* requests to suit with your favorite WebSocket client).
-    For testing purposes, either [set up your own server](https://join.lemmy.ml/docs/en/administration/administration.html) or use the Enterprise server (*ws://enterprise.lemmy.ml/api/v2/ws*)
+    For testing purposes, either [set up your own server](https://join-lemmy.org/docs/en/administration/administration.html) or use the Enterprise server (*ws://enterprise.lemmy.ml/api/v2/ws*)
     - **[Open and save](asyncapi.yaml) this specification file** and use it with the various [AsyncAPI tools](https://www.asyncapi.com/docs/community/tooling) (perhaps to generate code or documentation).
 
     Connect to <code>ws://***host***/api/v2/ws</code> to get started. If the server supports secure connections, you can use `wss://**server**/api/v1/ws`.
@@ -63,7 +63,7 @@ info:
 
     ### The HTTP API
 
-    Lemmy also has an [HTTP API](https://join.lemmy.ml/docs/en/contributing/http_api.html) which is almost identical to the WebSocket API; however, this WebSocket API is the primary source since it also details the specifics of HTTP API calls.
+    Lemmy also has an [HTTP API](https://join-lemmy.org/docs/en/contributing/http_api.html) which is almost identical to the WebSocket API; however, this WebSocket API is the primary source since it also details the specifics of HTTP API calls.
 
   license:
     name: AGPL
