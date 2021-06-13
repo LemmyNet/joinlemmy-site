@@ -12,18 +12,18 @@ info:
 
     #### More information...
 
-    - [Install your own server](https://join.lemmy.ml/docs/en/administration/administration.html)
-    - [API reference](https://join.lemmy.ml/docs/en/contributing/api_reference.html)
-    - [HTTP API](https://join.lemmy.ml/docs/en/contributing/http_api.html)
+    - [Install your own server](https://join-lemmy.org/docs/en/administration/administration.html)
+    - [API reference](https://join-lemmy.org/docs/en/contributing/api_reference.html)
+    - [HTTP API](https://join-lemmy.org/docs/en/contributing/http_api.html)
 
     ### Browse this WebSocket API document
 
-    For testing purposes, either [set up your own server](https://join.lemmy.ml/docs/en/administration/administration.html) or one of the test servers: Enterprise, DS9 or Voyager (see below). You can then scan through the *Operations* in this document:
+    For testing purposes, either [set up your own server](https://join-lemmy.org/docs/en/administration/administration.html) or one of the test servers: Enterprise, DS9 or Voyager (see below). You can then scan through the *Operations* in this document:
     
     - **PUB** - these are the messages sent (published) to the API. The _Payload_ describes the required format. _Extensions/x-response_ indicates the response to the request and _Examples_ provides a JSON object (handy for pasting into your websocket client for testing).
     - **SUB** - these are the messages received from the API (subscribed to).
 
-    > The 'HTTP API - operation and endpoint' section within each message is for those who prefer to use the [HTTP API](https://join.lemmy.ml/docs/en/contributing/http_api.html) to access Lemmy.
+    > The 'HTTP API - operation and endpoint' section within each message is for those who prefer to use the [HTTP API](https://join-lemmy.org/docs/en/contributing/http_api.html) to access Lemmy.
 
     ### Generate code or documentation
 
@@ -60,7 +60,7 @@ info:
 
     ### The HTTP API
 
-    Lemmy also has an [HTTP API](https://join.lemmy.ml/docs/en/contributing/http_api.html) which is almost identical to the WebSocket API; however, this WebSocket API is the primary source since it also details the specifics of HTTP API calls.
+    Lemmy also has an [HTTP API](https://join-lemmy.org/docs/en/contributing/http_api.html) which is almost identical to the WebSocket API; however, this WebSocket API is the primary source since it also details the specifics of HTTP API calls.
 
   license:
     name: AGPL
