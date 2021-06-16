@@ -11,6 +11,7 @@ export class LinkLine extends Component<any, any> {
     return (
       <>
         <Link to="/instances">{i18n.t("join")}</Link>
+        <Link to="/about">{i18n.t("about")}</Link>
         <Link to="/apps">{i18n.t("apps")}</Link>
         <Link to="/support">{i18n.t("support")}</Link>
         <a href={`/docs/${getDocsLanguage(i18n.language)}/index.html`}>

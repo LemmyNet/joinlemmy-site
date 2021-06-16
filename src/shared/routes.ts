@@ -4,6 +4,7 @@ import { Apps } from "./components/apps";
 import { Instances } from "./components/instances";
 import { Contact } from "./components/contact";
 import { Support } from "./components/support";
+import { About } from "./components/about";
 
 export const routes: IRouteProps[] = [
   {
@@ -15,6 +16,11 @@ export const routes: IRouteProps[] = [
     path: `/apps`,
     exact: true,
     component: Apps,
+  },
+  {
+    path: `/about`,
+    exact: true,
+    component: About,
   },
   {
     path: `/instances`,
