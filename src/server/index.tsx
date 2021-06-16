@@ -76,8 +76,8 @@ server.get("/*", async (req, res) => {
               height: 100%;
               background:
               linear-gradient(
-              rgba(0, 0, 0, 0.0),
-              rgba(0, 0, 0, 0.0)
+              rgba(0, 0, 0, 0.5),
+              rgba(0, 0, 0, 0.5)
               ),
               url('/static/assets/images/main_img.webp');
               -webkit-filter: blur(7px);
