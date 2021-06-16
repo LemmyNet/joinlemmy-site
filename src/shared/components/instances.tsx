@@ -60,7 +60,7 @@ export class Instances extends Component<any, any> {
                 <p class="join-desc">{i.description}</p>
                 <footer>
                   <a class="button primary" href={`https://${i.domain}`}>
-                    Join
+                    {i18n.t("join")}
                   </a>
                 </footer>
               </div>
