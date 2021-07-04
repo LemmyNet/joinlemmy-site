@@ -3,8 +3,22 @@ const fs = require("fs");
 const translationDir = "joinlemmy-translations/translations/";
 const outDir = "src/shared/translations/";
 const translatorsJsonFile = "lemmy-translations/translators.json";
+const statsFile = "lemmy-instance-stats/stats.json";
 
 fs.mkdirSync(outDir, { recursive: true });
+
+// Write the stats file
+try {
+  const json = JSON.parse(fs.readFileSync(statsFile, "utf8"));
+  let data = `export const instance_stats = \n `;
+  data += JSON.stringify(json, null, 2) + ";";
+  const target = outDir + "instance_stats.ts";
+  fs.writeFileSync(target, data);
+} catch (err) {
+  console.error(err);
+}
+
+// Write the translations
 fs.readdir(translationDir, (_err, files) => {
   files.forEach(filename => {
     const lang = filename.split(".")[0];
