@@ -20,6 +20,7 @@ git submodule update --remote
 git add joinlemmy-translations
 git add lemmy-translations
 git add lemmy-instance-stats
+git add lemmy-docs
 
 git commit -m"Updating submodules"
 git push
