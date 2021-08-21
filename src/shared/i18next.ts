@@ -22,6 +22,11 @@ import { ja } from "./translations/ja";
 import { km } from "./translations/km";
 import { nb_NO } from "./translations/nb_NO";
 import { zh_Hant } from "./translations/zh_Hant";
+import { fa } from "./translations/fa";
+import { id } from "./translations/id";
+import { mnc } from "./translations/mnc";
+import { sv } from "./translations/sv";
+import { vi } from "./translations/vi";
 
 // https://github.com/nimbusec-oss/inferno-i18next/blob/master/tests/T.test.js#L66
 const resources = {
@@ -46,6 +51,11 @@ const resources = {
   km,
   nb_NO,
   zh_Hant,
+  fa,
+  id,
+  mnc,
+  sv,
+  vi,
 };
 
 function format(value: any, format: any): any {
