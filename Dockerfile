@@ -8,11 +8,13 @@ RUN cargo install mdbook \
 COPY lemmy-docs ./lemmy-docs
 RUN mdbook build lemmy-docs -d ../docs
 
-# Build the asyncapi API docs
-FROM asyncapi/generator:1.8.0 as api
+# Build the typedoc API docs
+FROM node:14-alpine as api
 WORKDIR /app
-COPY src/assets/scripts/asyncapi.yaml ./
-RUN ag -o ./api ./asyncapi.yaml @asyncapi/html-template --force-write
+COPY lemmy-js-client lemmy-js-client
+WORKDIR /app/lemmy-js-client
+RUN yarn
+RUN yarn docs
 
 # Build the isomorphic app
 FROM node:14-alpine as builder
@@ -37,7 +39,7 @@ COPY src src
 
 # Copy the docs and API
 COPY --from=docs /app/docs ./src/assets/docs
-COPY --from=api /app/api ./src/assets/api
+COPY --from=api /app/lemmy-js-client/docs ./src/assets/api
 
 RUN yarn
 RUN yarn build:prod
