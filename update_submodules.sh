@@ -21,6 +21,7 @@ git add joinlemmy-translations
 git add lemmy-translations
 git add lemmy-instance-stats
 git add lemmy-docs
+git add lemmy-js-client
 
 git commit -m"Updating submodules"
 git push
