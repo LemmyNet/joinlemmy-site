@@ -35,6 +35,7 @@ COPY tsconfig.json \
 
 COPY joinlemmy-translations joinlemmy-translations
 COPY lemmy-translations lemmy-translations
+COPY lemmy-instance-stats lemmy-instance-stats
 COPY src src
 
 # Copy the docs and API
