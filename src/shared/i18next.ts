@@ -27,6 +27,7 @@ import { id } from "./translations/id";
 import { mnc } from "./translations/mnc";
 import { sv } from "./translations/sv";
 import { vi } from "./translations/vi";
+import { pt } from "./translations/pt";
 
 // https://github.com/nimbusec-oss/inferno-i18next/blob/master/tests/T.test.js#L66
 const resources = {
@@ -56,6 +57,7 @@ const resources = {
   mnc,
   sv,
   vi,
+  pt,
 };
 
 function format(value: any, format: any): any {
