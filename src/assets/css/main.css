@@ -55,3 +55,8 @@ img {
   display: inline-block !important;
   padding: 0px 6px 0px 6px !important;
 }
+
+.gold {
+  border-color: #FFD700 !important;
+  color: #FFD700;
+}
