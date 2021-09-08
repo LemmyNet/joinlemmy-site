@@ -7,29 +7,43 @@ import { translators } from "../translations/translators";
 import { languagesAll, countries } from "countries-list";
 
 const title = i18n.t("support_title");
+const avatarSize = 40;
 
 interface LinkedSponsor {
   name: string;
   link: string;
 }
 
-let silverSponsors: LinkedSponsor[] = [
-  { name: "RedJoker", link: "https://iww.org" },
+interface GoldSponsor {
+  name: string;
+  link: string;
+  avatar: string;
+}
+
+let goldSponsors: GoldSponsor[] = [
+  {
+    name: "purplerabbit",
+    link: "https://purplerabbit.gitlab.io",
+    avatar: "https://purplerabbit.gitlab.io/assets/avatar.jpeg",
+  },
 ];
-let highlightedSponsors = ["DQW", "Alex Benishek"];
+
+let silverSponsors: LinkedSponsor[] = [];
+
+let highlightedSponsors = ["DQW", "John Knapp"];
 let sponsors = [
-  "seahorse",
-  "Tommaso",
-  "Jamie Gray",
+  "Anthony",
+  "Remi Rampin",
+  "Cameron C",
+  "Vegard",
+  "0ti.me",
   "Brendan",
-  "mexicanhalloween",
-  "William Moore",
-  "Rachel Schmitz",
-  "comradeda",
-  "Jonathan Cremin",
+  "mexicanhalloween .",
   "Arthur Nieuwland",
   "Forrest Weghorst",
-  "Andre Vallestero",
+  "Luke Black",
+  "Brandon Abbott",
+  "Eon Gattignolo",
 ];
 
 export interface Coder {
@@ -85,17 +99,42 @@ export class Support extends Component<any, any> {
           </div>
           <div class="text-center">
             <h2>{i18n.t("sponsors")}</h2>
-            <p>{i18n.t("silver_sponsors_desc")}</p>
-            <div class="row is-horizontal-align">
-              {silverSponsors.map(s => (
-                <div class="col">
-                  <a class="button outline primary" href={s.link}>
-                    💎 {s.name}
-                  </a>
+            {goldSponsors.length > 0 && (
+              <div>
+                <p>{i18n.t("gold_sponsors_desc")}</p>
+                <div class="row is-horizontal-align">
+                  {goldSponsors.map(s => (
+                    <div class="col">
+                      <a class="button outline gold" href={s.link}>
+                        <img
+                          class="mr-2 is-rounded"
+                          src={s.avatar}
+                          width={avatarSize}
+                          height={avatarSize}
+                        />
+                        <div>{s.name}</div>
+                      </a>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <br />
+                <br />
+              </div>
+            )}
+            {silverSponsors.length > 0 && (
+              <div>
+                <p>{i18n.t("silver_sponsors_desc")}</p>
+                <div class="row is-horizontal-align">
+                  {silverSponsors.map(s => (
+                    <div class="col">
+                      <a class="button outline primary" href={s.link}>
+                        💎 {s.name}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+                <br />
+              </div>
+            )}
             <p>{i18n.t("general_sponsors_desc")}</p>
             <div class="row is-horizontal-align">
               {highlightedSponsors.map(s => (
