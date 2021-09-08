@@ -8,6 +8,8 @@ import { languagesAll, countries } from "countries-list";
 
 const title = i18n.t("support_title");
 const avatarSize = 40;
+const bannerWidth = 240;
+const bannerHeight = 101;
 
 interface LinkedSponsor {
   name: string;
@@ -25,6 +27,14 @@ let goldSponsors: GoldSponsor[] = [
     name: "purplerabbit",
     link: "https://purplerabbit.gitlab.io",
     avatar: "https://purplerabbit.gitlab.io/assets/avatar.jpeg",
+  },
+];
+
+let latinumSponsors: GoldSponsor[] = [
+  {
+    name: "NLnet",
+    link: "https://nlnet.nl",
+    avatar: "https://nlnet.nl/image/logo_nlnet.svg",
   },
 ];
 
@@ -99,6 +109,26 @@ export class Support extends Component<any, any> {
           </div>
           <div class="text-center">
             <h2>{i18n.t("sponsors")}</h2>
+            {latinumSponsors.length > 0 && (
+              <div>
+                <p>{i18n.t("gold_pressed_latinum_sponsors_desc")}</p>
+                <div class="row is-horizontal-align">
+                  {latinumSponsors.map(s => (
+                    <div class="col-6">
+                      <a class="button outline" href={s.link}>
+                        <img
+                          src={s.avatar}
+                          width={bannerWidth}
+                          height={bannerHeight}
+                        />
+                        <div>{s.name}</div>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+                <br />
+              </div>
+            )}
             {goldSponsors.length > 0 && (
               <div>
                 <p>{i18n.t("gold_sponsors_desc")}</p>
@@ -107,7 +137,7 @@ export class Support extends Component<any, any> {
                     <div class="col">
                       <a class="button outline gold" href={s.link}>
                         <img
-                          class="mr-2 is-rounded"
+                          class="is-rounded"
                           src={s.avatar}
                           width={avatarSize}
                           height={avatarSize}
