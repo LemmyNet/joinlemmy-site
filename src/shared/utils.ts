@@ -14,3 +14,7 @@ let SHORTNUM_SI_FORMAT = new Intl.NumberFormat("en-US", {
 export function numToSI(value: any) {
   return SHORTNUM_SI_FORMAT.format(value);
 }
+
+export function isBrowser() {
+  return typeof window !== "undefined";
+}

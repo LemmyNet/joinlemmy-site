@@ -12,7 +12,7 @@ export class DonateLines extends Component<any, any> {
       <>
         <p>
           <T i18nKey="donate_desc">
-            #<Link to="/support">#</Link>#
+            #<Link to="/donate">#</Link>#
           </T>
         </p>
         <div class="row is-horizontal-align">

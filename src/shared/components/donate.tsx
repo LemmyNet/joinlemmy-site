@@ -5,6 +5,7 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { translators } from "../translations/translators";
 import { languagesAll, countries } from "countries-list";
+import { isBrowser } from "../utils";
 
 const title = i18n.t("support_title");
 const avatarSize = 40;
@@ -85,10 +86,17 @@ export interface Translator {
   link?: string;
 }
 
-export class Support extends Component<any, any> {
+export class Donate extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
   }
+
+  componentDidMount() {
+    if (isBrowser()) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
     return (
       <div>

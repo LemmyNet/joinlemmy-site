@@ -3,7 +3,7 @@ import { Main } from "./components/main";
 import { Apps } from "./components/apps";
 import { Instances } from "./components/instances";
 import { Contact } from "./components/contact";
-import { Support } from "./components/support";
+import { Donate } from "./components/donate";
 import { About } from "./components/about";
 
 export const routes: IRouteProps[] = [
@@ -35,6 +35,11 @@ export const routes: IRouteProps[] = [
   {
     path: `/support`,
     exact: true,
-    component: Support,
+    component: Donate,
+  },
+  {
+    path: `/donate`,
+    exact: true,
+    component: Donate,
   },
 ];

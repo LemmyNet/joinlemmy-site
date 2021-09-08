@@ -2,6 +2,7 @@ import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
+import { isBrowser } from "../utils";
 
 const title = i18n.t("about_title");
 
@@ -9,6 +10,13 @@ export class About extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
   }
+
+  componentDidMount() {
+    if (isBrowser()) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
     return (
       <div>

@@ -4,7 +4,7 @@ import { Helmet } from "inferno-helmet";
 import { DonateLines } from "./donate-lines";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
-import { getDocsLanguage } from "../utils";
+import { getDocsLanguage, isBrowser } from "../utils";
 
 const title = i18n.t("lemmy_title");
 
@@ -13,6 +13,11 @@ export class Main extends Component<any, any> {
     super(props, context);
   }
 
+  componentDidMount() {
+    if (isBrowser()) {
+      window.scrollTo(0, 0);
+    }
+  }
   joinServer() {
     return (
       <Link className="button primary" to="/instances">
@@ -257,7 +262,7 @@ export class Main extends Component<any, any> {
           <div class="container">
             <div class="text-center">
               <h2>
-                <Link to="/support">{i18n.t("support_donate")}</Link>
+                <Link to="/donate">{i18n.t("support_donate")}</Link>
               </h2>
               <DonateLines />
             </div>

@@ -13,7 +13,7 @@ export class LinkLine extends Component<any, any> {
         <Link to="/instances">{i18n.t("join")}</Link>
         <Link to="/about">{i18n.t("about")}</Link>
         <Link to="/apps">{i18n.t("apps")}</Link>
-        <Link to="/support">{i18n.t("support")}</Link>
+        <Link to="/donate">{i18n.t("donate")}</Link>
         <a href={`/docs/${getDocsLanguage(i18n.language)}/index.html`}>
           {i18n.t("docs")}
         </a>
