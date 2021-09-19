@@ -211,6 +211,14 @@ export class Donate extends Component<any, any> {
                   </code>
                 </td>
               </tr>
+              <tr>
+                <td>cardano</td>
+                <td>
+                  <code>
+                    addr1q858t89l2ym6xmrugjs0af9cslfwvnvsh2xxp6x4dcez7pf5tushkp4wl7zxfhm2djp6gq60dk4cmc7seaza5p3slx0sakjutm
+                  </code>
+                </td>
+              </tr>
             </table>
           </div>
         </div>
