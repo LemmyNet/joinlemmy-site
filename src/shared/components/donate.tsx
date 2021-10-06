@@ -23,13 +23,7 @@ interface GoldSponsor {
   avatar: string;
 }
 
-let goldSponsors: GoldSponsor[] = [
-  {
-    name: "purplerabbit",
-    link: "https://purplerabbit.gitlab.io",
-    avatar: "https://purplerabbit.gitlab.io/assets/avatar.jpeg",
-  },
-];
+let goldSponsors: GoldSponsor[] = [];
 
 let latinumSponsors: GoldSponsor[] = [
   {
