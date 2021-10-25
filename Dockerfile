@@ -1,11 +1,20 @@
+# Build the curl includes for the docs
+FROM alpine:3 as docs_include
+RUN apk add --no-cache curl bash
+WORKDIR /app
+COPY lemmy-docs ./lemmy-docs
+WORKDIR /app/lemmy-docs
+RUN ./update-includes.sh
+
 # Build the docs
 FROM rust:slim as docs
 WORKDIR /app
 RUN cargo install mdbook \
-  --git https://github.com/Nutomic/mdBook.git \
+  --git https://github.com/Ruin0x11/mdBook.git \
   --branch localization \
-  --rev 0982a82
+  --rev 9d8147c
 COPY lemmy-docs ./lemmy-docs
+COPY --from=docs_include /app/lemmy-docs/include /app/lemmy-docs/include
 RUN mdbook build lemmy-docs -d ../docs
 
 # Build the typedoc API docs
