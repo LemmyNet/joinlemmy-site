@@ -1,11 +1,7 @@
 #!/bin/bash
 
-git submodule update --remote
-git add lemmy-docs
-git commit -m"Updating docs"
-git add joinlemmy-translations
-git commit -m"Updating translations"
-git push
+# Update all the submodules and translations
+./update_submodules.sh
 
 # look for unused translations
 for langfile in joinlemmy-translations/translations/*.json; do
