@@ -24,7 +24,7 @@ export class Apps extends Component<any, any> {
               <AppDetails
                 name="lemmur"
                 description="A Lemmy client for Android, Linux, and Windows."
-                link="https://github.com/krawieck/lemmur"
+                link="https://github.com/LemmurOrg/lemmur"
                 icon="/static/assets/images/lemmur.svg"
                 banner="/static/assets/images/lemmur_screen.webp"
                 links={[
@@ -38,7 +38,7 @@ export class Apps extends Component<any, any> {
                     icon: "googleplay",
                   },
                   {
-                    link: "https://github.com/krawieck/lemmur",
+                    link: "https://github.com/LemmurOrg/lemmur",
                     icon: "github",
                   },
                 ]}
@@ -110,7 +110,7 @@ export class Apps extends Component<any, any> {
               - a javascript / typescript client.
             </li>
             <li>
-              <a href="https://github.com/krawieck/lemmy_api_client">
+              <a href="https://github.com/LemmurOrg/lemmy_api_client">
                 lemmy-dart client
               </a>{" "}
               - a dart / flutter client.
