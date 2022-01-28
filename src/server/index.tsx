@@ -1,4 +1,4 @@
-import express from "express";
+import express, { RequestHandler } from "express";
 import { StaticRouter } from "inferno-router";
 import { renderToString } from "inferno-server";
 // import { matchPath } from "inferno-router";
@@ -12,8 +12,8 @@ import { i18n } from "../shared/i18next";
 const server = express();
 const port = 1234;
 
-server.use(express.json());
-server.use(express.urlencoded({ extended: false }));
+server.use(express.json() as RequestHandler);
+server.use(express.urlencoded({ extended: false }) as RequestHandler);
 server.use("/static", express.static(path.resolve("./dist")));
 server.use("/docs", express.static(path.resolve("./dist/assets/docs")));
 server.use("/api", express.static(path.resolve("./dist/assets/api")));
