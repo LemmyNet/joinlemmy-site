@@ -4,7 +4,14 @@ import { App } from "../shared/components/app";
 import { i18n } from "../shared/i18next";
 
 // Setting the language for js browsers
-i18n.changeLanguage(navigator.language);
+// If query param is set, server updates cookie automatically,
+// so no need to check the query here
+const languageCookie = document.cookie.split("=")[1];
+if (languageCookie != null) {
+  i18n.changeLanguage(languageCookie);
+} else {
+  i18n.changeLanguage(navigator.language);
+}
 
 const wrapper = (
   <BrowserRouter>

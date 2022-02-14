@@ -60,3 +60,8 @@ img {
   border-color: #FFD700 !important;
   color: #FFD700;
 }
+
+.language-selector {
+  margin-top: 7px;
+  background-color: #333;
+}

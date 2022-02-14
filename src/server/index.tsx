@@ -23,10 +23,21 @@ server.get("/*", async (req, res) => {
   const context = {} as any;
 
   // Setting the language for non-js browsers
-  let lang = req.headers["accept-language"]
-    ? req.headers["accept-language"].split(",")[0]
-    : "en";
-  i18n.changeLanguage(lang);
+  const cookieLang = req.headers.cookie?.split("=")[1];
+  if (req.query["lang"] != null) {
+    const lang = req.query["lang"].toString();
+    res.cookie("lang", lang, {
+      expires: new Date(Date.now() + 60 * 60 * 24 * 7),
+    });
+    i18n.changeLanguage(lang);
+  } else if (cookieLang != null) {
+    i18n.changeLanguage(cookieLang);
+  } else {
+    const lang = req.headers["accept-language"]
+      ? req.headers["accept-language"].split(",")[0]
+      : "en";
+    i18n.changeLanguage(lang);
+  }
 
   const wrapper = (
     <StaticRouter location={req.url} context={context}>

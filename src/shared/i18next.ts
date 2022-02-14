@@ -60,6 +60,36 @@ const resources = {
   pt,
 };
 
+const languageNames = {
+  en: "English",
+  ru: "Русский",
+  zh: "中文",
+  es: "Español",
+  eu: "Euskara",
+  bg: "Български",
+  nl: "Nederlands",
+  fi: "Suomi",
+  fr: "Français",
+  el: "Ελληνικά",
+  ko: "한국어",
+  pl: "Polski",
+  ar: "العربية",
+  eo: "Esperanto",
+  de: "Deutsch",
+  gl: "Galego",
+  it: "Italiano",
+  ja: "日本語",
+  km: "ភាសាខ្មែរ",
+  nb_NO: "Norsk (Bokmål)",
+  zh_Hant: "文言",
+  fa: "فارسی",
+  id: "Bahasa Indonesia",
+  mnc: "ᠮᠠᠨᠵᡠ ᡤᡳᠰᡠᠨ",
+  sv: "Svenska",
+  vi: "Tiếng Việt",
+  pt: "Português",
+};
+
 function format(value: any, format: any): any {
   return format === "uppercase" ? value.toUpperCase() : value;
 }
@@ -68,7 +98,6 @@ i18next.init({
   debug: false,
   // load: 'languageOnly',
   // initImmediate: false,
-  lng: "en", // This is changed later
   fallbackLng: "en",
   resources,
   interpolation: { format },
@@ -77,3 +106,7 @@ i18next.init({
 export const i18n = i18next as i18nTyped;
 
 export { resources };
+
+export function getLanguageName(key: string): string {
+  return languageNames[key];
+}
