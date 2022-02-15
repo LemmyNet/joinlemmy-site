@@ -110,3 +110,19 @@ export { resources };
 export function getLanguageName(key: string): string {
   return languageNames[key];
 }
+
+// https://gist.github.com/hunan-rostomyan/28e8702c1cecff41f7fe64345b76f2ca
+export function getLanguageFromCookie(cookies?: string): string | null {
+  if (cookies == null) {
+    return null;
+  }
+
+  const key = "lang=";
+  return (
+    cookies
+      .split(";")
+      .map(c => c.trim())
+      .filter(cookie => cookie.substring(0, key.length) === key)
+      .map(cookie => cookie.substring(key.length))[0] || null
+  );
+}

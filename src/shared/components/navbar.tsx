@@ -1,4 +1,4 @@
-import { Component, ChangeEvent } from "inferno";
+import { Component, ChangeEvent, linkEvent } from "inferno";
 import { Link } from "inferno-router";
 import { LinkLine } from "./link-line";
 import { Icon } from "./icon";
@@ -9,7 +9,7 @@ export class Navbar extends Component<any, any> {
     super(props, context);
   }
 
-  handleLanguageChange(event: ChangeEvent<HTMLSelectElement>) {
+  handleLanguageChange(_: any, event: ChangeEvent<HTMLSelectElement>) {
     location.href = `/?lang=${event.target.value}`;
   }
 
@@ -34,7 +34,7 @@ export class Navbar extends Component<any, any> {
           <div class="nav-right">
             <div>
               <select
-                onChange={this.handleLanguageChange}
+                onChange={linkEvent(this, this.handleLanguageChange)}
                 class="text-light bd-dark language-selector"
               >
                 {this.languageList().map((language, i) => (
