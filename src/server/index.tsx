@@ -7,7 +7,7 @@ import { App } from "../shared/components/app";
 // import { routes } from "../shared/routes";
 import process from "process";
 import { Helmet } from "inferno-helmet";
-import { i18n } from "../shared/i18next";
+import { getLanguageFromCookie, i18n } from "../shared/i18next";
 
 const server = express();
 const port = 1234;
@@ -23,10 +23,21 @@ server.get("/*", async (req, res) => {
   const context = {} as any;
 
   // Setting the language for non-js browsers
-  let lang = req.headers["accept-language"]
-    ? req.headers["accept-language"].split(",")[0]
-    : "en";
-  i18n.changeLanguage(lang);
+  const cookieLang = getLanguageFromCookie(req.headers.cookie);
+  var language: string;
+  if (req.query["lang"] != null) {
+    language = req.query["lang"].toString();
+    res.cookie("lang", language, {
+      expires: new Date(Date.now() + 60 * 60 * 24 * 7),
+    });
+  } else if (cookieLang != null) {
+    language = cookieLang;
+  } else {
+    language = req.headers["accept-language"]
+      ? req.headers["accept-language"].split(",")[0]
+      : "en";
+  }
+  i18n.changeLanguage(language);
 
   const wrapper = (
     <StaticRouter location={req.url} context={context}>
