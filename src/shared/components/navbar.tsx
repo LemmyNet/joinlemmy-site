@@ -2,7 +2,7 @@ import { Component, ChangeEvent, linkEvent } from "inferno";
 import { Link } from "inferno-router";
 import { LinkLine } from "./link-line";
 import { Icon } from "./icon";
-import { getLanguageName, i18n } from "../i18next";
+import { i18n, languages } from "../i18next";
 
 export class Navbar extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -43,7 +43,7 @@ export class Navbar extends Component<any, any> {
                     value={language}
                     selected={i18n.language.startsWith(language)}
                   >
-                    {getLanguageName(language)}
+                    {languages.find(l => l.code.startsWith(language)).name}
                   </option>
                 ))}
               </select>
