@@ -212,6 +212,11 @@ export class Main extends Component<any, any> {
                   </T>
                 </li>
                 <li>{i18n.t("clean_interface")}</li>
+                <li>
+                  <Link to="/apps">
+                    {i18n.t("mobile_apps_for_ios_and_android")}
+                  </Link>
+                </li>
                 <li>{i18n.t("avatar_support")}</li>
                 <li>
                   <T i18nKey="full_vote_scores">

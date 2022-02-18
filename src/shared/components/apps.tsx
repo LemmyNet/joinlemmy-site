@@ -9,6 +9,11 @@ export class Apps extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
   }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     return (
       <div>
