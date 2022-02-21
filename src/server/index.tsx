@@ -111,6 +111,7 @@ server.get("/*", async (req, res) => {
            <body ${helmet.bodyAttributes.toString()}>
              <div id='root'>${root}</div>
              <script defer src='/static/js/client.js'></script>
+             <script defer data-domain="join-lemmy.org" src="https://plausible.lemmy.ml/js/plausible.js"></script>
            </body>
          </html>
 `);
