@@ -18,7 +18,7 @@ export class Contact extends Component<any, any> {
           <h1>{i18n.t("contact")}</h1>
           <ul>
             <li>
-              <a href="https://mastodon.social/@LemmyDev">Mastodon</a>
+              <a href="https://lemmy.ml/c/lemmy_support">/c/lemmy_support</a>
             </li>
             <li>
               <a href="https://matrix.to/#/#lemmy:matrix.org">Matrix</a>
