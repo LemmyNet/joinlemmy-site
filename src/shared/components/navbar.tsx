@@ -51,9 +51,6 @@ export class Navbar extends Component<any, any> {
             <a href="https://github.com/LemmyNet">
               <Icon icon="github" />
             </a>
-            <a href="https://mastodon.social/@LemmyDev">
-              <Icon icon="mastodon" />
-            </a>
             <a href="https://matrix.to/#/#lemmy:matrix.org">
               <Icon icon="matrix" />
             </a>
