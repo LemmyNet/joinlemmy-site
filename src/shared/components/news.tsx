@@ -25,6 +25,9 @@ export class News extends Component<any, any> {
         </Helmet>
         <div class="container">
           <h1>{title}</h1>
+          <a href="https://github.com/LemmyNet/lemmy/blob/main/RELEASES.md">
+            {i18n.t("releases")}
+          </a>
           <div dangerouslySetInnerHTML={mdToHtml(news_md)} />
         </div>
       </div>
