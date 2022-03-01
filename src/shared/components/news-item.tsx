@@ -1,5 +1,4 @@
 import { Component } from "inferno";
-import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { news_md_1, news_md_2, news_md_3 } from "../translations/news";

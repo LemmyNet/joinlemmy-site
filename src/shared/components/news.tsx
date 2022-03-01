@@ -2,7 +2,7 @@ import { Component } from "inferno";
 import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { isBrowser, mdToHtml } from "../utils";
+import { isBrowser } from "../utils";
 
 const title = i18n.t("news");
 
