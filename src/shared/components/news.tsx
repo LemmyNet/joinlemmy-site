@@ -1,10 +1,17 @@
 import { Component } from "inferno";
+import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { news_md } from "../translations/news";
 import { isBrowser, mdToHtml } from "../utils";
 
 const title = i18n.t("news");
+
+// Order these chronologically, recent to past
+const newsLinks = [
+  "2021-11-17 - Federation with Mastodon and Pleroma",
+  "2021-09-04 - Lemmy.ml now uses open federation",
+  "2021-08-09 - Promoting Lemmy",
+];
 
 export class News extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -25,10 +32,18 @@ export class News extends Component<any, any> {
         </Helmet>
         <div class="container">
           <h1>{title}</h1>
-          <a href="https://github.com/LemmyNet/lemmy/blob/main/RELEASES.md">
-            {i18n.t("releases")}
-          </a>
-          <div dangerouslySetInnerHTML={mdToHtml(news_md)} />
+          <ul>
+            <li>
+              <a href="https://github.com/LemmyNet/lemmy/blob/main/RELEASES.md">
+                {i18n.t("releases")}
+              </a>
+            </li>
+            {newsLinks.map((v, i) => (
+              <li>
+                <Link to={`news_item/${newsLinks.length - i}`}>{v}</Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     );

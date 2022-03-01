@@ -4,7 +4,7 @@ const translationDir = "joinlemmy-translations/translations/";
 const outDir = "src/shared/translations/";
 const translatorsJsonFile = "lemmy-translations/translators.json";
 const statsFile = "lemmy-instance-stats/stats.json";
-const newsFile = "src/assets/news.md";
+const newsDir = "src/assets/news";
 
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -21,9 +21,15 @@ try {
 
 // Write the news file
 try {
-  const markdown = fs.readFileSync(newsFile, "utf8");
-  let data = `export const news_md = \n `;
-  data += JSON.stringify(markdown, null, 2) + ";";
+  let files = fs.readdirSync(newsDir);
+  let data = "";
+  for (let file of files) {
+    let path = `${newsDir}/${file}`;
+    let fNum = file.split(".")[0];
+    const markdown = fs.readFileSync(path, "utf8");
+    data += `export const news_md_${fNum} = \n `;
+    data += JSON.stringify(markdown, null, 2) + ";\n";
+  }
   const target = outDir + "news.ts";
   fs.writeFileSync(target, data);
 } catch (err) {

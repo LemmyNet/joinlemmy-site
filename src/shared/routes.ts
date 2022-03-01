@@ -6,6 +6,7 @@ import { Contact } from "./components/contact";
 import { Donate } from "./components/donate";
 import { About } from "./components/about";
 import { News } from "./components/news";
+import { NewsItem } from "./components/news-item";
 
 export const routes: IRouteProps[] = [
   {
@@ -22,6 +23,11 @@ export const routes: IRouteProps[] = [
     path: `/news`,
     exact: true,
     component: News,
+  },
+  {
+    path: `/news_item/:index`,
+    exact: true,
+    component: NewsItem,
   },
   {
     path: `/about`,
