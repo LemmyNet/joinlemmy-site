@@ -34,9 +34,7 @@ export class News extends Component<any, any> {
           <h1>{title}</h1>
           <ul>
             <li>
-              <a href="https://github.com/LemmyNet/lemmy/blob/main/RELEASES.md">
-                {i18n.t("releases")}
-              </a>
+              <Link to="/releases">{i18n.t("releases")}</Link>
             </li>
             {newsLinks.map((v, i) => (
               <li>
