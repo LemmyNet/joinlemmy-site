@@ -8,18 +8,9 @@ const newsMarkdowns = [news_md_1, news_md_2, news_md_3];
 
 const title = i18n.t("news");
 
-interface NewsItemState {
-  index: number;
-}
-
-export class NewsItem extends Component<any, NewsItemState> {
-  emptyState: NewsItemState = {
-    index: this.props.match.params.index,
-  };
-
+export class NewsItem extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
-    this.state = this.emptyState;
   }
 
   componentDidMount() {
@@ -29,7 +20,8 @@ export class NewsItem extends Component<any, NewsItemState> {
   }
 
   get markdown(): string {
-    return newsMarkdowns[this.state.index - 1];
+    let index = this.props.match.params.index;
+    return newsMarkdowns[index - 1];
   }
 
   render() {
