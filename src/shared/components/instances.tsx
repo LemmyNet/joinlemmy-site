@@ -48,40 +48,44 @@ export class Instances extends Component<any, any> {
   renderList(header: string, instances: any[]) {
     return (
       <div>
-        <h2>{header}</h2>
-        <div class="row">
+        <Helmet title={title}>
+          <meta property={"title"} content={title} />
+        </Helmet>
+        <div class="container">
+          <h1 class="is-marginless">{i18n.t("lemmy_servers")}</h1>
+          {this.header()}
+          <br />
+          <br />
+          <p>{i18n.t("choose_and_join")}</p>
+
           {instances.map(i => (
-            <div class="card col-6">
-              <header>
-                <div class="row">
-                  <h4 class="col">{i.domain}</h4>
-                  <h4 class="col text-right">
-                    <i>
-                      {numToSI(i.users_active_month)} {i18n.t("users")} /{" "}
-                      {i18n.t("month")}
-                    </i>
-                  </h4>
+            <div class="card">
+              <img
+                class="join-icon"
+                src={i.icon || "/static/assets/images/lemmy.svg"}
+              />
+              <div class="join-text">
+                <div class="join-header">
+                  <h4 class="join-title">{i.name}</h4>
+                  <i>
+                    {numToSI(i.users_active_month)} {i18n.t("users")} /{" "}
+                    {i18n.t("month")}
+                  </i>
                 </div>
-              </header>
-              <div class="is-center">
-                <img
-                  class="join-banner"
-                  src={i.icon || "/static/assets/images/lemmy.svg"}
-                />
+                <p class="join-desc">{i.description}</p>
               </div>
-              <br />
-              <p class="join-desc">{i.description}</p>
-              <footer>
-                {i.require_application ? (
-                  <a class="button primary" href={`https://${i.domain}`}>
-                    {i18n.t("apply_to_join")}
-                  </a>
-                ) : (
-                  <a class="button primary" href={`https://${i.domain}`}>
-                    {i18n.t("join")}
-                  </a>
-                )}
-              </footer>
+              {i.require_application ? (
+                <a
+                  class="button primary button-yellow"
+                  href={`https://${i.domain}`}
+                >
+                  {i18n.t("apply_to_join")}
+                </a>
+              ) : (
+                <a class="button primary" href={`https://${i.domain}`}>
+                  {i18n.t("join")}
+                </a>
+              )}
             </div>
           ))}
         </div>
