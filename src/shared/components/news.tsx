@@ -6,6 +6,7 @@ import { isBrowser } from "../utils";
 import { news_md } from "../translations/news";
 
 const title = i18n.t("news");
+const newsReversed = news_md.reverse();
 
 export class News extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -30,7 +31,7 @@ export class News extends Component<any, any> {
             <li>
               <Link to="/releases">{i18n.t("releases")}</Link>
             </li>
-            {news_md.reverse().map(v => (
+            {newsReversed.map(v => (
               <li>
                 <Link to={`news_item/${v.title}`}>{v.title}</Link>
               </li>
