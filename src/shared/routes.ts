@@ -31,7 +31,7 @@ export const routes: IRouteProps[] = [
     component: Releases,
   },
   {
-    path: `/news_item/:index`,
+    path: `/news_item/:title`,
     exact: true,
     component: NewsItem,
   },

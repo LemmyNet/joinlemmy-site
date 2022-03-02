@@ -1,5 +1,6 @@
 import fs from 'fs';
 import fetch from 'node-fetch';
+import path from 'path';
 
 const translationDir = "joinlemmy-translations/translations/";
 const outDir = "src/shared/translations/";
@@ -24,14 +25,16 @@ try {
 // Write the news file
 try {
   let files = fs.readdirSync(newsDir);
-  let data = "";
+  let data = `export const news_md = \n `;
+  let arr = [];
   for (let file of files) {
-    let path = `${newsDir}/${file}`;
-    let fNum = file.split(".")[0];
-    const markdown = fs.readFileSync(path, "utf8");
-    data += `export const news_md_${fNum} = \n `;
-    data += JSON.stringify(markdown, null, 2) + ";\n";
+    let p = `${newsDir}/${file}`;
+    const title = path.parse(file).name;
+    const markdown = fs.readFileSync(p, "utf8");
+    let val = { title: title, markdown: markdown };
+    arr.push(val);
   }
+  data += JSON.stringify(arr, null, 2) + ";\n";
   const target = outDir + "news.ts";
   fs.writeFileSync(target, data);
 } catch (err) {

@@ -3,15 +3,9 @@ import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { isBrowser } from "../utils";
+import { news_md } from "../translations/news";
 
 const title = i18n.t("news");
-
-// Order these chronologically, recent to past
-const newsLinks = [
-  "2021-11-17 - Federation with Mastodon and Pleroma",
-  "2021-09-04 - Lemmy.ml now uses open federation",
-  "2021-08-09 - Promoting Lemmy",
-];
 
 export class News extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -36,9 +30,9 @@ export class News extends Component<any, any> {
             <li>
               <Link to="/releases">{i18n.t("releases")}</Link>
             </li>
-            {newsLinks.map((v, i) => (
+            {news_md.reverse().map(v => (
               <li>
-                <Link to={`news_item/${newsLinks.length - i}`}>{v}</Link>
+                <Link to={`news_item/${v.title}`}>{v.title}</Link>
               </li>
             ))}
           </ul>

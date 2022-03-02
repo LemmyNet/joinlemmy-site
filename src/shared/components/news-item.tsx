@@ -1,10 +1,8 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { news_md_1, news_md_2, news_md_3 } from "../translations/news";
+import { news_md } from "../translations/news";
 import { isBrowser, mdToHtml } from "../utils";
-
-const newsMarkdowns = [news_md_1, news_md_2, news_md_3];
 
 const title = i18n.t("news");
 
@@ -20,8 +18,8 @@ export class NewsItem extends Component<any, any> {
   }
 
   get markdown(): string {
-    let index = this.props.match.params.index;
-    return newsMarkdowns[index - 1];
+    let title = decodeURIComponent(this.props.match.params.title);
+    return news_md.find(v => v.title == title).markdown;
   }
 
   render() {
