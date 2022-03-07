@@ -7,7 +7,6 @@ import { Donate } from "./components/donate";
 import { About } from "./components/about";
 import { News } from "./components/news";
 import { NewsItem } from "./components/news-item";
-import { Releases } from "./components/releases";
 
 export const routes: IRouteProps[] = [
   {
@@ -24,11 +23,6 @@ export const routes: IRouteProps[] = [
     path: `/news`,
     exact: true,
     component: News,
-  },
-  {
-    path: `/releases`,
-    exact: true,
-    component: Releases,
   },
   {
     path: `/news/:title`,
