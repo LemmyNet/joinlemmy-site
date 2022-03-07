@@ -1,9 +1,13 @@
-const fs = require("fs");
+import fs from 'fs';
+import fetch from 'node-fetch';
+import path from 'path';
 
 const translationDir = "joinlemmy-translations/translations/";
 const outDir = "src/shared/translations/";
 const translatorsJsonFile = "lemmy-translations/translators.json";
 const statsFile = "lemmy-instance-stats/stats.json";
+const newsDir = "src/assets/news";
+const releasesLocation = "https://raw.githubusercontent.com/LemmyNet/lemmy/main/RELEASES.md";
 
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -13,6 +17,36 @@ try {
   let data = `export const instance_stats = \n `;
   data += JSON.stringify(json, null, 2) + ";";
   const target = outDir + "instance_stats.ts";
+  fs.writeFileSync(target, data);
+} catch (err) {
+  console.error(err);
+}
+
+// Write the news file
+try {
+  let files = fs.readdirSync(newsDir);
+  let data = `export const news_md = \n `;
+  let arr = [];
+  for (let file of files) {
+    let p = `${newsDir}/${file}`;
+    const title = path.parse(file).name;
+    const markdown = fs.readFileSync(p, "utf8");
+    let val = { title: title, markdown: markdown };
+    arr.push(val);
+  }
+  data += JSON.stringify(arr, null, 2) + ";\n";
+  const target = outDir + "news.ts";
+  fs.writeFileSync(target, data);
+} catch (err) {
+  console.error(err);
+}
+
+// Write the releases file
+try {
+  const markdown = await (await fetch(releasesLocation)).text();
+  let data = `export const releases_md = \n `;
+  data += JSON.stringify(markdown, null, 2) + ";";
+  const target = outDir + "releases.ts";
   fs.writeFileSync(target, data);
 } catch (err) {
   console.error(err);

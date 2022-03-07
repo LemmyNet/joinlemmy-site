@@ -39,7 +39,7 @@ RUN yarn install --pure-lockfile
 COPY tsconfig.json \
   webpack.config.js \
   .babelrc \
-  generate_translations.js \
+  generate_translations.mjs \
   ./
 
 COPY joinlemmy-translations joinlemmy-translations
