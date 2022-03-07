@@ -41,17 +41,6 @@ try {
   console.error(err);
 }
 
-// Write the releases file
-try {
-  const markdown = await (await fetch(releasesLocation)).text();
-  let data = `export const releases_md = \n `;
-  data += JSON.stringify(markdown, null, 2) + ";";
-  const target = outDir + "releases.ts";
-  fs.writeFileSync(target, data);
-} catch (err) {
-  console.error(err);
-}
-
 // Write the translations
 fs.readdir(translationDir, (_err, files) => {
   files.forEach(filename => {
