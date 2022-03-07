@@ -30,7 +30,7 @@ export class News extends Component<any, any> {
           <ul>
             {newsReversed.map(v => (
               <li>
-                <Link to={`news_item/${v.title}`}>{v.title}</Link>
+                <Link to={`news/${titleToUrl(v.title)}`}>{v.title}</Link>
               </li>
             ))}
           </ul>
@@ -38,4 +38,8 @@ export class News extends Component<any, any> {
       </div>
     );
   }
+}
+
+function titleToUrl(title: string): string {
+  return title.replace(/ /g, "_");
 }
