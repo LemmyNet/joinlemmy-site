@@ -1,3 +1,7 @@
+# Lemmy Release v0.15.1: Private instances, New User Registrations, Email Verification, and Temporary Bans
+
+*Written by @dessalines and @nutomic, 2022-01-12*
+
 Lemmy now has private instances, optional registration applications, optional email verification, and temporary bans! These are described in detail below.
 
 Special thanks to @asonix for adding [tokio-console](https://github.com/LemmyNet/Lemmy/issues/2003) and [Jaeger + opentelemetry](https://github.com/LemmyNet/Lemmy/issues/1992) to our dev setups, so we can better identify performance bottlenecks.
