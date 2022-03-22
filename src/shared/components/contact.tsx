@@ -21,10 +21,10 @@ export class Contact extends Component<any, any> {
               <a href="https://lemmy.ml/c/lemmy_support">/c/lemmy_support</a>
             </li>
             <li>
-              <a href="https://matrix.to/#/#lemmy:matrix.org">Matrix</a>
+              <a href="https://matrix.to/#/#lemmy-space:matrix.org">Matrix</a>
             </li>
             <li>
-              <a href="https://github.com/LemmyNet/lemmy">GitHub</a>
+              <a href="https://github.com/LemmyNet">GitHub</a>
             </li>
             <li>
               <a href="mailto:security@lemmy.ml">security@lemmy.ml</a>
