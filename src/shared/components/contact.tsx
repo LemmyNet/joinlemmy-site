@@ -27,9 +27,7 @@ export class Contact extends Component<any, any> {
               <a href="https://github.com/LemmyNet">GitHub</a>
             </li>
             <li>
-              <a href="mailto:security@lemmy.ml">security@lemmy.ml</a>
-              <br />
-              <a href="/static/assets/pgp.txt">PGP key</a>
+              <a href="mailto:contact@join-lemmy.org">contact@join-lemmy.org</a>
             </li>
           </ul>
         </div>
