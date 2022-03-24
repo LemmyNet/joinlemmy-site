@@ -28,8 +28,6 @@ export class Contact extends Component<any, any> {
             </li>
             <li>
               <a href="mailto:contact@join-lemmy.org">contact@join-lemmy.org</a>
-              <br />
-              <a href="/static/assets/pgp.txt">PGP key</a>
             </li>
           </ul>
         </div>
