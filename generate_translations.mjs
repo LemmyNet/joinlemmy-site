@@ -39,8 +39,6 @@ try {
   console.error(err);
 }
 
-exit();
-
 // Write the news file
 try {
   let files = fs.readdirSync(newsDir);

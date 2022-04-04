@@ -21,8 +21,14 @@ export class Instances extends Component<any, any> {
         {this.header()}
         <br />
         <br />
-        {this.render_list("Recommended", instance_stats.recommended)}
-        {this.render_list("Popular", instance_stats.remaining)}
+        {this.render_list(
+          i18n.t("recommended_instances"),
+          instance_stats.recommended
+        )}
+        {this.render_list(
+          i18n.t("popular_instances"),
+          instance_stats.remaining
+        )}
       </div>
     );
   }
