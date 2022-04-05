@@ -21,14 +21,11 @@ export class Instances extends Component<any, any> {
         {this.header()}
         <br />
         <br />
-        {this.render_list(
+        {this.renderList(
           i18n.t("recommended_instances"),
           instance_stats.recommended
         )}
-        {this.render_list(
-          i18n.t("popular_instances"),
-          instance_stats.remaining
-        )}
+        {this.renderList(i18n.t("popular_instances"), instance_stats.remaining)}
       </div>
     );
   }
@@ -44,7 +41,7 @@ export class Instances extends Component<any, any> {
     );
   }
 
-  render_list(header: string, instances: any[]) {
+  renderList(header: string, instances: any[]) {
     return (
       <div>
         <h2>{header}</h2>
