@@ -1,7 +1,5 @@
 import fs from 'fs';
-import fetch from 'node-fetch';
 import path from 'path';
-import { exit } from 'process';
 
 const translationDir = "joinlemmy-translations/translations/";
 const outDir = "src/shared/translations/";
@@ -9,7 +7,6 @@ const translatorsJsonFile = "lemmy-translations/translators.json";
 const statsFile = "lemmy-instance-stats/stats.json";
 const recommendationsFile = "lemmy-instance-stats/recommended-instances.csv";
 const newsDir = "src/assets/news";
-const releasesLocation = "https://raw.githubusercontent.com/LemmyNet/lemmy/main/RELEASES.md";
 
 fs.mkdirSync(outDir, { recursive: true });
 
