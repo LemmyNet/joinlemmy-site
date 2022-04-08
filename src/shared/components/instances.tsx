@@ -11,6 +11,25 @@ export class Instances extends Component<any, any> {
     super(props, context);
   }
 
+  render() {
+    return (
+      <div class="container">
+        <Helmet title={title}>
+          <meta property={"title"} content={title} />
+        </Helmet>
+        <h1 class="is-marginless">{i18n.t("lemmy_servers")}</h1>
+        {this.header()}
+        <br />
+        <br />
+        {this.renderList(
+          i18n.t("recommended_instances"),
+          instance_stats.recommended
+        )}
+        {this.renderList(i18n.t("popular_instances"), instance_stats.remaining)}
+      </div>
+    );
+  }
+
   header() {
     return (
       <i>
@@ -22,56 +41,45 @@ export class Instances extends Component<any, any> {
     );
   }
 
-  render() {
-    let instances = instance_stats.instance_details;
+  renderList(header: string, instances: any[]) {
     return (
       <div>
-        <Helmet title={title}>
-          <meta property={"title"} content={title} />
-        </Helmet>
-        <div class="container">
-          <h1 class="is-marginless">{i18n.t("lemmy_servers")}</h1>
-          {this.header()}
-          <br />
-          <br />
-          <p>{i18n.t("choose_and_join")}</p>
-
-          <div class="row">
-            {instances.map(i => (
-              <div class="card col-6">
-                <header>
-                  <div class="row">
-                    <h4 class="col">{i.domain}</h4>
-                    <h4 class="col text-right">
-                      <i>
-                        {numToSI(i.users_active_month)} {i18n.t("users")} /{" "}
-                        {i18n.t("month")}
-                      </i>
-                    </h4>
-                  </div>
-                </header>
-                <div class="is-center">
-                  <img
-                    class="join-banner"
-                    src={i.icon || "/static/assets/images/lemmy.svg"}
-                  />
+        <h2>{header}</h2>
+        <div class="row">
+          {instances.map(i => (
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">{i.domain}</h4>
+                  <h4 class="col text-right">
+                    <i>
+                      {numToSI(i.users_active_month)} {i18n.t("users")} /{" "}
+                      {i18n.t("month")}
+                    </i>
+                  </h4>
                 </div>
-                <br />
-                <p class="join-desc">{i.description}</p>
-                <footer>
-                  {i.require_application ? (
-                    <a class="button primary" href={`https://${i.domain}`}>
-                      {i18n.t("apply_to_join")}
-                    </a>
-                  ) : (
-                    <a class="button primary" href={`https://${i.domain}`}>
-                      {i18n.t("join")}
-                    </a>
-                  )}
-                </footer>
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src={i.icon || "/static/assets/images/lemmy.svg"}
+                />
               </div>
-            ))}
-          </div>
+              <br />
+              <p class="join-desc">{i.description}</p>
+              <footer>
+                {i.require_application ? (
+                  <a class="button primary" href={`https://${i.domain}`}>
+                    {i18n.t("apply_to_join")}
+                  </a>
+                ) : (
+                  <a class="button primary" href={`https://${i.domain}`}>
+                    {i18n.t("join")}
+                  </a>
+                )}
+              </footer>
+            </div>
+          ))}
         </div>
       </div>
     );
