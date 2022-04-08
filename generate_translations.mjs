@@ -13,7 +13,8 @@ fs.mkdirSync(outDir, { recursive: true });
 // Write the stats file
 try {
   const stats = JSON.parse(fs.readFileSync(statsFile, "utf8"));
-  const recommended_domains = fs.readFileSync(recommendationsFile, "utf8").split(',');
+  const recommended_domains = fs.readFileSync(recommendationsFile, "utf8").trim().split(',');
+  console.log(recommended_domains);
   const recommended = stats.instance_details.filter(i => 
     recommended_domains.includes(i.domain)
   );
