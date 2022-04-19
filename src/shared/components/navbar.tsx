@@ -20,7 +20,7 @@ export class Navbar extends Component<any, any> {
   render() {
     return (
       <>
-        <nav class="nav hide-xs">
+        <nav class="nav hide-xs hide-sm">
           <div class="nav-left">
             <Link className="brand" to="/">
               <img
@@ -56,7 +56,7 @@ export class Navbar extends Component<any, any> {
             </a>
           </div>
         </nav>
-        <nav class="nav hide-sm hide-md hide-lg">
+        <nav class="nav hide-md hide-lg">
           <div class="nav-center">
             <Link className="brand" to="/">
               <img src="/static/assets/images/lemmy.svg" />
