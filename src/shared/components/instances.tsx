@@ -12,6 +12,13 @@ export class Instances extends Component<any, any> {
   }
 
   render() {
+    // shuffle recommended instances list into random order
+    // https://stackoverflow.com/a/46545530
+    let recommended = instance_stats.recommended
+      .map(value => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+
     return (
       <div class="container">
         <Helmet title={title}>
@@ -21,10 +28,7 @@ export class Instances extends Component<any, any> {
         {this.header()}
         <br />
         <br />
-        {this.renderList(
-          i18n.t("recommended_instances"),
-          instance_stats.recommended
-        )}
+        {this.renderList(i18n.t("recommended_instances"), recommended)}
         {this.renderList(i18n.t("popular_instances"), instance_stats.remaining)}
       </div>
     );
