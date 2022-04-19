@@ -18,12 +18,6 @@ export class LinkLine extends Component<any, any> {
         <a href={`/docs/${getDocsLanguage(i18n.language)}/index.html`}>
           {i18n.t("docs")}
         </a>
-        <a
-          href={`/docs/${getDocsLanguage(i18n.language)}/code_of_conduct.html`}
-          title={i18n.t("code_of_conduct")}
-        >
-          {i18n.t("coc")}
-        </a>
         <Link to="/contact">{i18n.t("contact")}</Link>
       </>
     );
