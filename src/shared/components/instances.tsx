@@ -52,11 +52,7 @@ export class Instances extends Component<any, any> {
           <meta property={"title"} content={title} />
         </Helmet>
         <div class="container">
-          <h1 class="is-marginless">{i18n.t("lemmy_servers")}</h1>
-          {this.header()}
-          <br />
-          <br />
-          <p>{i18n.t("choose_and_join")}</p>
+          <h1 class="is-marginless">{header}</h1>
 
           {instances.map(i => (
             <div class="card">
