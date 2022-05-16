@@ -1,7 +1,7 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { instance_stats } from "../translations/instance_stats";
+import { instance_stats } from "../instance_stats";
 import { numToSI } from "../utils";
 
 const title = i18n.t("join_title");
@@ -12,9 +12,24 @@ export class Instances extends Component<any, any> {
   }
 
   render() {
+    var recommended_instances = instance_stats.recommended[i18n.language];
+    if (!recommended_instances) {
+      recommended_instances = instance_stats.recommended["en"];
+    }
+    console.log(recommended_instances);
+    var recommended = [];
+    var remaining = [];
+    for (var i of instance_stats.stats.instance_details) {
+      if (recommended_instances.indexOf(i.domain) > -1) {
+        console.log(i.domain);
+        recommended.push(i);
+      } else {
+        remaining.push(i);
+      }
+    }
     // shuffle recommended instances list into random order
     // https://stackoverflow.com/a/46545530
-    let recommended = instance_stats.recommended
+    let recommended2 = recommended
       .map(value => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
@@ -28,8 +43,8 @@ export class Instances extends Component<any, any> {
         {this.header()}
         <br />
         <br />
-        {this.renderList(i18n.t("recommended_instances"), recommended)}
-        {this.renderList(i18n.t("popular_instances"), instance_stats.remaining)}
+        {this.renderList(i18n.t("recommended_instances"), recommended2)}
+        {this.renderList(i18n.t("popular_instances"), remaining)}
       </div>
     );
   }
@@ -38,8 +53,8 @@ export class Instances extends Component<any, any> {
     return (
       <i>
         {i18n.t("instance_totals", {
-          instances: numToSI(instance_stats.crawled_instances),
-          users: numToSI(instance_stats.total_users),
+          instances: numToSI(instance_stats.stats.crawled_instances),
+          users: numToSI(instance_stats.stats.total_users),
         })}
       </i>
     );

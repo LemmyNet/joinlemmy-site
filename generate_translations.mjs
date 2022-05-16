@@ -4,38 +4,9 @@ import path from 'path';
 const translationDir = "joinlemmy-translations/translations/";
 const outDir = "src/shared/translations/";
 const translatorsJsonFile = "lemmy-translations/translators.json";
-const statsFile = "lemmy-instance-stats/stats.json";
-const recommendationsFile = "lemmy-instance-stats/recommended-instances.csv";
 const newsDir = "src/assets/news";
 
 fs.mkdirSync(outDir, { recursive: true });
-
-// Write the stats file
-try {
-  const stats = JSON.parse(fs.readFileSync(statsFile, "utf8"));
-  const recommended_domains = fs.readFileSync(recommendationsFile, "utf8").trim().split(',');
-  console.log(recommended_domains);
-  const recommended = stats.instance_details.filter(i => 
-    recommended_domains.includes(i.domain)
-  );
-  const remaining = stats.instance_details.filter(i => 
-    !recommended_domains.includes(i.domain)
-  );
-
-  let stats2 = {
-    crawled_instances: stats.crawled_instances,
-    total_users: stats.total_users,
-    recommended: recommended,
-    remaining: remaining,
-  }
-
-  let data = `export const instance_stats = \n `;
-  data += JSON.stringify(stats2, null, 2) + ";";
-  const target = outDir + "instance_stats.ts";
-  fs.writeFileSync(target, data);
-} catch (err) {
-  console.error(err);
-}
 
 // Write the news file
 try {
