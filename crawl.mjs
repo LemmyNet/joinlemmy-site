@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { exit } from 'process';
-import { spawnSync } from 'child_process';
+import { spawn } from 'child_process';
 
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
@@ -15,25 +15,41 @@ try {
   var all_recommended = [];
   for (var k in recommended_instances) {
     if (k != "exclude") {
-    all_recommended.push(...recommended_instances[k]);
+      all_recommended.push(...recommended_instances[k]);
     }
   }
-  const run = spawnSync("cargo", 
-  ["run", "--", "--start-instances", all_recommended, "--exclude", recommended_instances.exclude], {
-    cwd: "../lemmy-stats-crawler/",
-    encoding : 'utf8' 
+  const run = spawn("cargo",
+      ["run", "--", "--start-instances", all_recommended,
+          "--exclude-instances", recommended_instances.exclude], {
+        cwd: "../lemmy-stats-crawler",
+        encoding : 'utf8'
+      });
+  let savedOutput = '';
+
+  run.stdout.on('data', data => {
+     const strData = data.toString();
+     process.stdout.write(strData);
+     savedOutput += strData;
   });
-  //console.log("crawler run output: ", run.output);
-  const stats = JSON.parse(run.stdout);
 
-  let stats2 = {
-    stats: stats,
-    recommended: recommended_instances
-  }
+  run.stderr.on('data', data => {
+     const strData = data.toString();
+     process.stdout.write(strData);
+  });
 
-  let data = `export const instance_stats = \n `;
-  data += JSON.stringify(stats2, null, 2) + ";";
-  fs.writeFileSync(instanceStatsFile, data);
+  run.on('close', exitCode => {
+    const stats = JSON.parse(savedOutput);
+
+    let stats2 = {
+      stats: stats,
+      recommended: recommended_instances
+    }
+
+    let data = `export const instance_stats = \n `;
+    data += JSON.stringify(stats2, null, 2) + ";";
+    fs.writeFileSync(instanceStatsFile, data);
+  });
+    run.await;
 } catch (err) {
   console.error(err);
 }

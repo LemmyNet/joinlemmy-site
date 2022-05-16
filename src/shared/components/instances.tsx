@@ -16,12 +16,11 @@ export class Instances extends Component<any, any> {
     if (!recommended_instances) {
       recommended_instances = instance_stats.recommended["en"];
     }
-    console.log(recommended_instances);
+
     var recommended = [];
     var remaining = [];
     for (var i of instance_stats.stats.instance_details) {
       if (recommended_instances.indexOf(i.domain) > -1) {
-        console.log(i.domain);
         recommended.push(i);
       } else {
         remaining.push(i);
@@ -69,36 +68,40 @@ export class Instances extends Component<any, any> {
         <div class="container">
           <h1 class="is-marginless">{header}</h1>
 
-          {instances.map(i => (
-            <div class="card">
-              <img
-                class="join-icon"
-                src={i.icon || "/static/assets/images/lemmy.svg"}
-              />
-              <div class="join-text">
-                <div class="join-header">
-                  <h4 class="join-title">{i.name}</h4>
-                  <i>
-                    {numToSI(i.users_active_month)} {i18n.t("users")} /{" "}
-                    {i18n.t("month")}
-                  </i>
+          {instances.map(instance => {
+            const site = instance.site_info.site_view.site;
+            const counts = instance.site_info.site_view.counts;
+            return (
+              <div class="card">
+                <img
+                  class="join-icon"
+                  src={site.icon || "/static/assets/images/lemmy.svg"}
+                />
+                <div class="join-text">
+                  <div class="join-header">
+                    <h4 class="join-title">{site.name}</h4>
+                    <i>
+                      {numToSI(counts.users_active_month)} {i18n.t("users")} /{" "}
+                      {i18n.t("month")}
+                    </i>
+                  </div>
+                  <p class="join-desc">{site.description}</p>
                 </div>
-                <p class="join-desc">{i.description}</p>
+                {site.require_application ? (
+                  <a
+                    class="button primary button-yellow"
+                    href={`https://${instance.domain}`}
+                  >
+                    {i18n.t("apply_to_join")}
+                  </a>
+                ) : (
+                  <a class="button primary" href={`https://${instance.domain}`}>
+                    {i18n.t("join")}
+                  </a>
+                )}
               </div>
-              {i.require_application ? (
-                <a
-                  class="button primary button-yellow"
-                  href={`https://${i.domain}`}
-                >
-                  {i18n.t("apply_to_join")}
-                </a>
-              ) : (
-                <a class="button primary" href={`https://${i.domain}`}>
-                  {i18n.t("join")}
-                </a>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     );
