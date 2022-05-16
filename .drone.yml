@@ -29,6 +29,16 @@ steps:
     commands:
       - yarn build:dev
 
+  - name: run instance crawl
+    image: node:14-alpine
+    commands:
+      # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
+      - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
+      - yarn crawl
+    when:
+      event:
+        - cron
+
   - name: make release build and push to docker hub
     image: plugins/docker
     settings:

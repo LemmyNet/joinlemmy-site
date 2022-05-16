@@ -14,3 +14,6 @@
 	path = lemmy-js-client
 	url = https://github.com/LemmyNet/lemmy-js-client
 	branch = main
+[submodule "lemmy-stats-crawler"]
+	path = lemmy-stats-crawler
+	url = https://yerbamate.ml/LemmyNet/lemmy-stats-crawler.git

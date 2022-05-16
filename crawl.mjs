@@ -21,7 +21,7 @@ try {
   const run = spawn("cargo",
       ["run", "--", "--start-instances", all_recommended,
           "--exclude-instances", recommended_instances.exclude], {
-        cwd: "../lemmy-stats-crawler",
+        cwd: "lemmy-stats-crawler",
         encoding : 'utf8'
       });
   let savedOutput = '';
