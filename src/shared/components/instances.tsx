@@ -62,46 +62,42 @@ export class Instances extends Component<any, any> {
   renderList(header: string, instances: any[]) {
     return (
       <div>
-        <Helmet title={title}>
-          <meta property={"title"} content={title} />
-        </Helmet>
-        <div class="container">
-          <h1 class="is-marginless">{header}</h1>
-
-          {instances.map(instance => {
-            const site = instance.site_info.site_view.site;
-            const counts = instance.site_info.site_view.counts;
-            return (
-              <div class="card">
-                <img
-                  class="join-icon"
-                  src={site.icon || "/static/assets/images/lemmy.svg"}
-                />
-                <div class="join-text">
-                  <div class="join-header">
-                    <h4 class="join-title">{site.name}</h4>
+        <h2>{header}</h2>
+        <div class="row">
+          {instances.map(i => (
+            <div class="card col-6">
+              <header>
+                <div class="row">
+                  <h4 class="col">{i.domain}</h4>
+                  <h4 class="col text-right">
                     <i>
-                      {numToSI(counts.users_active_month)} {i18n.t("users")} /{" "}
+                      {numToSI(i.users_active_month)} {i18n.t("users")} /{" "}
                       {i18n.t("month")}
                     </i>
-                  </div>
-                  <p class="join-desc">{site.description}</p>
+                  </h4>
                 </div>
-                {site.require_application ? (
-                  <a
-                    class="button primary button-yellow"
-                    href={`https://${instance.domain}`}
-                  >
+              </header>
+              <div class="is-center">
+                <img
+                  class="join-banner"
+                  src={i.icon || "/static/assets/images/lemmy.svg"}
+                />
+              </div>
+              <br />
+              <p class="join-desc">{i.description}</p>
+              <footer>
+                {i.require_application ? (
+                  <a class="button primary" href={`https://${i.domain}`}>
                     {i18n.t("apply_to_join")}
                   </a>
                 ) : (
-                  <a class="button primary" href={`https://${instance.domain}`}>
+                  <a class="button primary" href={`https://${i.domain}`}>
                     {i18n.t("join")}
                   </a>
                 )}
-              </div>
-            );
-          })}
+              </footer>
+            </div>
+          ))}
         </div>
       </div>
     );
