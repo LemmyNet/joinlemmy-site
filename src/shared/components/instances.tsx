@@ -64,40 +64,49 @@ export class Instances extends Component<any, any> {
       <div>
         <h2>{header}</h2>
         <div class="row">
-          {instances.map(i => (
-            <div class="card col-6">
-              <header>
-                <div class="row">
-                  <h4 class="col">{i.domain}</h4>
-                  <h4 class="col text-right">
-                    <i>
-                      {numToSI(i.users_active_month)} {i18n.t("users")} /{" "}
-                      {i18n.t("month")}
-                    </i>
-                  </h4>
+          {instances.map(instance => {
+            let domain = instance.domain;
+            let users_active_month =
+              instance.site_info.site_view.counts.users_active_month;
+            let description = instance.site_info.site_view.site.description;
+            let icon = instance.site_info.site_view.site.icon;
+            let require_application =
+              instance.site_info.site_view.site.require_application;
+            return (
+              <div class="card col-6">
+                <header>
+                  <div class="row">
+                    <h4 class="col">{domain}</h4>
+                    <h4 class="col text-right">
+                      <i>
+                        {numToSI(users_active_month)} {i18n.t("users")} /{" "}
+                        {i18n.t("month")}
+                      </i>
+                    </h4>
+                  </div>
+                </header>
+                <div class="is-center">
+                  <img
+                    class="join-banner"
+                    src={icon || "/static/assets/images/lemmy.svg"}
+                  />
                 </div>
-              </header>
-              <div class="is-center">
-                <img
-                  class="join-banner"
-                  src={i.icon || "/static/assets/images/lemmy.svg"}
-                />
+                <br />
+                <p class="join-desc">{description}</p>
+                <footer>
+                  {require_application ? (
+                    <a class="button primary" href={`https://${domain}`}>
+                      {i18n.t("apply_to_join")}
+                    </a>
+                  ) : (
+                    <a class="button primary" href={`https://${domain}`}>
+                      {i18n.t("join")}
+                    </a>
+                  )}
+                </footer>
               </div>
-              <br />
-              <p class="join-desc">{i.description}</p>
-              <footer>
-                {i.require_application ? (
-                  <a class="button primary" href={`https://${i.domain}`}>
-                    {i18n.t("apply_to_join")}
-                  </a>
-                ) : (
-                  <a class="button primary" href={`https://${i.domain}`}>
-                    {i18n.t("join")}
-                  </a>
-                )}
-              </footer>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     );
