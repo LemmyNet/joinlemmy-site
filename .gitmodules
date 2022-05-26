@@ -10,11 +10,10 @@
 	path = lemmy-translations
 	url = https://github.com/lemmynet/lemmy-translations
 	branch = main
-[submodule "lemmy-instance-stats"]
-	path = lemmy-instance-stats
-	url = https://github.com/LemmyNet/lemmy-instance-stats
-	branch = main
 [submodule "lemmy-js-client"]
 	path = lemmy-js-client
 	url = https://github.com/LemmyNet/lemmy-js-client
 	branch = main
+[submodule "lemmy-stats-crawler"]
+	path = lemmy-stats-crawler
+	url = https://yerbamate.ml/LemmyNet/lemmy-stats-crawler.git

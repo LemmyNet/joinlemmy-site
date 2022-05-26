@@ -1,0 +1,10 @@
+{
+    "en": ["sopuli.xyz", "beehaw.org"],
+    "de": ["feddit.de"],
+    "pt": ["lemmy.pt"],
+    "pt_BR": ["lemmy.pt"],
+    "eu": ["lemmy.eus"],
+    "ja": ["tabinezumi.net", "lm.korako.me"],
+    "es": ["forum.nobigtech.es"],
+    "exclude": ["lemmy.glasgow.social","ds9.lemmy.ml","voyager.lemmy.ml","enterprise.lemmy.ml"]
+}
