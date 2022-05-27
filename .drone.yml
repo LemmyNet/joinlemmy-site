@@ -36,6 +36,8 @@ steps:
       - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
       - yarn crawl
     when:
+      ref:
+        - refs/tags/*
       event:
         - cron
 
@@ -51,5 +53,7 @@ steps:
       password:
         from_secret: docker_password
     when:
+      ref:
+        - refs/tags/*
       event:
         - cron
