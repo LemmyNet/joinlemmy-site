@@ -5,6 +5,6 @@
     "pt_BR": ["lemmy.pt"],
     "eu": ["lemmy.eus"],
     "ja": ["tabinezumi.net", "lm.korako.me"],
-    "es": ["forum.nobigtech.es"],
+    "it": ["feddit.it"],
     "exclude": ["lemmy.glasgow.social","ds9.lemmy.ml","voyager.lemmy.ml","enterprise.lemmy.ml"]
 }
