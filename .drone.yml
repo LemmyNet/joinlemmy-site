@@ -29,7 +29,32 @@ steps:
     commands:
       - yarn build:dev
 
-  - name: run instance crawl
+  - name: nightly instance crawl
+    image: node:14-alpine
+    commands:
+      # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
+      - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
+      - yarn crawl
+    when:
+      event:
+        - cron
+
+  - name: nightly build and push to docker hub
+    image: plugins/docker
+    settings:
+      dockerfile: Dockerfile
+      repo: dessalines/joinlemmy-site
+      tags:
+        - latest
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+    when:
+      event:
+        - cron
+
+  - name: release instance crawl
     image: node:14-alpine
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
@@ -38,10 +63,8 @@ steps:
     when:
       ref:
         - refs/tags/*
-      event:
-        - cron
 
-  - name: make release build and push to docker hub
+  - name: release build and push to docker hub
     image: plugins/docker
     settings:
       dockerfile: Dockerfile
@@ -55,5 +78,3 @@ steps:
     when:
       ref:
         - refs/tags/*
-      event:
-        - cron
