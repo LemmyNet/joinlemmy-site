@@ -79,8 +79,9 @@ export class Instances extends Component<any, any> {
                     <h4 class="col">{domain}</h4>
                     <h4 class="col text-right">
                       <i>
-                        {numToSI(users_active_month)} {i18n.t("users")} /{" "}
-                        {i18n.t("month")}
+                        {i18n.t("users_active_per_month", {
+                          count: users_active_month,
+                        })}
                       </i>
                     </h4>
                   </div>
