@@ -1,6 +1,6 @@
 # Build the git includes for the docs
 FROM alpine:3 as docs_include
-RUN apk add --no-cache git bash
+RUN apk add --no-cache git bash curl
 WORKDIR /app
 COPY lemmy-docs ./lemmy-docs
 WORKDIR /app/lemmy-docs
