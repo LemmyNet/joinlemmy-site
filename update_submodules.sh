@@ -10,11 +10,11 @@ pushd ../lemmy-translations
 git fetch weblate
 git merge weblate/main
 git push
+popd
 
 git submodule update --remote
 git add joinlemmy-translations
 git add lemmy-translations
-git add lemmy-instance-stats
 git add lemmy-docs
 git add lemmy-js-client
 
