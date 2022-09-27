@@ -6,5 +6,5 @@
     "eu": ["lemmy.eus"],
     "ja": ["tabinezumi.net", "lm.korako.me"],
     "it": ["feddit.it"],
-    "exclude": ["lemmy.glasgow.social","ds9.lemmy.ml","voyager.lemmy.ml","enterprise.lemmy.ml"]
+    "exclude": ["lemmy.glasgow.social","ds9.lemmy.ml","voyager.lemmy.ml","enterprise.lemmy.ml","nrsk.no"]
 }
