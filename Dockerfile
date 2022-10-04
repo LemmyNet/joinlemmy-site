@@ -7,7 +7,7 @@ WORKDIR /app/lemmy-docs
 RUN ./update-includes.sh
 
 # Build the docs
-FROM rust:slim as docs
+FROM rust:1.63-slim as docs
 WORKDIR /app
 RUN cargo install mdbook \
   --git https://github.com/Ruin0x11/mdBook.git \
