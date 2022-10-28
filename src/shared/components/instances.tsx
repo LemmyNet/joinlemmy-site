@@ -53,7 +53,7 @@ export class Instances extends Component<any, any> {
       <i>
         {i18n.t("instance_totals", {
           instances: numToSI(instance_stats.stats.crawled_instances),
-          users: numToSI(instance_stats.stats.total_users),
+          users: numToSI(instance_stats.stats.users_active_month),
         })}
       </i>
     );
