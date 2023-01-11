@@ -128,6 +128,24 @@ export class Apps extends Component<any, any> {
             </div>
           </div>
 
+          <h1>{i18n.t("cli_apps")}</h1>
+
+          <div class="row">
+            <div class="card col-6">
+              <AppDetails
+                name="neonmodem"
+                description="BBS-style TUI client"
+                link="https://github.com/mrusme/neonmodem"
+                banner="/static/assets/images/neonmodem.webp"
+                links={[
+                  {
+                    link: "https://github.com/mrusme/neonmodem",
+                    icon: "github",
+                  },
+                ]}
+              />
+            </div>
+
           <h1>{i18n.t("api_libraries")}</h1>
           <ul>
             <li>
@@ -141,6 +159,12 @@ export class Apps extends Component<any, any> {
                 lemmy-dart client
               </a>{" "}
               - a dart / flutter client.
+            </li>
+            <li>
+              <a href="https://github.com/Arsen6331/go-lemmy">
+                go-lemmy
+              </a>{" "}
+              - a Go client.
             </li>
           </ul>
         </div>
