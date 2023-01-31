@@ -27,30 +27,6 @@ export class Apps extends Component<any, any> {
           <div class="row">
             <div class="card col-6">
               <AppDetails
-                name="Lemmur"
-                description="A Lemmy client for Android, Linux, and Windows."
-                link="https://github.com/LemmurOrg/lemmur"
-                icon="/static/assets/images/lemmur.svg"
-                banner="/static/assets/images/lemmur_screen.webp"
-                links={[
-                  {
-                    link: "https://f-droid.org/packages/com.krawieck.lemmur",
-                    icon: "f-droid",
-                  },
-                  {
-                    link: "https://play.google.com/store/apps/details?id=com.krawieck.lemmur",
-                    icon: "googleplay",
-                  },
-                  {
-                    link: "https://github.com/LemmurOrg/lemmur",
-                    icon: "github",
-                  },
-                ]}
-              />
-            </div>
-
-            <div class="card col-6">
-              <AppDetails
                 name="Jerboa"
                 description="A native Android app made by Lemmy's developers"
                 link="https://github.com/dessalines/jerboa"
@@ -72,7 +48,29 @@ export class Apps extends Component<any, any> {
                 ]}
               />
             </div>
-
+            <div class="card col-6">
+              <AppDetails
+                name="Lemmur"
+                description="A Lemmy client for Android, Linux, and Windows."
+                link="https://github.com/LemmurOrg/lemmur"
+                icon="/static/assets/images/lemmur.svg"
+                banner="/static/assets/images/lemmur_screen.webp"
+                links={[
+                  {
+                    link: "https://f-droid.org/packages/com.krawieck.lemmur",
+                    icon: "f-droid",
+                  },
+                  {
+                    link: "https://play.google.com/store/apps/details?id=com.krawieck.lemmur",
+                    icon: "googleplay",
+                  },
+                  {
+                    link: "https://github.com/LemmurOrg/lemmur",
+                    icon: "github",
+                  },
+                ]}
+              />
+            </div>
             <div class="card col-6">
               <AppDetails
                 name="Remmel"
@@ -145,6 +143,7 @@ export class Apps extends Component<any, any> {
                 ]}
               />
             </div>
+          </div>
 
           <h1>{i18n.t("api_libraries")}</h1>
           <ul>
@@ -161,10 +160,8 @@ export class Apps extends Component<any, any> {
               - a dart / flutter client.
             </li>
             <li>
-              <a href="https://github.com/Arsen6331/go-lemmy">
-                go-lemmy
-              </a>{" "}
-              - a Go client.
+              <a href="https://github.com/Arsen6331/go-lemmy">go-lemmy</a> - a
+              Go client.
             </li>
           </ul>
         </div>
