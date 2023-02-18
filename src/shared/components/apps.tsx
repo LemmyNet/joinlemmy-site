@@ -50,29 +50,6 @@ export class Apps extends Component<any, any> {
             </div>
             <div class="card col-6">
               <AppDetails
-                name="Lemmur"
-                description="A Lemmy client for Android, Linux, and Windows."
-                link="https://github.com/LemmurOrg/lemmur"
-                icon="/static/assets/images/lemmur.svg"
-                banner="/static/assets/images/lemmur_screen.webp"
-                links={[
-                  {
-                    link: "https://f-droid.org/packages/com.krawieck.lemmur",
-                    icon: "f-droid",
-                  },
-                  {
-                    link: "https://play.google.com/store/apps/details?id=com.krawieck.lemmur",
-                    icon: "googleplay",
-                  },
-                  {
-                    link: "https://github.com/LemmurOrg/lemmur",
-                    icon: "github",
-                  },
-                ]}
-              />
-            </div>
-            <div class="card col-6">
-              <AppDetails
                 name="Remmel"
                 description="An iOS client for lemmy."
                 link="https://github.com/uuttff8/Lemmy-iOS"
