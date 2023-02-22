@@ -89,6 +89,21 @@ export class Apps extends Component<any, any> {
 
             <div class="card col-6">
               <AppDetails
+                name="lemmyBB"
+                description="A lemmy frontend based on phpBB."
+                link="https://github.com/LemmyNet/lemmyBB"
+                banner="/static/assets/images/lemmybb_2.webp"
+                links={[
+                  {
+                    link: "https://github.com/LemmyNet/lemmyBB",
+                    icon: "github",
+                  },
+                ]}
+              />
+            </div>
+
+            <div class="card col-6">
+              <AppDetails
                 name="lemmy-lite"
                 description="A static, JSless, touch-friendly Lemmy frontend built for legacy web clients and maximum performance"
                 link="https://github.com/IronOxidizer/lemmy-lite"
