@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Note:
+# To update lemmy-js-client, first change its branch in your .gitmodules
+
 pushd ../joinlemmy-translations
 git fetch weblate
 git merge weblate/main
