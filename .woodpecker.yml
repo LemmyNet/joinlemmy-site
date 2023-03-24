@@ -1,35 +1,26 @@
----
-kind: pipeline
-name: amd64
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-
-  - name: fetch git submodules
+pipeline:
+  fetch_git_submodules:
     image: alpine/git
     commands:
     - git submodule init
     - git submodule update --recursive
 
-  - name: yarn
+  yarn:
     image: node:14-alpine
     commands:
       - yarn
 
-  - name: yarn lint
+  yarn_lint:
     image: node:14-alpine
     commands:
       - yarn lint
 
-  - name: yarn build:dev
+  yarn_build_dev:
     image: node:14-alpine
     commands:
       - yarn build:dev
 
-  - name: nightly instance crawl
+  nightly_instance_crawl:
     image: node:14-alpine
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
@@ -39,7 +30,7 @@ steps:
       event:
         - cron
 
-  - name: nightly build and push to docker hub
+  nightly_build_and_push_to_docker_hub:
     image: plugins/docker
     settings:
       dockerfile: Dockerfile
@@ -54,17 +45,16 @@ steps:
       event:
         - cron
 
-  - name: release instance crawl
+  release_instance_crawl:
     image: node:14-alpine
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
       - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
       - yarn crawl
     when:
-      ref:
-        - refs/tags/*
+      event: tag
 
-  - name: release build and push to docker hub
+  release_build_and_push_to_docker_hub:
     image: plugins/docker
     settings:
       dockerfile: Dockerfile
@@ -76,10 +66,9 @@ steps:
       password:
         from_secret: docker_password
     when:
-      ref:
-        - refs/tags/*
+      event: tag
 
-  - name: Notify on failure
+  notify_on_failure:
     image: alpine:3
     commands: 
       - apk add curl
@@ -88,11 +77,10 @@ steps:
       status:
         - failure
 
-  - name: Notify on tag deploy
+  notify_on_tag_deploy:
     image: alpine:3
     commands: 
       - apk add curl
       - "curl -d'joinlemmy-site:${DRONE_TAG} deployed' ntfy.sh/lemmy_drone_ci"
     when:
-      ref:
-        - refs/tags/*
+      event: tag
