@@ -19,7 +19,7 @@ try {
     }
   }
   const run = spawn("cargo",
-      ["run", "--", "--start-instances", all_recommended,
+      ["run", "--", "--json", "--start-instances", all_recommended,
           "--exclude-instances", recommended_instances.exclude], {
         cwd: "lemmy-stats-crawler",
         encoding : 'utf8'
