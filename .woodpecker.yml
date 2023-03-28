@@ -5,20 +5,20 @@ pipeline:
     - git submodule init
     - git submodule update --recursive
 
-  yarn:
-    image: node:14-alpine
-    commands:
-      - yarn
+  # yarn:
+  #   image: node:14-alpine
+  #   commands:
+  #     - yarn
 
-  yarn_lint:
-    image: node:14-alpine
-    commands:
-      - yarn lint
+  # yarn_lint:
+  #   image: node:14-alpine
+  #   commands:
+  #     - yarn lint
 
-  yarn_build_dev:
-    image: node:14-alpine
-    commands:
-      - yarn build:dev
+  # yarn_build_dev:
+  #   image: node:14-alpine
+  #   commands:
+  #     - yarn build:dev
 
   nightly_instance_crawl:
     image: node:14-alpine
@@ -31,19 +31,20 @@ pipeline:
         - cron
 
   nightly_build_and_push_to_docker_hub:
-    image: plugins/docker
+    image: woodpeckerci/plugin-docker-buildx
     settings:
       dockerfile: Dockerfile
       repo: dessalines/joinlemmy-site
-      tags:
-        - latest
+      tag: latest
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
-    when:
-      event:
-        - cron
+      dry-run: true
+      platforms: linux/amd64
+    # when:
+    #   event:
+    #     - cron
 
   release_instance_crawl:
     image: node:14-alpine
