@@ -40,7 +40,6 @@ pipeline:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      dry-run: true
       platforms: linux/amd64
     # when:
     #   event:
