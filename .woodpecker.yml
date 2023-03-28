@@ -41,9 +41,9 @@ pipeline:
       password:
         from_secret: docker_password
       platforms: linux/amd64
-    # when:
-    #   event:
-    #     - cron
+    when:
+      event:
+        - cron
 
   release_instance_crawl:
     image: node:14-alpine
