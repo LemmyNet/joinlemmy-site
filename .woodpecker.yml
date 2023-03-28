@@ -5,20 +5,20 @@ pipeline:
     - git submodule init
     - git submodule update --recursive
 
-  # yarn:
-  #   image: node:14-alpine
-  #   commands:
-  #     - yarn
+  yarn:
+    image: node:14-alpine
+    commands:
+      - yarn
 
-  # yarn_lint:
-  #   image: node:14-alpine
-  #   commands:
-  #     - yarn lint
+  yarn_lint:
+    image: node:14-alpine
+    commands:
+      - yarn lint
 
-  # yarn_build_dev:
-  #   image: node:14-alpine
-  #   commands:
-  #     - yarn build:dev
+  yarn_build_dev:
+    image: node:14-alpine
+    commands:
+      - yarn build:dev
 
   nightly_instance_crawl:
     image: node:14-alpine
