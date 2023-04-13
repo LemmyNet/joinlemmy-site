@@ -5,6 +5,7 @@ import { bg } from "./translations/bg";
 import { de } from "./translations/de";
 import { el } from "./translations/el";
 import { en } from "./translations/en";
+import { eo } from "./translations/eo";
 import { es } from "./translations/es";
 import { eu } from "./translations/eu";
 import { fa } from "./translations/fa";
@@ -28,6 +29,7 @@ export const languages = [
   { resource: de, code: "de", name: "Deutsch" },
   { resource: el, code: "el", name: "Ελληνικά" },
   { resource: en, code: "en", name: "English" },
+  { resource: eo, code: "eo", name: "Esperanto" },
   { resource: es, code: "es", name: "Español" },
   { resource: eu, code: "eu", name: "Euskara" },
   { resource: fa, code: "fa", name: "فارسی" },
