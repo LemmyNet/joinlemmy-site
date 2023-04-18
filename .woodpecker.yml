@@ -1,10 +1,11 @@
-pipeline:
-  fetch_git_submodules:
-    image: alpine/git
-    commands:
-    - git submodule init
-    - git submodule update --recursive
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+    settings:
+      recursive: true
+      submodule_update_remote: true
 
+pipeline:
   yarn:
     image: node:14-alpine
     commands:
