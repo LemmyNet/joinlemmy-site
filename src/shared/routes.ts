@@ -4,7 +4,6 @@ import { Apps } from "./components/apps";
 import { Instances } from "./components/instances";
 import { Contact } from "./components/contact";
 import { Donate } from "./components/donate";
-import { About } from "./components/about";
 import { News } from "./components/news";
 import { NewsItem } from "./components/news-item";
 
@@ -28,11 +27,6 @@ export const routes: IRouteProps[] = [
     path: `/news/:title`,
     exact: true,
     component: NewsItem,
-  },
-  {
-    path: `/about`,
-    exact: true,
-    component: About,
   },
   {
     path: `/instances`,
