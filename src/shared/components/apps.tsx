@@ -50,18 +50,18 @@ export class Apps extends Component<any, any> {
             </div>
             <div class="card col-6">
               <AppDetails
-                name="Remmel"
-                description="An iOS client for lemmy."
-                link="https://github.com/uuttff8/Lemmy-iOS"
-                icon="/static/assets/images/remmel.webp"
-                banner="/static/assets/images/remmel_screen.webp"
+                name="Mlem"
+                description="A Lemmy Client for iOS."
+                link="https://github.com/buresdv/Mlem"
+                icon="/static/assets/images/mlem.webp"
+                banner="/static/assets/images/mlem_screen.webp"
                 links={[
                   {
-                    link: "https://apps.apple.com/us/app/remmel-for-lemmy/id1547988171",
+                    link: "https://testflight.apple.com/join/xQfmkJhc",
                     icon: "appleinc",
                   },
                   {
-                    link: "https://github.com/uuttff8/Lemmy-iOS",
+                    link: "https://github.com/buresdv/Mlem",
                     icon: "github",
                   },
                 ]}
