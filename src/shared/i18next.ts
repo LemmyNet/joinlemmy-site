@@ -2,6 +2,7 @@ import i18next, { i18nTyped, Resource } from "i18next";
 
 // Languages
 import { bg } from "./translations/bg";
+import { da } from "./translations/da";
 import { de } from "./translations/de";
 import { el } from "./translations/el";
 import { en } from "./translations/en";
@@ -26,6 +27,7 @@ import { zh } from "./translations/zh";
 
 export const languages = [
   { resource: bg, code: "bg", name: "Български" },
+  { resource: da, code: "da", name: "Dansk" },
   { resource: de, code: "de", name: "Deutsch" },
   { resource: el, code: "el", name: "Ελληνικά" },
   { resource: en, code: "en", name: "English" },
