@@ -42,11 +42,11 @@ export const languages = [
   { resource: it, code: "it", name: "Italiano" },
   { resource: ja, code: "ja", name: "日本語" },
   { resource: ko, code: "ko", name: "한국어" },
-  { resource: nb_NO, code: "nb_NO", name: "Norsk (bokmål)" },
+  { resource: nb_NO, code: "nb-NO", name: "Norsk (bokmål)" },
   { resource: nl, code: "nl", name: "Nederlands" },
   { resource: pl, code: "pl", name: "Polski" },
   { resource: pt, code: "pt", name: "Português" },
-  { resource: pt_BR, code: "pt_BR", name: "Português (Brasil)" },
+  { resource: pt_BR, code: "pt-BR", name: "Português (Brasil)" },
   { resource: ru, code: "ru", name: "Русский" },
   { resource: zh, code: "zh", name: "中文" },
 ];
