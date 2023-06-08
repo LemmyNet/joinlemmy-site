@@ -13,6 +13,11 @@ pipeline:
       - git submodule init
       - git submodule update --recursive --remote
 
+  prettier_markdown_check:
+    image: tmknom/prettier
+    commands:
+      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler"
+
   yarn:
     image: node:14-alpine
     commands:
@@ -76,7 +81,7 @@ pipeline:
 
   notify_on_failure:
     image: alpine:3
-    commands: 
+    commands:
       - apk add curl
       - "curl -d'joinlemmy-site build failed: ${DRONE_BUILD_LINK}' ntfy.sh/lemmy_drone_ci"
     when:
@@ -85,7 +90,7 @@ pipeline:
 
   notify_on_tag_deploy:
     image: alpine:3
-    commands: 
+    commands:
       - apk add curl
       - "curl -d'joinlemmy-site:${DRONE_TAG} deployed' ntfy.sh/lemmy_drone_ci"
     when:

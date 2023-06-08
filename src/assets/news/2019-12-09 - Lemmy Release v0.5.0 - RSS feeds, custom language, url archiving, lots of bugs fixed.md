@@ -1,6 +1,6 @@
 # RSS feeds, custom language, url archiving, lots of bugs fixed
 
-*Written by @dessalines, 2019-12-09*
+_Written by @dessalines, 2019-12-09_
 
 Special thanks to @felix@radical.town for the RSS work!
 

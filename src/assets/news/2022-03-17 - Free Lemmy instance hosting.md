@@ -1,6 +1,6 @@
 # Free Lemmy instance hosting
 
-*Written by @nutomic, 2022-03-17*
+_Written by @nutomic, 2022-03-17_
 
 ## What is Lemmy?
 

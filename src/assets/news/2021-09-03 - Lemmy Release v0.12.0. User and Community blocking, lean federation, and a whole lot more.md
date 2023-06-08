@@ -1,6 +1,6 @@
 # Lemmy Release v0.12.0. User and Community blocking, lean federation, and a whole lot more
 
-*Written by @dessalines and @nutomic, 2021-09-03*
+_Written by @dessalines and @nutomic, 2021-09-03_
 
 Since our last release in April, we've had [~80](https://github.com/LemmyNet/lemmy/compare/0.11.0...main) commits to Lemmy.
 
@@ -8,7 +8,7 @@ Since our last release in April, we've had [~80](https://github.com/LemmyNet/lem
 
 #### Major Changes
 
-*Note: Issue links are below.*
+_Note: Issue links are below._
 
 - @nutomic did a major rewrite of the federation code. It is much simpler now, and reduced from 8000 lines of code to 6400. Functionality is mostly the same, but future changes will be much easier.
 - You can now block users and communities, and their posts / comments won't show up in your feed.
@@ -58,7 +58,6 @@ Since our last release in April, we've had [~80](https://github.com/LemmyNet/lem
 - Rewrite remaining activities ([#1712](https://github.com/LemmyNet/lemmy/issues/1712))
 - Migrate comment inReplyTo field to single value (ref [#1454](https://github.com/LemmyNet/lemmy/issues/1454))
 - Fix issue with protocol string in actor id generation ([#1668](https://github.com/LemmyNet/lemmy/issues/1668))
-
 
 ### Lemmy UI
 
@@ -119,4 +118,3 @@ To upgrade your instance to `v0.12.0`, simply follow the instructions in the doc
 ### Clients / Apps
 
 - A full list of the API changes can be seen on this diff of [lemmy-js-client: 0.11.0 -> 0.12.0](https://github.com/LemmyNet/lemmy-js-client/compare/0.11.0...0.12.0-rc.1) .
-
