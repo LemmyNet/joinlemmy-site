@@ -13,6 +13,11 @@ pipeline:
       - git submodule init
       - git submodule update --recursive --remote
 
+  prettier_markdown_check:
+    image: tmknom/prettier
+    commands:
+      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler"
+
   yarn:
     image: node:14-alpine
     commands:
