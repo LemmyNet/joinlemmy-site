@@ -1,6 +1,6 @@
 # Lemmy v0.16.3 Release: Federation Bug Fixes (2022-04-08)
 
-*Written by @dessalines and @nutomic, 2022-04-08*
+_Written by @dessalines and @nutomic, 2022-04-08_
 
 ## What is Lemmy?
 

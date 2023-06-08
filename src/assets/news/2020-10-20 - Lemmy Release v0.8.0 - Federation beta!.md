@@ -1,10 +1,10 @@
 # Lemmy Release v0.8.0 - Federation beta!
 
-*Written by @dessalines and @nutomic, 2020-10-20*
+_Written by @dessalines and @nutomic, 2020-10-20_
 
 ## Changes
 
-We've been working at warp speed since our `v0.7.0` release in June, adding over [870 commits](https://github.com/LemmyNet/lemmy/compare/v0.7.0...main) since then. :sweat: 
+We've been working at warp speed since our `v0.7.0` release in June, adding over [870 commits](https://github.com/LemmyNet/lemmy/compare/v0.7.0...main) since then. :sweat:
 
 Here are some of the bigger changes:
 
@@ -19,7 +19,7 @@ Here are some of the bigger changes:
 
 #### Federation
 
-- The first **federation public beta release**, woohoo :fireworks: 
+- The first **federation public beta release**, woohoo :fireworks:
 - All Lemmy functionality now works over ActivityPub (except turning remote users into mods/admins)
 - Instance allowlist and blocklist
 - Documentation for [admins](https://dev.lemmy.ml/docs/administration_federation.html) and [devs](https://dev.lemmy.ml/docs/contributing_federation_overview.html) on how federation works
@@ -33,7 +33,7 @@ Here are some of the bigger changes:
 ### User Interface
 
 - Separated the UI from the server code, in [lemmy-ui](https://github.com/LemmyNet/lemmy-ui).
-- The UI can now read with javascript disabled! 
+- The UI can now read with javascript disabled!
 - It's now a fully isomorphic application using [inferno-isomorphic](https://infernojs.org/docs/guides/isomorphic). This means that page loads are now much faster, as the server does the work.
 - The UI now also supports open-graph and twitter cards! Linking to lemmy posts (from whatever platform you use) looks pretty now: ![](https://i.imgur.com/6TZ2v7s.png)
 - Improved the search page ( more features incoming ).
@@ -56,7 +56,7 @@ Here are some of the bigger changes:
 
 ## Contributors
 
-We'd also like to thank both the [NLnet foundation](https://nlnet.nl/) for their support in allowing us to work full-time on Lemmy ( as well as their support for [other important open-source projects](https://nlnet.nl/project/current.html) ), [those who sponsor us](https://dev.lemmy.ml/sponsors), and those who [help translate Lemmy](https://weblate.yerbamate.dev/projects/lemmy/). Every little bit does help. We remain committed to never allowing advertisements, monetizing, or venture-capital in Lemmy; software should be communal, and should benefit humanity, not a small group of company owners. 
+We'd also like to thank both the [NLnet foundation](https://nlnet.nl/) for their support in allowing us to work full-time on Lemmy ( as well as their support for [other important open-source projects](https://nlnet.nl/project/current.html) ), [those who sponsor us](https://dev.lemmy.ml/sponsors), and those who [help translate Lemmy](https://weblate.yerbamate.dev/projects/lemmy/). Every little bit does help. We remain committed to never allowing advertisements, monetizing, or venture-capital in Lemmy; software should be communal, and should benefit humanity, not a small group of company owners.
 
 ## Upgrading
 

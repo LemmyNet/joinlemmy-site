@@ -1,6 +1,6 @@
 # Lemmy v0.16.6 Release : bug fixes (2022-07-19)
 
-*Written by @dessalines and @nutomic, 2022-07-19*
+_Written by @dessalines and @nutomic, 2022-07-19_
 
 A few bug fixes:
 
@@ -11,4 +11,3 @@ A few bug fixes:
 - Fix length of post_report.original_post_name db field (fixes [#2311](https://github.com/LemmyNet/lemmy/issues/2311)) ([#2315](https://github.com/LemmyNet/lemmy/issues/2315))
 - Add pub use for db crates in api_common ([#2305](https://github.com/LemmyNet/lemmy/issues/2305))
 - Accept private like ([#1968](https://github.com/LemmyNet/lemmy/issues/1968)) ([#2301](https://github.com/LemmyNet/lemmy/issues/2301))
-

@@ -1,6 +1,6 @@
 # Lemmy Release v0.14.0: Federation with Mastodon and Pleroma
 
-*Written by @dessalines and @nutomic, 2021-11-17*
+_Written by @dessalines and @nutomic, 2021-11-17_
 
 Today is an exciting day for the Lemmy project.
 
@@ -16,7 +16,7 @@ It took a lot of work to make this possible, so big thanks to [NLnet](https://nl
 
 ### Federation code rewrite
 
-The rewrite of the federation code started by @nutomic in August is now mostly complete. As a result, the code is much cleaner, and has tests to guarantee no breaking changes between Lemmy versions. As a side effect of this rewrite, it was now relatively easy to enable federation with other projects. 
+The rewrite of the federation code started by @nutomic in August is now mostly complete. As a result, the code is much cleaner, and has tests to guarantee no breaking changes between Lemmy versions. As a side effect of this rewrite, it was now relatively easy to enable federation with other projects.
 
 Mastodon and Pleroma users can:
 
@@ -26,7 +26,7 @@ Mastodon and Pleroma users can:
 
 In addition, Pleroma users can exchange private messages with Lemmy users.
 
-Note that Pleroma and Mastodon rely on a compatibility mode in Lemmy, which means that they won't receive events like Deletes or Votes. Other projects whose federation works similar to Pleroma/Mastodon  will likely also federate.
+Note that Pleroma and Mastodon rely on a compatibility mode in Lemmy, which means that they won't receive events like Deletes or Votes. Other projects whose federation works similar to Pleroma/Mastodon will likely also federate.
 
 ### Hardcoded slur filter removed
 
@@ -84,7 +84,7 @@ We've now separated our ansible install method (the preferred way to deploy Lemm
 - Format config/defaults.hjson before committing ([#1860](https://github.com/LemmyNet/Lemmy/issues/1860))
 - Breaking apub changes ([#1859](https://github.com/LemmyNet/Lemmy/issues/1859))
 - Pleroma federation2 ([#1855](https://github.com/LemmyNet/Lemmy/issues/1855))
-- Create a custom pre-commit hook, generates config/defaults.hjson  ([#1857](https://github.com/LemmyNet/Lemmy/issues/1857))
+- Create a custom pre-commit hook, generates config/defaults.hjson ([#1857](https://github.com/LemmyNet/Lemmy/issues/1857))
 - Add cargo metadata to all crates ([#1853](https://github.com/LemmyNet/Lemmy/issues/1853))
 - Add both (De)Serialize to all models ([#1851](https://github.com/LemmyNet/Lemmy/issues/1851))
 - Adding GetUnreadCount to the API. Fixes [#1794](https://github.com/LemmyNet/Lemmy/issues/1794) ([#1842](https://github.com/LemmyNet/Lemmy/issues/1842))

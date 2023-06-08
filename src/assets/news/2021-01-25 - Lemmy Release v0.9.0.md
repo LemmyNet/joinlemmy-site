@@ -1,6 +1,6 @@
 # Lemmy Release v0.9.0
 
-*Written by @dessalines and @nutomic, 2021-01-25*
+_Written by @dessalines and @nutomic, 2021-01-25_
 
 ## Changes
 
@@ -47,7 +47,6 @@ None of these are breaking changes, so federation between 0.9.0 and 0.8.11 will 
 - Fixed community link wrapping.
 - Community Titles are now used instead of names.
 - Various other bug fixes.
-
 
 ### Lemmy Docs
 

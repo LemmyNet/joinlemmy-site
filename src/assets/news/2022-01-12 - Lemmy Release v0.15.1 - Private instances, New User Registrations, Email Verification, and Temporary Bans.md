@@ -1,11 +1,10 @@
 # Lemmy Release v0.15.1: Private instances, New User Registrations, Email Verification, and Temporary Bans
 
-*Written by @dessalines and @nutomic, 2022-01-12*
+_Written by @dessalines and @nutomic, 2022-01-12_
 
 Lemmy now has private instances, optional registration applications, optional email verification, and temporary bans! These are described in detail below.
 
 Special thanks to @asonix for adding [tokio-console](https://github.com/LemmyNet/Lemmy/issues/2003) and [Jaeger + opentelemetry](https://github.com/LemmyNet/Lemmy/issues/1992) to our dev setups, so we can better identify performance bottlenecks.
-
 
 ## What is Lemmy?
 
@@ -21,11 +20,11 @@ Admins can turn this on, and new users will need to verify their emails. Current
 
 Admins can now optionally make new users fill out an application to join your server. There is a new panel in their top bar where they can approve or deny pending applications.
 
-This works in conjunction with the *require_email* field. If that is also turned on, the application will only be shown after their email has been verified. The user will receive an email when they have been accepted.
+This works in conjunction with the _require_email_ field. If that is also turned on, the application will only be shown after their email has been verified. The user will receive an email when they have been accepted.
 
 ### Closed / Private instances
 
-The instance settings now includes a *private instance* option, which if turned on, will only let logged in users view your site. Private instances was one of our first issues, and it was a large effort, so its great to finally have this completed.
+The instance settings now includes a _private instance_ option, which if turned on, will only let logged in users view your site. Private instances was one of our first issues, and it was a large effort, so its great to finally have this completed.
 
 ### Temporary Bans
 
@@ -122,4 +121,4 @@ There is a new rate limit for creating new comments in the [config.hjson](https:
 - Fix comment scroll bug. Fixes [#492](https://github.com/LemmyNet/lemmy-ui/issues/492)
 - Fixing error for null person_block. Fixes [#491](https://github.com/LemmyNet/lemmy-ui/issues/491)
 - Trying to catch promise and json parse errors. [#489](https://github.com/LemmyNet/lemmy-ui/issues/489) ([#490](https://github.com/LemmyNet/lemmy-ui/issues/490))
-- 
+-

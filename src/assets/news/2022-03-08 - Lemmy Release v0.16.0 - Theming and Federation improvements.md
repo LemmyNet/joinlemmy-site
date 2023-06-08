@@ -1,6 +1,6 @@
 # Lemmy v0.16.0 Release: Theming and Federation improvements (2022-03-08)
 
-*Written by @dessalines and @nutomic, 2022-03-08*
+_Written by @dessalines and @nutomic, 2022-03-08_
 
 ## What is Lemmy?
 
@@ -31,8 +31,9 @@ Until now, only community bans were federated, and the "Remove content" option d
 ### Hide communities
 
 @dayinjing implemented a funcionality for instance admins to hide controversial communities. A hidden community is only visible to those users who subscribe to it. This represents a milder alternative to removing a community. This functionality is not implemented in lemmy-ui yet, but admins can hide a community like this via command line:
+
 ```
-curl -X PUT https://example.com/api/v3/community/hide \   
+curl -X PUT https://example.com/api/v3/community/hide \
     -H "Content-Type: application/json" \
     -d \
     '{"community_id":3,"hidden":true,"reason":"*reason for mod log*","auth":"*admin jwt token*"}'
@@ -40,12 +41,11 @@ curl -X PUT https://example.com/api/v3/community/hide \
 
 ### Jerboa: a new android app
 
-To help adoption, and since most people use social media through their smartphones nowadays, @dessalines has been working on a native android app for Lemmy called [Jerboa](https://github.com/dessalines/jerboa), which is now on [F-Droid](https://f-droid.org/packages/com.jerboa) and [Google Play](https://play.google.com/store/apps/details?id=com.jerboa). 
+To help adoption, and since most people use social media through their smartphones nowadays, @dessalines has been working on a native android app for Lemmy called [Jerboa](https://github.com/dessalines/jerboa), which is now on [F-Droid](https://f-droid.org/packages/com.jerboa) and [Google Play](https://play.google.com/store/apps/details?id=com.jerboa).
 
 It is still at an alpha level, but is very usable. We'd love to have experienced android developers contribute to it.
 
-This now makes three smartphone apps for Lemmy: [Lemmur and Jerboa for Android, and Remmel for iOS](https://join-lemmy.org/apps). 
-
+This now makes three smartphone apps for Lemmy: [Lemmur and Jerboa for Android, and Remmel for iOS](https://join-lemmy.org/apps).
 
 ## Upgrade notes
 
@@ -95,10 +95,9 @@ If you'd like to support development, and make sure that we will always be avail
 - Alpha-ordering community follows. Fixes [#2062](https://github.com/LemmyNet/lemmy/issues/2062) ([#2079](https://github.com/LemmyNet/lemmy/issues/2079))
 - Add federation tests for Friendica, improve parsing of source field (fixes [#2057](https://github.com/LemmyNet/lemmy/issues/2057)) ([#2070](https://github.com/LemmyNet/lemmy/issues/2070))
 
-
 ### Lemmy UI
 
-- Rename theme files from *.min.css to *.css ([#590](https://github.com/LemmyNet/lemmy-ui/issues/590))
+- Rename theme files from _.min.css to _.css ([#590](https://github.com/LemmyNet/lemmy-ui/issues/590))
 - Custom themes ([#584](https://github.com/LemmyNet/lemmy-ui/issues/584))
 - Add option to set site default theme (fixes [#559](https://github.com/LemmyNet/lemmy-ui/issues/559))
 - Adding nofollow to links. Fixes [#542](https://github.com/LemmyNet/lemmy-ui/issues/542) ([#543](https://github.com/LemmyNet/lemmy-ui/issues/543))
@@ -113,6 +112,3 @@ If you'd like to support development, and make sure that we will always be avail
 - Fix report page bugs. Fixes [#558](https://github.com/LemmyNet/lemmy-ui/issues/558) ([#568](https://github.com/LemmyNet/lemmy-ui/issues/568))
 - Fix post title link bug. Fixes [#547](https://github.com/LemmyNet/lemmy-ui/issues/547) ([#563](https://github.com/LemmyNet/lemmy-ui/issues/563))
 - Add markdown footnotes. Fixes [#561](https://github.com/LemmyNet/lemmy-ui/issues/561) ([#562](https://github.com/LemmyNet/lemmy-ui/issues/562))
-
-
-

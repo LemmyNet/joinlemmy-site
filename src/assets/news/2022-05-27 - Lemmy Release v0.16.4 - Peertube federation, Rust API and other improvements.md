@@ -1,6 +1,6 @@
 # Lemmy Release v0.16.4 - Peertube federation, Rust API and other improvements (2022-05-27)
 
-*Written by @dessalines and @nutomic, 2022-05-27*
+_Written by @dessalines and @nutomic, 2022-05-27_
 
 ## What is Lemmy?
 

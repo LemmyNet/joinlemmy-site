@@ -81,7 +81,7 @@ pipeline:
 
   notify_on_failure:
     image: alpine:3
-    commands: 
+    commands:
       - apk add curl
       - "curl -d'joinlemmy-site build failed: ${DRONE_BUILD_LINK}' ntfy.sh/lemmy_drone_ci"
     when:
@@ -90,7 +90,7 @@ pipeline:
 
   notify_on_tag_deploy:
     image: alpine:3
-    commands: 
+    commands:
       - apk add curl
       - "curl -d'joinlemmy-site:${DRONE_TAG} deployed' ntfy.sh/lemmy_drone_ci"
     when:

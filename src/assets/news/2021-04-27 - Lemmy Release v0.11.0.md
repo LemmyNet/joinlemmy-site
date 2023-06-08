@@ -1,6 +1,6 @@
 # Lemmy Release v0.11.0
 
-*Written by @dessalines and @nutomic, 2021-04-27*
+_Written by @dessalines and @nutomic, 2021-04-27_
 
 Since our last release this month, we've had [~60](https://github.com/LemmyNet/lemmy/compare/0.10.0...main) commits to Lemmy.
 
@@ -8,11 +8,11 @@ Since our last release this month, we've had [~60](https://github.com/LemmyNet/l
 
 #### Major Changes
 
-- Add option to disable strict allowlist ( [#1486](https://github.com/LemmyNet/lemmy/issues/1486)) [documentation](https://join.lemmy.ml/docs/en/federation/administration.html) 
+- Add option to disable strict allowlist ( [#1486](https://github.com/LemmyNet/lemmy/issues/1486)) [documentation](https://join.lemmy.ml/docs/en/federation/administration.html)
 - Add option to limit community creation to admins only ([#1587](https://github.com/LemmyNet/lemmy/issues/1587))
 - Many search improvements:
-    - Don't search for communities or users when the id is included.
-    - Add creator id to search.
+  - Don't search for communities or users when the id is included.
+  - Add creator id to search.
 
 #### General
 
@@ -48,7 +48,6 @@ Since our last release this month, we've had [~60](https://github.com/LemmyNet/l
 - Correctly render HTML in popup notifications
 - Fix html notif bug. Fixes [#254](https://github.com/LemmyNet/lemmy-ui/issues/254)
 - Fixing issue with debounce. Fixes [#236](https://github.com/LemmyNet/lemmy-ui/issues/236)
-
 
 ## Upgrade notes
 
