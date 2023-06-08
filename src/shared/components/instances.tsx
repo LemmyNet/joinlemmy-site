@@ -55,6 +55,28 @@ export class Instances extends Component<any, any> {
           instances: numToSI(instance_stats.stats.crawled_instances),
           users: numToSI(instance_stats.stats.users_active_month),
         })}
+        <p>
+          {i18n.t("instance_comparison")}:
+          <ul>
+            <li>
+              <a href="https://github.com/maltfield/awesome-lemmy-instances">
+                Awesome-Lemmy-Instances on GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://the-federation.info/platform/73">
+                the-federation.info Lemmy Instances Page
+              </a>
+            </li>
+            <li>
+              <a href="https://lemmymap.feddit.de/">Feddit's Lemmymap</a>
+            </li>
+          </ul>
+          {i18n.t("instance_browser")}{" "}
+          <a href="https://browse.feddit.de/">
+            Feddit's Lemmy Community Browser
+          </a>
+        </p>
       </i>
     );
   }
