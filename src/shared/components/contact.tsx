@@ -25,9 +25,6 @@ export class Contact extends Component<any, any> {
             <li>
               <a href="https://github.com/LemmyNet">GitHub</a>
             </li>
-            <li>
-              <a href="mailto:contact@join-lemmy.org">contact@join-lemmy.org</a>
-            </li>
           </ul>
         </div>
       </div>
