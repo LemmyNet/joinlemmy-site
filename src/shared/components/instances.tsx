@@ -4,14 +4,14 @@ import { i18n } from "../i18next";
 import { instance_stats } from "../instance_stats";
 import { numToSI } from "../utils";
 
-const title = i18n.t("join_title");
-
 export class Instances extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
   }
 
   render() {
+    const title = i18n.t("join_title");
+
     var recommended_instances = instance_stats.recommended[i18n.language];
     if (!recommended_instances) {
       recommended_instances = instance_stats.recommended["en"];

@@ -6,8 +6,6 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { getDocsLanguage, isBrowser } from "../utils";
 
-const title = i18n.t("lemmy_title");
-
 export class Main extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
@@ -40,6 +38,7 @@ export class Main extends Component<any, any> {
   }
 
   render() {
+    const title = i18n.t("lemmy_title");
     return (
       <div>
         <Helmet title={title}>
