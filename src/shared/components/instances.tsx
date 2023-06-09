@@ -88,8 +88,6 @@ export class Instances extends Component<any, any> {
         <div class="row">
           {instances.map(instance => {
             let domain = instance.domain;
-            let users_active_month =
-              instance.site_info.site_view.counts.users_active_month;
             let description = instance.site_info.site_view.site.description;
             let icon = instance.site_info.site_view.site.icon;
             let require_application =
