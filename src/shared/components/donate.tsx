@@ -7,7 +7,6 @@ import { translators } from "../translations/translators";
 import { languagesAll, countries } from "countries-list";
 import { isBrowser } from "../utils";
 
-const title = i18n.t("support_title");
 const avatarSize = 40;
 const bannerWidth = 240;
 const bannerHeight = 101;
@@ -92,6 +91,7 @@ export class Donate extends Component<any, any> {
   }
 
   render() {
+    const title = i18n.t("support_title");
     return (
       <div>
         <Helmet title={title}>
