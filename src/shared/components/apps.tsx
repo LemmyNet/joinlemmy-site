@@ -3,8 +3,6 @@ import { AppDetails } from "./app-details";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 
-const title = i18n.t("apps_title");
-
 export class Apps extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
@@ -15,6 +13,7 @@ export class Apps extends Component<any, any> {
   }
 
   render() {
+    const title = i18n.t("apps_title");
     return (
       <div>
         <Helmet title={title}>
