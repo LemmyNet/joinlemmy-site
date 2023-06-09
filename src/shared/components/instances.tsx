@@ -4,6 +4,8 @@ import { i18n } from "../i18next";
 import { instance_stats } from "../instance_stats";
 import { numToSI } from "../utils";
 
+const min_monthly_users = 5;
+
 export class Instances extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
@@ -90,6 +92,11 @@ export class Instances extends Component<any, any> {
             .filter(
               i =>
                 i.site_info.site_view.local_site.registration_mode != "closed"
+            )
+            .filter(
+              i =>
+                i.site_info.site_view.counts.users_active_month >
+                min_monthly_users
             )
             .map(instance => {
               let domain = instance.domain;
