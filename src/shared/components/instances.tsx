@@ -1,6 +1,7 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
+import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import { numToSI } from "../utils";
 
@@ -52,34 +53,84 @@ export class Instances extends Component<any, any> {
 
   header() {
     return (
-      <i>
-        {i18n.t("instance_totals", {
-          instances: numToSI(instance_stats.stats.crawled_instances),
-          users: numToSI(instance_stats.stats.users_active_month),
-        })}
+      <>
+        <T i18nKey="instance_explanation">
+          #
+          <p>
+            <strong>#</strong>
+          </p>
+          <ul>
+            <li>#</li>
+          </ul>
+        </T>
         <p>
-          {i18n.t("instance_comparison")}:
+          <T i18nKey="choose_instance">
+            #<strong>#</strong>
+          </T>
+        </p>
+        <p>
+          {i18n.t("instance_totals", {
+            instances: numToSI(instance_stats.stats.crawled_instances),
+            users: numToSI(instance_stats.stats.users_active_month),
+          })}
+        </p>
+        <T i18nKey="instance_comparison">
+          #<p>#</p>
           <ul>
             <li>
-              <a href="https://github.com/maltfield/awesome-lemmy-instances">
-                Awesome-Lemmy-Instances on GitHub
+              <a
+                target="_blank"
+                href="https://github.com/maltfield/awesome-lemmy-instances"
+              >
+                #
               </a>
             </li>
             <li>
-              <a href="https://the-federation.info/platform/73">
-                the-federation.info Lemmy Instances Page
+              <a target="_blank" href="https://the-federation.info/platform/73">
+                #
               </a>
             </li>
             <li>
-              <a href="https://lemmymap.feddit.de/">Feddit's Lemmymap</a>
+              <a target="_blank" href="https://fedidb.org/software/lemmy">
+                #
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://lemmymap.feddit.de/">
+                #
+              </a>
             </li>
           </ul>
-          {i18n.t("instance_browser")}{" "}
-          <a href="https://browse.feddit.de/">
-            Feddit's Lemmy Community Browser
-          </a>
+        </T>
+        <p>
+          <T i18nKey="join_instance">
+            #
+            <a
+              target="_blank"
+              href="https://join-lemmy.org/docs/en/users/01-getting-started.html#registration"
+            >
+              #
+            </a>
+          </T>
         </p>
-      </i>
+        <p>
+          <T i18nKey="instance_browser">
+            #
+            <a target="_blank" href="https://browse.feddit.de/">
+              #
+            </a>
+            <a target="_blank" href="https://lemmy.ml/post/1160417">
+              #
+            </a>
+            <a
+              target="_blank"
+              href="https://join-lemmy.org/docs/en/users/01-getting-started.html#following-communities"
+            >
+              #
+            </a>
+          </T>
+        </p>
+      </>
     );
   }
 
