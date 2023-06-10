@@ -247,7 +247,7 @@ export class Donate extends Component<any, any> {
         </p>
         <p>
           <T i18nKey="add_weblate">
-            #<a href="https://weblate.yerbamate.ml/projects/lemmy/">#</a>
+            #<a href="https://weblate.join-lemmy.org/projects/lemmy/">#</a>
           </T>
         </p>
       </div>
