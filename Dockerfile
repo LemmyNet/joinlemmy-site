@@ -51,7 +51,7 @@ COPY --from=docs /app/docs ./src/assets/docs
 COPY --from=api /app/lemmy-js-client/docs ./src/assets/api
 
 RUN yarn
-RUN yarn build:prod
+RUN NODE_OPTIONS="--max-old-space-size=8192" yarn build:prod
 
 FROM node:14-alpine as runner
 COPY --from=builder /app/dist /app/dist
