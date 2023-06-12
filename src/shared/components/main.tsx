@@ -239,7 +239,7 @@ export class Main extends Component<any, any> {
                 <li>
                   <T i18nKey="i18n_support">
                     #
-                    <a href="https://weblate.yerbamate.ml/projects/lemmy/lemmy/">
+                    <a href="https://weblate.join-lemmy.org/projects/lemmy/lemmy/">
                       #
                     </a>
                   </T>
