@@ -15,8 +15,8 @@ export class Instances extends Component<any, any> {
     // Mostly sort by active users, but add a large random component to
     // randomize order of instances with about the same order of magnitude of
     // users.
-    let active_users = instance.site_info.site_view.counts.users_active_month
-    return active_users + active_users * 3 * Math.random()
+    let active_users = instance.site_info.site_view.counts.users_active_month;
+    return active_users + active_users * 3 * Math.random();
   }
 
   render() {
@@ -46,7 +46,7 @@ export class Instances extends Component<any, any> {
     let remaining2 = remaining
       .map(i => ({ instance: i, sort: this.calculateInstanceSortValue(i) }))
       .sort((a, b) => b.sort - a.sort)
-      .map(({ instance }) => instance)
+      .map(({ instance }) => instance);
 
     return (
       <div class="container">
