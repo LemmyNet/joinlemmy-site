@@ -11,6 +11,14 @@ export class Instances extends Component<any, any> {
     super(props, context);
   }
 
+  calculateInstanceSortValue(instance: any) {
+    // Mostly sort by active users, but add a large random component to
+    // randomize order of instances with about the same order of magnitude of
+    // users.
+    let active_users = instance.site_info.site_view.counts.users_active_month
+    return active_users + active_users * 3 * Math.random()
+  }
+
   render() {
     const title = i18n.t("join_title");
 
@@ -35,6 +43,11 @@ export class Instances extends Component<any, any> {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
 
+    let remaining2 = remaining
+      .map(i => ({ instance: i, sort: this.calculateInstanceSortValue(i) }))
+      .sort((a, b) => b.sort - a.sort)
+      .map(({ instance }) => instance)
+
     return (
       <div class="container">
         <Helmet title={title}>
@@ -45,7 +58,7 @@ export class Instances extends Component<any, any> {
         <br />
         <br />
         {this.renderList(i18n.t("recommended_instances"), recommended2)}
-        {this.renderList(i18n.t("popular_instances"), remaining)}
+        {this.renderList(i18n.t("popular_instances"), remaining2)}
       </div>
     );
   }
