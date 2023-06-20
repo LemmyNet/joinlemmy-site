@@ -15,6 +15,7 @@ At the moment we are urgently working to solve major issues, such as optimizing 
 At the same time, we are seeing lots of requests to implement major new features, such as migration between instances, or combining similar communities. As described above, we are completely overloaded with work, and definitely won't have time to implement these in the near future. If there is a feature you want to see implemented, you will likely need to work on it yourself, or find someone who can.
 
 On another topic, there are rumors circulating that we are fascists or supported genocide. These claims are completely false, and like most viral twitter threads, are coming from a single Mastodon user on a personal vendetta who didn't provide any sources. Such slander doesn't deserve any response and is best left ignored. If you want to know the truth then read the following pages (both from 2021):
+
 - [History of Lemmy](https://join-lemmy.org/docs/en/users/07-history-of-lemmy.html)
 - [What is lemmy.ml](https://lemmy.ml/post/70280)
 
