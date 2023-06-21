@@ -7,15 +7,12 @@ WORKDIR /app/lemmy-docs
 RUN ./update-includes.sh
 
 # Build the docs
-FROM rust:1.63-slim as docs
+FROM alpine:3 as docs
 WORKDIR /app
-RUN cargo install mdbook \
-  --git https://github.com/Ruin0x11/mdBook.git \
-  --branch localization \
-  --rev 9d8147c
+RUN wget -O mdbook.tar.gz https://github.com/rust-lang/mdBook/releases/download/v0.4.30/mdbook-v0.4.30-x86_64-unknown-linux-musl.tar.gz
+RUN tar -xzf mdbook.tar.gz
 COPY lemmy-docs ./lemmy-docs
-COPY --from=docs_include /app/lemmy-docs/include /app/lemmy-docs/include
-RUN mdbook build lemmy-docs -d ../docs
+RUN ./mdbook build lemmy-docs -d ../docs
 
 # Build the typedoc API docs
 FROM node:14-alpine as api
