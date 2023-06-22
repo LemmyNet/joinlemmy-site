@@ -13,7 +13,7 @@
 [submodule "lemmy-js-client"]
 	path = lemmy-js-client
 	url = https://github.com/LemmyNet/lemmy-js-client
-	branch = release/v0.17
+	branch = release/v0.18
 [submodule "lemmy-stats-crawler"]
 	path = lemmy-stats-crawler
 	url = https://github.com/LemmyNet/lemmy-stats-crawler.git
