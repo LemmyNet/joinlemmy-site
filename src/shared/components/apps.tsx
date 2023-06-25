@@ -56,7 +56,7 @@ export class Apps extends Component<any, any> {
                 banner="/static/assets/images/mlem_screen.webp"
                 links={[
                   {
-                    link: "https://testflight.apple.com/join/xQfmkJhc",
+                    link: "https://testflight.apple.com/join/MelFP11Y",
                     icon: "appleinc",
                   },
                   {
