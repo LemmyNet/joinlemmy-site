@@ -134,15 +134,9 @@ export class Instances extends Component<any, any> {
                   <br />
                   <p class="join-desc">{description}</p>
                   <footer>
-                    {require_application ? (
-                      <a class="button primary" href={`https://${domain}`}>
-                        {i18n.t("apply_to_join")}
-                      </a>
-                    ) : (
-                      <a class="button primary" href={`https://${domain}`}>
-                        {i18n.t("join")}
-                      </a>
-                    )}
+                    <a class="button primary" href={`https://${domain}`}>
+                      {i18n.t("browse_instance")}
+                    </a>
                   </footer>
                 </div>
               );
