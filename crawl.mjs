@@ -53,17 +53,14 @@ try {
     // Crawl results from all instances include tons of data which needs to be compiled.
     // If it is too much data it breaks the build, so we need to exclude as much as possible.
     stats.instance_details = stats.instance_details
-    // Exclude instances with closed registration
-    .filter(
-      i =>
-        i.site_info.site_view.local_site.registration_mode != "closed"
-    )
-    // Exclude instances with few active users
-    .filter(
-      i =>
-        i.site_info.site_view.counts.users_active_month >
-        min_monthly_users
-    );
+      // Exclude instances with closed registration
+      .filter(
+        i => i.site_info.site_view.local_site.registration_mode != "closed"
+      )
+      // Exclude instances with few active users
+      .filter(
+        i => i.site_info.site_view.counts.users_active_month > min_monthly_users
+      );
     // Exclude unnecessary data
     stats.instance_details.forEach(i => {
       delete i.site_info.admins;
