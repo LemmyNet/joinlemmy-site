@@ -47,8 +47,8 @@ COPY src src
 COPY --from=docs /app/docs ./src/assets/docs
 COPY --from=api /app/lemmy-js-client/docs ./src/assets/api
 
-RUN yarn
-RUN NODE_OPTIONS="--max-old-space-size=8192" yarn build:prod
+RUN yarn install --pure-lockfile
+RUN yarn build:prod
 
 FROM node:alpine as runner
 COPY --from=builder /app/dist /app/dist
