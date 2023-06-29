@@ -115,9 +115,6 @@ export class Instances extends Component<any, any> {
               let domain = instance.domain;
               let description = instance.site_info.site_view.site.description;
               let icon = instance.site_info.site_view.site.icon;
-              let require_application =
-                instance.site_info.site_view.local_site.registration_mode ==
-                "requireapplication";
               return (
                 <div class="card col-6">
                   <header>
