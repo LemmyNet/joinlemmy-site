@@ -1,11 +1,10 @@
 import fs from "fs";
-import path from "path";
-import { exit } from "process";
 import { spawn } from "child_process";
 
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
 const instanceStatsFile = "src/shared/instance_stats.ts";
+const min_monthly_users = 5;
 
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -26,6 +25,7 @@ try {
       "run",
       "--",
       "--json",
+      "--max-crawl-distance", "0",
       "--start-instances",
       all_recommended,
       "--exclude-instances",
@@ -50,7 +50,17 @@ try {
   });
 
   run.on("close", exitCode => {
-    const stats = JSON.parse(savedOutput);
+    var stats = JSON.parse(savedOutput);
+    stats = stats.instance_details
+    .filter(
+      i =>
+        i.site_info.site_view.local_site.registration_mode != "closed"
+    )
+    .filter(
+      i =>
+        i.site_info.site_view.counts.users_active_month >
+        min_monthly_users
+    );
 
     let stats2 = {
       stats: stats,
