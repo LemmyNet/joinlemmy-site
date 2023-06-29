@@ -25,7 +25,6 @@ try {
       "run",
       "--",
       "--json",
-      "--max-crawl-distance", "0",
       "--start-instances",
       all_recommended,
       "--exclude-instances",
