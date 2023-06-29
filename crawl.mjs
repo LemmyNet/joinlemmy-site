@@ -25,6 +25,7 @@ try {
       "run",
       "--",
       "--json",
+      "--max-crawl-distance", "0",
       "--start-instances",
       all_recommended,
       "--exclude-instances",
@@ -50,16 +51,29 @@ try {
 
   run.on("close", exitCode => {
     var stats = JSON.parse(savedOutput);
+    // Crawl results from all instances include tons of data which needs to be compiled.
+    // If it is too much data it breaks the build, so we need to exclude as much as possible.
     stats.instance_details = stats.instance_details
+    // Exclude instances with closed registration
     .filter(
       i =>
         i.site_info.site_view.local_site.registration_mode != "closed"
     )
+    // Exclude instances with few active users
     .filter(
       i =>
         i.site_info.site_view.counts.users_active_month >
         min_monthly_users
     );
+    // Exclude unnecessary data
+    stats.instance_details.forEach(i => {
+      delete i.site_info.admins;
+      delete i.site_info.all_languages;
+      delete i.site_info.discussion_languages;
+      delete i.site_info.taglines;
+      delete i.site_info.custom_emojis;
+      delete i.federated_instances;
+    });
 
     let stats2 = {
       stats: stats,
