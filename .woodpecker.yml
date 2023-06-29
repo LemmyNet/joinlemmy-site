@@ -16,7 +16,7 @@ pipeline:
   prettier_markdown_check:
     image: tmknom/prettier
     commands:
-      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler"
+      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts"
 
   yarn:
     image: node:14-alpine
