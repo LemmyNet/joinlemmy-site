@@ -25,7 +25,6 @@ try {
       "run",
       "--",
       "--json",
-      "--max-crawl-distance", "0",
       "--start-instances",
       all_recommended,
       "--exclude-instances",
@@ -51,7 +50,7 @@ try {
 
   run.on("close", exitCode => {
     var stats = JSON.parse(savedOutput);
-    stats = stats.instance_details
+    stats.instance_details = stats.instance_details
     .filter(
       i =>
         i.site_info.site_view.local_site.registration_mode != "closed"
