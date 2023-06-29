@@ -1,11 +1,10 @@
 import fs from "fs";
-import path from "path";
-import { exit } from "process";
 import { spawn } from "child_process";
 
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
 const instanceStatsFile = "src/shared/instance_stats.ts";
+const min_monthly_users = 5;
 
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -50,7 +49,27 @@ try {
   });
 
   run.on("close", exitCode => {
-    const stats = JSON.parse(savedOutput);
+    var stats = JSON.parse(savedOutput);
+    // Crawl results from all instances include tons of data which needs to be compiled.
+    // If it is too much data it breaks the build, so we need to exclude as much as possible.
+    stats.instance_details = stats.instance_details
+      // Exclude instances with closed registration
+      .filter(
+        i => i.site_info.site_view.local_site.registration_mode != "closed"
+      )
+      // Exclude instances with few active users
+      .filter(
+        i => i.site_info.site_view.counts.users_active_month > min_monthly_users
+      );
+    // Exclude unnecessary data
+    stats.instance_details.forEach(i => {
+      delete i.site_info.admins;
+      delete i.site_info.all_languages;
+      delete i.site_info.discussion_languages;
+      delete i.site_info.taglines;
+      delete i.site_info.custom_emojis;
+      delete i.federated_instances;
+    });
 
     let stats2 = {
       stats: stats,

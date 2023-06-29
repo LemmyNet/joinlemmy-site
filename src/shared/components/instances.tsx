@@ -4,8 +4,6 @@ import { i18n } from "../i18next";
 import { instance_stats } from "../instance_stats";
 import { numToSI } from "../utils";
 
-const min_monthly_users = 5;
-
 export class Instances extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
@@ -101,43 +99,33 @@ export class Instances extends Component<any, any> {
       <div>
         <h2>{header}</h2>
         <div class="row">
-          {instances
-            .filter(
-              i =>
-                i.site_info.site_view.local_site.registration_mode != "closed"
-            )
-            .filter(
-              i =>
-                i.site_info.site_view.counts.users_active_month >
-                min_monthly_users
-            )
-            .map(instance => {
-              let domain = instance.domain;
-              let description = instance.site_info.site_view.site.description;
-              let icon = instance.site_info.site_view.site.icon;
-              return (
-                <div class="card col-6">
-                  <header>
-                    <div class="row">
-                      <h4 class="col">{domain}</h4>
-                    </div>
-                  </header>
-                  <div class="is-center">
-                    <img
-                      class="join-banner"
-                      src={icon || "/static/assets/images/lemmy.svg"}
-                    />
+          {instances.map(instance => {
+            let domain = instance.domain;
+            let description = instance.site_info.site_view.site.description;
+            let icon = instance.site_info.site_view.site.icon;
+            return (
+              <div class="card col-6">
+                <header>
+                  <div class="row">
+                    <h4 class="col">{domain}</h4>
                   </div>
-                  <br />
-                  <p class="join-desc">{description}</p>
-                  <footer>
-                    <a class="button primary" href={`https://${domain}`}>
-                      {i18n.t("browse_instance")}
-                    </a>
-                  </footer>
+                </header>
+                <div class="is-center">
+                  <img
+                    class="join-banner"
+                    src={icon || "/static/assets/images/lemmy.svg"}
+                  />
                 </div>
-              );
-            })}
+                <br />
+                <p class="join-desc">{description}</p>
+                <footer>
+                  <a class="button primary" href={`https://${domain}`}>
+                    {i18n.t("browse_instance")}
+                  </a>
+                </footer>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
