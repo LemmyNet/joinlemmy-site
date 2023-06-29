@@ -115,9 +115,6 @@ export class Instances extends Component<any, any> {
               let domain = instance.domain;
               let description = instance.site_info.site_view.site.description;
               let icon = instance.site_info.site_view.site.icon;
-              let require_application =
-                instance.site_info.site_view.local_site.registration_mode ==
-                "requireapplication";
               return (
                 <div class="card col-6">
                   <header>
@@ -134,15 +131,9 @@ export class Instances extends Component<any, any> {
                   <br />
                   <p class="join-desc">{description}</p>
                   <footer>
-                    {require_application ? (
-                      <a class="button primary" href={`https://${domain}`}>
-                        {i18n.t("apply_to_join")}
-                      </a>
-                    ) : (
-                      <a class="button primary" href={`https://${domain}`}>
-                        {i18n.t("join")}
-                      </a>
-                    )}
+                    <a class="button primary" href={`https://${domain}`}>
+                      {i18n.t("browse_instance")}
+                    </a>
                   </footer>
                 </div>
               );
