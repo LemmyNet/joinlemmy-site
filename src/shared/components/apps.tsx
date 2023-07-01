@@ -51,7 +51,7 @@ export class Apps extends Component<any, any> {
               <AppDetails
                 name="Mlem"
                 description="A Lemmy Client for iOS."
-                link="https://github.com/buresdv/Mlem"
+                link="https://github.com/mormaer/Mlem"
                 icon="/static/assets/images/mlem.webp"
                 banner="/static/assets/images/mlem_screen.webp"
                 links={[
