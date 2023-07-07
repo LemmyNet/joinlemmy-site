@@ -11,7 +11,7 @@ export class Instances extends Component<any, any> {
 
   biasedRandom(min, max, bias, i) {
     // Lets introduce a better bias to random suffle instances list
-    var rnd = Math.random() * (max - min ) + min;
+    var rnd = Math.random() * (max - min) + min;
     var mix = Math.random() * i;
     return rnd * (1 - mix) + bias * mix;
   }
@@ -27,7 +27,7 @@ export class Instances extends Component<any, any> {
     var recommended = [];
     var remaining = [];
     var values = [];
-    
+
     for (var i of instance_stats.stats.instance_details) {
       if (recommended_instances.indexOf(i.domain) > -1) {
         recommended.push(i);
@@ -40,13 +40,13 @@ export class Instances extends Component<any, any> {
         values.push(i.site_info.site_view.counts.users_active_month);
       }
     }
- 
-    // Use these values for the shuffle 
+
+    // Use these values for the shuffle
     const max = Math.max(...values);
     const min = Math.min(...values);
     const averageFun = array => values.reduce((a, b) => a + b) / values.length;
-    const avg = averageFun(values)
-    
+    const avg = averageFun(values);
+
     let recommended2 = recommended
       .map(value => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
@@ -55,7 +55,7 @@ export class Instances extends Component<any, any> {
     // BIASED sorting for instances, based on the min/max of users_active_month
     // weighted to 2/3 of all counts, but more even distribution
     let remaining2 = remaining
-      .map(i => ({ instance: i, sort: this.biasedRandom(min, max, avg, .75) }))
+      .map(i => ({ instance: i, sort: this.biasedRandom(min, max, avg, 0.75) }))
       .sort((a, b) => b.sort - a.sort)
       .map(({ instance }) => instance);
 
