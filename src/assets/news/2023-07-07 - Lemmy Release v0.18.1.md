@@ -1,0 +1,392 @@
+# Lemmy v0.18.1 Release
+
+_Written by @dessalines and @nutomic, 2023-07-07_
+
+## What is Lemmy?
+
+Lemmy is a self-hosted social link aggregation and discussion platform. It is completely free and open, and not controlled by any company. This means that there is no advertising, tracking, or secret algorithms. Content is organized into communities, so it is easy to subscribe to topics that you are interested in, and ignore others. Voting is used to bring the most interesting items to the top.
+
+## Major Changes
+
+This release includes major improvements to performance, specifically optimizations of database queries. Special thanks to @phiresky, @ruud, @sunaurus and many others for investigating these. Additionally this version includes a fix for another cross-site scripting vulnerability. For these reasons instance admins should upgrade as soon as possible.
+
+As promised, captchas are supported again. And as usual there are countless bug fixes and minor improvements, many of them contributed by community members.
+
+## Upgrade instructions
+
+Follow the upgrade instructions for [ansible](https://github.com/LemmyNet/lemmy-ansible#upgrading) or [docker](https://join-lemmy.org/docs/en/administration/install_docker.html#updating).
+
+If you need help with the upgrade, you can ask in our [support forum](https://lemmy.ml/c/lemmy_support) or on the [Matrix Chat](https://matrix.to/#/#lemmy-admin-support-topics:discuss.online).
+
+## Support development
+
+We (@dessalines and @nutomic) have been working full-time on Lemmy for almost three years. This is largely thanks to support from [NLnet foundation](https://nlnet.nl/).
+
+If you like using Lemmy, and want to make sure that we will always be available to work full time building it, consider [donating to support its development](https://join-lemmy.org/donate). No one likes recurring donations, but they've proven to be the only way that open-source software like Lemmy can stay independent and alive.
+
+## Changes
+
+### API
+
+- Added a few more post sorts, a `show_nsfw` to `ListCommunities`, and `open_links_in_new_tab` to `SaveUserSettings`.
+- Full list of changes [here](https://github.com/LemmyNet/lemmy-js-client/compare/0.18.0...0.18.1)
+
+### Lemmy Server
+
+- Revert "Make sure hot rank sorts for post and community filter by positive hot ranks. ([#3497](https://github.com/LemmyNet/lemmy/issues/3497))" ([#3521](https://github.com/LemmyNet/lemmy/issues/3521))
+- Make hot rank not crash on future ([#3517](https://github.com/LemmyNet/lemmy/issues/3517))
+- Upgrade crossbeam-channel ([#3512](https://github.com/LemmyNet/lemmy/issues/3512))
+- Update prettier to 3.0.0 ([#3509](https://github.com/LemmyNet/lemmy/issues/3509))
+- improve admin and mod check to not do seq scans and return unnecessary data ([#3483](https://github.com/LemmyNet/lemmy/issues/3483))
+- Only allow http(s) scheme for urls (ref [#3505](https://github.com/LemmyNet/lemmy/issues/3505)) ([#3508](https://github.com/LemmyNet/lemmy/issues/3508))
+- Change security contact mail ([#3506](https://github.com/LemmyNet/lemmy/issues/3506))
+- Allow cross-origin requests ([#3421](https://github.com/LemmyNet/lemmy/issues/3421))
+- Make sure hot rank sorts for post and community filter by positive hot ranks. ([#3497](https://github.com/LemmyNet/lemmy/issues/3497))
+- Fixes wrong community moderator ordering. ([#3495](https://github.com/LemmyNet/lemmy/issues/3495))
+- Use fixed prettier version for CI ([#3507](https://github.com/LemmyNet/lemmy/issues/3507))
+- upgrade markdown-it to fix panic ([#3490](https://github.com/LemmyNet/lemmy/issues/3490))
+- improve performance of community followers inbox query ([#3482](https://github.com/LemmyNet/lemmy/issues/3482))
+- Cache federation blocklist ([#3486](https://github.com/LemmyNet/lemmy/issues/3486))
+- Add Prometheus endpoint ([#3456](https://github.com/LemmyNet/lemmy/issues/3456))
+- Adding a person.admin index, and featured_local/community indexes. ([#3479](https://github.com/LemmyNet/lemmy/issues/3479))
+- Add feature for enabling json logging ([#3462](https://github.com/LemmyNet/lemmy/issues/3462))
+- fix(posts/comments/search): return error on invalid community name ([#3418](https://github.com/LemmyNet/lemmy/issues/3418))
+- Improved validation of display names (Fixes [#3436](https://github.com/LemmyNet/lemmy/issues/3436)) ([#3437](https://github.com/LemmyNet/lemmy/issues/3437))
+- Remove not needed anymore http-signature-normalization-actix dependency ([#3458](https://github.com/LemmyNet/lemmy/issues/3458))
+- 300 comment limit. ([#3306](https://github.com/LemmyNet/lemmy/issues/3306))
+- Do not decrement comment score twice when removing then deleting. ([#3196](https://github.com/LemmyNet/lemmy/issues/3196))
+- Remove excessive content_type header configuration ([#3470](https://github.com/LemmyNet/lemmy/issues/3470))
+- Adding rest of community sorts. Fixes [#3374](https://github.com/LemmyNet/lemmy/issues/3374) ([#3376](https://github.com/LemmyNet/lemmy/issues/3376))
+- Dont compare db string errors (fixes [#1393](https://github.com/LemmyNet/lemmy/issues/1393)) ([#3424](https://github.com/LemmyNet/lemmy/issues/3424))
+- Add Open links in new tab setting ([#3318](https://github.com/LemmyNet/lemmy/issues/3318))
+- Fix awesome-lemmy owner ([#3469](https://github.com/LemmyNet/lemmy/issues/3469))
+- Add awesome-lemmy to LemmyNet? ([#3413](https://github.com/LemmyNet/lemmy/issues/3413))
+- Use serde(skip) instead of skip_serializing, add placeholder values ([#3362](https://github.com/LemmyNet/lemmy/issues/3362))
+- Mark follow as pending when subscribing to remote community (fixes [#3384](https://github.com/LemmyNet/lemmy/issues/3384)) ([#3406](https://github.com/LemmyNet/lemmy/issues/3406))
+- Fix formatting for latest nightly (#ref 3467)
+- Remove PerformApub trait ([#3423](https://github.com/LemmyNet/lemmy/issues/3423))
+- Fix quoting of max-file in docker-compose.yml ([#3442](https://github.com/LemmyNet/lemmy/issues/3442))
+- don't strip, log trace if requested ([#3425](https://github.com/LemmyNet/lemmy/issues/3425))
+- Update federated posts to not cache sensitive images if not allow by local site ([#3253](https://github.com/LemmyNet/lemmy/issues/3253))
+- Fix concatenation of audio captcha wav files ([#3350](https://github.com/LemmyNet/lemmy/issues/3350))
+- Automatically manage database when running scripts/test.sh ([#3389](https://github.com/LemmyNet/lemmy/issues/3389))
+- Fixing release script. ([#3398](https://github.com/LemmyNet/lemmy/issues/3398))
+- Added gitattributes to normalize all files to lf ([#3386](https://github.com/LemmyNet/lemmy/issues/3386))
+- Update activitypub-federation crate to 0.4.5 ([#3379](https://github.com/LemmyNet/lemmy/issues/3379))
+- Fix cargo warnings ([#3397](https://github.com/LemmyNet/lemmy/issues/3397))
+- Fix missing sorting types ([#3370](https://github.com/LemmyNet/lemmy/issues/3370))
+- docs(api): Add api-common info on generating TypeScript bindings ([#3330](https://github.com/LemmyNet/lemmy/issues/3330))
+- Remove redundant calls to `Iterator::collect` ([#3365](https://github.com/LemmyNet/lemmy/issues/3365))
+- Run cargo update as part of release script ([#3369](https://github.com/LemmyNet/lemmy/issues/3369))
+- Fixes [#2900](https://github.com/LemmyNet/lemmy/issues/2900) - Checks slur regex to see if it is too permissive ([#3146](https://github.com/LemmyNet/lemmy/issues/3146))
+- add new flag to api ([#3363](https://github.com/LemmyNet/lemmy/issues/3363))
+- feat: re-added captcha checks ([#3289](https://github.com/LemmyNet/lemmy/issues/3289))
+- Limit password resets ([#3344](https://github.com/LemmyNet/lemmy/issues/3344))
+- Fixing the release script. ([#3295](https://github.com/LemmyNet/lemmy/issues/3295))
+- Batch hot rank updates ([#3175](https://github.com/LemmyNet/lemmy/issues/3175))
+- Feature add three six and nine months options backend ([#3226](https://github.com/LemmyNet/lemmy/issues/3226))
+- Fetch community outbox and moderators in parallel ([#3360](https://github.com/LemmyNet/lemmy/issues/3360))
+- Remove networks from docker-compose.yml ([#3356](https://github.com/LemmyNet/lemmy/issues/3356))
+- Item URL should point to post URL ([#3345](https://github.com/LemmyNet/lemmy/issues/3345))
+- Site Metadata: resolve relative URLs for embedded images/videos ([#3338](https://github.com/LemmyNet/lemmy/issues/3338))
+- Use compression middleware ([#3343](https://github.com/LemmyNet/lemmy/issues/3343))
+- Remove another unused dev dependency
+- Adjust the config check to be a separate faster to compile binary ([#3313](https://github.com/LemmyNet/lemmy/issues/3313))
+- Remove unused actix_rt dependency
+- Add Liftoff to README.md ([#3357](https://github.com/LemmyNet/lemmy/issues/3357))
+- Respond with `Content-Type: application/activity+json` ([#3353](https://github.com/LemmyNet/lemmy/issues/3353))
+- Fix lemmy UI environment variable ([#3299](https://github.com/LemmyNet/lemmy/issues/3299))
+- Leave no apk cache in Docker image ([#3327](https://github.com/LemmyNet/lemmy/issues/3327))
+- Allow wildcard imports in schema.rs ([#3293](https://github.com/LemmyNet/lemmy/issues/3293))
+- Update DB local_user.theme type to text ([#3266](https://github.com/LemmyNet/lemmy/issues/3266))
+- feat: allow all admins to purge content ([#3271](https://github.com/LemmyNet/lemmy/issues/3271))
+- Add separate Post check for is_valid_body_field ([#3263](https://github.com/LemmyNet/lemmy/issues/3263))
+- Remove DELETED_REPLACEMENT_URL
+- Add support for sslmode=require for diesel-async DB connections ([#3189](https://github.com/LemmyNet/lemmy/issues/3189))
+- Remove `actix_rt` & use standard tokio spawn ([#3158](https://github.com/LemmyNet/lemmy/issues/3158))
+- Revert "feat: re-added captcha checks ([#3249](https://github.com/LemmyNet/lemmy/issues/3249))" ([#3288](https://github.com/LemmyNet/lemmy/issues/3288))
+- Fixing removed posts showing. Fixes [#2875](https://github.com/LemmyNet/lemmy/issues/2875) ([#3279](https://github.com/LemmyNet/lemmy/issues/3279))
+- Reversed requirement question logic ([#3283](https://github.com/LemmyNet/lemmy/issues/3283))
+- feat: re-added captcha checks ([#3249](https://github.com/LemmyNet/lemmy/issues/3249))
+- Add support for sslmode=require for diesel-async DB connections ([#3189](https://github.com/LemmyNet/lemmy/issues/3189))
+- Remove `actix_rt` & use standard tokio spawn ([#3158](https://github.com/LemmyNet/lemmy/issues/3158))
+- after 30 days post deletion, replace comment.content and post.body with 'Permanently Deleted'
+
+### Lemmy UI
+
+- Dark theme tweaks ([#1840](https://github.com/LemmyNet/lemmy-ui/issues/1840))
+- fix: Adjust sidebar banner to wrap bellow the title ([#1819](https://github.com/LemmyNet/lemmy-ui/issues/1819))
+- add ruby annotation support ([#1831](https://github.com/LemmyNet/lemmy-ui/issues/1831))
+- fix: Fix mobile thumbnail being too small ([#1814](https://github.com/LemmyNet/lemmy-ui/issues/1814))
+- Use Join Lemmy hostname as link text in footer ([#1737](https://github.com/LemmyNet/lemmy-ui/issues/1737))
+- fix: Add focus ring color to post action buttons and markdown help link ([#1816](https://github.com/LemmyNet/lemmy-ui/issues/1816))
+- fix: Fix focus ring styles for radio button toggles [#1772](https://github.com/LemmyNet/lemmy-ui/issues/1772) ([#1773](https://github.com/LemmyNet/lemmy-ui/issues/1773))
+- fix toaster upon user settings change ([#1802](https://github.com/LemmyNet/lemmy-ui/issues/1802))
+- Fix home page not using site-level listing type [#1612](https://github.com/LemmyNet/lemmy-ui/issues/1612) ([#1778](https://github.com/LemmyNet/lemmy-ui/issues/1778))
+- feat: Subtler user badge style ([#1796](https://github.com/LemmyNet/lemmy-ui/issues/1796))
+- Fix data-bs-theme ([#1810](https://github.com/LemmyNet/lemmy-ui/issues/1810))
+- Attempt to fix inability to logout from some instances (subdomains) ([#1809](https://github.com/LemmyNet/lemmy-ui/issues/1809))
+- feat(theme): Vaporwave ([#1682](https://github.com/LemmyNet/lemmy-ui/issues/1682))
+- fix: Revert smaller text size ([#1795](https://github.com/LemmyNet/lemmy-ui/issues/1795))
+- Updated the regex for isAuthPath to reduce false positive hits ([#1806](https://github.com/LemmyNet/lemmy-ui/issues/1806))
+- fix: Add focus border to markdown toolbar buttons
+- fix: Add data-bs-theme attribute for user dark/light modes ([#1782](https://github.com/LemmyNet/lemmy-ui/issues/1782))
+- fix: Break text on post titles so long words don't overflow
+- fix: Fix comment collapse and vote buttons not having focus style ([#1789](https://github.com/LemmyNet/lemmy-ui/issues/1789))
+- Add missing modlog reasons ([#1787](https://github.com/LemmyNet/lemmy-ui/issues/1787))
+- Fix search page breaking on initial load when logged in ([#1781](https://github.com/LemmyNet/lemmy-ui/issues/1781))
+- feat: Add PR template ([#1785](https://github.com/LemmyNet/lemmy-ui/issues/1785))
+- Fix profile loading spinner
+- fix: Move getRoleLabelPill to the only component that uses it
+- fix: Remove unused hasBadges() function
+- fix: Fix badge alignment and break out into component
+- Move export to barrel file
+- fix: Fix avatar image overlay aspect ratio
+- fix: Fix circle image aspect ratio
+- fix: Add some spacing between upload field and image; fix circle image aspect ratio
+- Prevent JWT token from showing up on error page
+- fix: Fix vote buttons not showing spinners while registering vote [#1761](https://github.com/LemmyNet/lemmy-ui/issues/1761)
+- fix: Fix joined button check color
+- fix: Fix up filter row gaps and margins a little
+- fix: Fix heading levels
+- fix: Simplify row classes a bit
+- fix: Fix some gaps in search filters
+- fix: Fix row gap on search options
+- fix: Add bottom margin to inbox controls
+- fix: Small cleanup to search/inbox controls
+- fix: Update comment to reflect new logic
+- fix: Post expand button was not showing if body-only post
+- fix: Fix vote buttons in list view variable width
+- fix: Fix thumb buttons having gray background [#1754](https://github.com/LemmyNet/lemmy-ui/issues/1754)
+- Add metaKey to markdown-textarea, for macos
+- Fix jwt cookie path
+- Fix quotedText bugs in markdown editor
+- Fix DM replies
+- Add fallback date-fns locale import
+- Fix date-fns locale import failing for some locales
+- fix req.cookie nonexistent -.-
+- Enforce SameSite=Strict ([#1713](https://github.com/LemmyNet/lemmy-ui/issues/1713))
+- fix service worker path
+- fix cache auth method
+- Fix authorized route false flag
+- Fix dev caching issue
+- change max-age to 5 for non-authed responses
+- Fix `PostListing` mobile margin layout issue ([#1706](https://github.com/LemmyNet/lemmy-ui/issues/1706))
+- Cache static data for a day
+- Try increasing node memory.
+- Fix taglines on `Home` ([#1701](https://github.com/LemmyNet/lemmy-ui/issues/1701))
+- Use git hash to break cache ([#1684](https://github.com/LemmyNet/lemmy-ui/issues/1684))
+- fix issue with thumbnails ([#1695](https://github.com/LemmyNet/lemmy-ui/issues/1695))
+- Fixing site setup. Fixes [#1694](https://github.com/LemmyNet/lemmy-ui/issues/1694) ([#1697](https://github.com/LemmyNet/lemmy-ui/issues/1697))
+- Removing unecessary timezone adjusting
+- Allow audio captcha through CSP ([#1690](https://github.com/LemmyNet/lemmy-ui/issues/1690))
+- fix formatting
+- Fixing lints. ([#1686](https://github.com/LemmyNet/lemmy-ui/issues/1686))
+- Search only communities by default when coming from communities page
+- Add Security.txt ([#1408](https://github.com/LemmyNet/lemmy-ui/issues/1408))
+- Fixing timezone issue with date-fns. Fixes [#1680](https://github.com/LemmyNet/lemmy-ui/issues/1680) ([#1681](https://github.com/LemmyNet/lemmy-ui/issues/1681))
+- Add error toast for 413 content too large response on image uploads ([#1675](https://github.com/LemmyNet/lemmy-ui/issues/1675))
+- Add publicPath for static js ([#1672](https://github.com/LemmyNet/lemmy-ui/issues/1672))
+- Fix search page to stop `couldnt_find_object` error ([#1669](https://github.com/LemmyNet/lemmy-ui/issues/1669))
+- Add fixed width/height to `PostListing` thumbnail parent ([#1660](https://github.com/LemmyNet/lemmy-ui/issues/1660))
+- fix: Add user action buttons to post dropdown [#1653](https://github.com/LemmyNet/lemmy-ui/issues/1653) ([#1655](https://github.com/LemmyNet/lemmy-ui/issues/1655))
+- Adding nightly docker build. ([#1678](https://github.com/LemmyNet/lemmy-ui/issues/1678))
+- Return appropriate error codes ([#1665](https://github.com/LemmyNet/lemmy-ui/issues/1665))
+- Add i386 theme ([#1662](https://github.com/LemmyNet/lemmy-ui/issues/1662))
+- Set cache-control headers to reduce server load (fixes [#412](https://github.com/LemmyNet/lemmy-ui/issues/412)) ([#1641](https://github.com/LemmyNet/lemmy-ui/issues/1641))
+- formatting
+- make subscribe/unsub/pending button consistent
+- Revert [#1463](https://github.com/LemmyNet/lemmy-ui/issues/1463), markdown default lang select
+- remove hard-coded text foreground color classes ([#1658](https://github.com/LemmyNet/lemmy-ui/issues/1658))
+- Fix subscribe and block community buttons not showing up on first load
+- change me-2 to me-1, no need for me-2 width
+- make mod shrunken label text-primary
+- add @jsit advice
+- fix weird borders when markdown textarea is disabled
+- use span
+- always show badge on mobile
+- fix a few colors
+- Reduce fetchLimit (40 -> 20) ([#1638](https://github.com/LemmyNet/lemmy-ui/issues/1638))
+- Moving webpack-bundle-analyzer require inside mode check to fix docker.
+- Fix allowed and blocked instances not being fetched for admin settings ([#1627](https://github.com/LemmyNet/lemmy-ui/issues/1627))
+- fix: Restore mdNoImages import
+- fix: Fix alignment of preview mini-overlay buttons on thumbs
+- fix: Remove body preview
+- fix: Move toggle button to its own function
+- fix: Show metadata preview card on all post pages
+- Fix feedback on banning an unbanning
+- fix vote button alignment
+- remove icon ([#1618](https://github.com/LemmyNet/lemmy-ui/issues/1618))
+- Indicate valid and invalid fields in signup form ([#1450](https://github.com/LemmyNet/lemmy-ui/issues/1450))
+- capitalize button ([#1616](https://github.com/LemmyNet/lemmy-ui/issues/1616))
+- Move password reset form to separate route, view ([#1390](https://github.com/LemmyNet/lemmy-ui/issues/1390))
+- feat(UI): Reduce base font size ([#1591](https://github.com/LemmyNet/lemmy-ui/issues/1591))
+- Fix: missing semantic css classes and html elements ([#1583](https://github.com/LemmyNet/lemmy-ui/issues/1583))
+- partially revert change
+- chore(DX): Add prettier to eslint config for use with editors
+- fix: Remove unnecessary class
+- fix: Remove unnecessary classes
+- fix: Restore removed classes
+- fix: Remove wrapping li's
+- fix: Remove extraneous classes
+- fix: Move things back to where they were
+- chore: Separate post mod buttons into functions
+- remove hook entirely
+- fix bug collapsing previews when voting
+- fix: Remove unnecessary string interpolations
+- fix: Remove smallavatars prop
+- fix: Restore icon avatars; make smaller and roundrect
+- fix: Use Bootstrap file upload form control styles
+- Fix feedback on banning an unbanning
+- fix vote button alignment
+- remove icon ([#1618](https://github.com/LemmyNet/lemmy-ui/issues/1618))
+- Indicate valid and invalid fields in signup form ([#1450](https://github.com/LemmyNet/lemmy-ui/issues/1450))
+- capitalize button ([#1616](https://github.com/LemmyNet/lemmy-ui/issues/1616))
+- Move password reset form to separate route, view ([#1390](https://github.com/LemmyNet/lemmy-ui/issues/1390))
+- feat(UI): Reduce base font size ([#1591](https://github.com/LemmyNet/lemmy-ui/issues/1591))
+- Fix: missing semantic css classes and html elements ([#1583](https://github.com/LemmyNet/lemmy-ui/issues/1583))
+- chore(DX): Add prettier to eslint config for use with editors
+- Only give child comments colored borders
+- Associate NSFW label with its checkbox
+- fix: Remove unnecessary string interpolations
+- fix: Remove unnecessary class
+- fix: Remove unnecessary classes
+- fix: Restore removed classes
+- fix: Remove wrapping li's
+- fix: Remove extraneous classes
+- fix: Move things back to where they were
+- chore: Separate post mod buttons into functions
+- remove toUpperCase since the translation is uppercase
+- fix vote button alignment
+- partially revert change
+- Add space between cancel and ban button
+- add tooltip
+- Fix feedback on banning an unbanning
+- make post creator badge stand out more
+- remove icon ([#1618](https://github.com/LemmyNet/lemmy-ui/issues/1618))
+- Indicate valid and invalid fields in signup form ([#1450](https://github.com/LemmyNet/lemmy-ui/issues/1450))
+- capitalize button ([#1616](https://github.com/LemmyNet/lemmy-ui/issues/1616))
+- Move password reset form to separate route, view ([#1390](https://github.com/LemmyNet/lemmy-ui/issues/1390))
+- feat(UI): Reduce base font size ([#1591](https://github.com/LemmyNet/lemmy-ui/issues/1591))
+- Fix: missing semantic css classes and html elements ([#1583](https://github.com/LemmyNet/lemmy-ui/issues/1583))
+- remove hook entirely
+- run prettier
+- add darkly-pureblack theme
+- chore(DX): Add prettier to eslint config for use with editors
+- fix bug collapsing previews when voting
+- Associate NSFW label with its checkbox
+- fix: Remove unused comment
+- fix: Fix image/title wrapping on small
+- fix: Fix post listing vote/image/title widths
+- fix: Fix a too-small thumbnail column
+- fix: Set max height on post listing thumbnails
+- fix: Remove unnecessary string interpolations
+- fix: Tidy up divs
+- fix: Make navbar container full screen width [#1536](https://github.com/LemmyNet/lemmy-ui/issues/1536)
+- feat: Use plus/minus expand button in title for showing body/preview
+- fix: Remove unnecessary class
+- fix: Remove unnecessary classes
+- fix: Restore removed classes
+- fix: Remove wrapping li's
+- fix: Remove extraneous classes
+- fix: Move things back to where they were
+- chore: Separate post mod buttons into functions
+- feat(UI): Fix some link hover colors
+- feat(UI): Hide avatars on listings
+- feat(UI): Always put post body behind togggle on post listings (home/community) [#1595](https://github.com/LemmyNet/lemmy-ui/issues/1595)
+- Only give child comments colored borders
+- Update post-listing.tsx
+- CSP should allow data urls for media-src or the audio captcha won't work
+- fix(UI): Make max-width wider, and make sidebar narrower on wide screens [#1536](https://github.com/LemmyNet/lemmy-ui/issues/1536)
+- Use spae instead of margin
+- Fix search request being called twice on search page
+- Add margin to new comment text
+- handle embedded iframe content better
+- fix lint error
+- fix error on prod
+- chore: Empty commit to re-trigger Woodpecker
+- chore(a11y): Remove a11y eslint overrides, as there are (almost) no more violations
+- fix(a11y): Change the look and behavior of some file upload fields
+- fix: Add type=button to buttons
+- fix: Fix some classes on private message collapse/expand button
+- chore(a11y): Remove now-passing jsx-a11y tests from exemptions
+- fix(a11y): Change divs and links to buttons
+- fix: Remove invalid class
+- chore: Empty commit to re-trigger Woodpecker
+- fix: Fix some Bootstrap 5 font classes
+- fix: Fix some Bootstrap 5 font classes
+- fix(a11y): Restore aria-activedescendant
+- chore: Empty commit to re-trigger Woodpecker
+- fix(a11y): Make foreground of 'remove image button' white
+- fix(a11y): Add alt text to emojis form
+- fix(a11y): Fix some a11y markup in Searchable Select component
+- fix(a11y): Change image remove button to true button element
+- fix: Ignore rule for clickaway div; 'Esc' works for this
+- fix(a11y): Fix non-list item being inside ul list in navbar
+- fix: Fix non-unique ID attribute on re-used element
+- fix: Fix another class
+- fix: Fix some Bootstrap 5 font classes
+- fix: Fix some emoji escape logic
+- fix: Button doesn't need tabindex
+- fix: Fix incorrect function reference
+- fix: Empty commit to re-trigger Woodpecker
+- fix: Emoji picker can be closed with escape key, other a11y fixes
+- fix: Fix some a11y issues on jump to content button
+- fix: Fix up some interface language logic and design
+- fix: Clarify a comment
+- Remove federation worker count
+- fix: Add triangle alert icon to language warning
+- added litely-compact
+- changed where custom compact code goes
+- added darkly-compact - issue 552
+- Refactor first load handling
+- Fix issue when navigating awat from settings
+- Give function better name
+- Make date distance format use correct verbiage
+- Extract date fns setup
+- Remove unused dep
+- Replace momentjs with date-fns
+- Cache post listings and restore listing state when using browser back navigation buttons.
+- Fix homepage `scrollTo(0, 0)` failing when document size changes.
+- Moved `!isBrowser()` check to `FirstLoadServer.isFirstLoad`
+- Fix server-side rendering after first load.
+- fix: Add aria-describedby for language warning
+- Update src/shared/components/common/markdown-textarea.tsx
+- Fix comments expanding when they're not supposed to ([#1540](https://github.com/LemmyNet/lemmy-ui/issues/1540))
+- Update src/shared/components/common/markdown-textarea.tsx
+- fix: Disable save button if no text is entered
+- fix: Fix some more private message form stuff
+- Remove federation worker count
+- feat: Clean up the Create Private Message page a bit
+- Fix emojis being unable to save
+- fix: Use simpler syntax for languageId array
+- fix: Add triangle alert icon to language warning
+- fix: Fix language selection bug
+- fix: Use Interface Language instead
+- Refactor first load handling
+- fix: Add aria-describedby for language warning
+- Fix issue when navigating awat from settings
+- Give function better name
+- Cache post listings and restore listing state when using browser back navigation buttons.
+- fix: Specify vote content type so buttons work for both comments and posts
+- Fix homepage `scrollTo(0, 0)` failing when document size changes.
+- Moved `!isBrowser()` check to `FirstLoadServer.isFirstLoad`
+- Fix server-side rendering after first load.
+- fix!: Try to get Vote Buttons component working in Comments
+- fix: Remove unused prop
+- Change function name
+- Make date distance format use correct verbiage
+- Extract date fns setup
+- Fix homepage `scrollTo(0, 0)` failing when document size changes.
+- fix: Rework some vote buttons architecture
+- Remove unused dep
+- Replace momentjs with date-fns
+- fix: Undo some other extraneous changes
+- fix: Undo some extraneous changes
+- fix: Remove tippy duplicate functions
+- fix: Revert to old mobile vote style
+- feat: Move vote buttons to separate component
+- feat: Default language dropdowns to user's primary language
+- added litely-compact
+- changed where custom compact code goes
+- added darkly-compact - issue 552
