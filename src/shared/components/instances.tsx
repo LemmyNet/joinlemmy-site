@@ -9,12 +9,11 @@ export class Instances extends Component<any, any> {
     super(props, context);
   }
 
-  calculateInstanceSortValue(instance: any) {
-    // Mostly sort by active users, but add a large random component to
-    // randomize order of instances with about the same order of magnitude of
-    // users.
-    let active_users = instance.site_info.site_view.counts.users_active_month;
-    return active_users + active_users * 3 * Math.random();
+  biasedRandom(min, max, bias, i) {
+    // Lets introduce a better bias to random suffle instances list
+    var rnd = Math.random() * (max - min ) + min;
+    var mix = Math.random() * i;
+    return rnd * (1 - mix) + bias * mix;
   }
 
   render() {
@@ -27,22 +26,36 @@ export class Instances extends Component<any, any> {
 
     var recommended = [];
     var remaining = [];
+    var values = [];
+    
     for (var i of instance_stats.stats.instance_details) {
       if (recommended_instances.indexOf(i.domain) > -1) {
         recommended.push(i);
       } else {
         remaining.push(i);
       }
+
+      // Min number of active users is 10 to include in this calculation
+      if (i.site_info.site_view.counts.users_active_month > 10) {
+        values.push(i.site_info.site_view.counts.users_active_month);
+      }
     }
-    // shuffle recommended instances list into random order
-    // https://stackoverflow.com/a/46545530
+ 
+    // Use these values for the shuffle 
+    const max = Math.max(...values);
+    const min = Math.min(...values);
+    const averageFun = array => values.reduce((a, b) => a + b) / values.length;
+    const avg = averageFun(values)
+    
     let recommended2 = recommended
       .map(value => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
 
+    // BIASED sorting for instances, based on the min/max of users_active_month
+    // weighted to 2/3 of all counts, but more even distribution
     let remaining2 = remaining
-      .map(i => ({ instance: i, sort: this.calculateInstanceSortValue(i) }))
+      .map(i => ({ instance: i, sort: this.biasedRandom(min, max, avg, .75) }))
       .sort((a, b) => b.sort - a.sort)
       .map(({ instance }) => instance);
 

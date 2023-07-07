@@ -4,7 +4,7 @@ import { spawn } from "child_process";
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
 const instanceStatsFile = "src/shared/instance_stats.ts";
-const min_monthly_users = 5;
+const min_monthly_users = 10;
 
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -61,6 +61,7 @@ try {
       .filter(
         i => i.site_info.site_view.counts.users_active_month > min_monthly_users
       );
+
     // Exclude unnecessary data
     stats.instance_details.forEach(i => {
       delete i.site_info.admins;
