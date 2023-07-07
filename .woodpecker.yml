@@ -14,7 +14,7 @@ pipeline:
       - git submodule update --recursive --remote
 
   prettier_markdown_check:
-    image: tmknom/prettier
+    image: tmknom/prettier:3.0.0
     commands:
       - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts"
 
