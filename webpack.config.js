@@ -76,7 +76,7 @@ const createServerConfig = (_env, mode) => {
     config.plugins.push(
       new RunNodeWebpackPlugin({
         runOnlyInWatchMode: true,
-      })
+      }),
     );
   }
 
