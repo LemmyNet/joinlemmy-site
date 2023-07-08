@@ -11,7 +11,7 @@ fs.mkdirSync(outDir, { recursive: true });
 // crawl instance stats
 try {
   const recommended_instances = JSON.parse(
-    fs.readFileSync(recommendationsFile, "utf8"),
+    fs.readFileSync(recommendationsFile, "utf8")
   );
   var all_recommended = [];
   for (var k in recommended_instances) {
@@ -33,7 +33,7 @@ try {
     {
       cwd: "lemmy-stats-crawler",
       encoding: "utf8",
-    },
+    }
   );
   let savedOutput = "";
 
@@ -55,12 +55,11 @@ try {
     stats.instance_details = stats.instance_details
       // Exclude instances with closed registration
       .filter(
-        i => i.site_info.site_view.local_site.registration_mode != "closed",
+        i => i.site_info.site_view.local_site.registration_mode != "closed"
       )
       // Exclude instances with few active users
       .filter(
-        i =>
-          i.site_info.site_view.counts.users_active_month > min_monthly_users,
+        i => i.site_info.site_view.counts.users_active_month > min_monthly_users
       );
 
     // Exclude unnecessary data

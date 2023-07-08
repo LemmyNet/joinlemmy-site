@@ -33,7 +33,7 @@ fs.readdir(translationDir, (_err, files) => {
     const lang = filename.split(".")[0];
     try {
       const json = JSON.parse(
-        fs.readFileSync(translationDir + filename, "utf8"),
+        fs.readFileSync(translationDir + filename, "utf8")
       );
       let data = `export const ${lang} = {\n  translation: {`;
       for (const key in json) {

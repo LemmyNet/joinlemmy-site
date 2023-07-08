@@ -16,6 +16,10 @@ export class Instances extends Component<any, any> {
     return rnd * (1 - mix) + bias * mix;
   }
 
+  averageFunc(values: any) {
+    return values.reduce((a, b) => a + b) / values.length;
+  }
+
   render() {
     const title = i18n.t("join_title");
 
@@ -44,8 +48,7 @@ export class Instances extends Component<any, any> {
     // Use these values for the shuffle
     const max = Math.max(...values);
     const min = Math.min(...values);
-    const averageFun = array => values.reduce((a, b) => a + b) / values.length;
-    const avg = averageFun(values);
+    const avg = this.averageFunc(values);
 
     let recommended2 = recommended
       .map(value => ({ value, sort: Math.random() }))
