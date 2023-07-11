@@ -19,16 +19,20 @@ try {
       all_recommended.push(...recommended_instances[k]);
     }
   }
+  // Run Rust crawler with given params. Then pipe output directly into jq, to filter
+  // out fields with lots of data which we dont need. This is necessary because otherwise
+  // Javascript may crash when loading the crawl output.
   const run = spawn(
-    "cargo",
+    "sh",
     [
-      "run",
-      "--",
-      "--json",
-      "--start-instances",
-      all_recommended,
-      "--exclude-instances",
-      recommended_instances.exclude,
+      "-c",
+      `cargo run -- --json --start-instances ${all_recommended} \
+      --exclude-instances ${recommended_instances.exclude} | \
+      jq 'del(.instance_details[].federated_instances, \
+        .instance_details[].site_info.all_languages, \
+        .instance_details[].site_info.discussion_languages, \
+        .instance_details[].site_info.admins, .instance_details[].site_info.taglines, \
+        .instance_details[].site_info.custom_emojis)'`,
     ],
     {
       cwd: "lemmy-stats-crawler",
@@ -62,15 +66,6 @@ try {
         i =>
           i.site_info.site_view.counts.users_active_month > min_monthly_users,
       );
-    // Exclude unnecessary data
-    stats.instance_details.forEach(i => {
-      delete i.site_info.admins;
-      delete i.site_info.all_languages;
-      delete i.site_info.discussion_languages;
-      delete i.site_info.taglines;
-      delete i.site_info.custom_emojis;
-      delete i.federated_instances;
-    });
 
     let stats2 = {
       stats: stats,
