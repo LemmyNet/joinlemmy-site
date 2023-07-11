@@ -6,7 +6,7 @@ Lemmy is a self-hosted social link aggregation and discussion platform. It is co
 
 ## Major Changes
 
-This is an emergency release to fix the cross-site scripting vulnerability that was exploited earlier today. The attack used a bug in custom emoji code in order to exfiltrate admin login tokens. This release fixes the bug. Additionally it disallows inline Javascript using [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). This should ensure that XSS vulnerabilities are impossible from now on.
+This is an emergency release to fix the cross-site scripting vulnerability that was exploited yesterday. The attack used a bug in custom emoji code in order to exfiltrate admin login tokens. This release fixes the bug. Additionally it disallows inline Javascript using [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). This should ensure that XSS vulnerabilities are impossible from now on.
 
 Special thanks to @makotech222 and @sunaruas for these fixes.
 
