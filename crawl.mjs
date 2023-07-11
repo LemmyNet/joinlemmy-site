@@ -11,7 +11,7 @@ fs.mkdirSync(outDir, { recursive: true });
 // crawl instance stats
 try {
   const recommended_instances = JSON.parse(
-    fs.readFileSync(recommendationsFile, "utf8"),
+    fs.readFileSync(recommendationsFile, "utf8")
   );
   var all_recommended = [];
   for (var k in recommended_instances) {
@@ -22,7 +22,8 @@ try {
   // Run Rust crawler with given params. Then pipe output directly into jq, to filter
   // out fields with lots of data which we dont need. This is necessary because otherwise
   // Javascript may crash when loading the crawl output.
-  const run = spawn("sh",
+  const run = spawn(
+    "sh",
     [
       "-c",
       `cargo run -- --json --start-instances ${all_recommended} \
@@ -31,12 +32,12 @@ try {
         .instance_details[].site_info.all_languages, \
         .instance_details[].site_info.discussion_languages, \
         .instance_details[].site_info.admins, .instance_details[].site_info.taglines, \
-        .instance_details[].site_info.custom_emojis)'`
+        .instance_details[].site_info.custom_emojis)'`,
     ],
     {
       cwd: "lemmy-stats-crawler",
       encoding: "utf8",
-    },
+    }
   );
   let savedOutput = "";
 
@@ -58,12 +59,11 @@ try {
     stats.instance_details = stats.instance_details
       // Exclude instances with closed registration
       .filter(
-        i => i.site_info.site_view.local_site.registration_mode != "closed",
+        i => i.site_info.site_view.local_site.registration_mode != "closed"
       )
       // Exclude instances with few active users
       .filter(
-        i =>
-          i.site_info.site_view.counts.users_active_month > min_monthly_users,
+        i => i.site_info.site_view.counts.users_active_month > min_monthly_users
       );
 
     let stats2 = {
