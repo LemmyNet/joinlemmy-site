@@ -1,5 +1,4 @@
-Lemmy v0.18.2 Release
-===
+# Lemmy v0.18.2 Release
 
 ## What is Lemmy?
 
@@ -25,7 +24,7 @@ If you need help with the upgrade, you can ask in our [support forum](https://le
 
 ## Support development
 
-We (@dessalines and @nutomic) have been working full-time on Lemmy for almost three years. This is largely thanks to support from [NLnet foundation](https://nlnet.nl/). 
+We (@dessalines and @nutomic) have been working full-time on Lemmy for almost three years. This is largely thanks to support from [NLnet foundation](https://nlnet.nl/).
 
 If you like using Lemmy, and want to make sure that we will always be available to work full time building it, consider [donating to support its development](https://join-lemmy.org/donate). No one likes recurring donations, but they've proven to be the only way that open-source software like Lemmy can stay independent and alive.
 
@@ -38,7 +37,6 @@ If you like using Lemmy, and want to make sure that we will always be available 
 - Use async email sender ([#3554](https://github.com/LemmyNet/lemmy/issues/3554))
 - Upgrade all dependencies ([#3526](https://github.com/LemmyNet/lemmy/issues/3526))
 - Only update site_aggregates for local site ([#3516](https://github.com/LemmyNet/lemmy/issues/3516))
-
 
 ### Lemmy-UI
 
@@ -54,6 +52,3 @@ If you like using Lemmy, and want to make sure that we will always be available 
 - User inferno prompt instead of handrolled one ([#1867](https://github.com/LemmyNet/lemmy-ui/issues/1867))
 - Darkly tweak ([#1811](https://github.com/LemmyNet/lemmy-ui/issues/1811))
 - Update lemmy-js-client and lemmy-translations ([#1848](https://github.com/LemmyNet/lemmy-ui/issues/1848))
-
-
-
