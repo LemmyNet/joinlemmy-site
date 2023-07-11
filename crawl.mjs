@@ -4,14 +4,14 @@ import { spawn } from "child_process";
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
 const instanceStatsFile = "src/shared/instance_stats.ts";
-const min_monthly_users = 10;
+const min_monthly_users = 5;
 
 fs.mkdirSync(outDir, { recursive: true });
 
 // crawl instance stats
 try {
   const recommended_instances = JSON.parse(
-    fs.readFileSync(recommendationsFile, "utf8")
+    fs.readFileSync(recommendationsFile, "utf8"),
   );
   var all_recommended = [];
   for (var k in recommended_instances) {
@@ -33,7 +33,7 @@ try {
     {
       cwd: "lemmy-stats-crawler",
       encoding: "utf8",
-    }
+    },
   );
   let savedOutput = "";
 
@@ -55,22 +55,13 @@ try {
     stats.instance_details = stats.instance_details
       // Exclude instances with closed registration
       .filter(
-        i => i.site_info.site_view.local_site.registration_mode != "closed"
+        i => i.site_info.site_view.local_site.registration_mode != "closed",
       )
       // Exclude instances with few active users
       .filter(
-        i => i.site_info.site_view.counts.users_active_month > min_monthly_users
+        i =>
+          i.site_info.site_view.counts.users_active_month > min_monthly_users,
       );
-
-    // Exclude unnecessary data
-    stats.instance_details.forEach(i => {
-      delete i.site_info.admins;
-      delete i.site_info.all_languages;
-      delete i.site_info.discussion_languages;
-      delete i.site_info.taglines;
-      delete i.site_info.custom_emojis;
-      delete i.federated_instances;
-    });
 
     let stats2 = {
       stats: stats,

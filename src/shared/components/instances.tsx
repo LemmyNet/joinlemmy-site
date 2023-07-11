@@ -39,16 +39,13 @@ export class Instances extends Component<any, any> {
         remaining.push(i);
       }
 
-      // Min number of active users is 10 to include in this calculation
-      if (i.site_info.site_view.counts.users_active_month > 10) {
-        values.push(i.site_info.site_view.counts.users_active_month);
-      }
+      values.push(i.site_info.site_view.counts.users_active_month);
     }
 
     // Use these values for the shuffle
-    const max = Math.max(...values);
-    const min = Math.min(...values);
-    const avg = this.averageFunc(values);
+    const maxMonthlyUsers = Math.max(...values);
+    const minMonthlyUsers = Math.min(...values);
+    const avgMonthlyUsers = this.averageFunc(values);
 
     let recommended2 = recommended
       .map(value => ({ value, sort: Math.random() }))
@@ -58,7 +55,15 @@ export class Instances extends Component<any, any> {
     // BIASED sorting for instances, based on the min/max of users_active_month
     // weighted to 2/3 of all counts, but more even distribution
     let remaining2 = remaining
-      .map(i => ({ instance: i, sort: this.biasedRandom(min, max, avg, 0.75) }))
+      .map(i => ({
+        instance: i,
+        sort: this.biasedRandom(
+          minMonthlyUsers,
+          maxMonthlyUsers,
+          avgMonthlyUsers,
+          0.75,
+        ),
+      }))
       .sort((a, b) => b.sort - a.sort)
       .map(({ instance }) => instance);
 
