@@ -66,6 +66,25 @@ export class Apps extends Component<any, any> {
                 ]}
               />
             </div>
+            <div class="card col-6">
+              <AppDetails
+                name="Memmy"
+                description="A Lemmy Client built in React Native for iOS available on the App Store."
+                link="https://github.com/Memmy-App/memmy"
+                icon="/static/assets/images/memmy_icon.png"
+                banner="/static/assets/images/memmy_banner.png"
+                links={[
+                  {
+                    link: "https://apps.apple.com/us/app/memmy-for-lemmy/id6450204299?platform=iphone",
+                    icon: "appleinc",
+                  },
+                  {
+                    link: "https://github.com/Memmy-App/memmy",
+                    icon: "github",
+                  },
+                ]}
+              />
+            </div>
           </div>
 
           <h1>{i18n.t("web_apps")}</h1>
