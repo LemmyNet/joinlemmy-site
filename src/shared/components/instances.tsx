@@ -9,14 +9,12 @@ export class Instances extends Component<any, any> {
     super(props, context);
   }
 
-
   biasedRandom(active_users, avg, max) {
     // Lets introduce a better bias to random shuffle instances list
     var influence = 1.25;
     var rnd = Math.random() * (max / influence) + active_users;
     var mix = Math.random() * influence;
     return rnd * (1 - mix) + avg * mix;
-
   }
 
   averageFunc(values: any) {
@@ -48,7 +46,7 @@ export class Instances extends Component<any, any> {
     // Use these values for the shuffle
     const avgMonthlyUsers = this.averageFunc(values);
     const maxMonthlyUsers = Math.max(...values);
-    
+
     let recommended2 = recommended
       .map(value => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
