@@ -72,7 +72,7 @@ export class Apps extends Component<any, any> {
                 description="A Lemmy Client built in React Native for iOS available on the App Store."
                 link="https://github.com/Memmy-App/memmy"
                 icon="/static/assets/images/memmy_icon.png"
-                banner="/static/assets/images/memmy_banner.png"
+                banner="/static/assets/images/memmy_banner.webp"
                 links={[
                   {
                     link: "https://apps.apple.com/us/app/memmy-for-lemmy/id6450204299?platform=iphone",
