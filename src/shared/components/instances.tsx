@@ -91,11 +91,6 @@ export class Instances extends Component<any, any> {
           {i18n.t("instance_comparison")}:
           <ul>
             <li>
-              <a href="https://github.com/maltfield/awesome-lemmy-instances">
-                Awesome-Lemmy-Instances on GitHub
-              </a>
-            </li>
-            <li>
               <a href="https://the-federation.info/platform/73">
                 the-federation.info Lemmy Instances Page
               </a>
