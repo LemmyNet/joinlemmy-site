@@ -31,6 +31,8 @@ If you like using Lemmy, and want to make sure that we will always be available 
 
 Follow the upgrade instructions for [ansible](https://github.com/LemmyNet/lemmy-ansible#upgrading) or [docker](https://join-lemmy.org/docs/en/administration/install_docker.html#updating). There are no config or API changes with this release.
 
+You _may_ need to run `sudo chown 1000:1000 lemmy.hjson` if you have any permissions errors.
+
 This upgrade takes ~5 minutes for the database migrations to complete.
 
 If you need help with the upgrade, you can ask in our [support forum](https://lemmy.ml/c/lemmy_support) or on the [Matrix Chat](https://matrix.to/#/#lemmy-admin-support-topics:discuss.online).
