@@ -52,7 +52,7 @@ export class Apps extends Component<any, any> {
                 name="Mlem"
                 description="A Lemmy Client for iOS."
                 link="https://github.com/mormaer/Mlem"
-                icon="/static/assets/images/mlem.webp"
+                icon="/static/assets/images/mlem.png"
                 banner="/static/assets/images/mlem_screen.webp"
                 links={[
                   {
@@ -60,7 +60,7 @@ export class Apps extends Component<any, any> {
                     icon: "appleinc",
                   },
                   {
-                    link: "https://github.com/buresdv/Mlem",
+                    link: "https://github.com/mlemgroup/mlem",
                     icon: "github",
                   },
                 ]}
