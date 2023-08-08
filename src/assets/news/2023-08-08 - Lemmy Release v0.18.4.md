@@ -37,13 +37,13 @@ If you need help with the upgrade, you can ask in our [support forum](https://le
 
 ### Lemmy-UI
 
-- Mark post as read when clicking "Expand here" on the preview image on the post listing page ([#1600](](https://github.com/LemmyNet/lemmy/issues/1600)) ([#1978](](https://github.com/LemmyNet/lemmy/issues/1978))
-- Update translation submodule ([#2023](](https://github.com/LemmyNet/lemmy/issues/2023))
-- Fix comment insertion from context views. Fixes #2030 ([#2031](](https://github.com/LemmyNet/lemmy/issues/2031))
-- Fix password autocomplete ([#2033](](https://github.com/LemmyNet/lemmy/issues/2033))
-- Fix suggested title "&nbsp;" spaces ([#2037](](https://github.com/LemmyNet/lemmy/issues/2037))
-- Expanded the RegEx to check if the title contains new line caracters. Should fix issue #1962 ([#1965](](https://github.com/LemmyNet/lemmy/issues/1965))
-- ES-Lint tweak ([#2001](](https://github.com/LemmyNet/lemmy/issues/2001))
-- Upgrading deps, running prettier. ([#1987](](https://github.com/LemmyNet/lemmy/issues/1987))
-- Fix document title of admin settings being overwritten by tagline and emoji forms ([#2003](](https://github.com/LemmyNet/lemmy/issues/2003))
-- Use proper modifier key in markdown text input on macOS ([#1995](](https://github.com/LemmyNet/lemmy/issues/1995))
+- Mark post as read when clicking "Expand here" on the preview image on the post listing page ([#1600](https://github.com/LemmyNet/lemmy/issues/1600)) ([#1978](https://github.com/LemmyNet/lemmy/issues/1978))
+- Update translation submodule ([#2023](https://github.com/LemmyNet/lemmy/issues/2023))
+- Fix comment insertion from context views. Fixes #2030 ([#2031](https://github.com/LemmyNet/lemmy/issues/2031))
+- Fix password autocomplete ([#2033](https://github.com/LemmyNet/lemmy/issues/2033))
+- Fix suggested title "&nbsp;" spaces ([#2037](https://github.com/LemmyNet/lemmy/issues/2037))
+- Expanded the RegEx to check if the title contains new line caracters. Should fix issue #1962 ([#1965](https://github.com/LemmyNet/lemmy/issues/1965))
+- ES-Lint tweak ([#2001](https://github.com/LemmyNet/lemmy/issues/2001))
+- Upgrading deps, running prettier. ([#1987](https://github.com/LemmyNet/lemmy/issues/1987))
+- Fix document title of admin settings being overwritten by tagline and emoji forms ([#2003](https://github.com/LemmyNet/lemmy/issues/2003))
+- Use proper modifier key in markdown text input on macOS ([#1995](https://github.com/LemmyNet/lemmy/issues/1995))
