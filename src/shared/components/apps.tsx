@@ -85,6 +85,29 @@ export class Apps extends Component<any, any> {
                 ]}
               />
             </div>
+            <div class="card col-6">
+              <AppDetails
+                name="Voyager"
+                description="A Lemmy Client for iOS, Android and the web"
+                link="https://github.com/aeharding/voyager"
+                icon="/static/assets/images/voyager.png"
+                banner="/static/assets/images/voyager_screen.webp"
+                links={[
+                  {
+                    link: "https://apps.apple.com/us/app/voyager-for-lemmy/id6451429762?platform=iphone",
+                    icon: "appleinc",
+                  },
+                  {
+                    link: "https://play.google.com/store/apps/details?id=app.vger.voyager",
+                    icon: "googleplay",
+                  },
+                  {
+                    link: "https://github.com/aeharding/voyager",
+                    icon: "github",
+                  },
+                ]}
+              />
+            </div>
           </div>
 
           <h1>{i18n.t("web_apps")}</h1>
