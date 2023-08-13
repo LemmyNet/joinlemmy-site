@@ -108,6 +108,21 @@ export class Apps extends Component<any, any> {
                 ]}
               />
             </div>
+            <div class="card col-6">
+              <AppDetails
+                name="Lunar"
+                description="A Lemmy Client for iOS written in Swift and SwiftUI"
+                link="https://github.com/mani-sh-reddy/Lunar"
+                icon="/static/assets/images/lunar_logo.webp"
+                banner="/static/assets/images/lunar_screen.webp"
+                links={[
+                  {
+                    link: "https://github.com/mani-sh-reddy/Lunar",
+                    icon: "github",
+                  },
+                ]}
+              />
+            </div>
           </div>
 
           <h1>{i18n.t("web_apps")}</h1>
