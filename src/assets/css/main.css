@@ -14,6 +14,10 @@
   webkit-box-shadow: unset;
   box-shadow: unset;
   border: 1px solid var(--color-darkGrey) !important;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .stylized {
   font-family: "CaviarDreams", Fallback, sans-serif;
@@ -44,8 +48,8 @@ p {
 }
 .app-icon {
   display: inline-block;
-  height: 30px;
-  width: 30px;
+  height: 60px;
+  width: 60px;
   margin-right: 10px;
 }
 img {

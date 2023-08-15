@@ -1,5 +1,6 @@
 import { Component } from "inferno";
 import { AppDetails } from "./app-details";
+import { CompactAppDetails } from "./compact-app-details";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 
@@ -24,13 +25,12 @@ export class Apps extends Component<any, any> {
           <p>{i18n.t("choose_from_apps")}</p>
 
           <div class="row">
-            <div class="card col-6">
-              <AppDetails
+            <div class="card col-6 col-4-md">
+              <CompactAppDetails
                 name="Jerboa"
                 description="A native Android app made by Lemmy's developers"
                 link="https://github.com/dessalines/jerboa"
                 icon="/static/assets/images/jerboa.svg"
-                banner="/static/assets/images/jerboa_screen.webp"
                 links={[
                   {
                     link: "https://f-droid.org/en/packages/com.jerboa",
@@ -47,13 +47,12 @@ export class Apps extends Component<any, any> {
                 ]}
               />
             </div>
-            <div class="card col-6">
-              <AppDetails
+            <div class="card col-6 col-4-md">
+              <CompactAppDetails
                 name="Mlem"
                 description="A Lemmy Client for iOS."
                 link="https://github.com/mormaer/Mlem"
                 icon="/static/assets/images/mlem.png"
-                banner="/static/assets/images/mlem_screen.webp"
                 links={[
                   {
                     link: "https://testflight.apple.com/join/MelFP11Y",
@@ -66,13 +65,12 @@ export class Apps extends Component<any, any> {
                 ]}
               />
             </div>
-            <div class="card col-6">
-              <AppDetails
+            <div class="card col-6 col-4-md">
+              <CompactAppDetails
                 name="Memmy"
                 description="A Lemmy Client built in React Native for iOS available on the App Store."
                 link="https://github.com/Memmy-App/memmy"
                 icon="/static/assets/images/memmy_icon.png"
-                banner="/static/assets/images/memmy_banner.webp"
                 links={[
                   {
                     link: "https://apps.apple.com/us/app/memmy-for-lemmy/id6450204299?platform=iphone",
@@ -85,13 +83,12 @@ export class Apps extends Component<any, any> {
                 ]}
               />
             </div>
-            <div class="card col-6">
-              <AppDetails
+            <div class="card col-6 col-4-md">
+              <CompactAppDetails
                 name="Voyager"
                 description="A Lemmy Client for iOS, Android and the web"
                 link="https://github.com/aeharding/voyager"
                 icon="/static/assets/images/voyager.png"
-                banner="/static/assets/images/voyager_screen.webp"
                 links={[
                   {
                     link: "https://apps.apple.com/us/app/voyager-for-lemmy/id6451429762?platform=iphone",
