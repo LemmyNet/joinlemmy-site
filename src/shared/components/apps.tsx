@@ -143,6 +143,22 @@ export class Apps extends Component<any, any> {
               />
             </div>
 
+
+            <div class="card col-6">
+              <AppDetails
+                name="Photon"
+                description="A sleek lemmy web UI."
+                link="https://github.com/Xyphyn/photon"
+                banner="/static/assets/images/photon.webp"
+		icon="/static/assets/images/photon-logo.svg"
+                links={[
+                  {
+                    link: "https://github.com/Xyphyn/photon",
+                    icon: "github",
+                  },
+                ]}
+              />
+
             <div class="card col-6">
               <AppDetails
                 name="lemmy-lite"
