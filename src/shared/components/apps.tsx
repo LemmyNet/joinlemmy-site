@@ -52,7 +52,7 @@ export class Apps extends Component<any, any> {
                 name="Mlem"
                 description="A Lemmy Client for iOS."
                 link="https://github.com/mormaer/Mlem"
-                icon="/static/assets/images/mlem.webp"
+                icon="/static/assets/images/mlem.png"
                 banner="/static/assets/images/mlem_screen.webp"
                 links={[
                   {
@@ -60,7 +60,7 @@ export class Apps extends Component<any, any> {
                     icon: "appleinc",
                   },
                   {
-                    link: "https://github.com/buresdv/Mlem",
+                    link: "https://github.com/mlemgroup/mlem",
                     icon: "github",
                   },
                 ]}
@@ -80,6 +80,29 @@ export class Apps extends Component<any, any> {
                   },
                   {
                     link: "https://github.com/Memmy-App/memmy",
+                    icon: "github",
+                  },
+                ]}
+              />
+            </div>
+            <div class="card col-6">
+              <AppDetails
+                name="Voyager"
+                description="A Lemmy Client for iOS, Android and the web"
+                link="https://github.com/aeharding/voyager"
+                icon="/static/assets/images/voyager.png"
+                banner="/static/assets/images/voyager_screen.webp"
+                links={[
+                  {
+                    link: "https://apps.apple.com/us/app/voyager-for-lemmy/id6451429762?platform=iphone",
+                    icon: "appleinc",
+                  },
+                  {
+                    link: "https://play.google.com/store/apps/details?id=app.vger.voyager",
+                    icon: "googleplay",
+                  },
+                  {
+                    link: "https://github.com/aeharding/voyager",
                     icon: "github",
                   },
                 ]}
