@@ -117,6 +117,10 @@ export class Apps extends Component<any, any> {
                 banner="/static/assets/images/lunar_screen.webp"
                 links={[
                   {
+                    link: "https://testflight.apple.com/join/GEFCCQTb",
+                    icon: "appleinc",
+                  },
+                  {
                     link: "https://github.com/mani-sh-reddy/Lunar",
                     icon: "github",
                   },
