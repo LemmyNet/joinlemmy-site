@@ -143,14 +143,13 @@ export class Apps extends Component<any, any> {
               />
             </div>
 
-
             <div class="card col-6">
               <AppDetails
                 name="Photon"
                 description="A sleek lemmy web UI."
                 link="https://github.com/Xyphyn/photon"
                 banner="/static/assets/images/photon.webp"
-		icon="/static/assets/images/photon-logo.svg"
+                icon="/static/assets/images/photon-logo.svg"
                 links={[
                   {
                     link: "https://github.com/Xyphyn/photon",
@@ -159,60 +158,61 @@ export class Apps extends Component<any, any> {
                 ]}
               />
 
-            <div class="card col-6">
-              <AppDetails
-                name="lemmy-lite"
-                description="A static, JSless, touch-friendly Lemmy frontend built for legacy web clients and maximum performance"
-                link="https://github.com/IronOxidizer/lemmy-lite"
-                banner="/static/assets/images/lemmy_lite_screen.webp"
-                links={[
-                  {
-                    link: "https://github.com/IronOxidizer/lemmy-lite",
-                    icon: "github",
-                  },
-                ]}
-              />
+              <div class="card col-6">
+                <AppDetails
+                  name="lemmy-lite"
+                  description="A static, JSless, touch-friendly Lemmy frontend built for legacy web clients and maximum performance"
+                  link="https://github.com/IronOxidizer/lemmy-lite"
+                  banner="/static/assets/images/lemmy_lite_screen.webp"
+                  links={[
+                    {
+                      link: "https://github.com/IronOxidizer/lemmy-lite",
+                      icon: "github",
+                    },
+                  ]}
+                />
+              </div>
             </div>
-          </div>
 
-          <h1>{i18n.t("cli_apps")}</h1>
+            <h1>{i18n.t("cli_apps")}</h1>
 
-          <div class="row">
-            <div class="card col-6">
-              <AppDetails
-                name="neonmodem"
-                description="BBS-style TUI client"
-                link="https://github.com/mrusme/neonmodem"
-                banner="/static/assets/images/neonmodem.webp"
-                links={[
-                  {
-                    link: "https://github.com/mrusme/neonmodem",
-                    icon: "github",
-                  },
-                ]}
-              />
+            <div class="row">
+              <div class="card col-6">
+                <AppDetails
+                  name="neonmodem"
+                  description="BBS-style TUI client"
+                  link="https://github.com/mrusme/neonmodem"
+                  banner="/static/assets/images/neonmodem.webp"
+                  links={[
+                    {
+                      link: "https://github.com/mrusme/neonmodem",
+                      icon: "github",
+                    },
+                  ]}
+                />
+              </div>
             </div>
-          </div>
 
-          <h1>{i18n.t("api_libraries")}</h1>
-          <ul>
-            <li>
-              <a href="https://github.com/LemmyNet/lemmy-js-client">
-                lemmy-js-client
-              </a>{" "}
-              - a javascript / typescript client.
-            </li>
-            <li>
-              <a href="https://github.com/LemmurOrg/lemmy_api_client">
-                lemmy-dart client
-              </a>{" "}
-              - a dart / flutter client.
-            </li>
-            <li>
-              <a href="https://github.com/Arsen6331/go-lemmy">go-lemmy</a> - a
-              Go client.
-            </li>
-          </ul>
+            <h1>{i18n.t("api_libraries")}</h1>
+            <ul>
+              <li>
+                <a href="https://github.com/LemmyNet/lemmy-js-client">
+                  lemmy-js-client
+                </a>{" "}
+                - a javascript / typescript client.
+              </li>
+              <li>
+                <a href="https://github.com/LemmurOrg/lemmy_api_client">
+                  lemmy-dart client
+                </a>{" "}
+                - a dart / flutter client.
+              </li>
+              <li>
+                <a href="https://github.com/Arsen6331/go-lemmy">go-lemmy</a> - a
+                Go client.
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     );
