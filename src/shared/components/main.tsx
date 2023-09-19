@@ -6,6 +6,40 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { isBrowser } from "../utils";
 
+const LemmyTitle = () => (
+  <p className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent from-[#69D066] to-[#03A80E]">
+    Lemmy
+  </p>
+);
+
+const LemmyDesc = () => (
+  <p className="text-xl font-medium">{i18n.t("lemmy_desc")}</p>
+);
+
+const LemmyTitleBlock = () => (
+  <div className="flex">
+    <LemmyTitle />
+    <LemmyDesc />
+    <JoinServerButton />
+    <RunServerButton />
+  </div>
+);
+
+const JoinServerButton = () => (
+  <Link className="btn btn-primary" to="/instances">
+    {i18n.t("join_a_server")}
+  </Link>
+);
+
+const RunServerButton = () => (
+  <a
+    class="btn btn-secondary"
+    href={`/docs/administration/administration.html`}
+  >
+    {i18n.t("run_a_server")}
+  </a>
+);
+
 export class Main extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
@@ -16,46 +50,15 @@ export class Main extends Component<any, any> {
       window.scrollTo(0, 0);
     }
   }
-  joinServer() {
-    return (
-      <Link className="button primary" to="/instances">
-        {i18n.t("join_a_server")}
-      </Link>
-    );
-  }
-
-  runServer() {
-    return (
-      <a
-        class="button primary"
-        href={`/docs/administration/administration.html`}
-      >
-        {i18n.t("run_a_server")}
-      </a>
-    );
-  }
 
   render() {
     const title = i18n.t("lemmy_title");
     return (
-      <div>
+      <div className="container mx-auto">
         <Helmet title={title}>
-          <meta property={"title"} content={title} />
+          <meta property={"title"} content={title} />{" "}
         </Helmet>
-        <div class="bg-image"></div>
-        <div class="container">
-          <div class="text-center">
-            <h1 class="stylized">{i18n.t("lemmy")}</h1>
-            <h4>{i18n.t("lemmy_desc")}</h4>
-            <div class="row is-horizontal-align">
-              <div class="col-2-lg">{this.joinServer()}</div>
-              <div class="col-2-lg">{this.runServer()}</div>
-            </div>
-          </div>
-        </div>
-
-        <br />
-
+        <LemmyTitleBlock />
         <div class="container">
           <div class="text-center">
             <h2>{i18n.t("follow_communities")}</h2>
@@ -68,11 +71,9 @@ export class Main extends Component<any, any> {
                 <b>#</b>
               </T>
             </p>
-            <p>{this.joinServer()}</p>
           </div>
         </div>
         <br />
-
         <div class="bg-success">
           <br />
 
@@ -149,14 +150,11 @@ export class Main extends Component<any, any> {
                   <a href="https://en.wikipedia.org/wiki/Fediverse">#</a>
                 </T>
               </p>
-              <p>{this.runServer()}</p>
             </div>
           </div>
           <br />
         </div>
-
         <br />
-
         <div class="container">
           <div class="row">
             <div class="col-6">
@@ -170,10 +168,8 @@ export class Main extends Component<any, any> {
             </div>
           </div>
         </div>
-
         <br />
         <br />
-
         <div class="container">
           <div class="row">
             <div class="col-6 is-center">
@@ -237,7 +233,6 @@ export class Main extends Component<any, any> {
             </div>
           </div>
         </div>
-
         <br />
         <div class="bg-success">
           <br />

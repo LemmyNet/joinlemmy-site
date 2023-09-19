@@ -1,5 +1,4 @@
 const webpack = require("webpack");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const nodeExternals = require("webpack-node-externals");
 const CopyPlugin = require("copy-webpack-plugin");
 const RunNodeWebpackPlugin = require("run-node-webpack-plugin");
@@ -26,10 +25,6 @@ const base = {
   module: {
     rules: [
       {
-        test: /\.(scss|css)$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
-      {
         test: /\.(js|jsx|tsx|ts)$/, // All ts and tsx files will be process by
         exclude: /node_modules/, // ignore node_modules
         loader: "babel-loader",
@@ -44,9 +39,6 @@ const base = {
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: "styles/styles.css",
-    }),
     new CopyPlugin({
       patterns: [{ from: "./src/assets", to: "./assets" }],
     }),

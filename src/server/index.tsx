@@ -55,6 +55,9 @@ server.get("/*", async (req, res) => {
            <!DOCTYPE html>
            <html ${helmet.htmlAttributes.toString()} lang="en">
            <head>
+            // TODO make these only work in debug mode
+            <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+            <script>eruda.init();</script>
 
            ${helmet.title.toString()}
            ${helmet.meta.toString()}
@@ -70,40 +73,6 @@ server.get("/*", async (req, res) => {
 
            <!-- Styles -->
            <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
-           <!-- These don't work with the css minifier -->
-           <style>
-             @font-face {
-               font-family: 'CaviarDreams';
-               font-style: normal;
-  src: url('/static/assets/fonts/CaviarDreams.ttf') format('truetype');
-             }
-            .bg-image {
-              position: fixed;
-              left: 0;
-              right: 0;
-              z-index: -1;
-              display: block;
-              width: 100%;
-              height: 100%;
-              background:
-              linear-gradient(
-              rgba(0, 0, 0, 0.5),
-              rgba(0, 0, 0, 0.5)
-              ),
-              url('/static/assets/images/main_img.webp');
-              -webkit-filter: blur(7px);
-              -moz-filter: blur(7px);
-              -o-filter: blur(7px);
-              -ms-filter: blur(7px);
-              filter: blur(7px);
-
-              /* Center and scale the image nicely */
-              background-position: center;
-              background-repeat: no-repeat;
-              background-size: cover;
-            }
-          </style>
-
            <!-- Current theme and more -->
            ${helmet.link.toString()}
            </head>

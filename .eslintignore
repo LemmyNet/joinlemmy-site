@@ -1,3 +1,4 @@
 generate_translations.js
 webpack.config.js
+tailwind.config.js
 src/api_tests

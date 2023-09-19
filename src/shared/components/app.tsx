@@ -7,7 +7,6 @@ import { NoMatch } from "./no-match";
 import { Symbols } from "./symbols";
 import { Navbar } from "./navbar";
 import { Footer } from "./footer";
-import "./styles.scss";
 
 export class App extends Component<any, any> {
   constructor(props: any, context: any) {
