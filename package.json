@@ -73,7 +73,12 @@
   },
   "engineStrict": true,
   "lint-staged": {
-    "*.{ts,tsx,js}": ["prettier --write", "eslint --fix"],
-    "package.json": ["sortpack"]
+    "*.{ts,tsx,js}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "package.json": [
+      "sortpack"
+    ]
   }
 }
