@@ -6,22 +6,18 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { isBrowser } from "../utils";
 
-const LemmyTitle = () => (
-  <p className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent from-[#69D066] to-[#03A80E]">
-    Lemmy
-  </p>
-);
-
-const LemmyDesc = () => (
-  <p className="text-xl font-medium">{i18n.t("lemmy_desc")}</p>
-);
-
 const LemmyTitleBlock = () => (
-  <div className="flex">
-    <LemmyTitle />
-    <LemmyDesc />
-    <JoinServerButton />
-    <RunServerButton />
+  <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mb-2">
+      <p className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent from-[#69D066] to-[#03A80E]">
+        Lemmy
+      </p>
+      <p className="text-xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
+    </div>
+    <div className="flex flex-row justify-around gap-2">
+      <JoinServerButton />
+      <RunServerButton />
+    </div>
   </div>
 );
 
@@ -38,6 +34,20 @@ const RunServerButton = () => (
   >
     {i18n.t("run_a_server")}
   </a>
+);
+
+const FollowCommunitiesBlock = () => (
+  <div className="flex flex-col items-center">
+    <div className="card card-bordered w-11/12 bg-neutral-800 shadow-xl">
+      <div className="card-body items-center px-32 py-16">
+        <p class="card-title text-center">{i18n.t("follow_communities")}</p>
+        <p class="text-sm text-gray-300 text-center mb-3">
+          {i18n.t("lemmy_long_desc")}
+        </p>
+        <JoinServerButton />
+      </div>
+    </div>
+  </div>
 );
 
 export class Main extends Component<any, any> {
@@ -59,21 +69,8 @@ export class Main extends Component<any, any> {
           <meta property={"title"} content={title} />{" "}
         </Helmet>
         <LemmyTitleBlock />
-        <div class="container">
-          <div class="text-center">
-            <h2>{i18n.t("follow_communities")}</h2>
-            <p>
-              <T i18nKey="lemmy_long_desc">
-                #<a href="https://github.com/LemmyNet">#</a>
-                <a href="https://reddit.com">#</a>
-                <a href="https://lobste.rs">#</a>
-                <a href="https://news.ycombinator.com/">#</a>
-                <b>#</b>
-              </T>
-            </p>
-          </div>
-        </div>
-        <br />
+        <FollowCommunitiesBlock />
+
         <div class="bg-success">
           <br />
 

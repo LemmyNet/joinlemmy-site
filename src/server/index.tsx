@@ -50,12 +50,12 @@ server.get("/*", async (req, res) => {
 
   const root = renderToString(wrapper);
   const helmet = Helmet.renderStatic();
+  // TODO make eruda only work in debug mode
 
   res.send(`
            <!DOCTYPE html>
            <html ${helmet.htmlAttributes.toString()} lang="en">
            <head>
-            // TODO make these only work in debug mode
             <script src="//cdn.jsdelivr.net/npm/eruda"></script>
             <script>eruda.init();</script>
 

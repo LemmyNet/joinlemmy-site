@@ -17,7 +17,7 @@ export class App extends Component<any, any> {
       <>
         <div>
           <Provider i18next={i18n}>
-            <Navbar />
+            {/* <Navbar /> */}
             <Switch>
               {routes.map(({ path, exact, component: C, ...rest }) => (
                 <Route
@@ -29,7 +29,7 @@ export class App extends Component<any, any> {
               ))}
               <Route render={props => <NoMatch {...props} />} />
             </Switch>
-            <Footer />
+            {/* Footer /> */}
             <Symbols />
           </Provider>
         </div>
