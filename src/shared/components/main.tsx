@@ -5,6 +5,7 @@ import { DonateLines } from "./donate-lines";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { isBrowser } from "../utils";
+import { Icon } from "./icon";
 
 const LemmyTitleBlock = () => (
   <div className="flex flex-col items-center">
@@ -37,7 +38,7 @@ const RunServerButton = () => (
 );
 
 const FollowCommunitiesBlock = () => (
-  <div className="flex flex-col items-center">
+  <div className="flex flex-col items-center mt-16">
     <div className="card card-bordered w-11/12 bg-neutral-800 shadow-xl">
       <div className="card-body items-center px-32 py-16">
         <p class="card-title text-center">{i18n.t("follow_communities")}</p>
@@ -46,6 +47,176 @@ const FollowCommunitiesBlock = () => (
         </p>
         <JoinServerButton />
       </div>
+    </div>
+  </div>
+);
+
+const FeatureCard = ({ pic, title, subtitle }) => (
+  <div className="card card-bordered w-auto bg-neutral-800 shadow-xl">
+    <figure className="px-10 pt-10">
+      <img src={pic} className="rounded-xl" />
+    </figure>
+    <div className="card-body">
+      <h2 className="card-title text-secondary">{title}</h2>
+      <p className="text-sm text-gray-300">{subtitle}</p>
+    </div>
+  </div>
+);
+
+const OpenSourceCard = () => (
+  <FeatureCard
+    pic={"/static/assets/images/review_pic.webp"}
+    title={i18n.t("open_source")}
+    subtitle={
+      <T i18nKey="open_source_desc">
+        #
+        <a className="link" href="https://github.com/LemmyNet">
+          #
+        </a>
+        <a className="link" href="https://en.wikipedia.org/wiki/Copyleft">
+          #
+        </a>
+        <a
+          className="link"
+          href="https://github.com/LemmyNet/lemmy/blob/master/LICENSE"
+        >
+          #
+        </a>
+      </T>
+    }
+  />
+);
+
+const BlazingFastCard = () => (
+  <FeatureCard
+    pic={"/static/assets/images/code_pic.webp"}
+    title={i18n.t("blazing_fast")}
+    subtitle={
+      <T i18nKey="blazing_fast_desc">
+        #
+        <a className="link" href="https://www.rust-lang.org">
+          #
+        </a>
+        <a className="link" href="https://actix.rs/">
+          #
+        </a>
+        <a className="link" href="http://diesel.rs/">
+          #
+        </a>
+        <a className="link" href="https://infernojs.org">
+          #
+        </a>
+        <a className="link" href="https://www.typescriptlang.org/">
+          #
+        </a>
+      </T>
+    }
+  />
+);
+
+const ModToolsCard = () => (
+  <FeatureCard
+    pic={"/static/assets/images/mod_pic.webp"}
+    title={i18n.t("mod_tools")}
+    subtitle={i18n.t("mod_tools_desc")}
+  />
+);
+
+const FeatureCardsBlock = () => (
+  <div className="grid md:grid-cols-12 grid-cols-1 gap-4 mt-16">
+    <div className="col-span-7">
+      <OpenSourceCard />
+    </div>
+    <div className="col-span-5">
+      <BlazingFastCard />
+    </div>
+    <div className="col-span-4">
+      <ModToolsCard />
+    </div>
+    {/* TODO Add censorship and other cards */}
+
+    <div className="col-span-4">
+      <ModToolsCard />
+    </div>
+    <div className="col-span-4">
+      <ModToolsCard />
+    </div>
+  </div>
+);
+
+const DiscussionPlatformBlock = () => (
+  <div className="flex flex-col items-center mt-16">
+    <div className="card card-bordered w-11/12 bg-gradient-to-r text-transparent from-primary to-secondary shadow-xl">
+      <div className="card-body items-center px-32 py-16">
+        <p class="card-title text-center text-white">
+          {i18n.t("create_discussion_platform")}
+        </p>
+        <p class="text-sm text-white text-center mb-3">
+          <T i18nKey="create_discussion_platform_desc">
+            #
+            <a
+              className="link"
+              href={`/docs/administration/administration.html`}
+            >
+              #
+            </a>
+            <i>#</i>
+            <a className="link" href="https://en.wikipedia.org/wiki/Fediverse">
+              #
+            </a>
+          </T>
+        </p>
+        <Link className="btn btn-primary bg-white" to="/instances">
+          <div className="text-primary">{i18n.t("join_a_server")}</div>
+        </Link>
+      </div>
+    </div>
+  </div>
+);
+
+// TODO more FEATURES(needs to be green)
+// TODO add all of these ones
+const MoreFeaturesBlock = () => (
+  <div className="mt-16">
+    <div className="text-center text-2xl mb-8">{i18n.t("more_features")}</div>
+    <div className="grid md:grid-cols-5 grid-cols-1 gap-4">
+      <MoreFeaturesCard
+        icons={<Icon icon="f-droid" />}
+        text={
+          <T i18nKey="self_hostable">
+            #
+            <a
+              className="link"
+              href={`/docs/administration/install_docker.html`}
+            >
+              #
+            </a>
+            <a
+              className="link"
+              href={`/docs/administration/install_ansible.html`}
+            >
+              #
+            </a>
+          </T>
+        }
+      />
+      <MoreFeaturesCard
+        icons={
+          <div>
+            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+          </div>
+        }
+        text={"Some more here"}
+      />
+    </div>
+  </div>
+);
+
+const MoreFeaturesCard = ({ icons, text }) => (
+  <div className="card card-bordered w-auto bg-neutral-800 shadow-xl">
+    <div className="card-body">
+      <div className="btn btn-sm btn-secondary w-fit mb-3">{icons}</div>
+      <p className="text-sm text-gray-300">{text}</p>
     </div>
   </div>
 );
@@ -70,6 +241,9 @@ export class Main extends Component<any, any> {
         </Helmet>
         <LemmyTitleBlock />
         <FollowCommunitiesBlock />
+        <FeatureCardsBlock />
+        <DiscussionPlatformBlock />
+        <MoreFeaturesBlock />
 
         <div class="bg-success">
           <br />
