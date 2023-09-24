@@ -1,6 +1,5 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
-import { DonateLines } from "./donate-lines";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { translators } from "../translations/translators";
@@ -100,7 +99,6 @@ export class Donate extends Component<any, any> {
         <div class="container">
           <div class="text-center">
             <h1>{i18n.t("support_lemmy")}</h1>
-            <DonateLines />
           </div>
 
           <hr />
