@@ -44,34 +44,29 @@ const TitleBlock = () => (
   <div className="mt-16 text-center text-4xl mb-8">{title}</div>
 );
 
-const NewsCards = () =>
-  buildNewsInfoArray().map(n => (
-    <NewsCard
-      dateStr={n.dateStr}
-      preview={n.preview}
-      authors={n.authors}
-      title={n.title}
-      url={n.url}
-    />
-  ));
+const NewsCards = () => buildNewsInfoArray().map(n => <NewsCard news={n} />);
 
-const NewsCard = ({ dateStr, authors, title, url, preview }: NewsInfo) => (
+interface NewsProps {
+  news: NewsInfo;
+}
+
+const NewsCard = ({ news }: NewsProps) => (
   <div className="card card-bordered bg-neutral-800 shadow-xl mb-3">
     <div className="card-body">
       <div class="grid md:grid-cols-12 grid-cols-1 gap-4">
         <div className="md:col-span-10">
           <div className="md:flex md:flex-row md:items-baseline md:space-x-3">
-            <Link to={url} className={`text-2xl ${gradientTextClasses}`}>
+            <Link to={news.url} className={`text-2xl ${gradientTextClasses}`}>
               {title}
             </Link>
-            <div className="text-sm text-gray-500">{dateStr}</div>
+            <div className="text-sm text-gray-500">{news.dateStr}</div>
             {authors.map(name => (
               <AuthorBadge name={name} />
             ))}
           </div>
-          <div className="text-sm text-gray-300">{preview}</div>
+          <div className="text-sm text-gray-300">{news.preview}</div>
         </div>
-        <Link to={url} className="md:col-span-2 btn btn-secondary">
+        <Link to={news.url} className="md:col-span-2 btn btn-secondary">
           {i18n.t("read_more")}
         </Link>
       </div>

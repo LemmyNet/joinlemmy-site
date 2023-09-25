@@ -7,7 +7,7 @@ import { isBrowser } from "../utils";
 import { Icon } from "./icon";
 import { gradientTextClasses } from "./common";
 
-const LemmyTitleBlock = () => (
+const TitleBlock = () => (
   <div className="flex flex-col items-center">
     <div className="flex flex-col items-center mb-2">
       <p className={`text-6xl font-bold ${gradientTextClasses}`}>Lemmy</p>
@@ -418,7 +418,7 @@ export class Main extends Component<any, any> {
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
-        <LemmyTitleBlock />
+        <TitleBlock />
         <FollowCommunitiesBlock />
         <FeatureCardsBlock />
         <DiscussionPlatformBlock />
