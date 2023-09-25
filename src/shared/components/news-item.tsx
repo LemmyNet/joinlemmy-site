@@ -25,12 +25,14 @@ export class NewsItem extends Component<any, any> {
 
   render() {
     return (
-      <div>
+      <div className="container mx-auto">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
-        <div class="container">
-          <div dangerouslySetInnerHTML={mdToHtml(this.markdown)} />
+        <div className="flex flex-col items-center">
+          <article className="prose prose-a:text-primary prose-h1:text-primary">
+            <div dangerouslySetInnerHTML={mdToHtml(this.markdown)} />
+          </article>
         </div>
       </div>
     );
