@@ -5,78 +5,123 @@ import { T } from "inferno-i18next";
 import { translators } from "../translations/translators";
 import { languagesAll, countries } from "countries-list";
 import { isBrowser } from "../utils";
+import { Badge, SupportDonateBlock, gradientTextClasses } from "./common";
+import {
+  CODERS,
+  GOLD_SPONSORS,
+  HIGHLIGHTED_SPONSORS,
+  LATINUM_SPONSORS,
+  SILVER_SPONSORS,
+  SPONSORS,
+  Translation,
+} from "./donate-definitions";
+import classNames from "classnames";
+import { Icon } from "./icon";
 
 const avatarSize = 40;
 const bannerWidth = 240;
 const bannerHeight = 101;
 
-interface LinkedSponsor {
-  name: string;
-  link: string;
-}
+const SectionTitle = ({ title }) => (
+  <div className="text-2xl mb-3">{title}</div>
+);
 
-interface GoldSponsor {
-  name: string;
-  link: string;
-  avatar: string;
-}
+const ContributorsBlock = () => (
+  <div>
+    <SectionTitle title={i18n.t("contributers")} />
+    <p class="text-sm text-gray-300 mb-3">{i18n.t("thanks_coders")}</p>
+    <CodersBlock />
+    <p class="text-sm text-gray-300 mt-6 mb-3">
+      {i18n.t("thanks_translators")}
+    </p>
+    <TranslatorsBlock />
+  </div>
+);
 
-let goldSponsors: GoldSponsor[] = [];
+const CodersBlock = () => (
+  <div className="card card-bordered bg-neutral-900 shadow-xl">
+    <div className="card-body p-4">
+      <PersonBadges persons={CODERS} />
+    </div>
+  </div>
+);
 
-let latinumSponsors: GoldSponsor[] = [
-  {
-    name: "NLnet",
-    link: "https://nlnet.nl",
-    avatar: "https://nlnet.nl/image/logo_nlnet.svg",
-  },
-];
+const TranslatorsBlock = () => (
+  <div className="card card-bordered bg-neutral-900 shadow-xl">
+    <div className="card-body p-4">
+      <table>
+        {convertTranslators().map(t => (
+          <tr>
+            <td>
+              <div className="text-secondary">
+                <span>{languagesAll[t.lang].native}</span>
+                {t.country && <span> {countries[t.country].native}</span>}
+                <span>:</span>
+              </div>
+            </td>
+            <td>
+              <PersonBadges persons={t.translators} />
+            </td>
+          </tr>
+        ))}
+      </table>
+    </div>
+  </div>
+);
 
-let silverSponsors: LinkedSponsor[] = [];
-
-let highlightedSponsors = ["DQW", "John Knapp"];
-let sponsors = [
-  "Anthony",
-  "Remi Rampin",
-  "Cameron C",
-  "Vegard",
-  "0ti.me",
-  "Brendan",
-  "mexicanhalloween .",
-  "Arthur Nieuwland",
-  "Forrest Weghorst",
-  "Luke Black",
-  "Brandon Abbott",
-  "Eon Gattignolo",
-];
-
-export interface Coder {
-  name: string;
-  link?: string;
-}
-
-let coders: Coder[] = [
-  { name: "dessalines", link: "https://mastodon.social/@dessalines" },
-  { name: "Nutomic", link: "https://lemmy.ml/u/nutomic" },
-  { name: "asonix", link: "https://github.com/asonix" },
-  { name: "krawieck", link: "https://github.com/krawieck" },
-  { name: "shilangyu", link: "https://github.com/shilangyu" },
-  { name: "uuttff8", link: "https://github.com/uuttff8" },
-  { name: "eiknat", link: "https://github.com/eiknat" },
-  { name: "ernestwisniewski", link: "https://github.com/ernestwisniewski" },
-  { name: "zacanger", link: "https://github.com/zacanger" },
-  { name: "iav", link: "https://github.com/iav" },
-];
-
-export interface Translation {
-  lang: string;
-  country?: string;
-  translators: Translator[];
-}
-
-export interface Translator {
+interface PersonBadgeData {
   name: string;
   link?: string;
+  greenOutline?: boolean;
+  greenAt?: boolean;
 }
+
+interface PersonBadgeProps {
+  person: PersonBadgeData;
+}
+
+const PersonBadge = ({ person }: PersonBadgeProps) =>
+  person.link ? (
+    <a href={person.link}>
+      <PersonBadgeInternal person={person} />
+    </a>
+  ) : (
+    <PersonBadgeInternal person={person} />
+  );
+
+const PersonBadgeInternal = ({ person }: PersonBadgeProps) => (
+  <Badge
+    content={
+      <div>
+        <Icon
+          icon="at-sign"
+          classes={classNames("fill-current text-gray-600", {
+            "text-primary": person.greenAt,
+          })}
+        />
+        <span
+          className={classNames("ml-1", {
+            [`${gradientTextClasses}`]: person.link,
+          })}
+        >
+          {person.name}
+        </span>
+      </div>
+    }
+  />
+);
+
+interface PersonBadgesProps {
+  persons: PersonBadgeData[];
+}
+
+const PersonBadges = ({ persons }: PersonBadgesProps) => (
+  <div className="flex flex-row flex-wrap gap-2 mb-2">
+    {persons.map(p => (
+      <PersonBadge person={p} />
+    ))}
+  </div>
+);
 
 export class Donate extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -92,10 +137,14 @@ export class Donate extends Component<any, any> {
   render() {
     const title = i18n.t("support_title");
     return (
-      <div>
+      <div className="container mx-auto">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
+        <SupportDonateBlock />
+        <div className="mb-16" />
+        <ContributorsBlock />
+
         <div class="container">
           <div class="text-center">
             <h1>{i18n.t("support_lemmy")}</h1>
@@ -109,11 +158,11 @@ export class Donate extends Component<any, any> {
           </div>
           <div class="text-center">
             <h2>{i18n.t("sponsors")}</h2>
-            {latinumSponsors.length > 0 && (
+            {LATINUM_SPONSORS.length > 0 && (
               <div>
                 <p>{i18n.t("gold_pressed_latinum_sponsors_desc")}</p>
                 <div class="row is-horizontal-align">
-                  {latinumSponsors.map(s => (
+                  {LATINUM_SPONSORS.map(s => (
                     <div class="col-6">
                       <a class="button outline" href={s.link}>
                         <img
@@ -129,11 +178,11 @@ export class Donate extends Component<any, any> {
                 <br />
               </div>
             )}
-            {goldSponsors.length > 0 && (
+            {GOLD_SPONSORS.length > 0 && (
               <div>
                 <p>{i18n.t("gold_sponsors_desc")}</p>
                 <div class="row is-horizontal-align">
-                  {goldSponsors.map(s => (
+                  {GOLD_SPONSORS.map(s => (
                     <div class="col">
                       <a class="button outline gold" href={s.link}>
                         <img
@@ -150,11 +199,11 @@ export class Donate extends Component<any, any> {
                 <br />
               </div>
             )}
-            {silverSponsors.length > 0 && (
+            {SILVER_SPONSORS.length > 0 && (
               <div>
                 <p>{i18n.t("silver_sponsors_desc")}</p>
                 <div class="row is-horizontal-align">
-                  {silverSponsors.map(s => (
+                  {SILVER_SPONSORS.map(s => (
                     <div class="col">
                       <a class="button outline primary" href={s.link}>
                         💎 {s.name}
@@ -167,12 +216,12 @@ export class Donate extends Component<any, any> {
             )}
             <p>{i18n.t("general_sponsors_desc")}</p>
             <div class="row is-horizontal-align">
-              {highlightedSponsors.map(s => (
+              {HIGHLIGHTED_SPONSORS.map(s => (
                 <div class="col">
                   <div class="button outline primary">{s}</div>
                 </div>
               ))}
-              {sponsors.map(s => (
+              {SPONSORS.map(s => (
                 <div class="col">
                   <div class="button outline">{s}</div>
                 </div>
@@ -257,14 +306,14 @@ export class Donate extends Component<any, any> {
       <div>
         <p>
           <span>{i18n.t("thanks_coders")}</span>
-          {coders.map((coder, i) => (
+          {CODERS.map((coder, i) => (
             <span>
               {coder.link ? (
                 <a href={coder.link}>{coder.name}</a>
               ) : (
                 <span>{coder.name}</span>
               )}
-              <span>{i != coders.length - 1 ? ", " : "  "}</span>
+              <span>{i != CODERS.length - 1 ? ", " : "  "}</span>
             </span>
           ))}
         </p>

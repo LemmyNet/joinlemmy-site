@@ -4,7 +4,8 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { isBrowser } from "../utils";
 import { news_md } from "../translations/news";
-import { gradientTextClasses } from "./common";
+import { Badge, gradientTextClasses } from "./common";
+import { Icon } from "./icon";
 
 const title = i18n.t("news");
 const authors = ["nutomic", "dessalines"];
@@ -51,7 +52,7 @@ interface NewsProps {
 }
 
 const NewsCard = ({ news }: NewsProps) => (
-  <div className="card card-bordered bg-neutral-800 shadow-xl mb-3">
+  <div className="card card-bordered bg-neutral-900 shadow-xl mb-3">
     <div className="card-body">
       <div class="grid md:grid-cols-12 grid-cols-1 gap-4">
         <div className="md:col-span-10">
@@ -60,9 +61,12 @@ const NewsCard = ({ news }: NewsProps) => (
               {title}
             </Link>
             <div className="text-sm text-gray-500">{news.dateStr}</div>
-            {authors.map(name => (
-              <AuthorBadge name={name} />
-            ))}
+
+            <div className="flex flex-row flex-wrap items-baseline space-x-3 mb-2">
+              {authors.map(name => (
+                <AuthorBadge name={name} />
+              ))}
+            </div>
           </div>
           <div className="text-sm text-gray-300">{news.preview}</div>
         </div>
@@ -75,10 +79,14 @@ const NewsCard = ({ news }: NewsProps) => (
 );
 
 const AuthorBadge = ({ name }) => (
-  <div className="badge bg-neutral-700">
-    <code>@</code>
-    <span className="ml-1 text-gray-300">{name}</span>
-  </div>
+  <Badge
+    content={
+      <div>
+        <Icon icon="at-sign" classes={"fill-current text-gray-600"} />
+        <span className="ml-1 text-gray-300">{name}</span>
+      </div>
+    }
+  />
 );
 
 export class News extends Component<any, any> {
