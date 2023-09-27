@@ -227,8 +227,8 @@ export class Apps extends Component<any, any> {
               - a dart / flutter client.
             </li>
             <li>
-              <a href="https://gitea.elara.ws/Elara6331/go-lemmy">go-lemmy</a> - a
-              Go client.
+              <a href="https://gitea.elara.ws/Elara6331/go-lemmy">go-lemmy</a> -
+              a Go client.
             </li>
           </ul>
         </div>
