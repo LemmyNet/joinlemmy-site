@@ -1,11 +1,11 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { gradientTextClasses } from "./common";
+import { TEXT_GRADIENT } from "./common";
 import { Icon } from "./icon";
 
 const TitleBlock = () => (
-  <div className={`mt-16 text-center text-4xl mb-8 ${gradientTextClasses}`}>
+  <div className={`pt-16 text-center text-4xl mb-8 ${TEXT_GRADIENT}`}>
     {i18n.t("contact")}
   </div>
 );
@@ -13,7 +13,7 @@ const TitleBlock = () => (
 const ContactBlock = () => (
   <div className="flex flex-col items-center">
     <div className="card w-96 card-bordered bg-neutral-900 shadow-xl">
-      <div className="card-body items-center p-16">
+      <div className="card-body items-center p-8">
         <ContactBtn
           title="/c/lemmy_support"
           url="https://lemmy.ml/c/lemmy_support"

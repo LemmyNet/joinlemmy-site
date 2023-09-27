@@ -29,7 +29,7 @@ export class NewsItem extends Component<any, any> {
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
-        <div className="flex flex-col items-center mt-8">
+        <div className="flex flex-col items-center pt-16">
           <article className="prose prose-a:text-primary prose-h1:text-primary">
             <div dangerouslySetInnerHTML={mdToHtml(this.markdown)} />
           </article>

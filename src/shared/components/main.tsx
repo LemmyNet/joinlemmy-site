@@ -5,12 +5,12 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { isBrowser } from "../utils";
 import { Icon } from "./icon";
-import { SupportDonateBlock, gradientTextClasses } from "./common";
+import { SupportDonateBlock, TEXT_GRADIENT } from "./common";
 
 const TitleBlock = () => (
-  <div className="flex flex-col items-center">
+  <div className="pt-16 flex flex-col items-center">
     <div className="flex flex-col items-center mb-2">
-      <p className={`text-6xl font-bold ${gradientTextClasses}`}>Lemmy</p>
+      <p className={`text-6xl font-bold ${TEXT_GRADIENT}`}>Lemmy</p>
       <p className="text-3xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
     </div>
     <div className="flex flex-row justify-around gap-2">
@@ -178,7 +178,7 @@ const DiscussionPlatformBlock = () => (
 // TODO add all of these ones
 const MoreFeaturesBlock = () => (
   <div className="mt-16">
-    <div className={`text-center text-4xl mb-8 ${gradientTextClasses}`}>
+    <div className={`text-center text-4xl mb-8 ${TEXT_GRADIENT}`}>
       {i18n.t("more_features")}
     </div>
     <div className="grid md:grid-cols-5 grid-cols-1 gap-4">
@@ -368,7 +368,7 @@ export class Main extends Component<any, any> {
   render() {
     const title = i18n.t("lemmy_title");
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto bg-blue">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>

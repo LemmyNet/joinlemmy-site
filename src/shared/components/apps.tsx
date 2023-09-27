@@ -1,7 +1,7 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { gradientTextClasses } from "./common";
+import { TEXT_GRADIENT } from "./common";
 import {
   ANDROID_APPS,
   API_LIBRARIES,
@@ -14,10 +14,8 @@ import {
 import { Icon } from "./icon";
 
 const TitleBlock = () => (
-  <div className="flex flex-col items-center mt-16 mb-8">
-    <p className={`text-4xl ${gradientTextClasses} mb-3`}>
-      {i18n.t("lemmy_apps")}
-    </p>
+  <div className="flex flex-col items-center pt-16 mb-8">
+    <p className={`text-4xl ${TEXT_GRADIENT} mb-3`}>{i18n.t("lemmy_apps")}</p>
     <p className="text-2xl text-gray-300 text-center">
       {i18n.t("choose_from_apps")}
     </p>
@@ -34,7 +32,7 @@ const AppDetailsTitle = ({ app }: AppDetailsCardProps) => (
       src={app.icon || "/static/assets/images/lemmy.svg"}
       className="rounded-xl w-7 h-7"
     />
-    <a href={app.link} className={`card-title text-2xl ${gradientTextClasses}`}>
+    <a href={app.link} className={`card-title text-2xl ${TEXT_GRADIENT}`}>
       {app.name}
     </a>
   </div>
@@ -55,7 +53,7 @@ const AppDetailsButtons = ({ links }: AppDetailsButtonsProps) => (
 );
 
 const AppDetailsCard = ({ app }: AppDetailsCardProps) => (
-  <div className="card card-bordered bg-neutral-800 shadow-xl">
+  <div className="card card-bordered bg-neutral-900 shadow-xl">
     <div className="card-body items-center">
       <AppDetailsTitle app={app} />
       <img
@@ -106,14 +104,14 @@ const AppGrid = ({ apps }: AppGridProps) => (
 const ApiLibrariesBlock = () => (
   <div>
     <AppTitle title={i18n.t("api_libraries")} />
-    <div className="card card-bordered bg-neutral-800 shadow-xl md:w-1/2">
+    <div className="card card-bordered bg-neutral-900 shadow-xl md:w-1/2">
       <div className="card-body">
         <ul>
           {API_LIBRARIES.map(a => (
             <li>
-              <span className={`${gradientTextClasses} mr-2`}>●</span>
+              <span className={`${TEXT_GRADIENT} mr-2`}>●</span>
               <span>
-                <a href={a.link} className={`${gradientTextClasses}`}>
+                <a href={a.link} className={`${TEXT_GRADIENT}`}>
                   {a.name}
                 </a>
               </span>

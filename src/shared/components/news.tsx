@@ -4,7 +4,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { isBrowser } from "../utils";
 import { news_md } from "../translations/news";
-import { Badge, gradientTextClasses } from "./common";
+import { Badge, TEXT_GRADIENT } from "./common";
 import { Icon } from "./icon";
 
 const title = i18n.t("news");
@@ -42,7 +42,7 @@ function previewMarkdown(markdown: string): string {
 }
 
 const TitleBlock = () => (
-  <div className="mt-16 text-center text-4xl mb-8">{title}</div>
+  <div className="pt-16 text-center text-4xl mb-8">{title}</div>
 );
 
 const NewsCards = () => buildNewsInfoArray().map(n => <NewsCard news={n} />);
@@ -57,7 +57,7 @@ const NewsCard = ({ news }: NewsProps) => (
       <div class="grid md:grid-cols-12 grid-cols-1 gap-4">
         <div className="md:col-span-10">
           <div className="md:flex md:flex-row md:items-baseline md:space-x-3">
-            <Link to={news.url} className={`text-2xl ${gradientTextClasses}`}>
+            <Link to={news.url} className={`text-2xl ${TEXT_GRADIENT}`}>
               {title}
             </Link>
             <div className="text-sm text-gray-500">{news.dateStr}</div>

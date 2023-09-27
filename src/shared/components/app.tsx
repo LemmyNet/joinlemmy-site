@@ -7,6 +7,7 @@ import { NoMatch } from "./no-match";
 import { Symbols } from "./symbols";
 import { Navbar } from "./navbar";
 import { Footer } from "./footer";
+import { BACKGROUND_GRADIENT_1, BACKGROUND_GRADIENT_2 } from "./common";
 
 export class App extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -14,8 +15,8 @@ export class App extends Component<any, any> {
   }
   render() {
     return (
-      <>
-        <div>
+      <div className={BACKGROUND_GRADIENT_1}>
+        <div className={BACKGROUND_GRADIENT_2}>
           <Provider i18next={i18n}>
             {/* <Navbar /> */}
             <Switch>
@@ -33,7 +34,7 @@ export class App extends Component<any, any> {
             <Symbols />
           </Provider>
         </div>
-      </>
+      </div>
     );
   }
 }
