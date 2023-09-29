@@ -10,7 +10,7 @@ Lemmy is a self-hosted social link aggregation and discussion platform. It is co
 
 This release fixes a problem with federation of moderation actions performed by admin accounts. Specifically there is an check when receiving remote federation actions, which is incorrectly rejecting them in some cases. The problem is fixed by this release.
 
-There are no other changes, and no updated lemmy-ui version.
+There are no other changes.
 
 ## Support development
 
