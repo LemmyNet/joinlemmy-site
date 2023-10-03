@@ -183,7 +183,7 @@ const MoreFeaturesBlock = () => (
     </div>
     <div className="grid md:grid-cols-5 grid-cols-1 gap-4">
       <MoreFeaturesCard
-        icons={<Icon icon="f-droid" />}
+        icons={<Icon icon="embed" />}
         text={
           <T i18nKey="self_hostable">
             #
@@ -205,7 +205,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="clipboard" />
           </div>
         }
         text={i18n.t("clean_interface")}
@@ -213,7 +213,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="appleinc" /> <Icon icon="android" />
           </div>
         }
         text={
@@ -225,7 +225,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="smile" />
           </div>
         }
         text={i18n.t("avatar_support")}
@@ -233,7 +233,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="thumbs-up" /> <Icon icon="thumbs-down" />
           </div>
         }
         text={
@@ -245,17 +245,13 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="moon" /> <Icon icon="sun" />
           </div>
         }
         text={i18n.t("themes_including")}
       />
       <MoreFeaturesCard
-        icons={
-          <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
-          </div>
-        }
+        icons={<div>:</div>}
         text={
           <T i18nKey="emojis_autocomplete">
             #<code class="text-primary">#</code>
@@ -265,7 +261,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="at-sign" />
           </div>
         }
         text={
@@ -278,7 +274,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="image" />
           </div>
         }
         text={i18n.t("integrated_image_uploading")}
@@ -286,7 +282,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="bell" />
           </div>
         }
         text={i18n.t("notifications_including")}
@@ -294,7 +290,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="globe" />
           </div>
         }
         text={
@@ -312,7 +308,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="rss" />
           </div>
         }
         text={
@@ -328,7 +324,7 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="trash" />
           </div>
         }
         text={i18n.t("can_fully_erase")}
@@ -336,10 +332,18 @@ const MoreFeaturesBlock = () => (
       <MoreFeaturesCard
         icons={
           <div>
-            <Icon icon="f-droid" /> <Icon icon="f-droid" />
+            <Icon icon="alert-octagon" />
           </div>
         }
         text={i18n.t("nsfw_support")}
+      />
+      <MoreFeaturesCard
+        icons={
+          <div>
+            <Icon icon="eye-off" />
+          </div>
+        }
+        text={"TODO Censorship resistant"}
       />
     </div>
   </div>

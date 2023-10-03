@@ -64,12 +64,6 @@ export const Navbar = ({ footer = false }) => (
               </option>
             ))}
           </select>
-          <a
-            className="btn btn-ghost sm:max-lg:hidden"
-            href="https://github.com/LemmyNet"
-          >
-            <Icon icon="github" size={IconSize.Large} />
-          </a>
         </>
       )}
       <div
@@ -85,11 +79,6 @@ export const Navbar = ({ footer = false }) => (
           className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-800 rounded-box w-52 items-center"
         >
           <NavLinks />
-          <li>
-            <a className="btn btn-ghost" href="https://github.com/LemmyNet">
-              <Icon icon="github" size={IconSize.Large} />
-            </a>
-          </li>
         </ul>
       </div>
     </div>
