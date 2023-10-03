@@ -1,7 +1,7 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { TEXT_GRADIENT } from "./common";
+import { BottomSpacer, TEXT_GRADIENT } from "./common";
 import {
   ANDROID_APPS,
   API_LIBRARIES,
@@ -146,6 +146,7 @@ export class Apps extends Component<any, any> {
         <WebAppsBlock />
         <CliAppsBlock />
         <ApiLibrariesBlock />
+        <BottomSpacer />
       </div>
     );
   }

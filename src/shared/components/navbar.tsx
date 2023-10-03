@@ -1,6 +1,6 @@
 import { ChangeEvent, linkEvent } from "inferno";
 import { Link } from "inferno-router";
-import { Icon } from "./icon";
+import { Icon, IconSize } from "./icon";
 import { i18n, languages } from "../i18next";
 import classNames from "classnames";
 
@@ -28,7 +28,11 @@ function handleLanguageChange(_: any, event: ChangeEvent<HTMLSelectElement>) {
 export const Footer = () => <Navbar footer />;
 
 export const Navbar = ({ footer = false }) => (
-  <div className={classNames("navbar px-10", { "sticky top-[100vh]": footer })}>
+  <div
+    className={classNames("navbar px-10", {
+      "sticky top-[100vh]": footer,
+    })}
+  >
     <div className="navbar-start">
       <Link className="btn btn-ghost normal-case text-xl" to="/">
         <img src="/static/assets/images/lemmy.svg" className="h-12 w-12" />
@@ -64,13 +68,17 @@ export const Navbar = ({ footer = false }) => (
             className="btn btn-ghost sm:max-lg:hidden"
             href="https://github.com/LemmyNet"
           >
-            <Icon icon="github" classes="w-6 h-6" />
+            <Icon icon="github" size={IconSize.Large} />
           </a>
         </>
       )}
-      <div className="dropdown dropdown-end">
+      <div
+        className={classNames("dropdown dropdown-end", {
+          "dropdown-top": footer,
+        })}
+      >
         <label tabIndex={0} className="btn btn-ghost lg:hidden">
-          <Icon icon="align-right" classes="w-6 h-6" />
+          <Icon icon="align-right" size={IconSize.Large} />
         </label>
         <ul
           tabIndex={0}
@@ -79,7 +87,7 @@ export const Navbar = ({ footer = false }) => (
           <NavLinks />
           <li>
             <a className="btn btn-ghost" href="https://github.com/LemmyNet">
-              <Icon icon="github" classes="w-6 h-6" />
+              <Icon icon="github" size={IconSize.Large} />
             </a>
           </li>
         </ul>

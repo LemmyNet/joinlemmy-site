@@ -5,7 +5,12 @@ import { T } from "inferno-i18next";
 import { translators } from "../translations/translators";
 import { languagesAll, countries } from "countries-list";
 import { isBrowser } from "../utils";
-import { Badge, SupportDonateBlock, TEXT_GRADIENT } from "./common";
+import {
+  Badge,
+  BottomSpacer,
+  SupportDonateBlock,
+  TEXT_GRADIENT,
+} from "./common";
 import {
   CODERS,
   GOLD_SPONSORS,
@@ -166,7 +171,7 @@ const GeneralSponsorCard = () => {
 };
 
 const CryptoBlock = () => (
-  <div className="pb-16">
+  <div>
     <SectionTitle title={"Crypto"} />
     <div className="card card-bordered bg-neutral-900 shadow-xl">
       <div className="card-body p-4">
@@ -268,6 +273,7 @@ export class Donate extends Component<any, any> {
         <ContributorsBlock />
         <SponsorsBlock />
         <CryptoBlock />
+        <BottomSpacer />
       </div>
     );
   }

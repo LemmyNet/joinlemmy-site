@@ -3,6 +3,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { news_md } from "../translations/news";
 import { isBrowser, mdToHtml } from "../utils";
+import { BottomSpacer } from "./common";
 
 const title = i18n.t("news");
 
@@ -34,6 +35,7 @@ export class NewsItem extends Component<any, any> {
             <div dangerouslySetInnerHTML={mdToHtml(this.markdown)} />
           </article>
         </div>
+        <BottomSpacer />
       </div>
     );
   }

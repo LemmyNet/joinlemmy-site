@@ -4,7 +4,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { isBrowser } from "../utils";
 import { news_md } from "../translations/news";
-import { Badge, TEXT_GRADIENT } from "./common";
+import { Badge, BottomSpacer, TEXT_GRADIENT } from "./common";
 import { Icon } from "./icon";
 
 const title = i18n.t("news");
@@ -108,6 +108,7 @@ export class News extends Component<any, any> {
         </Helmet>
         <TitleBlock />
         <NewsCards />
+        <BottomSpacer />
       </div>
     );
   }

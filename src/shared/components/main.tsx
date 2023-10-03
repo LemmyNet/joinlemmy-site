@@ -5,7 +5,7 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { isBrowser } from "../utils";
 import { Icon } from "./icon";
-import { SupportDonateBlock, TEXT_GRADIENT } from "./common";
+import { BottomSpacer, SupportDonateBlock, TEXT_GRADIENT } from "./common";
 
 const TitleBlock = () => (
   <div className="pt-16 flex flex-col items-center">
@@ -378,6 +378,7 @@ export class Main extends Component<any, any> {
         <DiscussionPlatformBlock />
         <MoreFeaturesBlock />
         <SupportDonateBlock />
+        <BottomSpacer />
       </div>
     );
   }

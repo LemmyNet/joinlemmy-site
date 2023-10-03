@@ -1,7 +1,7 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { TEXT_GRADIENT } from "./common";
+import { BottomSpacer, TEXT_GRADIENT } from "./common";
 import { Icon } from "./icon";
 
 const TitleBlock = () => (
@@ -48,6 +48,7 @@ export class Contact extends Component<any, any> {
         </Helmet>
         <TitleBlock />
         <ContactBlock />
+        <BottomSpacer />
       </div>
     );
   }

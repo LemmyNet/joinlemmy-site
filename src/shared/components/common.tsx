@@ -70,3 +70,5 @@ export const SupportDonateBlock = () => (
     </div>
   </div>
 );
+
+export const BottomSpacer = () => <div className="pb-32" />;
