@@ -1,8 +1,8 @@
-import { Component } from "inferno";
+import { Component, InfernoEventHandler } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { instance_stats } from "../instance_stats";
-import { numToSI } from "../utils";
+import { mdToHtml, numToSI } from "../utils";
 import { Badge, TEXT_GRADIENT } from "./common";
 import { INSTANCE_HELPERS } from "./instances-definitions";
 import { Icon } from "./icon";
@@ -72,20 +72,39 @@ interface InstanceCardProps {
   instance: any;
 }
 
+function buildUrl(domain: string): string {
+  return `https://${domain}`;
+}
+
 const InstanceCard = ({ instance }: InstanceCardProps) => {
   const domain = instance.domain;
   const description = instance.site_info.site_view.site.description;
+  const sidebar = instance.site_info.site_view.site.sidebar || description;
   const icon =
     instance.site_info.site_view.site.icon || "/static/assets/images/lemmy.svg";
-
+  const banner = instance.site_info.site_view.site.banner;
   const users = instance.site_info.site_view.counts.users;
   const comments = instance.site_info.site_view.counts.comments;
   const monthlyUsers = instance.site_info.site_view.counts.users_active_month;
+
+  const modalId = `modal_${domain}`;
+
+  // TODO do users / month, posts / month, comments / month instead of totals
 
   return (
     <div className="card card-bordered bg-neutral-900 shadow-xl">
       <div className="card-body p-4">
         <div className="flex flex-row flex-wrap gap-4">
+          <DetailsModal
+            id={modalId}
+            domain={domain}
+            banner={banner}
+            users={users}
+            comments={comments}
+            monthlyUsers={monthlyUsers}
+            icon={icon}
+            sidebar={sidebar}
+          />
           <InstanceIcon icon={icon} />
           <InstanceStats
             users={users}
@@ -98,31 +117,46 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
         <div class="flex flex-row flex-wrap justify-between gap-2">
           <a
             class="btn btn-primary text-white sm:max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E]"
-            href="https://liberapay.com/Lemmy"
+            href={buildUrl(domain)}
           >
             {i18n.t("join_a_server")}
           </a>
-          <a
+          <button
             class="btn btn-secondary btn-outline text-white sm:max-md:btn-block"
-            href="https://www.patreon.com/dessalines"
+            onClick={() =>
+              (document.getElementById(modalId) as any).showModal()
+            }
           >
             {/* TODO add more information */}
             {i18n.t("more_features")}
-          </a>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
+const imgError =
+  "this.onError=null;this.src='/static/assets/images/lemmy.svg';" as unknown as InfernoEventHandler<HTMLImageElement>;
+
 const InstanceIcon = ({ icon }) => (
   <div className="rounded-xl bg-neutral-800 p-4">
-    <img className="w-24 h-24" src={icon} />
+    <img className="w-24 h-24" src={icon} onError={imgError} />
   </div>
 );
 
 const InstanceStats = ({ users, comments, monthlyUsers }) => (
   <div className="flex flex-col flex-wrap justify-between">
+    <StatsBadges
+      users={users}
+      comments={comments}
+      monthlyUsers={monthlyUsers}
+    />
+  </div>
+);
+
+export const StatsBadges = ({ users, comments, monthlyUsers }) => (
+  <>
     <Badge
       content={
         <div className="text-sm text-gray-500">
@@ -151,7 +185,59 @@ const InstanceStats = ({ users, comments, monthlyUsers }) => (
         </div>
       }
     />
-  </div>
+  </>
+);
+
+export const DetailsModal = ({
+  id,
+  domain,
+  icon,
+  banner,
+  users,
+  comments,
+  monthlyUsers,
+  sidebar,
+}) => (
+  <dialog id={id} className="modal">
+    <form method="dialog" className="modal-backdrop">
+      <button>close</button>
+    </form>
+    <div className="modal-box w-10/12 max-w-5xl bg-neutral-900">
+      <form method="dialog">
+        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          ✕
+        </button>
+      </form>
+      {banner && (
+        <img
+          src={banner}
+          className="object-cover w-full h-48 rounded-xl mb-3"
+        />
+      )}
+      <div className="flex flex-row flex-wrap gap-4 mb-3 items-center">
+        {icon && <img className="w-8 h-8" src={icon} onError={imgError} />}
+        <StatsBadges
+          users={users}
+          comments={comments}
+          monthlyUsers={monthlyUsers}
+        />
+        <div className="btn btn-primary btn-outline btn-sm">
+          <a href={buildUrl(domain)}>{i18n.t("join_a_server")}</a>
+        </div>
+      </div>
+      {sidebar && (
+        <article className="prose max-w-none prose-a:text-primary prose-h1:text-primary">
+          <div dangerouslySetInnerHTML={mdToHtml(sidebar)} />
+        </article>
+      )}
+      <a
+        className="btn btn-primary btn-block text-white"
+        href={buildUrl(domain)}
+      >
+        {i18n.t("join_a_server")}
+      </a>
+    </div>
+  </dialog>
 );
 
 function biasedRandom(activeUsers: number, avg: number, max: number): number {
@@ -262,10 +348,7 @@ export class Instances extends Component<any, any> {
                   </div>
                 </header>
                 <div class="is-center">
-                  <img
-                    class="join-banner"
-                    src={icon || "/static/assets/images/lemmy.svg"}
-                  />
+                  <img class="join-banner" src={icon} onError={imgError} />
                 </div>
                 <br />
                 <p class="join-desc">{description}</p>
