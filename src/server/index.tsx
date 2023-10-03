@@ -73,10 +73,8 @@ server.get("/*", async (req, res) => {
 
            <!-- Styles -->
            <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
-           <!-- Current theme and more -->
            ${helmet.link.toString()}
            </head>
-
            <body ${helmet.bodyAttributes.toString()}>
              <div id='root'>${root}</div>
              <script defer src='/static/js/client.js'></script>
