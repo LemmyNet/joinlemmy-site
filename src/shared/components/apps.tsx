@@ -73,8 +73,10 @@ const AppTitle = ({ title }) => <div className="text-2xl mb-3">{title}</div>;
 
 const MobileAppsBlock = () => (
   <div>
-    <AppTitle title={i18n.t("mobile_apps_for_ios_and_android")} />
-    <AppGrid apps={ANDROID_APPS.concat(IOS_APPS)} />
+    <AppTitle title={i18n.t("mobile_apps_for_android")} />
+    <AppGrid apps={ANDROID_APPS} />
+    <AppTitle title={i18n.t("mobile_apps_for_ios")} />
+    <AppGrid apps={IOS_APPS} />
   </div>
 );
 

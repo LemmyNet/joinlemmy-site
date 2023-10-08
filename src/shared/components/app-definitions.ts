@@ -104,6 +104,23 @@ export const IOS_APPS: AppDetails[] = [
   },
   voyagerApp,
   {
+    name: "Lunar",
+    description: "A Lemmy Client for iOS written in Swift and SwiftUI",
+    link: "https://github.com/mani-sh-reddy/Lunar",
+    icon: "/static/assets/images/lunar_logo.webp",
+    banner: "/static/assets/images/lunar_screen.webp",
+    links: [
+      {
+        link: "https://testflight.apple.com/join/GEFCCQTb",
+        icon: "appleinc",
+      },
+      {
+        link: "https://github.com/mani-sh-reddy/Lunar",
+        icon: "github",
+      },
+    ],
+  },
+  {
     name: "Memmy",
     description:
       "A Lemmy Client built in React Native for iOS available on the App Store.",
@@ -117,23 +134,6 @@ export const IOS_APPS: AppDetails[] = [
       },
       {
         link: "https://github.com/Memmy-App/memmy",
-        icon: "github",
-      },
-    ],
-  },
-  {
-    name: "Lunar",
-    description: "A Lemmy Client for iOS written in Swift and SwiftUI",
-    link: "https://github.com/mani-sh-reddy/Lunar",
-    icon: "/static/assets/images/lunar_logo.webp",
-    banner: "/static/assets/images/lunar_screen.webp",
-    links: [
-      {
-        link: "https://testflight.apple.com/join/GEFCCQTb",
-        icon: "appleinc",
-      },
-      {
-        link: "https://github.com/mani-sh-reddy/Lunar",
         icon: "github",
       },
     ],
@@ -154,18 +154,6 @@ export const WEB_APPS: AppDetails[] = [
     ],
   },
   {
-    name: "lemmyBB",
-    description: "A lemmy frontend based on phpBB.",
-    link: "https://github.com/LemmyNet/lemmyBB",
-    banner: "/static/assets/images/lemmybb_2.webp",
-    links: [
-      {
-        link: "https://github.com/LemmyNet/lemmyBB",
-        icon: "github",
-      },
-    ],
-  },
-  {
     name: "Photon",
     description: "A sleek lemmy web UI.",
     link: "https://github.com/Xyphyn/photon",
@@ -174,6 +162,18 @@ export const WEB_APPS: AppDetails[] = [
     links: [
       {
         link: "https://github.com/Xyphyn/photon",
+        icon: "github",
+      },
+    ],
+  },
+  {
+    name: "lemmyBB",
+    description: "A lemmy frontend based on phpBB.",
+    link: "https://github.com/LemmyNet/lemmyBB",
+    banner: "/static/assets/images/lemmybb_2.webp",
+    links: [
+      {
+        link: "https://github.com/LemmyNet/lemmyBB",
         icon: "github",
       },
     ],

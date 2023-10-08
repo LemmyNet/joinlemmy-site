@@ -27,23 +27,23 @@ const TitleBlock = () => (
 
 const CarouselBlock = () => (
   <div>
-    <div className="carousel carousel-center p-4 space-x-4 rounded-box">
-      <div id="item1" className="carousel-item w-10/12">
+    <div className="carousel carousel-center p-8 space-x-8 rounded-box">
+      <div id="item1" className="carousel-item w-9/12">
         <img
-          src={"/static/assets/images/main_screenshot.webp"}
-          className="rounded-box"
+          src={"/static/assets/images/main_screen_2.webp"}
+          className="rounded-box border-8 border-secondary/[.15]"
         />
       </div>
-      <div id="item2" className="carousel-item w-10/12">
+      <div id="item2" className="carousel-item w-9/12">
         <img
-          src={"/static/assets/images/main_screenshot.webp"}
-          className="rounded-box"
+          src={"/static/assets/images/main_screen_3.webp"}
+          className="rounded-box border-8 border-primary/[.15]"
         />
       </div>
-      <div id="item3" className="carousel-item w-10/12">
+      <div id="item3" className="carousel-item w-9/12">
         <img
-          src={"/static/assets/images/main_screenshot.webp"}
-          className="rounded-box"
+          src={"/static/assets/images/main_screen_1.webp"}
+          className="rounded-box border-8 border-secondary/[.15]"
         />
       </div>
     </div>
@@ -100,7 +100,7 @@ const FeatureCard = ({ pic, title, subtitle, classes }) => (
     <figure className="p-4">
       <img src={pic} className="rounded-xl w-full object-fill min-h-[300px]" />
     </figure>
-    <div className="card-body">
+    <div className="card-body pt-0">
       <h2 className="card-title text-secondary">{title}</h2>
       <p className="text-sm text-gray-300">{subtitle}</p>
     </div>
