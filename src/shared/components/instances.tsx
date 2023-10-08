@@ -1,6 +1,7 @@
 import { Component, InfernoEventHandler } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
+import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import { mdToHtml, numToSI } from "../utils";
 import { Badge, TEXT_GRADIENT } from "./common";
@@ -9,9 +10,9 @@ import { Icon } from "./icon";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
-    <p className={`text-4xl ${TEXT_GRADIENT} mb-3`}>
-      {i18n.t("lemmy_servers")}
-    </p>
+    <T i18nKey="lemmy_servers" className="text-4xl font-bold mb-3">
+      #<span className={TEXT_GRADIENT}>#</span>
+    </T>
     <p className="text-xl text-gray-300 text-center max-w-xl">
       {i18n.t("instance_totals", {
         instances: numToSI(instance_stats.stats.crawled_instances),
@@ -89,8 +90,6 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
 
   const modalId = `modal_${domain}`;
 
-  // TODO do users / month, posts / month, comments / month instead of totals
-
   return (
     <div className="card card-bordered bg-neutral-900 shadow-xl">
       <div className="card-body p-4">
@@ -116,19 +115,18 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
         <p className="text-sm text-gray-300 mb-2">{description}</p>
         <div class="flex flex-row flex-wrap justify-between gap-2">
           <a
-            class="btn btn-primary text-white sm:max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E]"
+            class="btn btn-primary text-white sm:max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
             href={buildUrl(domain)}
           >
             {i18n.t("join_a_server")}
           </a>
           <button
-            class="btn btn-secondary btn-outline text-white sm:max-md:btn-block"
+            class="btn btn-secondary btn-outline text-white sm:max-md:btn-block normal-case"
             onClick={() =>
               (document.getElementById(modalId) as any).showModal()
             }
           >
-            {/* TODO add more information */}
-            {i18n.t("more_features")}
+            {i18n.t("more_information")}
           </button>
         </div>
       </div>
@@ -178,7 +176,7 @@ export const StatsBadges = ({ users, comments, monthlyUsers }) => (
         <div className="text-sm text-gray-500">
           <Icon icon="user-check" classes="mr-2" />
           <span>
-            {i18n.t("users_active_per_month", {
+            {i18n.t("per_month", {
               formattedCount: monthlyUsers.toLocaleString(),
             })}
           </span>
@@ -221,8 +219,8 @@ export const DetailsModal = ({
           comments={comments}
           monthlyUsers={monthlyUsers}
         />
-        <div className="btn btn-primary btn-outline btn-sm">
-          <a href={buildUrl(domain)}>{i18n.t("join_a_server")}</a>
+        <div className="btn btn-primary btn-outline btn-sm normal-case">
+          <a href={buildUrl(domain)}>{i18n.t("join")}</a>
         </div>
       </div>
       {sidebar && (
@@ -231,10 +229,10 @@ export const DetailsModal = ({
         </article>
       )}
       <a
-        className="btn btn-primary btn-block text-white"
+        className="btn btn-primary btn-block text-white normal-case"
         href={buildUrl(domain)}
       >
-        {i18n.t("join_a_server")}
+        {i18n.t("join")}
       </a>
     </div>
   </dialog>

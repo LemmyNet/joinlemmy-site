@@ -137,7 +137,10 @@ const GoldSponsorCards = ({ title, sponsors }: GoldSponsorCardsProps) =>
       <p class="text-sm text-gray-300 mb-3">{title}</p>
       <div class="flex flex-row flex-wrap gap-2 mb-2">
         {sponsors.map(s => (
-          <a class="btn btn-primary btn-outline w-32 h-16" href={s.link}>
+          <a
+            class="btn btn-primary btn-outline w-32 h-16 normal-case"
+            href={s.link}
+          >
             <img src={s.avatar} />
           </a>
         ))}

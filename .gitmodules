@@ -5,7 +5,7 @@
 [submodule "joinlemmy-translations"]
 	path = joinlemmy-translations
 	url = https://github.com/lemmynet/joinlemmy-translations
-	branch = main
+	branch = tailwind_rework
 [submodule "lemmy-translations"]
 	path = lemmy-translations
 	url = https://github.com/lemmynet/lemmy-translations

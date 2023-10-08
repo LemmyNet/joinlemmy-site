@@ -6,6 +6,9 @@ import classNames from "classnames";
 export const TEXT_GRADIENT =
   "bg-gradient-to-r bg-clip-text text-transparent from-[#69D066] to-[#03A80E]";
 
+export const CARD_GRADIENT =
+  "bg-gradient-to-r from-[#797979]/[.05] via-[#07B0BA]/[.15] to-[#797979]/[.05]";
+
 export const BACKGROUND_GRADIENT_1 =
   "min-h-full bg-gradient-to-r from-transparent via-[#12D10E]/[.15] to-transparent";
 
@@ -37,29 +40,35 @@ export const DonateDesc = () => (
 export const DonateButtons = () => (
   <div class="flex flex-row flex-wrap justify-between gap-2">
     <a
-      class="btn btn-primary text-white sm:max-md:btn-block"
+      class="btn btn-primary text-white sm:max-md:btn-block normal-case"
       href="https://liberapay.com/Lemmy"
     >
-      {i18n.t("support_on_liberapay")}
+      <T i18nKey="support_on_liberapay">
+        #<span className="font-bold">#</span>
+      </T>
     </a>
     <a
-      class="btn btn-secondary text-white sm:max-md:btn-block"
+      class="btn btn-secondary text-white sm:max-md:btn-block normal-case"
       href="https://www.patreon.com/dessalines"
     >
-      {i18n.t("support_on_patreon")}
+      <T i18nKey="support_on_patreon">
+        #<span className="font-bold">#</span>
+      </T>
     </a>
     <a
-      class="btn btn-primary text-white sm:max-md:btn-block"
+      class="btn btn-primary text-white sm:max-md:btn-block normal-case"
       href="https://opencollective.com/lemmy"
     >
-      {i18n.t("support_on_opencollective")}
+      <T i18nKey="support_on_opencollective">
+        #<span className="font-bold">#</span>
+      </T>
     </a>
   </div>
 );
 
 export const SupportDonateBlock = () => (
   <div className="flex flex-col items-center pt-16">
-    <div className="card card-bordered bg-neutral-800 shadow-xl">
+    <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
       <div className="card-body px-32 py-16">
         <p class={`card-title text-4xl mb-3 ${TEXT_GRADIENT}`}>
           {i18n.t("support_donate")}

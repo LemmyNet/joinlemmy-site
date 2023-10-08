@@ -42,7 +42,7 @@ function previewMarkdown(markdown: string): string {
 }
 
 const TitleBlock = () => (
-  <div className="pt-16 text-center text-4xl mb-8">{title}</div>
+  <div className="pt-16 text-center text-4xl font-bold mb-8">{title}</div>
 );
 
 const NewsCards = () => buildNewsInfoArray().map(n => <NewsCard news={n} />);
@@ -70,7 +70,10 @@ const NewsCard = ({ news }: NewsProps) => (
           </div>
           <div className="text-sm text-gray-300">{news.preview}</div>
         </div>
-        <Link to={news.url} className="md:col-span-2 btn btn-secondary">
+        <Link
+          to={news.url}
+          className="md:col-span-2 btn btn-secondary normal-case"
+        >
           {i18n.t("read_more")}
         </Link>
       </div>

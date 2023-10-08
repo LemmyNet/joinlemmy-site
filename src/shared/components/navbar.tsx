@@ -8,7 +8,7 @@ const NavLink = ({ content }) => <li className="text-gray-400">{content}</li>;
 
 const NavLinks = () => (
   <>
-    <NavLink content={<Link to="/instances">{i18n.t("join_a_server")}</Link>} />
+    <NavLink content={<Link to="/instances">{i18n.t("join")}</Link>} />
     <NavLink content={<Link to="/news">{i18n.t("news")}</Link>} />
     <NavLink content={<Link to="/apps">{i18n.t("apps")}</Link>} />
     <NavLink content={<Link to="/donate">{i18n.t("donate")}</Link>} />
@@ -45,14 +45,14 @@ export const Navbar = ({ footer = false }) => (
     </div>
     <div className="navbar-end">
       {footer ? (
-        <a className="text-sm text-gray-600 TODO sm:max-lg:hidden">
-          @c Lemmy -2023. All Rights Reserved.
+        <a className="text-sm text-gray-600 sm:max-lg:hidden">
+          {i18n.t("copyright_line")}
         </a>
       ) : (
         <>
           <select
             onChange={linkEvent(this, handleLanguageChange)}
-            class="select select-ghost select-bordered text-gray-400"
+            class="select select-sm select-ghost select-bordered text-gray-400"
           >
             {languageList().map((language, i) => (
               <option

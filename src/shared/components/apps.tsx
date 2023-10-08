@@ -1,6 +1,7 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
+import { T } from "inferno-i18next";
 import { BottomSpacer, TEXT_GRADIENT } from "./common";
 import {
   ANDROID_APPS,
@@ -15,7 +16,9 @@ import { Icon } from "./icon";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-8">
-    <p className={`text-4xl ${TEXT_GRADIENT} mb-3`}>{i18n.t("lemmy_apps")}</p>
+    <T i18nKey="lemmy_apps" className="text-4xl font-bold mb-3">
+      #<span className={TEXT_GRADIENT}>#</span>
+    </T>
     <p className="text-2xl text-gray-300 text-center">
       {i18n.t("choose_from_apps")}
     </p>
@@ -45,7 +48,7 @@ interface AppDetailsButtonsProps {
 const AppDetailsButtons = ({ links }: AppDetailsButtonsProps) => (
   <div class="flex flex-row justify-between gap-2">
     {links.map(l => (
-      <a class="btn btn-sm btn-primary text-white" href={l.link}>
+      <a class="btn btn-sm btn-primary text-white normal-case" href={l.link}>
         <Icon icon={l.icon} />
       </a>
     ))}

@@ -1,23 +1,12 @@
 {
-  "en": [
-    "sopuli.xyz",
-    "sh.itjust.works",
-    "lemmy.fmhy.ml",
-    "discuss.tchncs.de",
+  "recommended": [
+    "lemmy.ml",
     "lemm.ee",
+    "lemmygrad.ml",
     "reddthat.com",
-    "discuss.online"
+    "hexbear.net",
+    "lemmy.fmhy.ml"
   ],
-  "fr": ["sh.itjust.works"],
-  "da": ["feddit.dk"],
-  "de": ["feddit.de", "discuss.tchncs.de"],
-  "nl": ["feddit.nl"],
-  "pt": ["lemmy.pt"],
-  "pt-PT": ["lemmy.pt"],
-  "pt-BR": ["lemmy.pt"],
-  "eu": ["lemmy.eus"],
-  "ja": ["tabinezumi.net", "lm.korako.me"],
-  "it": ["feddit.it"],
   "exclude": [
     "lemmy.glasgow.social",
     "ds9.lemmy.ml",

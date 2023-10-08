@@ -5,11 +5,16 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { isBrowser } from "../utils";
 import { Icon } from "./icon";
-import { BottomSpacer, SupportDonateBlock, TEXT_GRADIENT } from "./common";
+import {
+  BottomSpacer,
+  CARD_GRADIENT,
+  SupportDonateBlock,
+  TEXT_GRADIENT,
+} from "./common";
 
 const TitleBlock = () => (
-  <div className="pt-16 flex flex-col items-center">
-    <div className="flex flex-col items-center mb-2">
+  <div className="py-16 flex flex-col items-center">
+    <div className="flex flex-col items-center gap-4 mb-8">
       <p className={`text-6xl font-bold ${TEXT_GRADIENT}`}>Lemmy</p>
       <p className="text-3xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
     </div>
@@ -20,15 +25,51 @@ const TitleBlock = () => (
   </div>
 );
 
+const CarouselBlock = () => (
+  <div>
+    <div className="carousel carousel-center p-4 space-x-4 rounded-box">
+      <div id="item1" className="carousel-item w-10/12">
+        <img
+          src={"/static/assets/images/main_screenshot.webp"}
+          className="rounded-box"
+        />
+      </div>
+      <div id="item2" className="carousel-item w-10/12">
+        <img
+          src={"/static/assets/images/main_screenshot.webp"}
+          className="rounded-box"
+        />
+      </div>
+      <div id="item3" className="carousel-item w-10/12">
+        <img
+          src={"/static/assets/images/main_screenshot.webp"}
+          className="rounded-box"
+        />
+      </div>
+    </div>
+    <div className="flex justify-center w-full py-2 gap-4">
+      <a href="#item1" className={TEXT_GRADIENT}>
+        ●
+      </a>
+      <a href="#item2" className={TEXT_GRADIENT}>
+        ●
+      </a>
+      <a href="#item3" className={TEXT_GRADIENT}>
+        ●
+      </a>
+    </div>
+  </div>
+);
+
 const JoinServerButton = () => (
-  <Link className="btn btn-primary text-white" to="/instances">
+  <Link className="btn btn-primary text-white normal-case" to="/instances">
     {i18n.t("join_a_server")}
   </Link>
 );
 
 const RunServerButton = () => (
   <a
-    class="btn btn-secondary text-white"
+    class="btn btn-secondary text-white normal-case"
     href={`/docs/administration/administration.html`}
   >
     {i18n.t("run_a_server")}
@@ -37,11 +78,14 @@ const RunServerButton = () => (
 
 const FollowCommunitiesBlock = () => (
   <div className="flex flex-col items-center mt-16">
-    <div className="card card-bordered bg-neutral-800 shadow-xl">
+    <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
       <div className="card-body items-center px-32 py-16">
-        <p class="card-title text-4xl text-center mb-3">
-          {i18n.t("follow_communities")}
-        </p>
+        <T
+          i18nKey="follow_communities"
+          className="card-title font-bold text-4xl text-center mb-3 inline-block"
+        >
+          #<span className={TEXT_GRADIENT}>#</span>
+        </T>
         <p class="text-sm text-gray-300 text-center mb-6">
           {i18n.t("lemmy_long_desc")}
         </p>
@@ -51,10 +95,10 @@ const FollowCommunitiesBlock = () => (
   </div>
 );
 
-const FeatureCard = ({ pic, title, subtitle }) => (
-  <div className="card card-bordered bg-neutral-800 shadow-xl">
-    <figure className="px-10 pt-10">
-      <img src={pic} className="rounded-xl" />
+const FeatureCard = ({ pic, title, subtitle, classes }) => (
+  <div className={`card card-bordered bg-neutral-800 shadow-xl ${classes}`}>
+    <figure className="p-4">
+      <img src={pic} className="rounded-xl w-full object-fill min-h-[300px]" />
     </figure>
     <div className="card-body">
       <h2 className="card-title text-secondary">{title}</h2>
@@ -63,9 +107,10 @@ const FeatureCard = ({ pic, title, subtitle }) => (
   </div>
 );
 
-const OpenSourceCard = () => (
+const OpenSourceCard = ({ classes }) => (
   <FeatureCard
-    pic={"/static/assets/images/review_pic.webp"}
+    classes={classes}
+    pic={"/static/assets/images/main_open_source.webp"}
     title={i18n.t("open_source")}
     subtitle={
       <T i18nKey="open_source_desc">
@@ -87,9 +132,10 @@ const OpenSourceCard = () => (
   />
 );
 
-const BlazingFastCard = () => (
+const BlazingFastCard = ({ classes }) => (
   <FeatureCard
-    pic={"/static/assets/images/code_pic.webp"}
+    classes={classes}
+    pic={"/static/assets/images/main_blazing_fast.webp"}
     title={i18n.t("blazing_fast")}
     subtitle={
       <T i18nKey="blazing_fast_desc">
@@ -114,33 +160,40 @@ const BlazingFastCard = () => (
   />
 );
 
-const ModToolsCard = () => (
+const ModToolsCard = ({ classes }) => (
   <FeatureCard
-    pic={"/static/assets/images/mod_pic.webp"}
+    classes={classes}
+    pic={"/static/assets/images/main_powerful.webp"}
     title={i18n.t("mod_tools")}
     subtitle={i18n.t("mod_tools_desc")}
   />
 );
 
+const CensorshipCard = ({ classes }) => (
+  <FeatureCard
+    classes={classes}
+    pic={"/static/assets/images/main_censorship.webp"}
+    title={i18n.t("censorship_resistant")}
+    subtitle={i18n.t("censorship_resistant_desc")}
+  />
+);
+
+const FederationCard = ({ classes }) => (
+  <FeatureCard
+    classes={classes}
+    pic={"/static/assets/images/main_federation.webp"}
+    title={i18n.t("federation")}
+    subtitle={i18n.t("federation_desc")}
+  />
+);
+
 const FeatureCardsBlock = () => (
   <div className="grid md:grid-cols-12 grid-cols-1 gap-4 mt-16">
-    <div className="md:col-span-7">
-      <OpenSourceCard />
-    </div>
-    <div className="md:col-span-5">
-      <BlazingFastCard />
-    </div>
-    <div className="md:col-span-4">
-      <ModToolsCard />
-    </div>
-    {/* TODO Add censorship and other cards */}
-
-    <div className="md:col-span-4">
-      <ModToolsCard />
-    </div>
-    <div className="md:col-span-4">
-      <ModToolsCard />
-    </div>
+    <OpenSourceCard classes="md:col-span-7" />
+    <BlazingFastCard classes="md:col-span-5" />
+    <ModToolsCard classes="md:col-span-4" />
+    <CensorshipCard classes="md:col-span-4" />
+    <FederationCard classes="md:col-span-4" />
   </div>
 );
 
@@ -148,39 +201,41 @@ const DiscussionPlatformBlock = () => (
   <div className="flex flex-col items-center mt-16">
     <div className="card card-bordered bg-gradient-to-r text-transparent from-primary to-secondary shadow-xl">
       <div className="card-body items-center px-32 py-16">
-        <p class="card-title text-4xl text-center text-white mb-3">
-          {i18n.t("create_discussion_platform")}
-        </p>
-        <p class="text-sm text-white text-center mb-6">
-          <T i18nKey="create_discussion_platform_desc">
+        <T
+          i18nKey="create_discussion_platform"
+          className="card-title font-medium text-4xl text-center text-white mb-3 inline-block"
+        >
+          #<span className="font-bold">#</span>
+        </T>
+        <T
+          i18nKey="create_discussion_platform_desc"
+          className="text-sm text-white text-center mb-6"
+        >
+          #
+          <a className="link" href={`/docs/administration/administration.html`}>
             #
-            <a
-              className="link"
-              href={`/docs/administration/administration.html`}
-            >
-              #
-            </a>
-            <i>#</i>
-            <a className="link" href="https://en.wikipedia.org/wiki/Fediverse">
-              #
-            </a>
-          </T>
-        </p>
-        <Link className="btn btn-primary bg-white" to="/instances">
-          <div className="text-primary">{i18n.t("join_a_server")}</div>
+          </a>
+          <i>#</i>
+          <a className="link" href="https://en.wikipedia.org/wiki/Fediverse">
+            #
+          </a>
+        </T>
+        <Link
+          className="btn btn-primary bg-white text-primary normal-case"
+          to="/instances"
+        >
+          {i18n.t("join_a_server")}
         </Link>
       </div>
     </div>
   </div>
 );
 
-// TODO more FEATURES(needs to be green)
-// TODO add all of these ones
 const MoreFeaturesBlock = () => (
   <div className="mt-16">
-    <div className={`text-center text-4xl mb-8 ${TEXT_GRADIENT}`}>
-      {i18n.t("more_features")}
-    </div>
+    <T i18nKey="more_features" className={`text-center text-4xl mb-8`}>
+      #<span className={TEXT_GRADIENT}>#</span>
+    </T>
     <div className="grid md:grid-cols-5 grid-cols-1 gap-4">
       <MoreFeaturesCard
         icons={<Icon icon="embed" />}
@@ -343,7 +398,7 @@ const MoreFeaturesBlock = () => (
             <Icon icon="eye-off" />
           </div>
         }
-        text={"TODO Censorship resistant"}
+        text={i18n.t("censorship_resistant_desc")}
       />
     </div>
   </div>
@@ -372,17 +427,22 @@ export class Main extends Component<any, any> {
   render() {
     const title = i18n.t("lemmy_title");
     return (
-      <div className="container mx-auto bg-blue">
+      <div>
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
-        <TitleBlock />
-        <FollowCommunitiesBlock />
-        <FeatureCardsBlock />
-        <DiscussionPlatformBlock />
-        <MoreFeaturesBlock />
-        <SupportDonateBlock />
-        <BottomSpacer />
+        <div className="container mx-auto">
+          <TitleBlock />
+        </div>
+        <CarouselBlock />
+        <div className="container mx-auto">
+          <FollowCommunitiesBlock />
+          <FeatureCardsBlock />
+          <DiscussionPlatformBlock />
+          <MoreFeaturesBlock />
+          <SupportDonateBlock />
+          <BottomSpacer />
+        </div>
       </div>
     );
   }
