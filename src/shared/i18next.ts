@@ -25,7 +25,7 @@ import { pt_BR } from "./translations/pt_BR";
 import { ru } from "./translations/ru";
 import { zh } from "./translations/zh";
 
-export const languages = [
+export const LANGUAGES = [
   { resource: bg, code: "bg", name: "Български" },
   { resource: da, code: "da", name: "Dansk" },
   { resource: de, code: "de", name: "Deutsch" },
@@ -52,7 +52,7 @@ export const languages = [
 ];
 
 const resources: Resource = {};
-languages.forEach(l => (resources[l.code] = l.resource));
+LANGUAGES.forEach(l => (resources[l.code] = l.resource));
 
 function format(value: any, format: any): any {
   return format === "uppercase" ? value.toUpperCase() : value;

@@ -1,8 +1,9 @@
 import { ChangeEvent, linkEvent } from "inferno";
 import { Link } from "inferno-router";
 import { Icon, IconSize } from "./icon";
-import { i18n, languages } from "../i18next";
+import { i18n, LANGUAGES } from "../i18next";
 import classNames from "classnames";
+import { SELECT_CLASSES, languageList } from "./common";
 
 const NavLink = ({ content }) => <li className="text-gray-400">{content}</li>;
 
@@ -16,10 +17,6 @@ const NavLinks = () => (
     <NavLink content={<Link to="/contact">{i18n.t("contact")}</Link>} />
   </>
 );
-
-function languageList() {
-  return Object.keys(i18n.services.resourceStore.data).sort();
-}
 
 function handleLanguageChange(_: any, event: ChangeEvent<HTMLSelectElement>) {
   location.href = `/?lang=${event.target.value}`;
@@ -52,7 +49,7 @@ export const Navbar = ({ footer = false }) => (
         <>
           <select
             onChange={linkEvent(this, handleLanguageChange)}
-            class="select select-sm select-ghost select-bordered text-gray-400"
+            className={SELECT_CLASSES}
           >
             {languageList().map((language, i) => (
               <option
@@ -60,7 +57,7 @@ export const Navbar = ({ footer = false }) => (
                 value={language}
                 selected={i18n.language.startsWith(language)}
               >
-                {languages.find(l => l.code.startsWith(language)).name}
+                {LANGUAGES.find(l => l.code.startsWith(language)).name}
               </option>
             ))}
           </select>

@@ -15,6 +15,13 @@ export const BACKGROUND_GRADIENT_1 =
 export const BACKGROUND_GRADIENT_2 =
   "min-h-full bg-gradient-to-b from-transparent to-black/[.30] to-20%";
 
+export const SELECT_CLASSES =
+  "select select-sm select-ghost select-bordered text-gray-400";
+
+export function languageList() {
+  return Object.keys(i18n.services.resourceStore.data).sort();
+}
+
 export const Badge = ({ content, outline = false }) => (
   <div
     className={classNames("p-2 rounded-xl bg-neutral-800 text-gray-300 w-fit", {

@@ -1,11 +1,17 @@
-import { Component, InfernoEventHandler } from "inferno";
+import { Component, InfernoEventHandler, linkEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
-import { i18n } from "../i18next";
+import { i18n, LANGUAGES } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import { mdToHtml, numToSI } from "../utils";
-import { Badge, TEXT_GRADIENT } from "./common";
-import { INSTANCE_HELPERS } from "./instances-definitions";
+import { Badge, SELECT_CLASSES, TEXT_GRADIENT, languageList } from "./common";
+import {
+  INSTANCE_HELPERS,
+  Category,
+  RECOMMENDED_INSTANCES,
+  All_CATEGORY,
+  CATEGORIES,
+} from "./instances-definitions";
 import { Icon } from "./icon";
 
 const TitleBlock = () => (
@@ -58,14 +64,14 @@ interface InstanceCardGridProps {
   instances: any[];
 }
 
-const InstanceCardGrid = ({ title, instances }: InstanceCardGridProps) => (
-  <div className="my-16">
-    <SectionTitle title={title} />
-    <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
-      {instances.map(i => (
-        <InstanceCard instance={i} />
-      ))}
-    </div>
+// TODO create the instance picker helper
+
+// - Language, Categories, and Sort Order (active, random)
+const InstanceCardGrid = ({ instances }: InstanceCardGridProps) => (
+  <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+    {instances.map(i => (
+      <InstanceCard instance={i} />
+    ))}
   </div>
 );
 
@@ -238,77 +244,98 @@ export const DetailsModal = ({
   </dialog>
 );
 
-function biasedRandom(activeUsers: number, avg: number, max: number): number {
-  // Lets introduce a better bias to random shuffle instances list
-  const influence = 1.25;
-  const rnd = Math.random() * (max / influence) + activeUsers;
-  const mix = Math.random() * influence;
-  return rnd * (1 - mix) + avg * mix;
+interface Sort {
+  name: string;
+  icon: string;
 }
 
-function average(arr: number[]): number {
-  return arr.reduce((a, b) => a + b, 0) / arr.length;
-}
+const RANDOM_SORT: Sort = {
+  name: "random",
+  icon: "TBD",
+};
 
-interface InstanceList {
-  recommended: any[];
-  popular: any[];
-}
+const MOST_ACTIVE_SORT: Sort = {
+  name: "most_active",
+  icon: "TBD",
+};
 
-function buildInstanceList(): InstanceList {
-  const recommendedList =
-    instance_stats.recommended[i18n.language] ??
-    instance_stats.recommended["en"];
+const LEAST_ACTIVE_SORT: Sort = {
+  name: "least_active",
+  icon: "TBD",
+};
 
-  let recommended = [];
-  let popular = [];
-  let usersActiveMonth = [];
+const SORTS: Sort[] = [RANDOM_SORT, MOST_ACTIVE_SORT, LEAST_ACTIVE_SORT];
 
-  // Loop over all the instances, and add them to the two lists
-  for (const i of instance_stats.stats.instance_details) {
-    if (recommendedList.indexOf(i.domain) > -1) {
-      recommended.push(i);
-    } else {
-      popular.push(i);
-    }
-
-    usersActiveMonth.push(i.site_info.site_view.counts.users_active_month);
-  }
-
-  // Use these values for the shuffle
-  const avgMonthlyUsers = average(usersActiveMonth);
-  const maxMonthlyUsers = Math.max(...usersActiveMonth);
-
-  // Randomize the recommended
-  recommended = recommended
+function sortRandom(instances: any[]): any[] {
+  return instances
     .map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
-
-  // BIASED sorting for instances, based on the min/max of users_active_month
-  popular = popular
-    .map(i => ({
-      instance: i,
-      sort: biasedRandom(
-        i.site_info.site_view.counts.users_active_month,
-        avgMonthlyUsers,
-        maxMonthlyUsers,
-      ),
-    }))
-    .sort((a, b) => b.sort - a.sort)
-    .map(({ instance }) => instance);
-
-  return { recommended, popular };
 }
 
-export class Instances extends Component<any, any> {
+function sortActive(instances: any[]): any[] {
+  return instances.sort(
+    (a, b) =>
+      b.site_info.site_view.counts.users_active_month -
+      a.site_info.site_view.counts.users_active_month,
+  );
+}
+
+interface State {
+  sort: Sort;
+  language: string;
+  category: Category;
+}
+
+export class Instances extends Component<any, State> {
+  state: State = {
+    sort: SORTS[0],
+    language: i18n.language.split("-")[0],
+    category: All_CATEGORY,
+  };
+
   constructor(props: any, context: any) {
     super(props, context);
   }
 
+  buildInstanceList(): any[] {
+    let instances = instance_stats.stats.instance_details;
+    const recommended = RECOMMENDED_INSTANCES;
+
+    // Language Filter
+    if (this.state.language !== "all") {
+      const languageRecs = recommended.filter(r =>
+        r.languages.includes(this.state.language),
+      );
+      instances = instances.filter(i =>
+        languageRecs.map(r => r.domain).includes(i.domain),
+      );
+    }
+
+    // Category filter
+    if (this.state.category !== All_CATEGORY) {
+      const categoryRecs = recommended.filter(r =>
+        r.categories.includes(this.state.category),
+      );
+      instances = instances.filter(i =>
+        categoryRecs.map(c => c.domain).includes(i.domain),
+      );
+    }
+
+    // Sort
+    if (this.state.sort == SORTS[0]) {
+      instances = sortRandom(instances);
+    } else if (this.state.sort == SORTS[1]) {
+      instances = sortActive(instances);
+    } else {
+      instances = sortActive(instances).reverse();
+    }
+
+    return instances;
+  }
+
   render() {
     const title = i18n.t("join_title");
-    const instances = buildInstanceList();
 
     return (
       <div className="container mx-auto">
@@ -317,49 +344,84 @@ export class Instances extends Component<any, any> {
         </Helmet>
         <TitleBlock />
         <ComparisonBlock />
-        <InstanceCardGrid
-          title={i18n.t("recommended_instances")}
-          instances={instances.recommended}
-        />
+        {this.filterAndTitleBlock()}
         <InstanceCardGrid
           title={i18n.t("popular_instances")}
-          instances={instances.popular}
+          instances={this.buildInstanceList()}
         />
       </div>
     );
   }
 
-  renderList(header: string, instances: any[]) {
+  // TODO i18n these
+  filterAndTitleBlock() {
     return (
-      <div>
-        <h2>{header}</h2>
-        <div class="row">
-          {instances.map(instance => {
-            let domain = instance.domain;
-            let description = instance.site_info.site_view.site.description;
-            let icon = instance.site_info.site_view.site.icon;
-            return (
-              <div class="card col-6">
-                <header>
-                  <div class="row">
-                    <h4 class="col">{domain}</h4>
-                  </div>
-                </header>
-                <div class="is-center">
-                  <img class="join-banner" src={icon} onError={imgError} />
-                </div>
-                <br />
-                <p class="join-desc">{description}</p>
-                <footer>
-                  <a class="button primary" href={`https://${domain}`}>
-                    {i18n.t("browse_instance")}
-                  </a>
-                </footer>
-              </div>
-            );
-          })}
+      <div className="my-16">
+        <div className="flex flex-row flex-wrap gap-4">
+          <div className="flex-none">
+            <SectionTitle title={i18n.t("join_title")} />
+          </div>
+          <div className="grow"></div>
+          <div className="flex-none">
+            <select
+              className={`${SELECT_CLASSES} mr-2`}
+              value={this.state.category.name}
+              onChange={linkEvent(this, handleCategoryChange)}
+              name="category_select"
+            >
+              <option disabled selected>
+                Category
+              </option>
+              {CATEGORIES.map(c => (
+                <option key={c.name} value={c.name}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={this.state.language}
+              onChange={linkEvent(this, handleLanguageChange)}
+              className={`${SELECT_CLASSES} mr-2`}
+            >
+              <option disabled>Languages</option>
+              <option key="all" value="all">
+                all
+              </option>
+              {languageList().map((language, i) => (
+                <option key={i} value={language}>
+                  {LANGUAGES.find(l => l.code.startsWith(language)).name}
+                </option>
+              ))}
+            </select>
+            <select
+              value={this.state.sort.name}
+              name="sort_select"
+              className={SELECT_CLASSES}
+              onChange={linkEvent(this, handleSortChange)}
+            >
+              <option disabled>Sort TODO</option>
+              {SORTS.map(s => (
+                <option key={s.name} value={s.name}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     );
   }
+}
+
+function handleSortChange(i: Instances, event: any) {
+  i.setState({ sort: SORTS.find(s => s.name == event.target.value) });
+}
+
+function handleCategoryChange(i: Instances, event: any) {
+  i.setState({ category: CATEGORIES.find(c => c.name == event.target.value) });
+}
+
+function handleLanguageChange(i: Instances, event: any) {
+  i.setState({ language: event.target.value });
 }

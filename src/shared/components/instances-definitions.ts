@@ -31,99 +31,121 @@ export const INSTANCE_HELPERS: InstanceHelper[] = [
 ];
 
 // TODO add i18n strings, Icons
-export enum InstanceCategory {
-  Tech,
-  Sports,
+// DO this as an interface and const list
+
+export interface Category {
+  name: string;
+  icon: string;
 }
+
+export const All_CATEGORY: Category = {
+  name: "all",
+  icon: "TBD",
+};
+
+export const SPORTS: Category = {
+  name: "sports",
+  icon: "TBD",
+};
+
+export const TECH: Category = {
+  name: "tech",
+  icon: "TBD",
+};
+
+export const CATEGORIES: Category[] = [All_CATEGORY, TECH, SPORTS];
 
 export interface RecommendedInstance {
   domain: string;
   languages: string[];
-  categories: InstanceCategory[];
+  categories: Category[];
 }
 
 // TODO fix these up
 export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
+    domain: "lemmy.ml",
+    languages: ["en"],
+    categories: [TECH],
+  },
+  {
+    domain: "lemmy.world",
+    languages: ["en"],
+    categories: [TECH],
+  },
+  {
     domain: "lemmy.fmhy.ml",
     languages: ["en"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
   {
     domain: "discuss.tchncs.de",
     languages: ["en"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
   {
     domain: "lemm.ee",
     languages: ["en"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
   {
     domain: "reddthat.com",
     languages: ["en"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
   {
     domain: "discuss.online",
     languages: ["en"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
   {
     domain: "feddit.dk",
     languages: ["da"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
   {
     domain: "feddit.de",
     languages: ["de"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
-
   {
     domain: "discuss.tchncs.de",
     languages: ["de"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
   {
     domain: "feddit.nl",
     languages: ["nl"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
 
   {
     domain: "lemmy.pt",
-    languages: ["pt", "pt-PT", "pt-BR"],
-    categories: [InstanceCategory.Tech],
-  },
-
-  {
-    domain: "lemmy.pt",
-    languages: ["pt", "pt-PT", "pt-BR"],
-    categories: [InstanceCategory.Tech],
+    languages: ["pt"],
+    categories: [TECH],
   },
 
   {
     domain: "lemmy.eus",
     languages: ["eu"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
 
   {
     domain: "tabinezumi.net",
     languages: ["ja"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
 
   {
     domain: "lm.korako.me",
     languages: ["ja"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
 
   {
     domain: "feddit.it",
     languages: ["it"],
-    categories: [InstanceCategory.Tech],
+    categories: [TECH],
   },
 ];
