@@ -3,8 +3,8 @@ import { Helmet } from "inferno-helmet";
 import { i18n, LANGUAGES } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
-import { mdToHtml, numToSI } from "../utils";
-import { Badge, SELECT_CLASSES, TEXT_GRADIENT, languageList } from "./common";
+import { languageList, mdToHtml, numToSI } from "../utils";
+import { Badge, SELECT_CLASSES, TEXT_GRADIENT } from "./common";
 import {
   INSTANCE_HELPERS,
   Category,

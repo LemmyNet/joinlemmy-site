@@ -1,4 +1,5 @@
 import markdown_it from "markdown-it";
+import { i18n } from "./i18next";
 
 let SHORTNUM_SI_FORMAT = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
@@ -23,4 +24,8 @@ export const md = new markdown_it({
 
 export function mdToHtml(text: string) {
   return { __html: md.render(text) };
+}
+
+export function languageList() {
+  return Object.keys(i18n.services.resourceStore.data).sort();
 }

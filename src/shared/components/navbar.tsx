@@ -3,7 +3,8 @@ import { Link } from "inferno-router";
 import { Icon, IconSize } from "./icon";
 import { i18n, LANGUAGES } from "../i18next";
 import classNames from "classnames";
-import { SELECT_CLASSES, languageList } from "./common";
+import { SELECT_CLASSES } from "./common";
+import { languageList } from "../utils";
 
 const NavLink = ({ content }) => <li className="text-gray-400">{content}</li>;
 

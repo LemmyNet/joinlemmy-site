@@ -1,5 +1,5 @@
 {
-  "recommended": [
+  "start_scan_instances": [
     "lemmy.ml",
     "lemm.ee",
     "lemmy.world",
@@ -8,6 +8,8 @@
     "reddthat.com",
     "hexbear.net",
     "lemmy.fmhy.ml"
+    "discuss.online",
+    "lemmings.world",
   ],
   "exclude": [
     "lemmy.glasgow.social",
@@ -18,6 +20,7 @@
     "burggit.moe",
     "lemmy.burger.rodeo",
     "bakchodi.org",
-    "lemmy.comfysnug.space"
+    "lemmy.comfysnug.space",
+    "rqd2.net"
   ]
 }

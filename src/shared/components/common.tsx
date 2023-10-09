@@ -18,10 +18,6 @@ export const BACKGROUND_GRADIENT_2 =
 export const SELECT_CLASSES =
   "select select-sm select-ghost select-bordered text-gray-400";
 
-export function languageList() {
-  return Object.keys(i18n.services.resourceStore.data).sort();
-}
-
 export const Badge = ({ content, outline = false }) => (
   <div
     className={classNames("p-2 rounded-xl bg-neutral-800 text-gray-300 w-fit", {
