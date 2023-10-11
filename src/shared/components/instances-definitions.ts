@@ -30,8 +30,6 @@ export const INSTANCE_HELPERS: InstanceHelper[] = [
   },
 ];
 
-// TODO add i18n strings, Icons
-// DO this as an interface and const list
 export interface Topic {
   name: string;
   icon: string;
@@ -39,20 +37,78 @@ export interface Topic {
 
 export const All_TOPIC: Topic = {
   name: "all_topics",
-  icon: "TBD",
+  icon: "folder",
 };
 
-export const SPORTS: Topic = {
+const GENERAL: Topic = {
+  name: "general",
+  icon: "box",
+};
+
+const TECHNOLOGY: Topic = {
+  name: "technology",
+  icon: "smartphone",
+};
+
+const POLITICS: Topic = {
+  name: "politics",
+  icon: "hammer2",
+};
+
+const RELIGION: Topic = {
+  name: "religion",
+  icon: "david-star",
+};
+
+const LGBTQ: Topic = {
+  name: "lgbtq",
+  icon: "transgender-alt",
+};
+
+const ART: Topic = {
+  name: "art",
+  icon: "edit",
+};
+
+const LITERATURE: Topic = {
+  name: "literature",
+  icon: "book",
+};
+
+const MUSIC: Topic = {
+  name: "music",
+  icon: "music",
+};
+
+const HOBBIES: Topic = {
+  name: "hobbies",
+  icon: "home",
+};
+
+const GAMING: Topic = {
+  name: "gaming",
+  icon: "videogame_asset",
+};
+
+const SPORTS: Topic = {
   name: "sports",
-  icon: "TBD",
+  icon: "futbol-o",
 };
 
-export const TECH: Topic = {
-  name: "tech",
-  icon: "TBD",
-};
-
-export const TOPICS: Topic[] = [All_TOPIC, TECH, SPORTS];
+export const TOPICS: Topic[] = [
+  All_TOPIC,
+  GENERAL,
+  TECHNOLOGY,
+  POLITICS,
+  RELIGION,
+  LGBTQ,
+  ART,
+  LITERATURE,
+  MUSIC,
+  HOBBIES,
+  GAMING,
+  SPORTS,
+];
 
 export interface RecommendedInstance {
   domain: string;
@@ -65,86 +121,86 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "lemmy.ml",
     languages: ["en"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "lemmy.world",
     languages: ["en"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "lemmy.fmhy.ml",
     languages: ["en"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "discuss.tchncs.de",
     languages: ["en"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "lemm.ee",
     languages: ["en"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "reddthat.com",
     languages: ["en"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "discuss.online",
     languages: ["en"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "feddit.dk",
     languages: ["da"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "feddit.de",
     languages: ["de"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "discuss.tchncs.de",
     languages: ["de"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
   {
     domain: "feddit.nl",
     languages: ["nl"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
 
   {
     domain: "lemmy.pt",
     languages: ["pt"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
 
   {
     domain: "lemmy.eus",
     languages: ["eu"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
 
   {
     domain: "tabinezumi.net",
     languages: ["ja"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
 
   {
     domain: "lm.korako.me",
     languages: ["ja"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
 
   {
     domain: "feddit.it",
     languages: ["it"],
-    topics: [TECH],
+    topics: [TECHNOLOGY],
   },
 ];
