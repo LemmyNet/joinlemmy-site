@@ -11,6 +11,7 @@ import {
   SupportDonateBlock,
   TEXT_GRADIENT,
 } from "./common";
+import { InstancePicker } from "./instance-picker";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -18,9 +19,9 @@ const TitleBlock = () => (
       <p className={`text-6xl font-bold ${TEXT_GRADIENT}`}>Lemmy</p>
       <p className="text-3xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
     </div>
-    <div className="flex flex-row justify-around gap-2">
+    <div className="flex flex-row justify-around gap-4">
       <JoinServerButton />
-      <RunServerButton />
+      <SeeAllServersButton />
     </div>
   </div>
 );
@@ -62,18 +63,18 @@ const CarouselBlock = () => (
 );
 
 const JoinServerButton = () => (
-  <Link className="btn btn-primary text-white normal-case" to="/instances">
+  <button
+    className="btn btn-primary text-white normal-case"
+    onClick={() => (document.getElementById("picker") as any).showModal()}
+  >
     {i18n.t("join_a_server")}
-  </Link>
+  </button>
 );
 
-const RunServerButton = () => (
-  <a
-    class="btn btn-secondary text-white normal-case"
-    href={`/docs/administration/administration.html`}
-  >
-    {i18n.t("run_a_server")}
-  </a>
+const SeeAllServersButton = () => (
+  <Link to="/instances" className="btn btn-secondary text-white normal-case">
+    {i18n.t("see_all_servers")}
+  </Link>
 );
 
 const FollowCommunitiesBlock = () => (
@@ -86,7 +87,7 @@ const FollowCommunitiesBlock = () => (
         >
           #<span className={TEXT_GRADIENT}>#</span>
         </T>
-        <p class="text-sm text-gray-300 text-center mb-6">
+        <p className="text-sm text-gray-300 text-center mb-6">
           {i18n.t("lemmy_long_desc")}
         </p>
         <JoinServerButton />
@@ -220,12 +221,12 @@ const DiscussionPlatformBlock = () => (
             #
           </a>
         </T>
-        <Link
+        <a
           className="btn btn-primary bg-white text-primary normal-case"
-          to="/instances"
+          href={`/docs/administration/administration.html`}
         >
-          {i18n.t("join_a_server")}
-        </Link>
+          {i18n.t("run_a_server")}
+        </a>
       </div>
     </div>
   </div>
@@ -272,7 +273,7 @@ const MoreFeaturesBlock = () => (
           </div>
         }
         text={
-          <Link class="link link-primary" to="/apps">
+          <Link className="link link-primary" to="/apps">
             {i18n.t("mobile_apps_for_ios_and_android")}
           </Link>
         }
@@ -293,7 +294,7 @@ const MoreFeaturesBlock = () => (
         }
         text={
           <T i18nKey="full_vote_scores">
-            #<code class="text-primary">#</code>#
+            #<code className="text-primary">#</code>#
           </T>
         }
       />
@@ -309,7 +310,7 @@ const MoreFeaturesBlock = () => (
         icons={<div>:</div>}
         text={
           <T i18nKey="emojis_autocomplete">
-            #<code class="text-primary">#</code>
+            #<code className="text-primary">#</code>
           </T>
         }
       />
@@ -321,8 +322,8 @@ const MoreFeaturesBlock = () => (
         }
         text={
           <T i18nKey="user_tagging">
-            #<code class="text-primary">#</code>
-            <code class="text-primary">#</code>
+            #<code className="text-primary">#</code>
+            <code className="text-primary">#</code>
           </T>
         }
       />
@@ -368,11 +369,11 @@ const MoreFeaturesBlock = () => (
         }
         text={
           <T i18nKey="rss_feeds">
-            #<code class="text-primary">#</code>
-            <code class="text-primary">#</code>
-            <code class="text-primary">#</code>
-            <code class="text-primary">#</code>
-            <code class="text-primary">#</code>
+            #<code className="text-primary">#</code>
+            <code className="text-primary">#</code>
+            <code className="text-primary">#</code>
+            <code className="text-primary">#</code>
+            <code className="text-primary">#</code>
           </T>
         }
       />
@@ -428,6 +429,7 @@ export class Main extends Component<any, any> {
     const title = i18n.t("lemmy_title");
     return (
       <div>
+        <InstancePicker />
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>

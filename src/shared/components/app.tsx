@@ -25,7 +25,7 @@ export class App extends Component<any, any> {
                     key={path}
                     path={path}
                     exact={exact}
-                    render={props => <C {...props} {...rest} />}
+                    render={props => C && <C {...props} {...rest} />}
                   />
                 ))}
                 <Route render={props => <NoMatch {...props} />} />

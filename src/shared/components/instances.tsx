@@ -3,16 +3,17 @@ import { Helmet } from "inferno-helmet";
 import { i18n, LANGUAGES } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
-import { languageList, mdToHtml, numToSI } from "../utils";
+import { getQueryParams, mdToHtml, numToSI } from "../utils";
 import { Badge, SELECT_CLASSES, TEXT_GRADIENT } from "./common";
 import {
   INSTANCE_HELPERS,
-  Category,
+  Topic,
   RECOMMENDED_INSTANCES,
-  All_CATEGORY,
-  CATEGORIES,
+  All_TOPIC,
+  TOPICS,
 } from "./instances-definitions";
 import { Icon } from "./icon";
+import { I18nKeys } from "i18next";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
@@ -64,9 +65,6 @@ interface InstanceCardGridProps {
   instances: any[];
 }
 
-// TODO create the instance picker helper
-
-// - Language, Categories, and Sort Order (active, random)
 const InstanceCardGrid = ({ instances }: InstanceCardGridProps) => (
   <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
     {instances.map(i => (
@@ -282,23 +280,67 @@ function sortActive(instances: any[]): any[] {
 }
 
 interface State {
+  instances: any[];
   sort: Sort;
   language: string;
-  category: Category;
+  topic: Topic;
+  scroll: boolean;
 }
 
-export class Instances extends Component<any, State> {
+interface Props {
+  sort: Sort;
+  language: string;
+  topic: Topic;
+  scroll: boolean;
+}
+
+function getSortFromQuery(sort?: string): Sort {
+  return SORTS.find(s => s.name == sort) ?? RANDOM_SORT;
+}
+
+function getTopicFromQuery(topic?: string): Topic {
+  return TOPICS.find(c => c.name == topic) ?? All_TOPIC;
+}
+
+function getInstancesQueryParams() {
+  return getQueryParams<Props>({
+    sort: getSortFromQuery,
+    language: d => d || "all",
+    topic: getTopicFromQuery,
+    scroll: d => !!d,
+  });
+}
+
+export class Instances extends Component<Props, State> {
   state: State = {
-    sort: SORTS[0],
-    language: i18n.language.split("-")[0],
-    category: All_CATEGORY,
+    instances: [],
+    sort: RANDOM_SORT,
+    language: "all",
+    topic: All_TOPIC,
+    scroll: false,
   };
 
   constructor(props: any, context: any) {
     super(props, context);
   }
 
-  buildInstanceList(): any[] {
+  // Set the filters by the query params if they exist
+  componentDidMount(): void {
+    this.setState(getInstancesQueryParams());
+    this.buildInstanceList();
+    this.scrollToSearch();
+  }
+
+  scrollToSearch() {
+    if (this.state.scroll) {
+      const el = document.getElementById("search")?.offsetTop;
+      if (el) {
+        window.scrollTo({ top: el, behavior: "smooth" });
+      }
+    }
+  }
+
+  buildInstanceList() {
     let instances = instance_stats.stats.instance_details;
     const recommended = RECOMMENDED_INSTANCES;
 
@@ -312,26 +354,26 @@ export class Instances extends Component<any, State> {
       );
     }
 
-    // Category filter
-    if (this.state.category !== All_CATEGORY) {
-      const categoryRecs = recommended.filter(r =>
-        r.categories.includes(this.state.category),
+    // Topic filter
+    if (this.state.topic !== All_TOPIC) {
+      const topicRecs = recommended.filter(r =>
+        r.topics.includes(this.state.topic),
       );
       instances = instances.filter(i =>
-        categoryRecs.map(c => c.domain).includes(i.domain),
+        topicRecs.map(c => c.domain).includes(i.domain),
       );
     }
 
     // Sort
-    if (this.state.sort == SORTS[0]) {
+    if (this.state.sort == RANDOM_SORT) {
       instances = sortRandom(instances);
-    } else if (this.state.sort == SORTS[1]) {
+    } else if (this.state.sort == MOST_ACTIVE_SORT) {
       instances = sortActive(instances);
     } else {
       instances = sortActive(instances).reverse();
     }
 
-    return instances;
+    this.setState({ instances });
   }
 
   render() {
@@ -345,18 +387,37 @@ export class Instances extends Component<any, State> {
         <TitleBlock />
         <ComparisonBlock />
         {this.filterAndTitleBlock()}
-        <InstanceCardGrid
-          title={i18n.t("popular_instances")}
-          instances={this.buildInstanceList()}
-        />
+        <div className="mt-4">
+          {this.state.instances.length > 0 ? (
+            <InstanceCardGrid
+              title={i18n.t("popular_instances")}
+              instances={this.state.instances}
+            />
+          ) : (
+            this.seeAllBtn()
+          )}
+        </div>
       </div>
     );
   }
 
-  // TODO i18n these
+  seeAllBtn() {
+    return (
+      <div>
+        <p className="text-sm text-gray-300 mb-4">{i18n.t("none_found")}</p>
+        <button
+          className="btn btn-sm btn-secondary text-white normal-case"
+          onClick={linkEvent(this, handleSeeAll)}
+        >
+          {i18n.t("see_all_servers")}
+        </button>
+      </div>
+    );
+  }
+
   filterAndTitleBlock() {
     return (
-      <div className="my-16">
+      <div id="search" className="mt-16">
         <div className="flex flex-row flex-wrap gap-4">
           <div className="flex-none">
             <SectionTitle title={i18n.t("join_title")} />
@@ -365,20 +426,19 @@ export class Instances extends Component<any, State> {
           <div className="flex-none">
             <select
               className={`${SELECT_CLASSES} mr-2`}
-              value={this.state.category.name}
-              onChange={linkEvent(this, handleCategoryChange)}
-              name="category_select"
+              value={this.state.topic.name}
+              onChange={linkEvent(this, handleTopicChange)}
+              name="topic_select"
             >
               <option disabled selected>
-                Category
+                {i18n.t("topic")}
               </option>
-              {CATEGORIES.map(c => (
+              {TOPICS.map(c => (
                 <option key={c.name} value={c.name}>
-                  {c.name}
+                  {i18n.t(c.name as I18nKeys)}
                 </option>
               ))}
             </select>
-
             <select
               value={this.state.language}
               onChange={linkEvent(this, handleLanguageChange)}
@@ -386,11 +446,11 @@ export class Instances extends Component<any, State> {
             >
               <option disabled>Languages</option>
               <option key="all" value="all">
-                all
+                {i18n.t("all_languages")}
               </option>
-              {languageList().map((language, i) => (
-                <option key={i} value={language}>
-                  {LANGUAGES.find(l => l.code.startsWith(language)).name}
+              {LANGUAGES.map((l, i) => (
+                <option key={i} value={l.code}>
+                  {l.name}
                 </option>
               ))}
             </select>
@@ -400,10 +460,10 @@ export class Instances extends Component<any, State> {
               className={SELECT_CLASSES}
               onChange={linkEvent(this, handleSortChange)}
             >
-              <option disabled>Sort TODO</option>
+              <option disabled>{i18n.t("sort")}</option>
               {SORTS.map(s => (
                 <option key={s.name} value={s.name}>
-                  {s.name}
+                  {i18n.t(s.name as I18nKeys)}
                 </option>
               ))}
             </select>
@@ -415,13 +475,29 @@ export class Instances extends Component<any, State> {
 }
 
 function handleSortChange(i: Instances, event: any) {
-  i.setState({ sort: SORTS.find(s => s.name == event.target.value) });
+  i.setState({
+    sort: SORTS.find(s => s.name == event.target.value) ?? RANDOM_SORT,
+  });
+  i.buildInstanceList();
 }
 
-function handleCategoryChange(i: Instances, event: any) {
-  i.setState({ category: CATEGORIES.find(c => c.name == event.target.value) });
+function handleTopicChange(i: Instances, event: any) {
+  i.setState({
+    topic: TOPICS.find(c => c.name == event.target.value) ?? All_TOPIC,
+  });
+  i.buildInstanceList();
 }
 
 function handleLanguageChange(i: Instances, event: any) {
   i.setState({ language: event.target.value });
+  i.buildInstanceList();
+}
+
+function handleSeeAll(i: Instances) {
+  i.setState({
+    sort: RANDOM_SORT,
+    language: "all",
+    topic: All_TOPIC,
+  });
+  i.buildInstanceList();
 }

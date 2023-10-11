@@ -21,7 +21,7 @@ export class NewsItem extends Component<any, any> {
   get markdown(): string {
     let title = decodeURIComponent(this.props.match.params.title);
     title = title.replace(/_/g, " ");
-    return news_md.find(v => v.title == title).markdown;
+    return news_md.find(v => v.title == title)?.markdown ?? "";
   }
 
   render() {

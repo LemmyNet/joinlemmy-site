@@ -4,7 +4,6 @@ import { Icon, IconSize } from "./icon";
 import { i18n, LANGUAGES } from "../i18next";
 import classNames from "classnames";
 import { SELECT_CLASSES } from "./common";
-import { languageList } from "../utils";
 
 const NavLink = ({ content }) => <li className="text-gray-400">{content}</li>;
 
@@ -52,13 +51,13 @@ export const Navbar = ({ footer = false }) => (
             onChange={linkEvent(this, handleLanguageChange)}
             className={SELECT_CLASSES}
           >
-            {languageList().map((language, i) => (
+            {LANGUAGES.map((l, i) => (
               <option
                 key={i}
-                value={language}
-                selected={i18n.language.startsWith(language)}
+                value={l.code}
+                selected={i18n.language.startsWith(l.code)}
               >
-                {LANGUAGES.find(l => l.code.startsWith(language)).name}
+                {l.name}
               </option>
             ))}
           </select>

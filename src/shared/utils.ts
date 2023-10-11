@@ -1,5 +1,4 @@
 import markdown_it from "markdown-it";
-import { i18n } from "./i18next";
 
 let SHORTNUM_SI_FORMAT = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
@@ -26,6 +25,20 @@ export function mdToHtml(text: string) {
   return { __html: md.render(text) };
 }
 
-export function languageList() {
-  return Object.keys(i18n.services.resourceStore.data).sort();
+export function getQueryParams<T extends Record<string, any>>(processors: {
+  [K in keyof T]: (param: string) => T[K];
+}): T {
+  if (isBrowser()) {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    return Array.from(Object.entries(processors)).reduce(
+      (acc, [key, process]) => ({
+        ...acc,
+        [key]: process(searchParams.get(key)),
+      }),
+      {} as T,
+    );
+  }
+
+  return {} as T;
 }

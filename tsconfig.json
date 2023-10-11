@@ -3,6 +3,7 @@
     "pretty": true,
     "target": "esnext",
     "module": "esnext",
+    "strictNullChecks": true,
     "allowSyntheticDefaultImports": true,
     "preserveConstEnums": true,
     "sourceMap": true,
