@@ -9,14 +9,54 @@ const NavLink = ({ content }) => <li className="text-gray-400">{content}</li>;
 
 const NavLinks = () => (
   <>
-    <NavLink content={<Link to="/instances">{i18n.t("join")}</Link>} />
-    <NavLink content={<Link to="/news">{i18n.t("news")}</Link>} />
-    <NavLink content={<Link to="/apps">{i18n.t("apps")}</Link>} />
-    <NavLink content={<Link to="/donate">{i18n.t("donate")}</Link>} />
-    <NavLink content={<a href={`/docs/index.html`}>{i18n.t("docs")}</a>} />
-    <NavLink content={<Link to="/contact">{i18n.t("contact")}</Link>} />
+    <NavLink
+      content={
+        <Link onClick={() => closeNavbarDropdown()} to="/instances">
+          {i18n.t("join")}
+        </Link>
+      }
+    />
+    <NavLink
+      content={
+        <Link onClick={() => closeNavbarDropdown()} to="/news">
+          {i18n.t("news")}
+        </Link>
+      }
+    />
+    <NavLink
+      content={
+        <Link onClick={() => closeNavbarDropdown()} to="/apps">
+          {i18n.t("apps")}
+        </Link>
+      }
+    />
+    <NavLink
+      content={
+        <Link onClick={() => closeNavbarDropdown()} to="/donate">
+          {i18n.t("donate")}
+        </Link>
+      }
+    />
+    <NavLink
+      content={
+        <a onClick={() => closeNavbarDropdown()} href={`/docs/index.html`}>
+          {i18n.t("docs")}
+        </a>
+      }
+    />
+    <NavLink
+      content={
+        <Link onClick={() => closeNavbarDropdown()} to="/contact">
+          {i18n.t("contact")}
+        </Link>
+      }
+    />
   </>
 );
+
+function closeNavbarDropdown() {
+  (document.activeElement as any).blur();
+}
 
 function handleLanguageChange(_: any, event: ChangeEvent<HTMLSelectElement>) {
   location.href = `/?lang=${event.target.value}`;
@@ -73,7 +113,7 @@ export const Navbar = ({ footer = false }) => (
         </label>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-800 rounded-box w-52 items-center"
+          className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-neutral-800 rounded-box w-52 items-center mt-3 "
         >
           <NavLinks />
         </ul>
