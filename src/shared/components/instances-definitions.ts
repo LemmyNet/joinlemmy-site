@@ -116,7 +116,6 @@ export interface RecommendedInstance {
   topics: Topic[];
 }
 
-// TODO fix these up
 export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "lemmy.ml",
@@ -211,7 +210,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "lemmy.world",
     languages: ["en"],
-    topics: [GENERAL, TECHNOLOGY, GAMING],
+    topics: [GENERAL],
   },
   {
     domain: "startrek.website",
