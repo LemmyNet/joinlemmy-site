@@ -6,10 +6,31 @@ export interface LinkedSponsor {
 export interface GoldSponsor {
   name: string;
   link: string;
-  avatar: string;
+  avatar?: string;
 }
 
-export const GOLD_SPONSORS: GoldSponsor[] = [];
+export const GOLD_SPONSORS: GoldSponsor[] = [
+  {
+    name: "Erlend Sogge Heggen",
+    link: "https://liberapay.com/~1776198/",
+    avatar:
+      "https://seccdn.libravatar.org/gravatarproxy/69fda0df8b4878fb6a18deffa972d26a?s=160&default=404",
+  },
+  {
+    name: "Justen Burdette",
+    link: "https://liberapay.com/~1825274/",
+    avatar:
+      "https://seccdn.libravatar.org/avatar/1939404ede3cf8d4ccd41e1f78faa104?s=160&d=404",
+  },
+  {
+    name: "#spacehost",
+    link: "https://www.patreon.com/user?u=98115693",
+  },
+  {
+    name: "Numair Faraz",
+    link: "https://www.patreon.com/user?u=7214767",
+  },
+];
 
 export const LATINUM_SPONSORS: GoldSponsor[] = [
   {
@@ -19,15 +40,50 @@ export const LATINUM_SPONSORS: GoldSponsor[] = [
   },
 ];
 
-export const SILVER_SPONSORS: LinkedSponsor[] = [];
+export const SILVER_SPONSORS: LinkedSponsor[] = [
+  {
+    name: "Eric Betts",
+    link: "https://www.patreon.com/bettse",
+  },
+  {
+    name: "Mastodon.world Admins",
+    link: "https://www.patreon.com/mastodonworld",
+  },
+  {
+    name: "Rob Bradley",
+    link: "https://www.patreon.com/user?u=35339207",
+  },
+  {
+    name: "SaltyIceteaMaker",
+    link: "https://www.patreon.com/user?u=95322653",
+  },
+];
 
-export const HIGHLIGHTED_SPONSORS = ["DQW", "John Knapp"];
+export const HIGHLIGHTED_SPONSORS = [
+  "lazynooblet",
+  "anachronist",
+  "jbonomi",
+  "Adam Honse",
+  "Cassandra Comar",
+  "Chris Lam",
+  "Dew",
+  "Jams Hounshell",
+  "OliverLost",
+  "THE-DIESEL999",
+];
 export const GENERAL_SPONSORS = [
+  "0ti.me",
+  "Alex Wasserman",
+  "Alexander Bierbaumer",
+  "alexx henry",
+  "Amir Zaidi",
+  "Andi",
+  "Andre Hoffmann",
+  "Andre Vallestero",
   "Anthony",
   "Remi Rampin",
   "Cameron C",
   "Vegard",
-  "0ti.me",
   "Brendan",
   "mexicanhalloween .",
   "Arthur Nieuwland",
@@ -45,10 +101,12 @@ export interface Coder {
 export const CODERS: Coder[] = [
   { name: "dessalines", link: "https://mastodon.social/@dessalines" },
   { name: "Nutomic", link: "https://lemmy.ml/u/nutomic" },
+  { name: "phiresky", link: "https://github.com/phiresky" },
+  { name: "SleeplessOne1917", link: "https://github.com/SleeplessOne1917" },
   { name: "asonix", link: "https://github.com/asonix" },
-  { name: "krawieck", link: "https://github.com/krawieck" },
+  { name: "dullbananas", link: "https://github.com/dullbananas" },
+  { name: "sunaurus", link: "https://github.com/sunaurus" },
   { name: "shilangyu", link: "https://github.com/shilangyu" },
-  { name: "uuttff8", link: "https://github.com/uuttff8" },
   { name: "eiknat", link: "https://github.com/eiknat" },
   { name: "ernestwisniewski", link: "https://github.com/ernestwisniewski" },
   { name: "zacanger", link: "https://github.com/zacanger" },

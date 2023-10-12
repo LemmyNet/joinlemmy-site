@@ -14,6 +14,7 @@ import {
 import {
   CODERS,
   GOLD_SPONSORS,
+  SILVER_SPONSORS,
   GoldSponsor,
   HIGHLIGHTED_SPONSORS,
   LATINUM_SPONSORS,
@@ -117,10 +118,17 @@ const SponsorsBlock = () => (
     <GoldSponsorCards
       title={i18n.t("gold_pressed_latinum_sponsors_desc")}
       sponsors={LATINUM_SPONSORS}
+      color="primary"
     />
     <GoldSponsorCards
       title={i18n.t("gold_sponsors_desc")}
       sponsors={GOLD_SPONSORS}
+      color="secondary"
+    />
+    <GoldSponsorCards
+      title={i18n.t("silver_sponsors_desc")}
+      sponsors={SILVER_SPONSORS}
+      color="warning"
     />
     <GeneralSponsorCard />
   </div>
@@ -129,19 +137,27 @@ const SponsorsBlock = () => (
 interface GoldSponsorCardsProps {
   title: string;
   sponsors: GoldSponsor[];
+  color: string;
 }
 
-const GoldSponsorCards = ({ title, sponsors }: GoldSponsorCardsProps) =>
+const GoldSponsorCards = ({ title, sponsors, color }: GoldSponsorCardsProps) =>
   sponsors.length > 0 && (
     <div>
       <p class="text-sm text-gray-300 mb-3">{title}</p>
       <div class="flex flex-row flex-wrap gap-2 mb-2">
         {sponsors.map(s => (
           <a
-            class="btn btn-primary btn-outline w-32 h-16 normal-case"
+            class={`btn btn-${color} btn-outline w-32 h-16 normal-case`}
             href={s.link}
           >
-            <img src={s.avatar} />
+            <div className="flex flex-wrap flex-row justify-center">
+              {s.avatar && (
+                <div className="avatar w-auto h-8">
+                  <img src={s.avatar} className="rounded" />
+                </div>
+              )}
+              <span className="text-xs">{s.name}</span>
+            </div>
           </a>
         ))}
       </div>
