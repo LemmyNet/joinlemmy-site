@@ -11,7 +11,7 @@
     "lint": "node generate_translations.mjs && tsc --noEmit && eslint --report-unused-disable-directives --ext .js,.ts,.tsx src && prettier --check \"src/**/*.{ts,tsx,js,css,scss}\"",
     "prebuild:dev": "yarn clean && node generate_translations.mjs && yarn tailwind",
     "prebuild:prod": "yarn clean && node generate_translations.mjs && yarn tailwind",
-    "tailwind": "tailwindcss -i ./src/style.css -o ./dist/styles/styles.css",
+    "tailwind": "tailwindcss -i ./src/style.css -o ./dist/styles/styles.css --minify",
     "prepare": "husky install",
     "start": "yarn build:dev --watch & yarn tailwind --watch"
   },
@@ -75,12 +75,7 @@
   },
   "engineStrict": true,
   "lint-staged": {
-    "*.{ts,tsx,js}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "package.json": [
-      "sortpack"
-    ]
+    "*.{ts,tsx,js}": ["prettier --write", "eslint --fix"],
+    "package.json": ["sortpack"]
   }
 }

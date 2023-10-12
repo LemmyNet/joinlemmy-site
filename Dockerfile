@@ -37,6 +37,7 @@ COPY tsconfig.json \
   webpack.config.js \
   .babelrc \
   generate_translations.mjs \
+  tailwind.config.js \
   ./
 
 COPY joinlemmy-translations joinlemmy-translations
