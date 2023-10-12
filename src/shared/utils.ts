@@ -42,3 +42,18 @@ export function getQueryParams<T extends Record<string, any>>(processors: {
 
   return {} as T;
 }
+
+export const NUMBER_FORMAT = new Intl.NumberFormat("en", {
+  maximumFractionDigits: 0,
+});
+
+export function monthsBetween(startDate: Date, endDate: Date) {
+  // The number of milliseconds in one day
+  const oneMonth = (1000 * 60 * 60 * 24 * 365) / 12;
+
+  // Calculate the difference in milliseconds
+  const differenceMs = Math.abs(startDate.getTime() - endDate.getTime());
+
+  // Convert back to days and return
+  return Math.round(differenceMs / oneMonth);
+}

@@ -91,3 +91,47 @@ export const CRYPTOS: Crypto[] = [
       "addr1q858t89l2ym6xmrugjs0af9cslfwvnvsh2xxp6x4dcez7pf5tushkp4wl7zxfhm2djp6gq60dk4cmc7seaza5p3slx0sakjutm",
   },
 ];
+
+interface FundingPlatform {
+  supporterCount: number;
+  monthlyEUR: number;
+}
+
+// Updated 2023-10-11
+// Monthly counts in EUR
+const liberapay: FundingPlatform = {
+  supporterCount: 294,
+  monthlyEUR: 358.71 * 4.35,
+};
+
+const patreon: FundingPlatform = {
+  supporterCount: 473,
+  monthlyEUR: 1513.57,
+};
+
+const openCollective: FundingPlatform = {
+  supporterCount: 275,
+  monthlyEUR: 10585 / 12,
+};
+
+const fundingPlatforms = [liberapay, patreon, openCollective];
+
+export const TOTAL_RECURRING_MONTHLY_EUR = fundingPlatforms
+  .map(f => f.monthlyEUR)
+  .reduce((a, b) => a + b, 0);
+
+export const TOTAL_SUPPORTERS = fundingPlatforms
+  .map(f => f.supporterCount)
+  .reduce((a, b) => a + b, 0);
+
+// From https://www.developersalary.com
+export const MEDIAN_DEV_SALARY = 50_000;
+export const MEDIAN_DEV_MONTHLY_EUR = MEDIAN_DEV_SALARY / 12;
+
+// Number of devs funded off of recurring
+export const FUNDED_DEVS = TOTAL_RECURRING_MONTHLY_EUR / MEDIAN_DEV_MONTHLY_EUR;
+
+//  Goal
+export const FUNDED_DEV_GOAL = 4;
+
+export const END_FUNDRAISER_DATE = new Date("2024-12-01");

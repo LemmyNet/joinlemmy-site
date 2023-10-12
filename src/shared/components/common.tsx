@@ -2,6 +2,16 @@ import { Link } from "inferno-router";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import classNames from "classnames";
+import {
+  END_FUNDRAISER_DATE,
+  FUNDED_DEVS,
+  FUNDED_DEV_GOAL,
+  MEDIAN_DEV_MONTHLY_EUR,
+  MEDIAN_DEV_SALARY,
+  TOTAL_RECURRING_MONTHLY_EUR,
+  TOTAL_SUPPORTERS,
+} from "./donate-definitions";
+import { NUMBER_FORMAT, monthsBetween } from "../utils";
 
 export const TEXT_GRADIENT =
   "bg-gradient-to-r bg-clip-text text-transparent from-[#69D066] to-[#03A80E]";
@@ -29,7 +39,7 @@ export const Badge = ({ content, outline = false }) => (
 );
 
 export const DonateDesc = () => (
-  <p className="text-sm text-gray-300 mb-6">
+  <p className="text-sm text-gray-300 mb-3">
     <T i18nKey="donate_desc">
       #
       <Link className="link link-primary" to="/donate">
@@ -69,6 +79,51 @@ export const DonateButtons = () => (
   </div>
 );
 
+const FundingGoal = () => (
+  <div className="flex flex-col flex-wrap mb-3 gap-4">
+    <div className="flex flex-row flex-wrap justify-between gap-4">
+      <div>
+        <span className="text-xl font-bold">
+          €{NUMBER_FORMAT.format(TOTAL_RECURRING_MONTHLY_EUR)}
+        </span>
+        <span className="text-gray-200 mr-3">
+          {i18n.t("per_month", { formattedCount: "" })}
+        </span>
+        <span className="text-sm text-gray-300">
+          {i18n.t("supporters", {
+            formattedCount: NUMBER_FORMAT.format(TOTAL_SUPPORTERS),
+          })}
+        </span>
+      </div>
+      <div className="text-xl font-bold">
+        €{NUMBER_FORMAT.format(MEDIAN_DEV_MONTHLY_EUR * FUNDED_DEV_GOAL)}
+      </div>
+    </div>
+    <progress
+      className="progress progress-primary w-auto"
+      value={FUNDED_DEVS}
+      max={FUNDED_DEV_GOAL}
+    ></progress>
+    <div className="flex flex-row flex-wrap justify-between gap-4">
+      <div
+        className="text-sm text-gray-300 tooltip"
+        data-tip={i18n.t("based_on_salary", {
+          formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
+        })}
+      >
+        {i18n.t("devs_funded", {
+          formattedCount1: FUNDED_DEVS.toFixed(2),
+          formattedCount2: FUNDED_DEV_GOAL,
+        })}
+        *
+      </div>
+      <div className="text-sm text-gray-300">
+        {monthsBetween(new Date(), END_FUNDRAISER_DATE)} months remaining
+      </div>
+    </div>
+  </div>
+);
+
 export const SupportDonateBlock = () => (
   <div className="flex flex-col items-center pt-16">
     <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
@@ -77,6 +132,7 @@ export const SupportDonateBlock = () => (
           {i18n.t("support_donate")}
         </p>
         <DonateDesc />
+        <FundingGoal />
         <DonateButtons />
       </div>
     </div>
