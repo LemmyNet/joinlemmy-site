@@ -32,19 +32,19 @@ const CarouselBlock = () => (
       <div id="item1" className="carousel-item w-9/12">
         <img
           src={"/static/assets/images/main_screen_2.webp"}
-          className="rounded-box border-8 border-secondary/[.15]"
+          className="rounded-box border-8 border-secondary/[.15] z-10"
         />
       </div>
       <div id="item2" className="carousel-item w-9/12">
         <img
           src={"/static/assets/images/main_screen_3.webp"}
-          className="rounded-box border-8 border-primary/[.15]"
+          className="rounded-box border-8 border-primary/[.15] z-10"
         />
       </div>
       <div id="item3" className="carousel-item w-9/12">
         <img
           src={"/static/assets/images/main_screen_1.webp"}
-          className="rounded-box border-8 border-secondary/[.15]"
+          className="rounded-box border-8 border-secondary/[.15] z-10"
         />
       </div>
     </div>
@@ -64,7 +64,7 @@ const CarouselBlock = () => (
 
 const JoinServerButton = () => (
   <button
-    className="btn btn-primary text-white normal-case"
+    className="btn btn-primary text-white normal-case z-10"
     onClick={() => (document.getElementById("picker") as any).showModal()}
   >
     {i18n.t("join_a_server")}
@@ -72,7 +72,10 @@ const JoinServerButton = () => (
 );
 
 const SeeAllServersButton = () => (
-  <Link to="/instances" className="btn btn-secondary text-white normal-case">
+  <Link
+    to="/instances"
+    className="btn btn-secondary text-white normal-case z-10"
+  >
     {i18n.t("see_all_servers")}
   </Link>
 );
@@ -433,6 +436,10 @@ export class Main extends Component<any, any> {
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
+        <img
+          src="/static/assets/images/world_background.svg"
+          className="bg-top bg-no-repeat bg-contain opacity-20 absolute"
+        />
         <div className="container mx-auto">
           <TitleBlock />
         </div>
