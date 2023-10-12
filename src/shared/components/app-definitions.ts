@@ -167,6 +167,20 @@ export const WEB_APPS: AppDetails[] = [
     ],
   },
   {
+    name: "Alexandrite",
+    description:
+      "A beautiful and convenient desktop-first alternate web UI for Lemmy.",
+    link: "https://github.com/sheodox/alexandrite",
+    icon: "/static/assets/images/alexandrite_logo.svg",
+    banner: "/static/assets/images/alexandrite_screen.webp",
+    links: [
+      {
+        link: "https://github.com/sheodox/alexandrite",
+        icon: "github",
+      },
+    ],
+  },
+  {
     name: "lemmyBB",
     description: "A lemmy frontend based on phpBB.",
     link: "https://github.com/LemmyNet/lemmyBB",
