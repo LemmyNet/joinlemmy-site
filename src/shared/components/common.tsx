@@ -127,7 +127,7 @@ const FundingGoal = () => (
 export const SupportDonateBlock = () => (
   <div className="flex flex-col items-center pt-16">
     <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
-      <div className="card-body px-32 py-16">
+      <div className="card-body px-8 md:px-32 py-16">
         <p class={`card-title text-4xl mb-3 ${TEXT_GRADIENT}`}>
           {i18n.t("support_donate")}
         </p>

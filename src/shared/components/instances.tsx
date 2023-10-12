@@ -380,7 +380,7 @@ export class Instances extends Component<Props, State> {
     const title = i18n.t("join_title");
 
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
@@ -423,7 +423,7 @@ export class Instances extends Component<Props, State> {
             <SectionTitle title={i18n.t("join_title")} />
           </div>
           <div className="grow"></div>
-          <div className="flex-none">
+          <div>
             <select
               className={`${SELECT_CLASSES} mr-2`}
               value={this.state.topic.name}

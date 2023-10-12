@@ -83,7 +83,7 @@ const SeeAllServersButton = () => (
 const FollowCommunitiesBlock = () => (
   <div className="flex flex-col items-center mt-16">
     <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
-      <div className="card-body items-center px-32 py-16">
+      <div className="card-body items-center px-8 md:px-32 py-16">
         <T
           i18nKey="follow_communities"
           className="card-title font-bold text-4xl text-center mb-3 inline-block"
@@ -204,7 +204,7 @@ const FeatureCardsBlock = () => (
 const DiscussionPlatformBlock = () => (
   <div className="flex flex-col items-center mt-16">
     <div className="card card-bordered bg-gradient-to-r text-transparent from-primary to-secondary shadow-xl">
-      <div className="card-body items-center px-32 py-16">
+      <div className="card-body items-center px-8 md:px-32 py-16">
         <T
           i18nKey="create_discussion_platform"
           className="card-title font-medium text-4xl text-center text-white mb-3 inline-block"
@@ -440,11 +440,11 @@ export class Main extends Component<any, any> {
           src="/static/assets/images/world_background.svg"
           className="bg-top bg-no-repeat bg-contain opacity-20 absolute"
         />
-        <div className="container mx-auto">
+        <div className="container mx-auto px-4">
           <TitleBlock />
         </div>
         <CarouselBlock />
-        <div className="container mx-auto">
+        <div className="container mx-auto px-4">
           <FollowCommunitiesBlock />
           <FeatureCardsBlock />
           <DiscussionPlatformBlock />

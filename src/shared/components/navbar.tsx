@@ -26,7 +26,7 @@ export const Footer = () => <Navbar footer />;
 
 export const Navbar = ({ footer = false }) => (
   <div
-    className={classNames("navbar px-10", {
+    className={classNames("navbar px-2", {
       "sticky top-[100vh]": footer,
     })}
   >

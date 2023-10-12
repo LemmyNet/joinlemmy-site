@@ -45,7 +45,7 @@ export class Contact extends Component<any, any> {
   render() {
     const title = i18n.t("contact_title");
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>

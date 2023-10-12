@@ -69,7 +69,9 @@ const AppDetailsCard = ({ app }: AppDetailsCardProps) => (
   </div>
 );
 
-const AppTitle = ({ title }) => <div className="text-2xl mb-3">{title}</div>;
+const AppTitle = ({ title }) => (
+  <div className="text-xl mb-3 text-gray-300">{title}</div>
+);
 
 const MobileAppsBlock = () => (
   <div>
@@ -142,7 +144,7 @@ export class Apps extends Component<any, any> {
   render() {
     const title = i18n.t("apps_title");
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>

@@ -105,7 +105,7 @@ export class News extends Component<any, any> {
 
   render() {
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>

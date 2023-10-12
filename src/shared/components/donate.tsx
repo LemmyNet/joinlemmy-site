@@ -74,12 +74,14 @@ const TranslatorsBlock = () => {
 
   return (
     <div className="mb-8">
-      <div className="md:hidden">
-        <TranslatorsCard translations={transArr} />
+      <div className="max-md:hidden">
+        <div className="grid grid-cols-2 gap-4">
+          <TranslatorsCard translations={first} />
+          <TranslatorsCard translations={second} />
+        </div>
       </div>
-      <div className="sm:max-md:hidden grid grid-cols-2 gap-4">
-        <TranslatorsCard translations={first} />
-        <TranslatorsCard translations={second} />
+      <div className="md:max-xl:hidden">
+        <TranslatorsCard translations={transArr} />
       </div>
     </div>
   );
@@ -284,7 +286,7 @@ export class Donate extends Component<any, any> {
   render() {
     const title = i18n.t("support_title");
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
