@@ -58,7 +58,7 @@ const NewsCard = ({ news }: NewsProps) => (
         <div className="md:col-span-10">
           <div className="md:flex md:flex-row md:items-baseline md:space-x-3">
             <Link to={news.url} className={`text-2xl ${TEXT_GRADIENT}`}>
-              {title}
+              {news.title}
             </Link>
             <div className="text-sm text-gray-500">{news.dateStr}</div>
 
