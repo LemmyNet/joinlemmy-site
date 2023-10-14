@@ -12,20 +12,44 @@ import {
   All_TOPIC,
   TOPICS,
 } from "./instances-definitions";
-import { Icon } from "./icon";
+import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
-    <T i18nKey="lemmy_servers" className="text-4xl font-bold mb-3">
+    <T i18nKey="lemmy_servers" className="text-4xl font-bold mb-8">
       #<span className={TEXT_GRADIENT}>#</span>
     </T>
-    <p className="text-xl text-gray-300 text-center max-w-xl">
-      {i18n.t("instance_totals", {
-        instances: numToSI(instance_stats.stats.crawled_instances),
-        users: numToSI(instance_stats.stats.users_active_month),
+    <div
+      className="tooltip"
+      data-tip={i18n.t("monthly_active_users", {
+        formattedCount: numToSI(instance_stats.stats.users_active_month),
       })}
-    </p>
+    >
+      <div className="stats shadow mb-8">
+        <div className="stat">
+          <div className="stat-figure text-primary">
+            <Icon icon="globe" size={IconSize.Largest} />
+          </div>
+          <div className="stat-title">{i18n.t("servers")}</div>
+          <div className="stat-value">
+            {numToSI(instance_stats.stats.crawled_instances)}
+          </div>
+          <div className="stat-desc">{i18n.t("lemmyverse")}</div>
+        </div>
+        <div className="stat">
+          <div className="stat-figure text-secondary">
+            <Icon icon="users" size={IconSize.Largest} />
+          </div>
+          <div className="stat-title">{i18n.t("active_users")}*</div>
+          <div className="stat-value">
+            {numToSI(instance_stats.stats.users_active_month)}
+          </div>
+          <div className="stat-desc">{new Date().toLocaleDateString()}</div>
+        </div>
+      </div>
+    </div>
+    <p className="text-xl text-gray-300">{i18n.t("instance_disclaimer")}</p>
   </div>
 );
 
@@ -122,7 +146,7 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
             class="btn btn-primary text-white sm:max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
             href={buildUrl(domain)}
           >
-            {i18n.t("join_a_server")}
+            {i18n.t("browse_instance")}
           </a>
           <button
             class="btn btn-secondary btn-outline text-white sm:max-md:btn-block normal-case"
@@ -161,7 +185,12 @@ export const StatsBadges = ({ users, comments, monthlyUsers }) => (
   <>
     <Badge
       content={
-        <div className="text-sm text-gray-500">
+        <div
+          className="text-sm text-gray-500 tooltip"
+          data-tip={i18n.t("total_users", {
+            formattedCount: users.toLocaleString(),
+          })}
+        >
           <Icon icon="users" classes="mr-2" />
           <span>{users.toLocaleString()}</span>
         </div>
@@ -169,7 +198,12 @@ export const StatsBadges = ({ users, comments, monthlyUsers }) => (
     />
     <Badge
       content={
-        <div className="text-sm text-gray-500">
+        <div
+          className="text-sm text-gray-500 tooltip"
+          data-tip={i18n.t("total_comments", {
+            formattedCount: comments.toLocaleString(),
+          })}
+        >
           <Icon icon="message-circle" classes="mr-2" />
           <span>{comments.toLocaleString()}</span>
         </div>
@@ -177,7 +211,12 @@ export const StatsBadges = ({ users, comments, monthlyUsers }) => (
     />
     <Badge
       content={
-        <div className="text-sm text-gray-500">
+        <div
+          className="text-sm text-gray-500 tooltip"
+          data-tip={i18n.t("monthly_active_users", {
+            formattedCount: monthlyUsers.toLocaleString(),
+          })}
+        >
           <Icon icon="user-check" classes="mr-2" />
           <span>
             {i18n.t("per_month", {

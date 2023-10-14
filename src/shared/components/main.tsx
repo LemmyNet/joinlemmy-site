@@ -8,64 +8,67 @@ import { Icon } from "./icon";
 import {
   BottomSpacer,
   CARD_GRADIENT,
-  SupportDonateBlock,
+  DonateBlock,
   TEXT_GRADIENT,
 } from "./common";
 import { InstancePicker } from "./instance-picker";
+import classNames from "classnames";
 
-const TitleBlock = () => (
+interface MainProps {
+  i: Main;
+}
+
+const TitleBlock = ({ i }: MainProps) => (
   <div className="py-16 flex flex-col items-center">
     <div className="flex flex-col items-center gap-4 mb-8">
       <p className={`text-6xl font-bold ${TEXT_GRADIENT}`}>Lemmy</p>
       <p className="text-3xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
     </div>
     <div className="flex flex-row justify-around gap-4">
-      <JoinServerButton />
+      <JoinServerButton i={i} />
       <SeeAllServersButton />
     </div>
   </div>
 );
 
+const carouselImages = [
+  "/static/assets/images/main_screen_2.webp",
+  "/static/assets/images/main_screen_3.webp",
+  "/static/assets/images/main_screen_1.webp",
+];
+
 const CarouselBlock = () => (
   <div>
-    <div className="carousel carousel-center p-8 space-x-8 rounded-box">
-      <div id="item1" className="carousel-item w-9/12">
-        <img
-          src={"/static/assets/images/main_screen_2.webp"}
-          className="rounded-box border-8 border-secondary/[.15] z-10"
-        />
-      </div>
-      <div id="item2" className="carousel-item w-9/12">
-        <img
-          src={"/static/assets/images/main_screen_3.webp"}
-          className="rounded-box border-8 border-primary/[.15] z-10"
-        />
-      </div>
-      <div id="item3" className="carousel-item w-9/12">
-        <img
-          src={"/static/assets/images/main_screen_1.webp"}
-          className="rounded-box border-8 border-secondary/[.15] z-10"
-        />
-      </div>
+    <div className="carousel carousel-center p-8 space-x-8 rounded-box mt-16">
+      {carouselImages.map((image, i) => (
+        <div id={`item-${i}`} className="carousel-item w-9/12 lg:w-5/12">
+          <img
+            src={image}
+            className={classNames("rounded-box border-8 z-10", {
+              "border-primary/[.15]": i & 1,
+              "border-secondary/[.15]": !(i & 1),
+            })}
+          />
+        </div>
+      ))}
     </div>
     <div className="flex justify-center w-full py-2 gap-4">
-      <a href="#item1" className={TEXT_GRADIENT}>
-        ●
-      </a>
-      <a href="#item2" className={TEXT_GRADIENT}>
-        ●
-      </a>
-      <a href="#item3" className={TEXT_GRADIENT}>
-        ●
-      </a>
+      {carouselImages.map((_, i) => (
+        <a href={`#item-${i}`} className={TEXT_GRADIENT}>
+          ●
+        </a>
+      ))}
     </div>
   </div>
 );
 
-const JoinServerButton = () => (
+const JoinServerButton = ({ i }: MainProps) => (
   <button
     className="btn btn-primary text-white normal-case z-10"
-    onClick={() => (document.getElementById("picker") as any).showModal()}
+    onClick={() => {
+      i.setState({ resetInstancePicker: true });
+      (document.getElementById("picker") as any).showModal();
+    }}
   >
     {i18n.t("join_a_server")}
   </button>
@@ -80,8 +83,8 @@ const SeeAllServersButton = () => (
   </Link>
 );
 
-const FollowCommunitiesBlock = () => (
-  <div className="flex flex-col items-center mt-16">
+const FollowCommunitiesBlock = ({ i }: MainProps) => (
+  <div className="flex flex-col items-center">
     <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
       <div className="card-body items-center px-8 md:px-32 py-16">
         <T
@@ -93,14 +96,14 @@ const FollowCommunitiesBlock = () => (
         <p className="text-sm text-gray-300 text-center mb-6">
           {i18n.t("lemmy_long_desc")}
         </p>
-        <JoinServerButton />
+        <JoinServerButton i={i} />
       </div>
     </div>
   </div>
 );
 
 const FeatureCard = ({ pic, title, subtitle, classes }) => (
-  <div className={`card card-bordered bg-neutral-800 shadow-xl ${classes}`}>
+  <div className={`card ${CARD_GRADIENT} shadow-xl ${classes}`}>
     <figure className="p-4">
       <img src={pic} className="rounded-xl w-full object-fill min-h-[300px]" />
     </figure>
@@ -247,13 +250,13 @@ const MoreFeaturesBlock = () => (
           <T i18nKey="self_hostable">
             #
             <a
-              className="link link-primary"
+              className="link"
               href={`/docs/administration/install_docker.html`}
             >
               #
             </a>
             <a
-              className="link link-primary"
+              className="link"
               href={`/docs/administration/install_ansible.html`}
             >
               #
@@ -276,7 +279,7 @@ const MoreFeaturesBlock = () => (
           </div>
         }
         text={
-          <Link className="link link-primary" to="/apps">
+          <Link className="link" to="/apps">
             {i18n.t("mobile_apps_for_ios_and_android")}
           </Link>
         }
@@ -297,7 +300,7 @@ const MoreFeaturesBlock = () => (
         }
         text={
           <T i18nKey="full_vote_scores">
-            #<code className="text-primary">#</code>#
+            #<code>#</code>#
           </T>
         }
       />
@@ -313,7 +316,7 @@ const MoreFeaturesBlock = () => (
         icons={<div>:</div>}
         text={
           <T i18nKey="emojis_autocomplete">
-            #<code className="text-primary">#</code>
+            #<code>#</code>
           </T>
         }
       />
@@ -325,8 +328,8 @@ const MoreFeaturesBlock = () => (
         }
         text={
           <T i18nKey="user_tagging">
-            #<code className="text-primary">#</code>
-            <code className="text-primary">#</code>
+            #<code>#</code>
+            <code>#</code>
           </T>
         }
       />
@@ -356,7 +359,7 @@ const MoreFeaturesBlock = () => (
           <T i18nKey="i18n_support">
             #
             <a
-              className="link link-primary"
+              className="link"
               href="https://weblate.join-lemmy.org/projects/lemmy/lemmy/"
             >
               #
@@ -372,11 +375,11 @@ const MoreFeaturesBlock = () => (
         }
         text={
           <T i18nKey="rss_feeds">
-            #<code className="text-primary">#</code>
-            <code className="text-primary">#</code>
-            <code className="text-primary">#</code>
-            <code className="text-primary">#</code>
-            <code className="text-primary">#</code>
+            #<code>#</code>
+            <code>#</code>
+            <code>#</code>
+            <code>#</code>
+            <code>#</code>
           </T>
         }
       />
@@ -411,13 +414,19 @@ const MoreFeaturesBlock = () => (
 const MoreFeaturesCard = ({ icons, text }) => (
   <div className="card card-bordered w-auto bg-neutral-800 shadow-xl">
     <div className="card-body">
-      <div className="btn btn-sm btn-secondary w-fit mb-2">{icons}</div>
+      <div className="btn btn-sm btn-secondary w-fit mb-2 pointer-events-none">
+        {icons}
+      </div>
       <p className="text-sm text-gray-300">{text}</p>
     </div>
   </div>
 );
 
 export class Main extends Component<any, any> {
+  state = {
+    resetInstancePicker: false,
+  };
+
   constructor(props: any, context: any) {
     super(props, context);
   }
@@ -432,7 +441,7 @@ export class Main extends Component<any, any> {
     const title = i18n.t("lemmy_title");
     return (
       <div>
-        <InstancePicker />
+        <InstancePicker reset={this.state.resetInstancePicker} />
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
@@ -441,15 +450,15 @@ export class Main extends Component<any, any> {
           className="bg-top bg-no-repeat bg-contain opacity-20 absolute"
         />
         <div className="container mx-auto px-4">
-          <TitleBlock />
+          <TitleBlock i={this} />
+          <FollowCommunitiesBlock i={this} />
         </div>
         <CarouselBlock />
         <div className="container mx-auto px-4">
-          <FollowCommunitiesBlock />
           <FeatureCardsBlock />
           <DiscussionPlatformBlock />
           <MoreFeaturesBlock />
-          <SupportDonateBlock />
+          <DonateBlock />
           <BottomSpacer />
         </div>
       </div>

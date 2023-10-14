@@ -2,20 +2,17 @@ import { Component } from "inferno";
 import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { isBrowser } from "../utils";
+import { isBrowser, mdToHtml } from "../utils";
 import { news_md } from "../translations/news";
-import { Badge, BottomSpacer, TEXT_GRADIENT } from "./common";
-import { Icon } from "./icon";
+import { BottomSpacer, TEXT_GRADIENT } from "./common";
 
 const title = i18n.t("news");
-const authors = ["nutomic", "dessalines"];
 const news_reversed = news_md.reverse();
 
 interface NewsInfo {
   title: string;
   dateStr: string;
   preview: string;
-  authors: Array<string>;
   url: string;
 }
 
@@ -27,7 +24,6 @@ function buildNewsInfoArray(): Array<NewsInfo> {
       dateStr: split[0],
       title: split[1],
       preview: split[2] || previewMarkdown(n.markdown),
-      authors,
       url: `news/${titleToUrl(n.title)}`,
     };
   });
@@ -38,7 +34,11 @@ function titleToUrl(title: string): string {
 }
 
 function previewMarkdown(markdown: string): string {
-  return markdown.replace(/#/g, "").slice(0, 100).concat("...");
+  return markdown
+    .replace(/#/g, "")
+    .replace(/[\n\r]/g, " ")
+    .slice(0, 100)
+    .concat("...");
 }
 
 const TitleBlock = () => (
@@ -61,14 +61,13 @@ const NewsCard = ({ news }: NewsProps) => (
               {news.title}
             </Link>
             <div className="text-sm text-gray-500">{news.dateStr}</div>
-
-            <div className="flex flex-row flex-wrap items-baseline space-x-3 mb-2">
-              {authors.map(name => (
-                <AuthorBadge name={name} />
-              ))}
-            </div>
           </div>
-          <div className="text-sm text-gray-300">{news.preview}</div>
+          {news.preview && (
+            <div
+              className="text-sm text-gray-300"
+              dangerouslySetInnerHTML={mdToHtml(news.preview)}
+            />
+          )}
         </div>
         <Link
           to={news.url}
@@ -79,17 +78,6 @@ const NewsCard = ({ news }: NewsProps) => (
       </div>
     </div>
   </div>
-);
-
-const AuthorBadge = ({ name }) => (
-  <Badge
-    content={
-      <div>
-        <Icon icon="at-sign" classes={"fill-current text-gray-600"} />
-        <span className="ml-1 text-gray-300">{name}</span>
-      </div>
-    }
-  />
 );
 
 export class News extends Component<any, any> {

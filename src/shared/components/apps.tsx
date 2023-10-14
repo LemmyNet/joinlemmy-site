@@ -70,7 +70,7 @@ const AppDetailsCard = ({ app }: AppDetailsCardProps) => (
 );
 
 const AppTitle = ({ title }) => (
-  <div className="text-xl mb-3 text-gray-300">{title}</div>
+  <div className="text-2xl mb-3 text-gray-300">{title}</div>
 );
 
 const MobileAppsBlock = () => (

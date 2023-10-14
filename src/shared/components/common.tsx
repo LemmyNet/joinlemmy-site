@@ -6,7 +6,6 @@ import {
   END_FUNDRAISER_DATE,
   FUNDED_DEVS,
   FUNDED_DEV_GOAL,
-  MEDIAN_DEV_MONTHLY_EUR,
   MEDIAN_DEV_SALARY,
   TOTAL_RECURRING_MONTHLY_EUR,
   TOTAL_SUPPORTERS,
@@ -42,7 +41,7 @@ export const DonateDesc = () => (
   <p className="text-sm text-gray-300 mb-3">
     <T i18nKey="donate_desc">
       #
-      <Link className="link link-primary" to="/donate">
+      <Link className="link" to="/donate">
         #
       </Link>
       #
@@ -76,6 +75,12 @@ export const DonateButtons = () => (
         #<span className="font-bold">#</span>
       </T>
     </a>
+    <Link
+      class="btn btn-secondary text-white sm:max-md:btn-block normal-case"
+      to="/crypto"
+    >
+      Crypto
+    </Link>
   </div>
 );
 
@@ -89,14 +94,18 @@ const FundingGoal = () => (
         <span className="text-gray-200 mr-3">
           {i18n.t("per_month", { formattedCount: "" })}
         </span>
-        <span className="text-sm text-gray-300">
-          {i18n.t("supporters", {
-            formattedCount: NUMBER_FORMAT.format(TOTAL_SUPPORTERS),
-          })}
-        </span>
       </div>
-      <div className="text-xl font-bold">
-        €{NUMBER_FORMAT.format(MEDIAN_DEV_MONTHLY_EUR * FUNDED_DEV_GOAL)}
+      <div
+        className="text-xl font-bold tooltip"
+        data-tip={i18n.t("based_on_salary", {
+          formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
+        })}
+      >
+        {i18n.t("devs_funded", {
+          formattedCount1: FUNDED_DEVS.toFixed(1),
+          formattedCount2: FUNDED_DEV_GOAL,
+        })}
+        *
       </div>
     </div>
     <progress
@@ -105,17 +114,10 @@ const FundingGoal = () => (
       max={FUNDED_DEV_GOAL}
     ></progress>
     <div className="flex flex-row flex-wrap justify-between gap-4">
-      <div
-        className="text-sm text-gray-300 tooltip"
-        data-tip={i18n.t("based_on_salary", {
-          formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
+      <div className="text-sm text-gray-300">
+        {i18n.t("supporters", {
+          formattedCount: NUMBER_FORMAT.format(TOTAL_SUPPORTERS),
         })}
-      >
-        {i18n.t("devs_funded", {
-          formattedCount1: FUNDED_DEVS.toFixed(2),
-          formattedCount2: FUNDED_DEV_GOAL,
-        })}
-        *
       </div>
       <div className="text-sm text-gray-300">
         {monthsBetween(new Date(), END_FUNDRAISER_DATE)} months remaining
@@ -124,12 +126,12 @@ const FundingGoal = () => (
   </div>
 );
 
-export const SupportDonateBlock = () => (
+export const DonateBlock = () => (
   <div className="flex flex-col items-center pt-16">
     <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
       <div className="card-body px-8 md:px-32 py-16">
         <p class={`card-title text-4xl mb-3 ${TEXT_GRADIENT}`}>
-          {i18n.t("support_donate")}
+          {i18n.t("donate")}
         </p>
         <DonateDesc />
         <FundingGoal />

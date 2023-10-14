@@ -5,12 +5,7 @@ import { T } from "inferno-i18next";
 import { translators } from "../translations/translators";
 import { languagesAll, countries } from "countries-list";
 import { isBrowser } from "../utils";
-import {
-  Badge,
-  BottomSpacer,
-  SupportDonateBlock,
-  TEXT_GRADIENT,
-} from "./common";
+import { Badge, BottomSpacer, DonateBlock, TEXT_GRADIENT } from "./common";
 import {
   CODERS,
   GOLD_SPONSORS,
@@ -20,7 +15,6 @@ import {
   LATINUM_SPONSORS,
   GENERAL_SPONSORS,
   Translation,
-  CRYPTOS,
 } from "./donate-definitions";
 import classNames from "classnames";
 import { Icon } from "./icon";
@@ -44,7 +38,7 @@ const ContributorsBlock = () => (
           <T i18nKey="add_weblate">
             #
             <a
-              className="link link-primary"
+              className="link"
               href="https://weblate.join-lemmy.org/projects/lemmy/"
             >
               #
@@ -191,32 +185,6 @@ const GeneralSponsorCard = () => {
   );
 };
 
-const CryptoBlock = () => (
-  <div>
-    <SectionTitle title={"Crypto"} />
-    <div className="card card-bordered bg-neutral-900 shadow-xl">
-      <div className="card-body p-4">
-        <table className="table table-sm">
-          {CRYPTOS.map(c => (
-            <tr>
-              <td className="text-sm text-gray-300">{c.name}</td>
-              <td>
-                <Badge
-                  content={
-                    <code className="text-sm text-secondary break-all">
-                      {c.address}
-                    </code>
-                  }
-                />
-              </td>
-            </tr>
-          ))}
-        </table>
-      </div>
-    </div>
-  </div>
-);
-
 interface PersonBadgeData {
   name: string;
   link?: string;
@@ -284,16 +252,15 @@ export class Donate extends Component<any, any> {
   }
 
   render() {
-    const title = i18n.t("support_title");
+    const title = i18n.t("donate_title");
     return (
       <div className="container mx-auto px-4">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
         </Helmet>
-        <SupportDonateBlock />
+        <DonateBlock />
         <ContributorsBlock />
         <SponsorsBlock />
-        <CryptoBlock />
         <BottomSpacer />
       </div>
     );

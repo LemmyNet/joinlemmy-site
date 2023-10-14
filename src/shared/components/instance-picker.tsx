@@ -8,7 +8,10 @@ import { Icon } from "./icon";
 enum Step {
   Interest,
   Language,
-  Join,
+}
+
+interface Props {
+  reset?: boolean;
 }
 
 interface State {
@@ -17,12 +20,19 @@ interface State {
   language?: string;
 }
 
-export class InstancePicker extends Component<any, State> {
+export class InstancePicker extends Component<Props, State> {
   state: State = {
     activeStep: Step.Interest,
   };
+
   constructor(props: any, context: any) {
     super(props, context);
+  }
+
+  componentWillReceiveProps(): void {
+    this.setState({
+      activeStep: Step.Interest,
+    });
   }
 
   render() {
@@ -43,23 +53,18 @@ export class InstancePicker extends Component<any, State> {
                 <p className="text-2xl font-bold text-center pb-4">
                   {i18n.t("what_topic")}
                 </p>
-                {TOPICS.map(c => (
-                  <div className="form-control">
-                    <label className="label cursor-pointer">
-                      <span className="label-text text-sm text-gray-300">
-                        <Icon icon={c.icon} classes="mr-3" />
-                        {i18n.t(c.name as I18nKeys)}
-                      </span>
-                      <input
-                        type="radio"
-                        name="topic-radio"
-                        className="radio"
-                        value={c.name}
-                        onChange={linkEvent(this, handleTopicChange)}
-                      />
-                    </label>
-                  </div>
-                ))}
+                <div className="flex flex-row flex-wrap gap-4 pb-4">
+                  {TOPICS.map(c => (
+                    <button
+                      className="btn btn-sm btn-outline normal-case"
+                      value={c.name}
+                      onClick={linkEvent(this, handleTopicChange)}
+                    >
+                      <Icon icon={c.icon} />
+                      {i18n.t(c.name as I18nKeys)}
+                    </button>
+                  ))}
+                </div>
               </>
             )}
             {this.state.activeStep == Step.Language && (
@@ -67,36 +72,24 @@ export class InstancePicker extends Component<any, State> {
                 <p className="text-2xl font-bold text-center pb-4">
                   {i18n.t("what_language")}
                 </p>
-                <div className="form-control">
-                  <label className="label cursor-pointer">
-                    <span className="label-text text-sm text-gray-300">
-                      {i18n.t("all_languages")}
-                    </span>
-                    <input
-                      type="radio"
-                      name="language-radio"
-                      className="radio"
-                      value={"all"}
-                      onChange={linkEvent(this, handleLanguageChange)}
-                    />
-                  </label>
+                <div className="flex flex-row flex-wrap gap-4 pb-4">
+                  <button
+                    className="btn btn-sm btn-outline normal-case"
+                    value={"all"}
+                    onClick={linkEvent(this, handleLanguageChange)}
+                  >
+                    {i18n.t("all_languages")}
+                  </button>
+                  {LANGUAGES.map(l => (
+                    <button
+                      className="btn btn-sm btn-outline normal-case"
+                      value={l.code}
+                      onClick={linkEvent(this, handleLanguageChange)}
+                    >
+                      {l.name}
+                    </button>
+                  ))}
                 </div>
-                {LANGUAGES.map(l => (
-                  <div className="form-control">
-                    <label className="label cursor-pointer">
-                      <span className="label-text text-sm text-gray-300">
-                        {l.name}
-                      </span>
-                      <input
-                        type="radio"
-                        name="language-radio"
-                        className="radio"
-                        value={l.code}
-                        onChange={linkEvent(this, handleLanguageChange)}
-                      />
-                    </label>
-                  </div>
-                ))}
               </>
             )}
 
@@ -116,13 +109,6 @@ export class InstancePicker extends Component<any, State> {
                 })}
               >
                 {i18n.t("languages")}
-              </li>
-              <li
-                className={classNames("step text-gray-300", {
-                  "step-primary": this.state.activeStep == Step.Join,
-                })}
-              >
-                {i18n.t("join")}
               </li>
             </ul>
           </div>

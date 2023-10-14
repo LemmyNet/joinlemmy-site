@@ -2,6 +2,7 @@ export enum IconSize {
   Small = "w-3 h-3",
   Medium = "w-4 h-4",
   Large = "w-6 h-6",
+  Largest = "w-8 h-8",
 }
 
 interface IconProps {

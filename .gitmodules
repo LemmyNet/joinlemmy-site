@@ -17,4 +17,4 @@
 [submodule "lemmy-stats-crawler"]
 	path = lemmy-stats-crawler
 	url = https://github.com/LemmyNet/lemmy-stats-crawler.git
-	branch = upgrade_deps_1
+	branch = main
