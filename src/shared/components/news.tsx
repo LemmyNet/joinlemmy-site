@@ -54,7 +54,7 @@ interface NewsProps {
 const NewsCard = ({ news }: NewsProps) => (
   <div className="card card-bordered bg-neutral-900 shadow-xl mb-3">
     <div className="card-body">
-      <div class="grid md:grid-cols-12 grid-cols-1 gap-4">
+      <div className="grid md:grid-cols-12 grid-cols-1 gap-4">
         <div className="md:col-span-10">
           <div className="md:flex md:flex-row md:items-baseline md:space-x-3">
             <Link to={news.url} className={`text-2xl ${TEXT_GRADIENT}`}>

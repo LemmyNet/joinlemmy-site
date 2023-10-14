@@ -46,9 +46,12 @@ interface AppDetailsButtonsProps {
 }
 
 const AppDetailsButtons = ({ links }: AppDetailsButtonsProps) => (
-  <div class="flex flex-row justify-between gap-2">
+  <div className="flex flex-row justify-between gap-2">
     {links.map(l => (
-      <a class="btn btn-sm btn-primary text-white normal-case" href={l.link}>
+      <a
+        className="btn btn-sm btn-primary text-white normal-case"
+        href={l.link}
+      >
         <Icon icon={l.icon} />
       </a>
     ))}

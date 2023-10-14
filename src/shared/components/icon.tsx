@@ -12,7 +12,7 @@ interface IconProps {
 }
 
 export const Icon = ({ icon, size = IconSize.Medium, classes }: IconProps) => (
-  <svg class={`icon ${size} ${classes}`}>
+  <svg className={`icon ${size} ${classes}`}>
     <title>{icon}</title>
     <use xlinkHref={`#icon-${icon}`}></use>
   </svg>

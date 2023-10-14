@@ -141,15 +141,15 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
         </div>
         <div className={`text-2xl font-bold ${TEXT_GRADIENT}`}>{domain}</div>
         <p className="text-sm text-gray-300 mb-2">{description}</p>
-        <div class="flex flex-row flex-wrap justify-between gap-2">
+        <div className="flex flex-row flex-wrap justify-between gap-2">
           <a
-            class="btn btn-primary text-white sm:max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
+            className="btn btn-primary text-white sm:max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
             href={buildUrl(domain)}
           >
             {i18n.t("browse_instance")}
           </a>
           <button
-            class="btn btn-secondary btn-outline text-white sm:max-md:btn-block normal-case"
+            className="btn btn-secondary btn-outline text-white sm:max-md:btn-block normal-case"
             onClick={() =>
               (document.getElementById(modalId) as any).showModal()
             }

@@ -50,9 +50,9 @@ export const DonateDesc = () => (
 );
 
 export const DonateButtons = () => (
-  <div class="flex flex-row flex-wrap justify-between gap-2">
+  <div className="flex flex-row flex-wrap justify-between gap-2">
     <a
-      class="btn btn-primary text-white sm:max-md:btn-block normal-case"
+      className="btn btn-primary text-white sm:max-md:btn-block normal-case"
       href="https://liberapay.com/Lemmy"
     >
       <T i18nKey="support_on_liberapay">
@@ -60,7 +60,7 @@ export const DonateButtons = () => (
       </T>
     </a>
     <a
-      class="btn btn-secondary text-white sm:max-md:btn-block normal-case"
+      className="btn btn-secondary text-white sm:max-md:btn-block normal-case"
       href="https://www.patreon.com/dessalines"
     >
       <T i18nKey="support_on_patreon">
@@ -68,7 +68,7 @@ export const DonateButtons = () => (
       </T>
     </a>
     <a
-      class="btn btn-primary text-white sm:max-md:btn-block normal-case"
+      className="btn btn-primary text-white sm:max-md:btn-block normal-case"
       href="https://opencollective.com/lemmy"
     >
       <T i18nKey="support_on_opencollective">
@@ -76,7 +76,7 @@ export const DonateButtons = () => (
       </T>
     </a>
     <Link
-      class="btn btn-secondary text-white sm:max-md:btn-block normal-case"
+      className="btn btn-secondary text-white sm:max-md:btn-block normal-case"
       to="/crypto"
     >
       Crypto
@@ -130,7 +130,7 @@ export const DonateBlock = () => (
   <div className="flex flex-col items-center pt-16">
     <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
       <div className="card-body px-8 md:px-32 py-16">
-        <p class={`card-title text-4xl mb-3 ${TEXT_GRADIENT}`}>
+        <p className={`card-title text-4xl mb-3 ${TEXT_GRADIENT}`}>
           {i18n.t("donate")}
         </p>
         <DonateDesc />

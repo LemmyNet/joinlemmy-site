@@ -26,9 +26,9 @@ const SectionTitle = ({ title }) => (
 const ContributorsBlock = () => (
   <div className="my-16">
     <SectionTitle title={i18n.t("contributers")} />
-    <p class="text-sm text-gray-300 mb-3">{i18n.t("thanks_coders")}</p>
+    <p className="text-sm text-gray-300 mb-3">{i18n.t("thanks_coders")}</p>
     <CodersBlock />
-    <p class="text-sm text-gray-300 mt-6 mb-3">
+    <p className="text-sm text-gray-300 mt-6 mb-3">
       {i18n.t("thanks_translators")}
     </p>
     <TranslatorsBlock />
@@ -139,11 +139,11 @@ interface GoldSponsorCardsProps {
 const GoldSponsorCards = ({ title, sponsors, color }: GoldSponsorCardsProps) =>
   sponsors.length > 0 && (
     <div>
-      <p class="text-sm text-gray-300 mb-3">{title}</p>
-      <div class="flex flex-row flex-wrap gap-2 mb-2">
+      <p className="text-sm text-gray-300 mb-3">{title}</p>
+      <div className="flex flex-row flex-wrap gap-2 mb-2">
         {sponsors.map(s => (
           <a
-            class={`btn btn-${color} btn-outline w-32 h-16 normal-case`}
+            className={`btn btn-${color} btn-outline w-32 h-16 normal-case`}
             href={s.link}
           >
             <div className="flex flex-wrap flex-row justify-center">
@@ -173,7 +173,7 @@ const GeneralSponsorCard = () => {
 
   return (
     <div>
-      <p class="text-sm text-gray-300 mt-6 mb-3">
+      <p className="text-sm text-gray-300 mt-6 mb-3">
         {i18n.t("general_sponsors_desc")}
       </p>
       <div className="card card-bordered bg-neutral-900 shadow-xl">
