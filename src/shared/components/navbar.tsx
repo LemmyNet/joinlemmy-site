@@ -83,7 +83,7 @@ export const Navbar = ({ footer = false }) => (
     <div className="navbar-end">
       {footer ? (
         <a
-          className="text-sm text-gray-600 sm:max-lg:hidden text-right"
+          className="text-sm text-gray-600 max-md:hidden text-right"
           href="https://github.com/LemmyNet/lemmy/blob/main/LICENSE"
         >
           {i18n.t("copyright_line")}
