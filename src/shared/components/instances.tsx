@@ -132,7 +132,7 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
             icon={icon}
             sidebar={sidebar}
           />
-          <InstanceIcon icon={icon} />
+          <InstanceIcon domain={domain} icon={icon} />
           <InstanceStats
             users={users}
             comments={comments}
@@ -165,10 +165,10 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
 const imgError =
   "this.onError=null;this.src='/static/assets/images/lemmy.svg';" as unknown as InfernoEventHandler<HTMLImageElement>;
 
-const InstanceIcon = ({ icon }) => (
-  <div className="rounded-xl bg-neutral-800 p-4">
+const InstanceIcon = ({ domain, icon }) => (
+  <a className="rounded-xl bg-neutral-800 p-4" href={buildUrl(domain)}>
     <img className="w-24 h-24" src={icon} onError={imgError} />
-  </div>
+  </a>
 );
 
 const InstanceStats = ({ users, comments, monthlyUsers }) => (
