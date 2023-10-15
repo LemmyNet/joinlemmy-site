@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   daisyui: {
     themes: [
@@ -14,6 +16,9 @@ module.exports = {
   },
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ["Ubuntu", ...defaultTheme.fontFamily.sans],
+    },
     extend: {},
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
