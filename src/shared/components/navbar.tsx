@@ -11,42 +11,42 @@ const NavLinks = () => (
   <>
     <NavLink
       content={
-        <Link onClick={() => closeNavbarDropdown()} to="/instances">
+        <Link onClick={closeNavbarDropdown} to="/instances">
           {i18n.t("join")}
         </Link>
       }
     />
     <NavLink
       content={
-        <Link onClick={() => closeNavbarDropdown()} to="/news">
+        <Link onClick={closeNavbarDropdown} to="/news">
           {i18n.t("news")}
         </Link>
       }
     />
     <NavLink
       content={
-        <Link onClick={() => closeNavbarDropdown()} to="/apps">
+        <Link onClick={closeNavbarDropdown} to="/apps">
           {i18n.t("apps")}
         </Link>
       }
     />
     <NavLink
       content={
-        <Link onClick={() => closeNavbarDropdown()} to="/donate">
+        <Link onClick={closeNavbarDropdown} to="/donate">
           {i18n.t("donate")}
         </Link>
       }
     />
     <NavLink
       content={
-        <a onClick={() => closeNavbarDropdown()} href={`/docs/index.html`}>
+        <a onClick={closeNavbarDropdown} href="/docs/index.html">
           {i18n.t("docs")}
         </a>
       }
     />
     <NavLink
       content={
-        <Link onClick={() => closeNavbarDropdown()} to="/contact">
+        <Link onClick={closeNavbarDropdown} to="/contact">
           {i18n.t("contact")}
         </Link>
       }

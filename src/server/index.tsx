@@ -69,7 +69,7 @@ server.get("/*", async (req, res) => {
 
   res.send(`
            <!DOCTYPE html>
-           <html ${helmet.htmlAttributes.toString()} lang="en">
+           <html ${helmet.htmlAttributes.toString()} lang="en" class="scroll-smooth">
            <head>
            ${erudaInit()}
 
@@ -87,7 +87,7 @@ server.get("/*", async (req, res) => {
 
            <!-- Styles -->
            <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
-           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
 
            ${helmet.link.toString()}
            </head>
