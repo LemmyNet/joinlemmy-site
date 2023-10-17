@@ -81,7 +81,75 @@ export const ANDROID_APPS: AppDetails[] = [
       },
     ],
   },
+  {
+    name: "Eternity",
+    description: "A Lemmy client for Android written in Java.",
+    link: "https://codeberg.org/Bazsalanszky/Eternity",
+    icon: "/static/assets/images/eternity_icon.webp",
+    banner: "/static/assets/images/eternity_screen.webp",
+    links: [
+      {
+        link: "https://apt.izzysoft.de/fdroid/index/apk/eu.toldi.infinityforlemmy",
+        icon: "f-droid",
+      },
+      {
+        link: "https://play.google.com/store/apps/details?id=eu.toldi.infinityforlemmy",
+        icon: "googleplay",
+      },
+      {
+        link: "https://codeberg.org/Bazsalanszky/Eternity",
+        icon: "github",
+      },
+    ],
+  },
   voyagerApp,
+  {
+    name: "LiftOff!",
+    description: "A mobile client for lemmy",
+    link: "https://github.com/liftoff-app/liftoff",
+    icon: "/static/assets/images/liftoff_icon.svg",
+    banner: "/static/assets/images/liftoff_screen.webp",
+    links: [
+      {
+        link: "https://apt.izzysoft.de/fdroid/index/apk/com.liftoffapp.liftoff",
+        icon: "f-droid",
+      },
+      {
+        link: "https://play.google.com/store/apps/details?id=com.liftoffapp.liftoff&pli=1",
+        icon: "googleplay",
+      },
+      {
+        link: "https://github.com/liftoff-app/liftoff",
+        icon: "github",
+      },
+    ],
+  },
+  {
+    name: "Boost for Lemmy",
+    description: "A smooth app for Lemmy.",
+    link: "https://play.google.com/store/apps/details?id=com.rubenmayayo.lemmy",
+    icon: "/static/assets/images/boost_icon.webp",
+    banner: "/static/assets/images/boost_screen.webp",
+    links: [
+      {
+        link: "https://play.google.com/store/apps/details?id=com.rubenmayayo.lemmy",
+        icon: "googleplay",
+      },
+    ],
+  },
+  {
+    name: "Sync for Lemmy",
+    description: "A full-featured app for browsing Lemmy on the go.",
+    link: "https://play.google.com/store/apps/details?id=io.syncapps.lemmy_sync",
+    icon: "/static/assets/images/sync_icon.webp",
+    banner: "/static/assets/images/sync_screen.webp",
+    links: [
+      {
+        link: "https://play.google.com/store/apps/details?id=io.syncapps.lemmy_sync",
+        icon: "googleplay",
+      },
+    ],
+  },
 ];
 
 export const IOS_APPS: AppDetails[] = [

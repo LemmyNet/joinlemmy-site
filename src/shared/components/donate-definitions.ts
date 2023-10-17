@@ -104,6 +104,7 @@ export const CODERS: Coder[] = [
   { name: "phiresky", link: "https://github.com/phiresky" },
   { name: "SleeplessOne1917", link: "https://github.com/SleeplessOne1917" },
   { name: "asonix", link: "https://github.com/asonix" },
+  { name: "MV-GH", link: "https://github.com/MV-GH" },
   { name: "dullbananas", link: "https://github.com/dullbananas" },
   { name: "sunaurus", link: "https://github.com/sunaurus" },
   { name: "shilangyu", link: "https://github.com/shilangyu" },
