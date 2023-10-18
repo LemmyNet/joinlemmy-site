@@ -59,6 +59,33 @@ const voyagerApp: AppDetails = {
   ],
 };
 
+const thunderApp: AppDetails = {
+  name: "Thunder",
+  description:
+    "An open-source cross-platform Lemmy client for iOS and Android built with Flutter",
+  link: "https://github.com/thunder-app/thunder",
+  icon: "/static/assets/images/thunder_logo.webp",
+  banner: "/static/assets/images/thunder_screen.webp",
+  links: [
+    {
+      link: "https://apt.izzysoft.de/fdroid/index/apk/com.hjiangsu.thunder",
+      icon: "f-droid",
+    },
+    {
+      link: "https://apps.apple.com/iq/app/thunder-for-lemmy/id6450518497",
+      icon: "appleinc",
+    },
+    {
+      link: "https://play.google.com/store/apps/details?id=com.hjiangsu.thunder",
+      icon: "googleplay",
+    },
+    {
+      link: "https://github.com/thunder-app/thunder",
+      icon: "github",
+    },
+  ],
+};
+
 export const ANDROID_APPS: AppDetails[] = [
   {
     name: "Jerboa",
@@ -102,7 +129,23 @@ export const ANDROID_APPS: AppDetails[] = [
       },
     ],
   },
-  voyagerApp,
+  {
+    name: "Combustible",
+    description: "An Open-Source Lemmy Client For Android",
+    link: "https://github.com/TheBrokenRail/Combustible",
+    icon: "/static/assets/images/combustible_logo.webp",
+    banner: "/static/assets/images/combustible_screen.webp",
+    links: [
+      {
+        link: "https://apt.izzysoft.de/fdroid/index/apk/com.thebrokenrail.combustible",
+        icon: "f-droid",
+      },
+      {
+        link: "https://github.com/TheBrokenRail/Combustible",
+        icon: "github",
+      },
+    ],
+  },
   {
     name: "LiftOff!",
     description: "A mobile client for lemmy",
@@ -124,6 +167,8 @@ export const ANDROID_APPS: AppDetails[] = [
       },
     ],
   },
+  voyagerApp,
+  thunderApp,
   {
     name: "Boost for Lemmy",
     description: "A smooth app for Lemmy.",
@@ -170,7 +215,6 @@ export const IOS_APPS: AppDetails[] = [
       },
     ],
   },
-  voyagerApp,
   {
     name: "Lunar",
     description: "A Lemmy Client for iOS written in Swift and SwiftUI",
@@ -188,6 +232,8 @@ export const IOS_APPS: AppDetails[] = [
       },
     ],
   },
+  voyagerApp,
+  thunderApp,
   {
     name: "Memmy",
     description:
