@@ -21,7 +21,7 @@ interface MainProps {
 const TitleBlock = ({ i }: MainProps) => (
   <div className="py-16 flex flex-col items-center">
     <div className="flex flex-col items-center gap-4 mb-8">
-      <p className={`text-6xl font-bold ${TEXT_GRADIENT} p-2 z-10`}>Lemmy</p>
+      <p className={`text-6xl font-bold ${TEXT_GRADIENT} p-2`}>Lemmy</p>
       <p className="text-3xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
     </div>
     <div className="flex flex-row justify-around gap-4">
