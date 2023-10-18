@@ -25,7 +25,7 @@ const SectionTitle = ({ title }) => (
 
 const ContributorsBlock = () => (
   <div className="my-16">
-    <SectionTitle title={i18n.t("contributers")} />
+    <SectionTitle title={i18n.t("contributors")} />
     <p className="text-sm text-gray-300 mb-3">{i18n.t("thanks_coders")}</p>
     <CodersBlock />
     <p className="text-sm text-gray-300 mt-6 mb-3">
