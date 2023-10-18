@@ -315,6 +315,19 @@ export const WEB_APPS: AppDetails[] = [
     sourceType: SourceType.Open,
   },
   {
+    name: "mlmym",
+    description: "A familiar desktop experience for lemmy",
+    link: "https://github.com/rystaf/mlmym",
+    banner: "/static/assets/images/mlmym_screen.webp",
+    links: [
+      {
+        link: "https://github.com/rystaf/mlmym",
+        icon: "github",
+      },
+    ],
+    sourceType: SourceType.Open,
+  },
+  {
     name: "lemmyBB",
     description: "A lemmy frontend based on phpBB.",
     link: "https://github.com/LemmyNet/lemmyBB",
