@@ -10,6 +10,7 @@ import {
   AppLink,
   CLI_APPS,
   IOS_APPS,
+  SourceType,
   WEB_APPS,
 } from "./app-definitions";
 import { Icon } from "./icon";
@@ -67,6 +68,12 @@ const AppDetailsCard = ({ app }: AppDetailsCardProps) => (
         className="rounded-xl max-h-96 mb-2"
       />
       <p className="text-sm text-gray-300 mb-2">{app.description}</p>
+      {app.sourceType == SourceType.Closed && (
+        <div className="alert alert-warning">
+          <Icon icon="alert-octagon" />
+          <span>{i18n.t("closed_source_warning")}</span>
+        </div>
+      )}
       <AppDetailsButtons links={app.links} />
     </div>
   </div>

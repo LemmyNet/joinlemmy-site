@@ -4,6 +4,11 @@ export interface ApiLibrary {
   description: string;
 }
 
+export enum SourceType {
+  Closed,
+  Open,
+}
+
 export interface AppDetails {
   name: string;
   description: string;
@@ -11,6 +16,7 @@ export interface AppDetails {
   icon?: string;
   banner?: string;
   links: AppLink[];
+  sourceType: SourceType;
 }
 
 export interface AppLink {
@@ -57,6 +63,7 @@ const voyagerApp: AppDetails = {
       icon: "github",
     },
   ],
+  sourceType: SourceType.Open,
 };
 
 const thunderApp: AppDetails = {
@@ -84,6 +91,7 @@ const thunderApp: AppDetails = {
       icon: "github",
     },
   ],
+  sourceType: SourceType.Open,
 };
 
 export const ANDROID_APPS: AppDetails[] = [
@@ -107,6 +115,7 @@ export const ANDROID_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   {
     name: "Eternity",
@@ -128,6 +137,7 @@ export const ANDROID_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   {
     name: "Combustible",
@@ -145,6 +155,7 @@ export const ANDROID_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   {
     name: "LiftOff!",
@@ -166,6 +177,7 @@ export const ANDROID_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   voyagerApp,
   thunderApp,
@@ -181,6 +193,7 @@ export const ANDROID_APPS: AppDetails[] = [
         icon: "googleplay",
       },
     ],
+    sourceType: SourceType.Closed,
   },
   {
     name: "Sync for Lemmy",
@@ -194,6 +207,7 @@ export const ANDROID_APPS: AppDetails[] = [
         icon: "googleplay",
       },
     ],
+    sourceType: SourceType.Closed,
   },
 ];
 
@@ -214,6 +228,7 @@ export const IOS_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   {
     name: "Lunar",
@@ -231,6 +246,7 @@ export const IOS_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   voyagerApp,
   thunderApp,
@@ -251,6 +267,7 @@ export const IOS_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
 ];
 
@@ -266,6 +283,7 @@ export const WEB_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   {
     name: "Photon",
@@ -279,6 +297,7 @@ export const WEB_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   {
     name: "Alexandrite",
@@ -293,6 +312,7 @@ export const WEB_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
   {
     name: "lemmyBB",
@@ -305,6 +325,7 @@ export const WEB_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
 ];
 
@@ -320,5 +341,6 @@ export const CLI_APPS: AppDetails[] = [
         icon: "github",
       },
     ],
+    sourceType: SourceType.Open,
   },
 ];
