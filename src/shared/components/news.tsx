@@ -36,6 +36,9 @@ function titleToUrl(title: string): string {
 function previewMarkdown(markdown: string): string {
   return markdown
     .replace(/#/g, "")
+    .split(/\n/g)
+    .slice(3)
+    .join("\n")
     .replace(/[\n\r]/g, " ")
     .slice(0, 100)
     .concat("...");
