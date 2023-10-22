@@ -263,7 +263,7 @@ export const DetailsModal = ({
           monthlyUsers={monthlyUsers}
         />
         <div className="btn btn-primary btn-outline btn-sm normal-case">
-          <a href={buildUrl(domain)}>{i18n.t("join")}</a>
+          <a href={buildUrl(domain)}>{i18n.t("browse_instance")}</a>
         </div>
       </div>
       {sidebar && (
@@ -275,7 +275,7 @@ export const DetailsModal = ({
         className="btn btn-primary btn-block text-white normal-case"
         href={buildUrl(domain)}
       >
-        {i18n.t("join")}
+        {i18n.t("browse_instance")}
       </a>
     </div>
   </dialog>
@@ -364,10 +364,13 @@ export class Instances extends Component<Props, State> {
   }
 
   // Set the filters by the query params if they exist
-  componentDidMount(): void {
+  componentDidMount() {
     this.setState(getInstancesQueryParams());
-    this.buildInstanceList();
-    this.scrollToSearch();
+    // This is browser intensive, so run in the background
+    setTimeout(() => {
+      this.buildInstanceList();
+      this.scrollToSearch();
+    }, 0);
   }
 
   scrollToSearch() {

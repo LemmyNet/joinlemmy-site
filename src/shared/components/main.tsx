@@ -3,7 +3,7 @@ import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
-import { isBrowser } from "../utils";
+import { getQueryParams, isBrowser } from "../utils";
 import { Icon } from "./icon";
 import {
   BottomSpacer,
@@ -63,15 +63,17 @@ const CarouselBlock = () => (
 );
 
 const JoinServerButton = ({ i }: MainProps) => (
-  <button
+  <a
+    href="?showJoinModal=true"
     className="btn btn-primary text-white normal-case z-10"
-    onClick={() => {
+    onClick={e => {
+      e.preventDefault();
       i.setState({ resetInstancePicker: true });
-      (document.getElementById("picker") as any).showModal();
+      showJoinModal();
     }}
   >
     {i18n.t("join_a_server")}
-  </button>
+  </a>
 );
 
 const SeeAllServersButton = () => (
@@ -422,8 +424,27 @@ const MoreFeaturesCard = ({ icons, text }) => (
   </div>
 );
 
-export class Main extends Component<any, any> {
-  state = {
+function getMainQueryParams() {
+  return getQueryParams<Props>({
+    showJoinModal: d => !!d,
+  });
+}
+
+interface Props {
+  showJoinModal?: boolean;
+}
+
+interface State {
+  resetInstancePicker: boolean;
+  showJoinModal?: boolean;
+}
+
+function showJoinModal() {
+  (document.getElementById("picker") as any).showModal();
+}
+
+export class Main extends Component<Props, State> {
+  state: State = {
     resetInstancePicker: false,
   };
 
@@ -434,6 +455,10 @@ export class Main extends Component<any, any> {
   componentDidMount() {
     if (isBrowser()) {
       window.scrollTo(0, 0);
+    }
+    this.setState(getMainQueryParams());
+    if (this.state.showJoinModal) {
+      showJoinModal();
     }
   }
 

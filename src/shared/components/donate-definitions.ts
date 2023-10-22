@@ -1,3 +1,8 @@
+export interface Coder {
+  name: string;
+  link?: string;
+}
+
 export interface LinkedSponsor {
   name: string;
   link: string;
@@ -8,6 +13,38 @@ export interface GoldSponsor {
   link: string;
   avatar?: string;
 }
+
+export interface Translation {
+  lang: string;
+  country?: string;
+  translators: Translator[];
+}
+
+export interface Translator {
+  name: string;
+  link?: string;
+}
+
+interface FundingPlatform {
+  supporterCount: number;
+  monthlyEUR: number;
+}
+
+export const CODERS: Coder[] = [
+  { name: "dessalines", link: "https://github.com/dessalines" },
+  { name: "Nutomic", link: "https://github.com/nutomic" },
+  { name: "phiresky", link: "https://github.com/phiresky" },
+  { name: "SleeplessOne1917", link: "https://github.com/SleeplessOne1917" },
+  { name: "asonix", link: "https://github.com/asonix" },
+  { name: "MV-GH", link: "https://github.com/MV-GH" },
+  { name: "dullbananas", link: "https://github.com/dullbananas" },
+  { name: "sunaurus", link: "https://github.com/sunaurus" },
+  { name: "shilangyu", link: "https://github.com/shilangyu" },
+  { name: "eiknat", link: "https://github.com/eiknat" },
+  { name: "ernestwisniewski", link: "https://github.com/ernestwisniewski" },
+  { name: "zacanger", link: "https://github.com/zacanger" },
+  { name: "iav", link: "https://github.com/iav" },
+];
 
 export const GOLD_SPONSORS: GoldSponsor[] = [
   {
@@ -71,64 +108,9 @@ export const HIGHLIGHTED_SPONSORS = [
   "OliverLost",
   "THE-DIESEL999",
 ];
-export const GENERAL_SPONSORS = [
-  "0ti.me",
-  "Alex Wasserman",
-  "Alexander Bierbaumer",
-  "alexx henry",
-  "Amir Zaidi",
-  "Andi",
-  "Andre Hoffmann",
-  "Andre Vallestero",
-  "Anthony",
-  "Remi Rampin",
-  "Cameron C",
-  "Vegard",
-  "Brendan",
-  "mexicanhalloween .",
-  "Arthur Nieuwland",
-  "Forrest Weghorst",
-  "Luke Black",
-  "Brandon Abbott",
-  "Eon Gattignolo",
-];
 
-export interface Coder {
-  name: string;
-  link?: string;
-}
-
-export const CODERS: Coder[] = [
-  { name: "dessalines", link: "https://github.com/dessalines" },
-  { name: "Nutomic", link: "https://github.com/nutomic" },
-  { name: "phiresky", link: "https://github.com/phiresky" },
-  { name: "SleeplessOne1917", link: "https://github.com/SleeplessOne1917" },
-  { name: "asonix", link: "https://github.com/asonix" },
-  { name: "MV-GH", link: "https://github.com/MV-GH" },
-  { name: "dullbananas", link: "https://github.com/dullbananas" },
-  { name: "sunaurus", link: "https://github.com/sunaurus" },
-  { name: "shilangyu", link: "https://github.com/shilangyu" },
-  { name: "eiknat", link: "https://github.com/eiknat" },
-  { name: "ernestwisniewski", link: "https://github.com/ernestwisniewski" },
-  { name: "zacanger", link: "https://github.com/zacanger" },
-  { name: "iav", link: "https://github.com/iav" },
-];
-
-export interface Translation {
-  lang: string;
-  country?: string;
-  translators: Translator[];
-}
-
-export interface Translator {
-  name: string;
-  link?: string;
-}
-
-interface FundingPlatform {
-  supporterCount: number;
-  monthlyEUR: number;
-}
+// Don't do these until its automated
+export const GENERAL_SPONSORS = [];
 
 // Updated 2023-10-11
 // Monthly counts in EUR
@@ -167,4 +149,5 @@ export const FUNDED_DEVS = TOTAL_RECURRING_MONTHLY_EUR / MEDIAN_DEV_MONTHLY_EUR;
 //  Goal
 export const FUNDED_DEV_GOAL = 4;
 
+// End fundraiser date
 export const END_FUNDRAISER_DATE = new Date("2024-12-01");
