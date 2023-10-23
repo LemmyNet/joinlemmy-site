@@ -406,6 +406,14 @@ export class Instances extends Component<Props, State> {
     }
   }
 
+  isOpenInstance(i: any): boolean {
+    return !(
+      i.site_info.site_view.local_site.registration_mode !== "Open" ||
+      i.site_info.site_view.local_site.captcha_enabled ||
+      i.site_info.site_view.local_site.require_email_verification
+    );
+  }
+
   buildInstanceList() {
     let instances = instance_stats.stats.instance_details;
     const recommended = RECOMMENDED_INSTANCES;
@@ -429,6 +437,9 @@ export class Instances extends Component<Props, State> {
         topicRecs.map(c => c.domain).includes(i.domain),
       );
     }
+
+    // Filter out all open instances (often used by bots)
+    instances = instances.filter(i => !this.isOpenInstance(i));
 
     // Sort
     if (this.state.sort == RANDOM_SORT) {
