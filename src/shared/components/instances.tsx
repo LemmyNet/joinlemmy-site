@@ -115,6 +115,8 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
   const users = instance.site_info.site_view.counts.users;
   const comments = instance.site_info.site_view.counts.comments;
   const monthlyUsers = instance.site_info.site_view.counts.users_active_month;
+  const registrationMode =
+    instance.site_info.site_view.local_site.registration_mode;
 
   const modalId = `modal_${domain}`;
 
@@ -131,6 +133,7 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
             monthlyUsers={monthlyUsers}
             icon={icon}
             sidebar={sidebar}
+            registrationMode={registrationMode}
           />
           <InstanceIcon domain={domain} icon={icon} />
           <InstanceStats
@@ -229,6 +232,18 @@ export const StatsBadges = ({ users, comments, monthlyUsers }) => (
   </>
 );
 
+function registrationModeToString(registrationMode: string): string {
+  if (registrationMode == "Open") {
+    return i18n.t("registrations_open");
+  } else if (registrationMode == "Closed") {
+    return i18n.t("registrations_closed");
+  } else if (registrationMode == "RequireApplication") {
+    return i18n.t("requires_application");
+  } else {
+    return i18n.t("registrations_open");
+  }
+}
+
 export const DetailsModal = ({
   id,
   domain,
@@ -238,6 +253,7 @@ export const DetailsModal = ({
   comments,
   monthlyUsers,
   sidebar,
+  registrationMode,
 }) => (
   <dialog id={id} className="modal">
     <form method="dialog" className="modal-backdrop">
@@ -261,6 +277,14 @@ export const DetailsModal = ({
           users={users}
           comments={comments}
           monthlyUsers={monthlyUsers}
+        />
+        <Badge
+          content={
+            <div className="text-sm text-gray-500">
+              <Icon icon="user-check" classes="mr-2" />
+              <span>{registrationModeToString(registrationMode)}</span>
+            </div>
+          }
         />
         <div className="btn btn-primary btn-outline btn-sm normal-case">
           <a href={buildUrl(domain)}>{i18n.t("browse_instance")}</a>
