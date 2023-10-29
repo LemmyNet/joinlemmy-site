@@ -13,6 +13,7 @@ import {
 } from "./common";
 import { InstancePicker } from "./instance-picker";
 import classNames from "classnames";
+import Glide from "@glidejs/glide";
 
 interface MainProps {
   i: Main;
@@ -39,25 +40,33 @@ const carouselImages = [
 
 const CarouselBlock = () => (
   <div>
-    <div className="carousel carousel-center p-8 space-x-8 rounded-box mt-16">
-      {carouselImages.map((image, i) => (
-        <div id={`item-${i}`} className="carousel-item w-9/12 lg:w-5/12">
-          <img
-            src={image}
-            className={classNames("rounded-box border-8 z-10", {
-              "border-primary/[.15]": i & 1,
-              "border-secondary/[.15]": !(i & 1),
-            })}
-          />
-        </div>
-      ))}
-    </div>
-    <div className="flex justify-center w-full py-2 gap-4">
-      {carouselImages.map((_, i) => (
-        <a href={`#item-${i}`} className={TEXT_GRADIENT}>
-          ●
-        </a>
-      ))}
+    <div class="glide p-8 space-x-8 rounded-box mt-16">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          {carouselImages.map((image, i) => (
+            <img
+              src={image}
+              className={classNames("rounded-box border-8 z-10 glide__slide", {
+                "border-primary/[.15]": i & 1,
+                "border-secondary/[.15]": !(i & 1),
+              })}
+            />
+          ))}
+        </ul>
+      </div>
+      <div
+        className="glide__bullets flex justify-center w-full py-2 gap-4"
+        data-glide-el="controls[nav]"
+      >
+        {carouselImages.map((_, i) => (
+          <button
+            data-glide-dir={`=${i}`}
+            className={`glide__bullet ${TEXT_GRADIENT}`}
+          >
+            ●
+          </button>
+        ))}
+      </div>
     </div>
   </div>
 );
@@ -453,6 +462,18 @@ export class Main extends Component<Props, State> {
   }
 
   componentDidMount() {
+    new Glide(".glide", {
+      type: "carousel",
+      gap: 50,
+      perView: 3,
+      breakpoints: {
+        800: {
+          perView: 1,
+        },
+      },
+      autoplay: 3000,
+      hoverpause: true,
+    }).mount();
     if (isBrowser()) {
       window.scrollTo(0, 0);
     }

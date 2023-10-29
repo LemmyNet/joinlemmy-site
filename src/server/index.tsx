@@ -87,6 +87,7 @@ server.get("/*", async (req, res) => {
 
            <!-- Styles -->
            <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
+           <link rel="stylesheet" href="/static/assets/glide.core.min.css">
            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
 
            ${helmet.link.toString()}

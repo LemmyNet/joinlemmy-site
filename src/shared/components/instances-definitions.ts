@@ -142,7 +142,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "lemmygrad.ml",
     languages: ["en"],
-    topics: [GENERAL, POLITICS],
+    topics: [GENERAL, POLITICS, LGBTQ],
   },
   {
     domain: "sopuli.xyz",
