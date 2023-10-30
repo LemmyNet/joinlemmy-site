@@ -142,14 +142,19 @@ const InstanceCard = ({ instance }: InstanceCardProps) => {
             monthlyUsers={monthlyUsers}
           />
         </div>
-        <div className={`text-2xl font-bold ${TEXT_GRADIENT}`}>{domain}</div>
+        <a
+          href={buildUrl(domain)}
+          className={`text-2xl font-bold ${TEXT_GRADIENT}`}
+        >
+          {domain}
+        </a>
         <p className="text-sm text-gray-300 mb-2">{description}</p>
         <div className="flex flex-row flex-wrap justify-between gap-2">
           <a
             className="btn btn-primary text-white max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
-            href={buildUrl(domain)}
+            href={`${buildUrl(domain)}/signup`}
           >
-            {i18n.t("browse_instance")}
+            {i18n.t("sign_up")}
           </a>
           <button
             className="btn btn-secondary btn-outline text-white max-md:btn-block normal-case"
@@ -297,9 +302,9 @@ export const DetailsModal = ({
       )}
       <a
         className="btn btn-primary btn-block text-white normal-case"
-        href={buildUrl(domain)}
+        href={`${buildUrl(domain)}/signup`}
       >
-        {i18n.t("browse_instance")}
+        {i18n.t("sign_up")}
       </a>
     </div>
   </dialog>
