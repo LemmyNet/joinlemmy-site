@@ -1,3 +1,5 @@
+import { donation_stats } from "../donation_stats";
+
 export interface Coder {
   name: string;
   link?: string;
@@ -112,21 +114,20 @@ export const HIGHLIGHTED_SPONSORS = [
 // Don't do these until its automated
 export const GENERAL_SPONSORS = [];
 
-// Updated 2023-10-11
 // Monthly counts in EUR
 const liberapay: FundingPlatform = {
-  supporterCount: 294,
-  monthlyEUR: 358.71 * 4.35,
-};
-
-const patreon: FundingPlatform = {
-  supporterCount: 473,
-  monthlyEUR: 1513.57,
+  supporterCount: donation_stats[0].patrons,
+  monthlyEUR: donation_stats[0].amount,
 };
 
 const openCollective: FundingPlatform = {
-  supporterCount: 275,
-  monthlyEUR: 10585 / 12,
+  supporterCount: donation_stats[1].patrons,
+  monthlyEUR: donation_stats[1].amount,
+};
+
+const patreon: FundingPlatform = {
+  supporterCount: donation_stats[2].patrons,
+  monthlyEUR: donation_stats[2].amount,
 };
 
 const fundingPlatforms = [liberapay, patreon, openCollective];
@@ -147,7 +148,7 @@ export const MEDIAN_DEV_MONTHLY_EUR = MEDIAN_DEV_SALARY / 12;
 export const FUNDED_DEVS = TOTAL_RECURRING_MONTHLY_EUR / MEDIAN_DEV_MONTHLY_EUR;
 
 //  Goal
-export const FUNDED_DEV_GOAL = 4;
+export const FUNDED_DEV_GOAL = 2;
 
 // End fundraiser date
 export const END_FUNDRAISER_DATE = new Date("2024-12-01");

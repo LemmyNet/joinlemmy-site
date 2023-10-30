@@ -4,8 +4,10 @@
 ./update_submodules.sh
 
 yarn crawl
+yarn update-donations
 git add "src/shared/instance_stats.ts"
-git commit -m "Crawl instance statistics"
+git add "src/shared/donation_stats.ts"
+git commit -m "Crawl and donation instance statistics"
 
 # look for unused translations
 for langfile in joinlemmy-translations/translations/*.json; do
