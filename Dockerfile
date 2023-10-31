@@ -24,13 +24,14 @@ RUN yarn docs
 
 # Build the isomorphic app
 FROM node:alpine as builder
-RUN apk update && apk add yarn python3 build-base gcc wget git --no-cache
+RUN apk update && apk add yarn python3 build-base gcc wget git curl --no-cache
+RUN curl -sf https://gobinaries.com/tj/node-prune | sh
 
 WORKDIR /app
 
 # Cache deps
 COPY package.json yarn.lock ./
-RUN yarn install --pure-lockfile
+RUN yarn --production --prefer-offline --pure-lockfile
 
 # Build
 COPY tsconfig.json \
@@ -48,8 +49,17 @@ COPY src src
 COPY --from=docs /app/docs ./src/assets/docs
 COPY --from=api /app/lemmy-js-client/docs ./src/assets/api
 
-RUN yarn install --pure-lockfile
+RUN yarn --production --prefer-offline
 RUN yarn build:prod
+
+# Prune the image
+RUN node-prune ./node_modules
+
+RUN rm -rf ./node_modules/import-sort-parser-typescript
+RUN rm -rf ./node_modules/typescript
+RUN rm -rf ./node_modules/npm
+
+RUN du -sh ./node_modules/* | sort -nr | grep '\dM.*'
 
 FROM node:alpine as runner
 COPY --from=builder /app/dist /app/dist
