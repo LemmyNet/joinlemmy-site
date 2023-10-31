@@ -15,7 +15,7 @@ const ContactBlock = () => (
     <div className="card w-96 card-bordered bg-neutral-900 shadow-xl">
       <div className="card-body items-center p-8">
         <ContactBtn
-          title="/c/lemmy_support"
+          title="!lemmy_support@lemmy.ml"
           url="https://lemmy.ml/c/lemmy_support"
         />
         <ContactBtn
