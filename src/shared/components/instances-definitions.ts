@@ -120,6 +120,11 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL, TECHNOLOGY, GAMING],
   },
   {
+    domain: "lemmy.today",
+    languages: ["en"],
+    topics: [GENERAL, TECHNOLOGY],
+  },
+  {
     domain: "slrpnk.net",
     languages: ["en"],
     topics: [TECHNOLOGY, POLITICS],
