@@ -4,9 +4,7 @@ _Written by @nutomic and @dessalines, 2023-10-31_
 
 ## Intro
 
-Some months have passed on since the [Reddit blackout](https://www.vox.com/technology/2023/6/14/23760738/reddit-blackout-explained-subreddit-apollo-third-party-apps) this June. It led to an explosive growth in Lemmy users, and lots of urgent work in scaling, bug fixes, user onboarding and more. Since then things have calmed down significantly, giving us breathing room and time to get more long-term work done.
-
-> might link to [our news article](https://join-lemmy.org/news/2023-06-17_-_Update_from_Lemmy_after_the_Reddit_blackout) instead of vox.com
+Some months have passed on since the [Reddit blackout](https://join-lemmy.org/news/2023-06-17_-_Update_from_Lemmy_after_the_Reddit_blackout) this June. It led to an explosive growth in Lemmy users, and lots of urgent work in scaling, bug fixes, user onboarding and more. Since then things have calmed down significantly, giving us breathing room and time to get more long-term work done.
 
 As of Nov. 2023, Lemmy is at **~36k active daily users** 🥳 (_those who have posted or commented within the last month_). While user counts are not an explicit goal of ours, this is still a tremendous achievement, and one which we can all be proud to be a part of. It shows that people _truly do_ want alternatives to US tech companies, and will use them if they exist.
 
