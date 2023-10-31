@@ -115,6 +115,11 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL, TECHNOLOGY, POLITICS],
   },
   {
+    domain: "toast.ooo",
+    languages: ["en"],
+    topics: [GENERAL, TECHNOLOGY, GAMING],
+  },
+  {
     domain: "slrpnk.net",
     languages: ["en"],
     topics: [TECHNOLOGY, POLITICS],
