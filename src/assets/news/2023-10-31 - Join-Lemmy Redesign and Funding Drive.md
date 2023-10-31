@@ -15,7 +15,7 @@ Most recently we've been working on a redesign of join-lemmy.org to provide a be
 - A helpful new [instance picker](http://join-lemmy.org/?showJoinModal=true) to reduce [choice overload](https://thedecisionlab.com/reference-guide/psychology/choice-overload).
 - The [instances page](http://join-lemmy.org/instances) is now _filterable_, based a set of topics and languages, as well as _sortable_ based on activity. The default sort is `Random`, to encourage people to join smaller servers.
 - The [apps](http://join-lemmy.org/apps) page now has sections for Android, iOS, and web apps, as well as libraries. Feel free to do a pull request to add any apps that are missing.
-- The [donate](http://join-lemmy.org/apps) page now shows the total amount of monthly donations across all platforms. More details below.
+- The [donate](http://join-lemmy.org/donate) page now shows the total amount of monthly donations across all platforms. More details below.
 - The technology used is Typescript with [tailwind](https://tailwindcss.com/) and [daisyUI](https://daisyui.com/) CSS frameworks.
 
 **For server admins**: If your instance isn't listed already, you must explicitly add your server topics and languages by doing a pull request to [this file](https://github.com/LemmyNet/joinlemmy-site/blob/4bd4d7a0c450addb8696db22813796b7cf1de3c2/src/shared/components/instances-definitions.ts).
