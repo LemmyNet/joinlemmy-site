@@ -8,14 +8,14 @@ Some months have passed on since the [Reddit blackout](https://www.vox.com/techn
 
 > might link to [our news article](https://join-lemmy.org/news/2023-06-17_-_Update_from_Lemmy_after_the_Reddit_blackout) instead of vox.com
 
-As of Nov. 2023, Lemmy is at **~36k active daily users** 🥳 (*those who have posted or commented within the last month*). While user counts are not an explicit goal of ours, this is still a tremendous achievement, and one which we can all be proud to be a part of. It shows that people *truly do* want alternatives to US tech companies, and will use them if they exist.
+As of Nov. 2023, Lemmy is at **~36k active daily users** 🥳 (_those who have posted or commented within the last month_). While user counts are not an explicit goal of ours, this is still a tremendous achievement, and one which we can all be proud to be a part of. It shows that people _truly do_ want alternatives to US tech companies, and will use them if they exist.
 
 ## Join-Lemmy Redesign
 
 Most recently we've been working on a redesign of join-lemmy.org to provide a better onboarding experience and cater towards new users. This includes:
 
 - A helpful new [instance picker](http://join-lemmy.org/?showJoinModal=true) to reduce [choice overload](https://thedecisionlab.com/reference-guide/psychology/choice-overload).
-- The [instances page](http://join-lemmy.org/instances) is now *filterable*, based a set of topics and languages, as well as *sortable* based on activity. The default sort is `Random`, to encourage people to join smaller servers.
+- The [instances page](http://join-lemmy.org/instances) is now _filterable_, based a set of topics and languages, as well as _sortable_ based on activity. The default sort is `Random`, to encourage people to join smaller servers.
 - The [apps](http://join-lemmy.org/apps) page now has sections for Android, iOS, and web apps, as well as libraries. Feel free to do a pull request to add any apps that are missing.
 - The [donate](http://join-lemmy.org/apps) page now shows the total amount of monthly donations across all platforms. More details below.
 - The technology used is Typescript with [tailwind](https://tailwindcss.com/) and [daisyUI](https://daisyui.com/) CSS frameworks.
