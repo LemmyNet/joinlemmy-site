@@ -1,31 +1,23 @@
-import { Component } from "inferno";
+export enum IconSize {
+  Small = "w-3 h-3",
+  Medium = "w-4 h-4",
+  Large = "w-6 h-6",
+  Largest = "w-8 h-8",
+}
 
 interface IconProps {
   icon: string;
+  size?: IconSize;
   classes?: string;
 }
 
-export class Icon extends Component<IconProps, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
+export const Icon = ({ icon, size = IconSize.Medium, classes }: IconProps) => (
+  <svg className={`icon ${size} ${classes}`}>
+    <title>{icon}</title>
+    <use xlinkHref={`#icon-${icon}`}></use>
+  </svg>
+);
 
-  render() {
-    return (
-      <svg class={`icon ${this.props.classes}`}>
-        <title>{this.props.icon}</title>
-        <use xlinkHref={`#icon-${this.props.icon}`}></use>
-      </svg>
-    );
-  }
-}
-
-export class Spinner extends Component<any, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
-  render() {
-    return <Icon icon="spinner" classes="icon-spinner spin" />;
-  }
-}
+export const Spinner = () => (
+  <Icon icon="spinner" classes="icon-spinner spin" />
+);

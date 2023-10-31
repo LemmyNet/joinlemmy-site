@@ -16,25 +16,25 @@ pipeline:
   prettier_markdown_check:
     image: tmknom/prettier:3.0.0
     commands:
-      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts"
+      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts" "!src/shared/donation_stats.ts"
 
   yarn:
-    image: node:14-alpine
+    image: node:alpine
     commands:
       - yarn
 
   yarn_lint:
-    image: node:14-alpine
+    image: node:alpine
     commands:
       - yarn lint
 
   yarn_build_dev:
-    image: node:14-alpine
+    image: node:alpine
     commands:
       - yarn build:dev
 
   nightly_instance_crawl:
-    image: node:14-alpine
+    image: node:alpine
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
       - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
@@ -58,7 +58,7 @@ pipeline:
         - cron
 
   release_instance_crawl:
-    image: node:14-alpine
+    image: node:alpine
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
       - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev

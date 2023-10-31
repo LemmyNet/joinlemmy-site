@@ -1,0 +1,12 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.icon {
+  display: inline-block;
+  max-width: 4rem;
+  max-height: 4rem;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}

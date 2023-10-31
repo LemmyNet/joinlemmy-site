@@ -6,6 +6,7 @@ import { Contact } from "./components/contact";
 import { Donate } from "./components/donate";
 import { News } from "./components/news";
 import { NewsItem } from "./components/news-item";
+import { Crypto } from "./components/crypto";
 
 export const routes: IRouteProps[] = [
   {
@@ -47,5 +48,10 @@ export const routes: IRouteProps[] = [
     path: `/donate`,
     exact: true,
     component: Donate,
+  },
+  {
+    path: `/crypto`,
+    exact: true,
+    component: Crypto,
   },
 ];

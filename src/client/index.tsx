@@ -19,4 +19,8 @@ const wrapper = (
   </BrowserRouter>
 );
 
-hydrate(wrapper, document.getElementById("root"));
+const root = document.getElementById("root");
+
+if (root) {
+  hydrate(wrapper, root);
+}

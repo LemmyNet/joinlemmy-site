@@ -1,24 +1,19 @@
 {
-  "en": [
-    "sopuli.xyz",
-    "sh.itjust.works",
-    "lemmy.fmhy.ml",
-    "discuss.tchncs.de",
+  "start_scan_instances": [
+    "lemmy.ml",
     "lemm.ee",
+    "lemmy.world",
+    "feddit.it",
+    "lemmygrad.ml",
     "reddthat.com",
+    "lemmy.sdf.org",
+    "feddit.uk",
+    "hexbear.net",
+    "lemmy.fmhy.ml",
     "discuss.online",
+    "feddit.de",
     "lemmings.world"
   ],
-  "fr": ["sh.itjust.works"],
-  "da": ["feddit.dk"],
-  "de": ["feddit.de", "discuss.tchncs.de"],
-  "nl": ["feddit.nl"],
-  "pt": ["lemmy.pt"],
-  "pt-PT": ["lemmy.pt"],
-  "pt-BR": ["lemmy.pt"],
-  "eu": ["lemmy.eus"],
-  "ja": ["tabinezumi.net", "lm.korako.me"],
-  "it": ["feddit.it"],
   "exclude": [
     "lemmy.glasgow.social",
     "ds9.lemmy.ml",
@@ -29,6 +24,7 @@
     "lemmy.burger.rodeo",
     "bakchodi.org",
     "lemmy.comfysnug.space",
+    "ani.social",
     "rqd2.net"
   ]
 }

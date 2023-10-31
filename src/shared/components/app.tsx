@@ -5,9 +5,8 @@ import { i18n } from "../i18next";
 import { routes } from "../routes";
 import { NoMatch } from "./no-match";
 import { Symbols } from "./symbols";
-import { Navbar } from "./navbar";
-import { Footer } from "./footer";
-import "./styles.scss";
+import { Footer, Navbar } from "./navbar";
+import { BACKGROUND_GRADIENT_1, BACKGROUND_GRADIENT_2 } from "./common";
 
 export class App extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -15,26 +14,28 @@ export class App extends Component<any, any> {
   }
   render() {
     return (
-      <>
-        <div>
+      <div className={BACKGROUND_GRADIENT_1}>
+        <div className={BACKGROUND_GRADIENT_2}>
           <Provider i18next={i18n}>
-            <Navbar />
-            <Switch>
-              {routes.map(({ path, exact, component: C, ...rest }) => (
-                <Route
-                  key={path}
-                  path={path}
-                  exact={exact}
-                  render={props => <C {...props} {...rest} />}
-                />
-              ))}
-              <Route render={props => <NoMatch {...props} />} />
-            </Switch>
-            <Footer />
+            <div className="min-h-screen">
+              <Navbar />
+              <Switch>
+                {routes.map(({ path, exact, component: C, ...rest }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    exact={exact}
+                    render={props => C && <C {...props} {...rest} />}
+                  />
+                ))}
+                <Route render={props => <NoMatch {...props} />} />
+              </Switch>
+              <Footer />
+            </div>
             <Symbols />
           </Provider>
         </div>
-      </>
+      </div>
     );
   }
 }

@@ -1,4 +1,4 @@
-import express, { RequestHandler } from "express";
+import express, { RequestHandler, Request, Response } from "express";
 import { StaticRouter } from "inferno-router";
 import { renderToString } from "inferno-server";
 // import { matchPath } from "inferno-router";
@@ -18,13 +18,21 @@ server.use("/static", express.static(path.resolve("./dist")));
 server.use("/docs", express.static(path.resolve("./dist/assets/docs")));
 server.use("/api", express.static(path.resolve("./dist/assets/api")));
 
-server.get("/*", async (req, res) => {
-  // const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
-  const context = {} as any;
+function erudaInit(): string {
+  if (process.env["NODE_ENV"] == "development") {
+    return `
+        <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>
+    `;
+  } else {
+    return "";
+  }
+}
 
+function setLanguage(req: Request, res: Response): string {
   // Setting the language for non-js browsers
   const cookieLang = getLanguageFromCookie(req.headers.cookie);
-  var language: string;
+  let language: string;
   if (req.query["lang"] != null) {
     language = req.query["lang"].toString();
     res.cookie("lang", language, {
@@ -37,6 +45,14 @@ server.get("/*", async (req, res) => {
       ? req.headers["accept-language"].split(",")[0]
       : "en";
   }
+  return language;
+}
+
+server.get("/*", async (req, res) => {
+  // const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
+  const context = {} as any;
+
+  const language = setLanguage(req, res);
   i18n.changeLanguage(language);
 
   const wrapper = (
@@ -53,8 +69,9 @@ server.get("/*", async (req, res) => {
 
   res.send(`
            <!DOCTYPE html>
-           <html ${helmet.htmlAttributes.toString()} lang="en">
+           <html ${helmet.htmlAttributes.toString()} lang="en" class="scroll-smooth">
            <head>
+           ${erudaInit()}
 
            ${helmet.title.toString()}
            ${helmet.meta.toString()}
@@ -70,44 +87,11 @@ server.get("/*", async (req, res) => {
 
            <!-- Styles -->
            <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
-           <!-- These don't work with the css minifier -->
-           <style>
-             @font-face {
-               font-family: 'CaviarDreams';
-               font-style: normal;
-  src: url('/static/assets/fonts/CaviarDreams.ttf') format('truetype');
-             }
-            .bg-image {
-              position: fixed;
-              left: 0;
-              right: 0;
-              z-index: -1;
-              display: block;
-              width: 100%;
-              height: 100%;
-              background:
-              linear-gradient(
-              rgba(0, 0, 0, 0.5),
-              rgba(0, 0, 0, 0.5)
-              ),
-              url('/static/assets/images/main_img.webp');
-              -webkit-filter: blur(7px);
-              -moz-filter: blur(7px);
-              -o-filter: blur(7px);
-              -ms-filter: blur(7px);
-              filter: blur(7px);
+           <link rel="stylesheet" href="/static/assets/glide.core.min.css">
+           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
 
-              /* Center and scale the image nicely */
-              background-position: center;
-              background-repeat: no-repeat;
-              background-size: cover;
-            }
-          </style>
-
-           <!-- Current theme and more -->
            ${helmet.link.toString()}
            </head>
-
            <body ${helmet.bodyAttributes.toString()}>
              <div id='root'>${root}</div>
              <script defer src='/static/js/client.js'></script>

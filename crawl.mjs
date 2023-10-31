@@ -52,7 +52,7 @@ try {
     process.stdout.write(strData);
   });
 
-  run.on("close", exitCode => {
+  run.on("close", _exitCode => {
     var stats = JSON.parse(savedOutput);
     // Crawl results from all instances include tons of data which needs to be compiled.
     // If it is too much data it breaks the build, so we need to exclude as much as possible.
