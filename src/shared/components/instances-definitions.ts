@@ -471,4 +471,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [GENERAL],
   },
+  {
+    domain: "lemmings.world",
+    languages: ["en", "cs"],
+    topics: [All_TOPIC, GENERAL, TECHNOLOGY, GAMING],
+  },
 ];
