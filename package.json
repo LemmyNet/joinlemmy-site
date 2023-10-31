@@ -69,7 +69,6 @@
     "rimraf": "^5.0.5",
     "sass": "^1.69.3",
     "sass-loader": "^13.3.2",
-    "sortpack": "^2.3.5",
     "style-loader": "^3.3.3",
     "terser": "^5.21.0",
     "typescript": "^5.2.2",
@@ -83,9 +82,6 @@
     "*.{ts,tsx,js}": [
       "prettier --write",
       "eslint --fix"
-    ],
-    "package.json": [
-      "sortpack"
     ]
   }
 }
