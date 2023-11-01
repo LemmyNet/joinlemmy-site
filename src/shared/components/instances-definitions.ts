@@ -486,4 +486,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en", "cs"],
     topics: [GENERAL, TECHNOLOGY, GAMING],
   },
+  {
+    domain: "dormi.zone",
+    languages: ["en"],
+    topics: [GAMING],
+  },
 ];
