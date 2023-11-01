@@ -55,6 +55,10 @@ const voyagerApp: AppDetails = {
       icon: "appleinc",
     },
     {
+      link: "https://f-droid.org/en/packages/app.vger.voyager",
+      icon: "f-droid",
+    },
+    {
       link: "https://play.google.com/store/apps/details?id=app.vger.voyager",
       icon: "googleplay",
     },
