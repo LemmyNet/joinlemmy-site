@@ -142,3 +142,7 @@ export const DonateBlock = () => (
 );
 
 export const BottomSpacer = () => <div className="pb-32" />;
+
+export const SectionTitle = ({ title }) => (
+  <div className="text-2xl mb-3">{title}</div>
+);

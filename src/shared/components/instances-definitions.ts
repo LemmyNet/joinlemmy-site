@@ -27,7 +27,7 @@ export interface Topic {
   icon: string;
 }
 
-export const All_TOPIC: Topic = {
+export const ALL_TOPIC: Topic = {
   name: "all_topics",
   icon: "folder",
 };
@@ -88,7 +88,7 @@ const SPORTS: Topic = {
 };
 
 export const TOPICS: Topic[] = [
-  All_TOPIC,
+  ALL_TOPIC,
   GENERAL,
   TECHNOLOGY,
   POLITICS,

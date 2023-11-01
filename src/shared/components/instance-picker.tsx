@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { Component, linkEvent } from "inferno";
-import { All_TOPIC, TOPICS, Topic } from "./instances-definitions";
+import { ALL_TOPIC, TOPICS, Topic } from "./instances-definitions";
 import { LANGUAGES, i18n } from "../i18next";
 import { I18nKeys } from "i18next";
 import { Icon } from "./icon";
@@ -120,14 +120,14 @@ export class InstancePicker extends Component<Props, State> {
 
 function handleTopicChange(i: InstancePicker, event: any) {
   i.setState({
-    topic: TOPICS.find(c => c.name == event.target.value) ?? All_TOPIC,
+    topic: TOPICS.find(c => c.name == event.target.value) ?? ALL_TOPIC,
     activeStep: Step.Language,
   });
 }
 
 function handleLanguageChange(i: InstancePicker, event: any) {
   i.setState({ language: event.target.value });
-  const url = `/instances?topic=${i.state.topic?.name ?? All_TOPIC}&language=${
+  const url = `/instances?topic=${i.state.topic?.name ?? ALL_TOPIC}&language=${
     i.state.language
   }&scroll=true`;
 
