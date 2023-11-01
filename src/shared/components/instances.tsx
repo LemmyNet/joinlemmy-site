@@ -4,12 +4,12 @@ import { i18n, LANGUAGES } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import { getQueryParams, mdToHtml, numToSI } from "../utils";
-import { Badge, SELECT_CLASSES, TEXT_GRADIENT } from "./common";
+import { Badge, SELECT_CLASSES, SectionTitle, TEXT_GRADIENT } from "./common";
 import {
   INSTANCE_HELPERS,
   Topic,
   RECOMMENDED_INSTANCES,
-  All_TOPIC,
+  ALL_TOPIC,
   TOPICS,
 } from "./instances-definitions";
 import { Icon, IconSize } from "./icon";
@@ -78,10 +78,6 @@ const ComparisonBlock = () => (
       </div>
     </div>
   </div>
-);
-
-const SectionTitle = ({ title }) => (
-  <div className="text-2xl mb-3">{title}</div>
 );
 
 interface InstanceCardGridProps {
@@ -367,7 +363,7 @@ function getSortFromQuery(sort?: string): Sort {
 }
 
 function getTopicFromQuery(topic?: string): Topic {
-  return TOPICS.find(c => c.name == topic) ?? All_TOPIC;
+  return TOPICS.find(c => c.name == topic) ?? ALL_TOPIC;
 }
 
 function getInstancesQueryParams() {
@@ -384,7 +380,7 @@ export class Instances extends Component<Props, State> {
     instances: [],
     sort: RANDOM_SORT,
     language: "all",
-    topic: All_TOPIC,
+    topic: ALL_TOPIC,
     scroll: false,
   };
 
@@ -434,7 +430,7 @@ export class Instances extends Component<Props, State> {
     }
 
     // Topic filter
-    if (this.state.topic !== All_TOPIC) {
+    if (this.state.topic !== ALL_TOPIC) {
       const topicRecs = recommended.filter(r =>
         r.topics.includes(this.state.topic),
       );
@@ -565,7 +561,7 @@ function handleSortChange(i: Instances, event: any) {
 
 function handleTopicChange(i: Instances, event: any) {
   i.setState({
-    topic: TOPICS.find(c => c.name == event.target.value) ?? All_TOPIC,
+    topic: TOPICS.find(c => c.name == event.target.value) ?? ALL_TOPIC,
   });
   i.buildInstanceList();
 }
@@ -579,7 +575,7 @@ function handleSeeAll(i: Instances) {
   i.setState({
     sort: RANDOM_SORT,
     language: "all",
-    topic: All_TOPIC,
+    topic: ALL_TOPIC,
   });
   i.buildInstanceList();
 }

@@ -1,22 +1,21 @@
-import { Component } from "inferno";
+import { Component, linkEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
-import { BottomSpacer, TEXT_GRADIENT } from "./common";
+import { BottomSpacer, SELECT_CLASSES, TEXT_GRADIENT } from "./common";
 import {
-  ANDROID_APPS,
   API_LIBRARIES,
+  APP_LIST,
   AppDetails,
   AppLink,
-  CLI_APPS,
-  IOS_APPS,
+  Platform,
   SourceType,
-  WEB_APPS,
 } from "./app-definitions";
 import { Icon } from "./icon";
+import { I18nKeys } from "i18next";
 
 const TitleBlock = () => (
-  <div className="flex flex-col items-center pt-16 mb-8">
+  <div className="flex flex-col items-center pt-16 mb-4">
     <T i18nKey="lemmy_apps" className="text-4xl font-bold mb-3">
       #<span className={TEXT_GRADIENT}>#</span>
     </T>
@@ -83,29 +82,6 @@ const AppTitle = ({ title }) => (
   <div className="text-2xl mb-3 text-gray-300">{title}</div>
 );
 
-const MobileAppsBlock = () => (
-  <div>
-    <AppTitle title={i18n.t("mobile_apps_for_android")} />
-    <AppGrid apps={ANDROID_APPS} />
-    <AppTitle title={i18n.t("mobile_apps_for_ios")} />
-    <AppGrid apps={IOS_APPS} />
-  </div>
-);
-
-const WebAppsBlock = () => (
-  <div>
-    <AppTitle title={i18n.t("web_apps")} />
-    <AppGrid apps={WEB_APPS} />
-  </div>
-);
-
-const CliAppsBlock = () => (
-  <div>
-    <AppTitle title={i18n.t("cli_apps")} />
-    <AppGrid apps={CLI_APPS} />
-  </div>
-);
-
 interface AppGridProps {
   apps: AppDetails[];
 }
@@ -142,13 +118,35 @@ const ApiLibrariesBlock = () => (
   </div>
 );
 
-export class Apps extends Component<any, any> {
+interface State {
+  apps: AppDetails[];
+  platform: Platform;
+}
+
+export class Apps extends Component<any, State> {
+  state: State = {
+    apps: [],
+    platform: Platform.All,
+  };
+
   constructor(props: any, context: any) {
     super(props, context);
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    this.buildAppList();
+  }
+
+  buildAppList() {
+    let apps = APP_LIST;
+
+    // Platform filter
+    if (this.state.platform !== Platform.All) {
+      apps = apps.filter(a => a.platforms.includes(this.state.platform));
+    }
+
+    this.setState({ apps });
   }
 
   render() {
@@ -159,12 +157,44 @@ export class Apps extends Component<any, any> {
           <meta property={"title"} content={title} />
         </Helmet>
         <TitleBlock />
-        <MobileAppsBlock />
-        <WebAppsBlock />
-        <CliAppsBlock />
+        {this.filterAndTitleBlock()}
+        <AppGrid apps={this.state.apps} />
         <ApiLibrariesBlock />
         <BottomSpacer />
       </div>
     );
   }
+
+  filterAndTitleBlock() {
+    return (
+      <div id="search">
+        <div className="flex flex-row flex-wrap gap-4 mb-4">
+          <div className="flex-none"></div>
+          <div className="grow"></div>
+          <div>
+            <select
+              className={`${SELECT_CLASSES} mr-2`}
+              value={this.state.platform}
+              onChange={linkEvent(this, handlePlatformChange)}
+              name="platform_select"
+            >
+              {Object.entries(Platform).map(([name, platform]) => (
+                <option key={name} value={platform}>
+                  {i18n.t(platform as string as I18nKeys)}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+function handlePlatformChange(i: Apps, event: any) {
+  let platform: Platform = (event.target.value as Platform) ?? Platform.All;
+  i.setState({
+    platform,
+  });
+  i.buildAppList();
 }
