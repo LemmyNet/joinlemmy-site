@@ -491,4 +491,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [GAMING],
   },
+  {
+    domain: "ani.social",
+    languages: ["en"],
+    topics: [HOBBIES, ART],
+  },
 ];
