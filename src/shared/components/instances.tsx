@@ -185,7 +185,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
 
 function handleModalClick(i: InstanceCard) {
   const modalId = `modal_${i.props.instance.domain}`;
-  i.setState({ showModal: !i.state.showModal });
+  i.setState({ showModal: true });
   (document.getElementById(modalId) as any).showModal();
 }
 
