@@ -93,78 +93,101 @@ const InstanceCardGrid = ({ instances }: InstanceCardGridProps) => (
   </div>
 );
 
-interface InstanceCardProps {
-  instance: any;
-}
-
 function buildUrl(domain: string): string {
   return `https://${domain}`;
 }
 
-const InstanceCard = ({ instance }: InstanceCardProps) => {
-  const domain = instance.domain;
-  const description = instance.site_info.site_view.site.description;
-  const sidebar = instance.site_info.site_view.site.sidebar || description;
-  const icon =
-    instance.site_info.site_view.site.icon || "/static/assets/images/lemmy.svg";
-  const banner = instance.site_info.site_view.site.banner;
-  const users = instance.site_info.site_view.counts.users;
-  const comments = instance.site_info.site_view.counts.comments;
-  const monthlyUsers = instance.site_info.site_view.counts.users_active_month;
-  const registrationMode =
-    instance.site_info.site_view.local_site.registration_mode;
+interface InstanceCardProps {
+  instance: any;
+}
 
-  const modalId = `modal_${domain}`;
+interface InstanceCardState {
+  showModal: boolean;
+}
 
-  return (
-    <div className="card card-bordered bg-neutral-900 shadow-xl">
-      <div className="card-body p-4">
-        <div className="flex flex-row flex-wrap gap-4">
-          <DetailsModal
-            id={modalId}
-            domain={domain}
-            banner={banner}
-            users={users}
-            comments={comments}
-            monthlyUsers={monthlyUsers}
-            icon={icon}
-            sidebar={sidebar}
-            registrationMode={registrationMode}
-          />
-          <InstanceIcon domain={domain} icon={icon} />
-          <InstanceStats
-            users={users}
-            comments={comments}
-            monthlyUsers={monthlyUsers}
-          />
-        </div>
-        <a
-          href={buildUrl(domain)}
-          className={`text-2xl font-bold ${TEXT_GRADIENT}`}
-        >
-          {domain}
-        </a>
-        <p className="text-sm text-gray-300 mb-2">{description}</p>
-        <div className="flex flex-row flex-wrap justify-between gap-2">
+class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
+  state: InstanceCardState = {
+    showModal: false,
+  };
+
+  constructor(props: any, context: any) {
+    super(props, context);
+  }
+
+  render() {
+    const instance = this.props.instance;
+
+    const domain = instance.domain;
+    const description = instance.site_info.site_view.site.description;
+    const sidebar = instance.site_info.site_view.site.sidebar || description;
+    const icon =
+      instance.site_info.site_view.site.icon ||
+      "/static/assets/images/lemmy.svg";
+    const banner = instance.site_info.site_view.site.banner;
+    const users = instance.site_info.site_view.counts.users;
+    const comments = instance.site_info.site_view.counts.comments;
+    const monthlyUsers = instance.site_info.site_view.counts.users_active_month;
+    const registrationMode =
+      instance.site_info.site_view.local_site.registration_mode;
+
+    const modalId = `modal_${domain}`;
+
+    return (
+      <div className="card card-bordered bg-neutral-900 shadow-xl">
+        <div className="card-body p-4">
+          <div className="flex flex-row flex-wrap gap-4">
+            {this.state.showModal && (
+              <DetailsModal
+                id={modalId}
+                domain={domain}
+                banner={banner}
+                users={users}
+                comments={comments}
+                monthlyUsers={monthlyUsers}
+                icon={icon}
+                sidebar={sidebar}
+                registrationMode={registrationMode}
+              />
+            )}
+            <InstanceIcon domain={domain} icon={icon} />
+            <InstanceStats
+              users={users}
+              comments={comments}
+              monthlyUsers={monthlyUsers}
+            />
+          </div>
           <a
-            className="btn btn-primary text-white max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
-            href={`${buildUrl(domain)}/signup`}
+            href={buildUrl(domain)}
+            className={`text-2xl font-bold ${TEXT_GRADIENT}`}
           >
-            {i18n.t("sign_up")}
+            {domain}
           </a>
-          <button
-            className="btn btn-secondary btn-outline text-white max-md:btn-block normal-case"
-            onClick={() =>
-              (document.getElementById(modalId) as any).showModal()
-            }
-          >
-            {i18n.t("more_information")}
-          </button>
+          <p className="text-sm text-gray-300 mb-2">{description}</p>
+          <div className="flex flex-row flex-wrap justify-between gap-2">
+            <a
+              className="btn btn-primary text-white max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
+              href={`${buildUrl(domain)}/signup`}
+            >
+              {i18n.t("sign_up")}
+            </a>
+            <button
+              className="btn btn-secondary btn-outline text-white max-md:btn-block normal-case"
+              onClick={linkEvent(this, handleModalClick)}
+            >
+              {i18n.t("more_information")}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
+
+function handleModalClick(i: InstanceCard) {
+  const modalId = `modal_${i.props.instance.domain}`;
+  i.setState({ showModal: true });
+  (document.getElementById(modalId) as any).showModal();
+}
 
 const imgError =
   "this.onError=null;this.src='/static/assets/images/lemmy.svg';" as unknown as InfernoEventHandler<HTMLImageElement>;
