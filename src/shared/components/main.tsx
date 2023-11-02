@@ -39,10 +39,10 @@ const carouselImages = [
 ];
 
 const CarouselBlock = () => (
-  <div>
-    <div class="glide p-8 space-x-8 rounded-box mt-16">
-      <div class="glide__track" data-glide-el="track">
-        <ul class="glide__slides">
+  <div className="px-8 mt-16">
+    <div className="glide">
+      <div className="glide__track" data-glide-el="track">
+        <ul className="glide__slides">
           {carouselImages.map((image, i) => (
             <img
               src={image}
@@ -55,7 +55,7 @@ const CarouselBlock = () => (
         </ul>
       </div>
       <div
-        className="glide__bullets flex justify-center w-full py-2 gap-4"
+        className="glide__bullets flex justify-center py-2 gap-4"
         data-glide-el="controls[nav]"
       >
         {carouselImages.map((_, i) => (
