@@ -3,7 +3,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { translators } from "../translations/translators";
-import { languagesAll, countries } from "countries-list";
+import { languages, countries } from "countries-list";
 import { isBrowser } from "../utils";
 import { Badge, BottomSpacer, DonateBlock, TEXT_GRADIENT } from "./common";
 import {
@@ -93,7 +93,7 @@ const TranslatorsCard = ({ translations }: TranslatorsCardProps) => (
           <tr>
             <td>
               <div className="text-secondary">
-                <span>{languagesAll[t.lang].native}</span>
+                <span>{languages[t.lang].native}</span>
                 {t.country && <span> {countries[t.country].native}</span>}
                 <span>:</span>
               </div>
