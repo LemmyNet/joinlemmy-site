@@ -499,4 +499,8 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [GENERAL, ART, MUSIC],
   },
+    domain: "lemmy.best",
+    languages: ["en"],
+    topics: [GENERAL],
+  },
 ];
