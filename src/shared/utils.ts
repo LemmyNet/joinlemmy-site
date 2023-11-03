@@ -57,3 +57,10 @@ export function monthsBetween(startDate: Date, endDate: Date) {
   // Convert back to days and return
   return Math.round(differenceMs / oneMonth);
 }
+
+export function sortRandom<T>(list: T[]): T[] {
+  return list
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+}

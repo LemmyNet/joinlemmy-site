@@ -13,6 +13,7 @@ import {
 } from "./app-definitions";
 import { Icon } from "./icon";
 import { I18nKeys } from "i18next";
+import { sortRandom } from "../utils";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-4">
@@ -145,6 +146,9 @@ export class Apps extends Component<any, State> {
     if (this.state.platform !== Platform.All) {
       apps = apps.filter(a => a.platforms.includes(this.state.platform));
     }
+
+    // Random sort
+    apps = sortRandom(apps);
 
     this.setState({ apps });
   }
