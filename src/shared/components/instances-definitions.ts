@@ -491,4 +491,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [GAMING],
   },
+    {
+    domain: "lemmy.myserv.one",
+    languages: ["en"],
+    topics: [GENERAL],
+  },
 ];
