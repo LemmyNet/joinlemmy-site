@@ -459,13 +459,11 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["eu"],
     topics: [TECHNOLOGY],
   },
-
   {
     domain: "tabinezumi.net",
     languages: ["ja"],
     topics: [TECHNOLOGY],
   },
-
   {
     domain: "lm.korako.me",
     languages: ["ja"],
@@ -495,5 +493,10 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     domain: "lemmy.myserv.one",
     languages: ["en"],
     topics: [GENERAL],
+  },
+  {
+    domain: "leminal.space",
+    languages: ["en"],
+    topics: [GENERAL, ART, MUSIC],
   },
 ];
