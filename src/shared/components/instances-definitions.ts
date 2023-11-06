@@ -490,6 +490,11 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GAMING],
   },
   {
+    domain: "lemmy.myserv.one",
+    languages: ["en"],
+    topics: [GENERAL],
+  },
+  {
     domain: "leminal.space",
     languages: ["en"],
     topics: [GENERAL, ART, MUSIC],
