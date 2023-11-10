@@ -3,7 +3,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n, LANGUAGES } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
-import { getQueryParams, mdToHtml, numToSI } from "../utils";
+import { getQueryParams, mdToHtml, numToSI, sortRandom } from "../utils";
 import { Badge, SELECT_CLASSES, SectionTitle, TEXT_GRADIENT } from "./common";
 import {
   INSTANCE_HELPERS,
@@ -350,13 +350,6 @@ const LEAST_ACTIVE_SORT: Sort = {
 };
 
 const SORTS: Sort[] = [RANDOM_SORT, MOST_ACTIVE_SORT, LEAST_ACTIVE_SORT];
-
-function sortRandom(instances: any[]): any[] {
-  return instances
-    .map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
-}
 
 function sortActive(instances: any[]): any[] {
   return instances.sort(
