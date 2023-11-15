@@ -509,4 +509,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [GENERAL],
   },
+  {
+    domain: "lemy.lol",
+    languages: ["en"],
+    topics: [GENERAL, GAMING],
+  },
 ];
