@@ -514,4 +514,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [GENERAL, GAMING],
   },
+  {
+    domain: "lemdro.id",
+    languages: ["en"],
+    topics: [TECHNOLOGY],
+  },
 ];
