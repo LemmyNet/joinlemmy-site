@@ -5,7 +5,7 @@ import { Builder } from "xml2js";
 async function generateRSSFeed() {
   const md = new MarkdownIt();
   const posts = [];
-  const files = await fs.readdir("./src/assets/news"); // Replace './posts' with your folder path
+  const files = await fs.readdir("./src/assets/news"); // a folder with markdown files
   const newestFirstFiles = Array.from(files).reverse();
 
   for (const file of newestFirstFiles) {
@@ -18,7 +18,7 @@ async function generateRSSFeed() {
       const htmlContent = md.render(content);
       const link = `https://join-lemmy.org/news/${file
         .replace(".md", "")
-        .replaceAll(" ", "_")}`; // Modify this link accordingly
+        .replaceAll(" ", "_")}`;
 
       posts.push({ title, date, content: htmlContent, link });
     }
