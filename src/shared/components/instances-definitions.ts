@@ -519,4 +519,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [TECHNOLOGY],
   },
+  {
+    domain: "fanaticus.social",
+    languages: ["en"],
+    topics: [SPORTS],
+  },
 ];
