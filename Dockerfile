@@ -38,6 +38,7 @@ COPY tsconfig.json \
   webpack.config.js \
   .babelrc \
   generate_translations.mjs \
+  generate_rss_feed.mjs \
   tailwind.config.js \
   ./
 

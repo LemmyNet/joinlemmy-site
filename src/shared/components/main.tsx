@@ -490,6 +490,12 @@ export class Main extends Component<Props, State> {
         <InstancePicker reset={this.state.resetInstancePicker} />
         <Helmet title={title}>
           <meta property={"title"} content={title} />
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="RSS Feed for join-lemmy.org"
+            href="/feed.xml"
+          />
         </Helmet>
         <img
           src="/static/assets/images/world_background.svg"
