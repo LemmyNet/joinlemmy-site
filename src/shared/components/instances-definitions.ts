@@ -524,4 +524,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [SPORTS],
   },
+  {
+    domain: "rollenspiel.forum",
+    languages: ["de", "en"],
+    topics: [HOBBIES, GAMING],
+  },
 ];
