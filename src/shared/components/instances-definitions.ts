@@ -529,4 +529,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["de", "en"],
     topics: [HOBBIES, GAMING],
   },
+  {
+    domain: "literature.cafe",
+    languages: ["en"],
+    topics: [LITERATURE],
+  },
 ];
