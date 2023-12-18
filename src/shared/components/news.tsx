@@ -45,7 +45,12 @@ function previewMarkdown(markdown: string): string {
 }
 
 const TitleBlock = () => (
-  <div className="pt-16 text-center text-4xl font-bold mb-8">{title}</div>
+  <div className="pt-16 text-center text-4xl font-bold mb-8">
+    {title}
+    <a href="/feed.xml" className="ml-4 inline-block">
+      <img src="/static/assets/images/rss.svg" width={24} />
+    </a>
+  </div>
 );
 
 const NewsCards = () => buildNewsInfoArray().map(n => <NewsCard news={n} />);
@@ -99,6 +104,12 @@ export class News extends Component<any, any> {
       <div className="container mx-auto px-4">
         <Helmet title={title}>
           <meta property={"title"} content={title} />
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="RSS Feed for join-lemmy.org"
+            href="/feed.xml"
+          />
         </Helmet>
         <TitleBlock />
         <NewsCards />
