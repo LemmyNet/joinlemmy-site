@@ -17,6 +17,10 @@ server.use(express.urlencoded({ extended: false }) as RequestHandler);
 server.use("/static", express.static(path.resolve("./dist")));
 server.use("/docs", express.static(path.resolve("./dist/assets/docs")));
 server.use("/api", express.static(path.resolve("./dist/assets/api")));
+server.use(
+  "/context.json",
+  express.static(path.resolve("./dist/assets/lemmy_federation_context.json")),
+);
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
 
 function erudaInit(): string {
