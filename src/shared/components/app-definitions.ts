@@ -235,7 +235,7 @@ const SYNC: AppDetails = {
 
 const MLEM: AppDetails = {
   name: "Mlem",
-  description: "A Lemmy Client for iOS.",
+  description: "An open-source Lemmy client for iOS, written in Swift.",
   link: "https://github.com/mlemgroup/mlem",
   icon: "/static/assets/images/mlem.png",
   banner: "/static/assets/images/mlem_screen.webp",
