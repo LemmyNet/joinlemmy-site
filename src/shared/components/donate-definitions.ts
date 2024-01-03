@@ -75,7 +75,12 @@ export const LATINUM_SPONSORS: GoldSponsor[] = [
   {
     name: "NLnet",
     link: "https://nlnet.nl",
-    avatar: "https://nlnet.nl/image/logo_nlnet.svg",
+    avatar: "/static/assets/images/logo_nlnet.svg",
+  },
+  {
+    name: "Copie Publique",
+    link: "https://copiepublique.fr/",
+    avatar: "/static/assets/images/logo_copiepublique.svg",
   },
 ];
 
