@@ -236,12 +236,12 @@ const SYNC: AppDetails = {
 const MLEM: AppDetails = {
   name: "Mlem",
   description: "A Lemmy Client for iOS.",
-  link: "https://github.com/mormaer/Mlem",
+  link: "https://github.com/mlemgroup/mlem",
   icon: "/static/assets/images/mlem.png",
   banner: "/static/assets/images/mlem_screen.webp",
   links: [
     {
-      link: "https://testflight.apple.com/join/MelFP11Y",
+      link: "https://apps.apple.com/us/app/mlem-for-lemmy/id6450543782",
       icon: "appleinc",
     },
     {
