@@ -11,7 +11,7 @@ steps:
     commands:
       - apk add git
       - git submodule init
-      - git submodule update --recursive --remote
+      - git submodule update
 
   prettier_markdown_check:
     image: tmknom/prettier:3.0.0
