@@ -40,10 +40,10 @@ export const API_LIBRARIES: ApiLibrary[] = [
     description: "a javascript / typescript client.",
   },
   {
-    name: "lemmy-dart client",
+    name: "lemmy_api_client",
 
-    link: "https://github.com/LemmurOrg/lemmy_api_client",
-    description: "a dart / flutter client.",
+    link: "https://github.com/thunder-app/lemmy_api_client",
+    description: "a Dart / Flutter client.",
   },
   {
     name: "go-lemmy",
