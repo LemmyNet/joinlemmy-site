@@ -1,4 +1,5 @@
-[
+{
+ "@context": [
   "https://w3id.org/security/v1",
   {
     "lemmy": "https://join-lemmy.org/ns#",
@@ -21,4 +22,5 @@
     "language": "sc:inLanguage",
     "identifier": "sc:identifier"
   }
-]
+ ]
+}
