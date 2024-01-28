@@ -19,7 +19,7 @@ steps:
   prettier_markdown_check:
     image: tmknom/prettier:3.0.0
     commands:
-      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts" "!src/shared/donation_stats.ts" "!pnp-lock.yaml"
+      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts" "!src/shared/donation_stats.ts" "!pnpm-lock.yaml"
 
   install:
     image: node:alpine
