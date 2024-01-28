@@ -5,6 +5,9 @@
 #      recursive: true
 #      submodule_update_remote: true
 
+variables:
+  - &install_pnpm "corepack enable pnpm"
+
 steps:
   prepare_repo:
     image: alpine:3
@@ -18,27 +21,31 @@ steps:
     commands:
       - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts" "!src/shared/donation_stats.ts"
 
-  yarn:
+  install:
     image: node:alpine
     commands:
-      - yarn
+      - *install_pnpm
+      - pnpm i
 
-  yarn_lint:
+  lint:
     image: node:alpine
     commands:
-      - yarn lint
+      - *install_pnpm
+      - pnpm lint
 
-  yarn_build_dev:
+  build_dev:
     image: node:alpine
     commands:
-      - yarn build:dev
+      - *install_pnpm
+      - pnpm prebuild:dev
+      - pnpm build:dev
 
   nightly_instance_crawl:
     image: node:alpine
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
       - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
-      - yarn crawl
+      - pnpm crawl
     when:
       event:
         - cron
@@ -62,7 +69,7 @@ steps:
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
       - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
-      - yarn crawl
+      - pnpm crawl
     when:
       event: tag
 
