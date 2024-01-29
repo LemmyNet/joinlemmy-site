@@ -50,6 +50,11 @@ export const API_LIBRARIES: ApiLibrary[] = [
     link: "https://github.com/Arsen6331/go-lemmy",
     description: "a Go client.",
   },
+  {
+    name: "Pythörhead",
+    link: "https://github.com/db0/pythorhead",
+    description: "Python SDK",
+  },
 ];
 
 const VOYAGER: AppDetails = {
