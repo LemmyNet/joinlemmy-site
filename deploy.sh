@@ -3,8 +3,8 @@
 # Update all the submodules and translations
 ./update_submodules.sh
 
-yarn crawl
-yarn update-donations
+pnpm crawl
+pnpm update-donations
 git add "src/shared/instance_stats.ts"
 git add "src/shared/donation_stats.ts"
 git commit -m "Crawl and donation instance statistics"
