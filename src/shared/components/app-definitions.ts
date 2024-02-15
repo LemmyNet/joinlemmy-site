@@ -40,6 +40,16 @@ export const API_LIBRARIES: ApiLibrary[] = [
     description: "a javascript / typescript client.",
   },
   {
+    name: "LemmyBackwardsCompatibleAPI",
+    link: "https://github.com/MV-GH/LemmyBackwardsCompatibleAPI",
+    description: "a Kotlin multiplatform Backward compatible Lemmy API.",
+  },
+  {
+    name: "lemmy-client-rs",
+    link: "https://github.com/SleeplessOne1917/lemmy-client-rs",
+    description: "a Rust client for Lemmy.",
+  },
+  {
     name: "lemmy_api_client",
 
     link: "https://github.com/thunder-app/lemmy_api_client",
@@ -53,7 +63,7 @@ export const API_LIBRARIES: ApiLibrary[] = [
   {
     name: "Pythörhead",
     link: "https://github.com/db0/pythorhead",
-    description: "Python SDK",
+    description: "a Python client",
   },
 ];
 
