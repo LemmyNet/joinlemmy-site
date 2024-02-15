@@ -63,7 +63,7 @@ export const API_LIBRARIES: ApiLibrary[] = [
   {
     name: "Pythörhead",
     link: "https://github.com/db0/pythorhead",
-    description: "a Python client",
+    description: "a Python client.",
   },
 ];
 
