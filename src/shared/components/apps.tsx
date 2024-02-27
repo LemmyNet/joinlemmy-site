@@ -6,10 +6,12 @@ import { BottomSpacer, SELECT_CLASSES, TEXT_GRADIENT } from "./common";
 import {
   API_LIBRARIES,
   APP_LIST,
+  ToolDetails,
   AppDetails,
   AppLink,
   Platform,
   SourceType,
+  THIRD_PARTY_TOOLS,
 } from "./app-definitions";
 import { Icon } from "./icon";
 import { I18nKeys } from "i18next";
@@ -95,13 +97,18 @@ const AppGrid = ({ apps }: AppGridProps) => (
   </div>
 );
 
-const ApiLibrariesBlock = () => (
+interface ToolsBlockProps {
+  title: string;
+  items: ToolDetails[];
+}
+
+const ToolsBlock = ({ title, items }: ToolsBlockProps) => (
   <div>
-    <AppTitle title={i18n.t("api_libraries")} />
-    <div className="card card-bordered bg-neutral-900 shadow-xl md:w-1/2">
+    <AppTitle title={title} />
+    <div className="card card-bordered bg-neutral-900 shadow-xl">
       <div className="card-body">
         <ul>
-          {API_LIBRARIES.map(a => (
+          {items.map(a => (
             <li>
               <span className={`${TEXT_GRADIENT} mr-2`}>●</span>
               <span>
@@ -163,7 +170,13 @@ export class Apps extends Component<any, State> {
         <TitleBlock />
         {this.filterAndTitleBlock()}
         <AppGrid apps={this.state.apps} />
-        <ApiLibrariesBlock />
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mb-16">
+          <ToolsBlock title={i18n.t("api_libraries")} items={API_LIBRARIES} />
+          <ToolsBlock
+            title={i18n.t("third_party_tools")}
+            items={THIRD_PARTY_TOOLS}
+          />
+        </div>
         <BottomSpacer />
       </div>
     );

@@ -1,4 +1,4 @@
-export interface ApiLibrary {
+export interface ToolDetails {
   name: string;
   link: string;
   description: string;
@@ -33,7 +33,7 @@ export interface AppLink {
   icon: string;
 }
 
-export const API_LIBRARIES: ApiLibrary[] = [
+export const API_LIBRARIES: ToolDetails[] = [
   {
     name: "lemmy-js-client",
     link: "https://github.com/LemmyNet/lemmy-js-client",
@@ -64,6 +64,37 @@ export const API_LIBRARIES: ApiLibrary[] = [
     name: "Pythörhead",
     link: "https://github.com/db0/pythorhead",
     description: "a Python client.",
+  },
+];
+
+export const THIRD_PARTY_TOOLS: ToolDetails[] = [
+  {
+    name: "lemmy-bot",
+    link: "https://github.com/SleeplessOne1917/lemmy-bot",
+    description: "A bot library for Lemmy, the fediverse link aggregator.",
+  },
+  {
+    name: "lemmy-bouncer",
+    link: "https://github.com/SleeplessOne1917/lemmy-bouncer",
+    description:
+      "Lemmy automod bot to prevent unvetted users from posting or commenting in a community.",
+  },
+  {
+    name: "Fediseer",
+    link: "https://github.com/Fediseer/fediseer",
+    description:
+      "This service provides an REST API which can be used to retrieve various information about Fediverse instances, particularly focused on detecting and countering bad actors.",
+  },
+  {
+    name: "LemmyAutomod",
+    link: "https://github.com/RikudouSage/LemmyAutomod",
+    description:
+      "LemmyAutomod is a tool for Lemmy that allows instance admins to set rules that will take action in certain scenarios.",
+  },
+  {
+    name: "threativore",
+    link: "https://github.com/db0/threativore",
+    description: "A Thrediverse bot fight against spam",
   },
 ];
 
