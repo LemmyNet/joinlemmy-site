@@ -11,7 +11,7 @@ import {
   AppLink,
   Platform,
   SourceType,
-  THIRD_PARTY_TOOLS,
+  MODERATION_TOOLS,
 } from "./app-definitions";
 import { Icon } from "./icon";
 import { I18nKeys } from "i18next";
@@ -173,8 +173,8 @@ export class Apps extends Component<any, State> {
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mb-16">
           <ToolsBlock title={i18n.t("api_libraries")} items={API_LIBRARIES} />
           <ToolsBlock
-            title={i18n.t("third_party_tools")}
-            items={THIRD_PARTY_TOOLS}
+            title={i18n.t("moderation_tools")}
+            items={MODERATION_TOOLS}
           />
         </div>
         <BottomSpacer />

@@ -67,7 +67,7 @@ export const API_LIBRARIES: ToolDetails[] = [
   },
 ];
 
-export const THIRD_PARTY_TOOLS: ToolDetails[] = [
+export const MODERATION_TOOLS: ToolDetails[] = [
   {
     name: "lemmy-bot",
     link: "https://github.com/SleeplessOne1917/lemmy-bot",
@@ -81,7 +81,7 @@ export const THIRD_PARTY_TOOLS: ToolDetails[] = [
   },
   {
     name: "Fediseer",
-    link: "https://github.com/Fediseer/fediseer",
+    link: "https://gui.fediseer.com",
     description:
       "This service provides an REST API which can be used to retrieve various information about Fediverse instances, particularly focused on detecting and countering bad actors.",
   },
