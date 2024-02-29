@@ -69,17 +69,6 @@ export const API_LIBRARIES: ToolDetails[] = [
 
 export const MODERATION_TOOLS: ToolDetails[] = [
   {
-    name: "lemmy-bot",
-    link: "https://github.com/SleeplessOne1917/lemmy-bot",
-    description: "A bot library for Lemmy, the fediverse link aggregator.",
-  },
-  {
-    name: "lemmy-bouncer",
-    link: "https://github.com/SleeplessOne1917/lemmy-bouncer",
-    description:
-      "Lemmy automod bot to prevent unvetted users from posting or commenting in a community.",
-  },
-  {
     name: "Fediseer",
     link: "https://gui.fediseer.com",
     description:
@@ -95,6 +84,12 @@ export const MODERATION_TOOLS: ToolDetails[] = [
     name: "threativore",
     link: "https://github.com/db0/threativore",
     description: "A Thrediverse bot fight against spam",
+  },
+  {
+    name: "lemmy-bouncer",
+    link: "https://github.com/SleeplessOne1917/lemmy-bouncer",
+    description:
+      "Lemmy automod bot to prevent unvetted users from posting or commenting in a community.",
   },
 ];
 
