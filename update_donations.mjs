@@ -4,14 +4,14 @@ import fetch from "node-fetch";
 const donationStatsFile = "src/shared/donation_stats.ts";
 
 const USDtoEURUrl =
-  "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/eur.json";
+  "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json";
 
 const liberaPayUrl = "https://liberapay.com/Lemmy/public.json";
 const openCollectiveUrl = "https://opencollective.com/lemmy.json";
 const patreonUrl = "https://www.patreon.com/api/campaigns/2692831";
 
 const usdToEurRes = await fetch(USDtoEURUrl);
-const usdToEur = (await usdToEurRes.json()).eur;
+const usdToEur = (await usdToEurRes.json()).usd.eur;
 
 // In weekly USD
 const liberaPayRes = await fetch(liberaPayUrl);
