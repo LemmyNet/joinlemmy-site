@@ -116,6 +116,10 @@ const VOYAGER: AppDetails = {
       link: "https://github.com/aeharding/voyager",
       icon: "github",
     },
+    {
+      link: "https://www.patreon.com/voyagerapp",
+      icon: "patreon",
+    },
   ],
   sourceType: SourceType.Open,
   platforms: [Platform.Android, Platform.IOS, Platform.Web],
