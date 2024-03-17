@@ -530,4 +530,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [LITERATURE],
   },
+  {
+      domain: "szmer.info",
+    languages: ["pl", "en", "ru", "be", "ua"],
+    topics: [GENERAL, POLITICS, LGBTQ, ART],
+  },
 ];
