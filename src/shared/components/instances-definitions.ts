@@ -531,7 +531,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [LITERATURE],
   },
   {
-      domain: "szmer.info",
+    domain: "szmer.info",
     languages: ["pl", "en", "ru", "be", "ua"],
     topics: [GENERAL, POLITICS, LGBTQ, ART],
   },
