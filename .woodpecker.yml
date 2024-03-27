@@ -15,23 +15,31 @@ steps:
       - apk add git
       - git submodule init
       - git submodule update
+    when:
+      - event: pull_request
 
   prettier_markdown_check:
     image: tmknom/prettier:3.0.0
     commands:
       - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts" "!src/shared/donation_stats.ts" "!pnpm-lock.yaml"
+    when:
+      - event: pull_request
 
   install:
     image: node:alpine
     commands:
       - *install_pnpm
       - pnpm i
+    when:
+      - event: pull_request
 
   lint:
     image: node:alpine
     commands:
       - *install_pnpm
       - pnpm lint
+    when:
+      - event: pull_request
 
   build_dev:
     image: node:alpine
@@ -39,6 +47,8 @@ steps:
       - *install_pnpm
       - pnpm prebuild:dev
       - pnpm build:dev
+    when:
+      - event: pull_request
 
   nightly_instance_crawl:
     image: node:alpine
@@ -48,8 +58,7 @@ steps:
       - *install_pnpm
       - pnpm crawl
     when:
-      event:
-        - cron
+      - event: cron
 
   nightly_build_and_push_to_docker_hub:
     image: woodpeckerci/plugin-docker-buildx
@@ -62,8 +71,7 @@ steps:
       password:
         from_secret: docker_password
     when:
-      event:
-        - cron
+      - event: cron
 
   release_instance_crawl:
     image: node:alpine
@@ -73,7 +81,7 @@ steps:
       - *install_pnpm
       - pnpm crawl
     when:
-      event: tag
+      - event: tag
 
   release_build_and_push_to_docker_hub:
     image: woodpeckerci/plugin-docker-buildx
@@ -86,7 +94,7 @@ steps:
       password:
         from_secret: docker_password
     when:
-      event: tag
+      - event: tag
 
   notify_on_failure:
     image: alpine:3
@@ -94,8 +102,8 @@ steps:
       - apk add curl
       - "curl -d'joinlemmy-site build failed: ${DRONE_BUILD_LINK}' ntfy.sh/lemmy_drone_ci"
     when:
-      status:
-        - failure
+      - event: pull_request
+        status: failure
 
   notify_on_tag_deploy:
     image: alpine:3
@@ -103,4 +111,4 @@ steps:
       - apk add curl
       - "curl -d'joinlemmy-site:${DRONE_TAG} deployed' ntfy.sh/lemmy_drone_ci"
     when:
-      event: tag
+      - event: tag
