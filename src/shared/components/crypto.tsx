@@ -25,11 +25,6 @@ const CRYPTOS: Cryptos[] = [
     address:
       "41taVyY6e1xApqKyMVDRVxJ76sPkfZhALLTjRvVKpaAh2pBd4wv9RgYj1tSPrx8wc6iE1uWUfjtQdTmTy2FGMeChGVKPQuV",
   },
-  {
-    name: "cardano",
-    address:
-      "addr1q858t89l2ym6xmrugjs0af9cslfwvnvsh2xxp6x4dcez7pf5tushkp4wl7zxfhm2djp6gq60dk4cmc7seaza5p3slx0sakjutm",
-  },
 ];
 
 const QrModal = ({ name, imgData }) => (
