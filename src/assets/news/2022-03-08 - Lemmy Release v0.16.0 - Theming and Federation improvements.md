@@ -41,7 +41,7 @@ curl -X PUT https://example.com/api/v3/community/hide \
 
 ### Jerboa: a new android app
 
-To help adoption, and since most people use social media through their smartphones nowadays, @dessalines has been working on a native android app for Lemmy called [Jerboa](https://github.com/dessalines/jerboa), which is now on [F-Droid](https://f-droid.org/packages/com.jerboa) and [Google Play](https://play.google.com/store/apps/details?id=com.jerboa).
+To help adoption, and since most people use social media through their smartphones nowadays, @dessalines has been working on a native android app for Lemmy called [Jerboa](https://github.com/LemmyNet/jerboa), which is now on [F-Droid](https://f-droid.org/packages/com.jerboa) and [Google Play](https://play.google.com/store/apps/details?id=com.jerboa).
 
 It is still at an alpha level, but is very usable. We'd love to have experienced android developers contribute to it.
 

@@ -157,7 +157,7 @@ const THUNDER: AppDetails = {
 const JERBOA: AppDetails = {
   name: "Jerboa",
   description: "A native Android app made by Lemmy's developers",
-  link: "https://github.com/dessalines/jerboa",
+  link: "https://github.com/LemmyNet/jerboa",
   icon: "/static/assets/images/jerboa.svg",
   banner: "/static/assets/images/jerboa_screen.webp",
   links: [
@@ -170,7 +170,7 @@ const JERBOA: AppDetails = {
       icon: "googleplay",
     },
     {
-      link: "https://github.com/dessalines/jerboa",
+      link: "https://github.com/LemmyNet/jerboa",
       icon: "github",
     },
   ],
