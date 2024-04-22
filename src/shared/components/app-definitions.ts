@@ -293,6 +293,10 @@ const MLEM: AppDetails = {
       link: "https://github.com/mlemgroup/mlem",
       icon: "github",
     },
+    {
+      link: "https://opencollective.com/mlem",
+      icon: "opencollective",
+    },
   ],
   sourceType: SourceType.Open,
   platforms: [Platform.IOS],
