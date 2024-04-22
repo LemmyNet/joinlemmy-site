@@ -3,6 +3,8 @@
   "description": "A site for join-lemmy",
   "author": "Dessalines <tyhou13@gmx.com>",
   "license": "AGPL-3.0",
+  "packageManager": "pnpm@9.0.5+sha256.61bd66913b52012107ec25a6ee4d6a161021ab99e04f6acee3aa50d0e34b4af9",
+  "repository": "https://github.com/LemmyNet/joinlemmy-site",
   "scripts": {
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production",
@@ -17,7 +19,6 @@
     "prepare": "husky",
     "start": "pnpm build:dev --watch & tailwind --watch"
   },
-  "repository": "https://github.com/LemmyNet/joinlemmy-site",
   "dependencies": {
     "@babel/core": "^7.23.2",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
