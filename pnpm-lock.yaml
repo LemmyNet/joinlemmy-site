@@ -55,7 +55,7 @@ importers:
         version: 3.0.6
       daisyui:
         specifier: ^4.6.0
-        version: 4.6.0(postcss@8.4.33)
+        version: 4.6.0(postcss@8.4.38)
       express:
         specifier: ~4.18.2
         version: 4.18.2
@@ -170,7 +170,7 @@ importers:
         version: 3.3.4(webpack@5.90.0(webpack-cli@5.1.4))
       terser:
         specifier: ^5.24.0
-        version: 5.27.0
+        version: 5.31.0
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
@@ -867,8 +867,8 @@ packages:
     resolution: {integrity: sha512-R8gLRTZeyp03ymzP/6Lil/28tGeGEzhx1q2k703KGWRAI1VdvPIXdG70VJc2pAMw3NA6JKL5hhFu1sJX0Mnn/A==}
     engines: {node: '>=6.0.0'}
 
-  '@jridgewell/source-map@0.3.5':
-    resolution: {integrity: sha512-UTYAUj/wviwdsMfzoSJspJxbkH5o1snzwX0//0ENX1u/55kkZZkcTZP6u9bwKGkv+dkk9at4m1Cpt0uY80kcpQ==}
+  '@jridgewell/source-map@0.3.6':
+    resolution: {integrity: sha512-1ZJTZebgqllO79ue2bm3rIGud/bOe0pP5BjSRCRxxYkEZS8STV7zN84UBbiYu7jy+eCKSnVIUgoWWE/tt+shMQ==}
 
   '@jridgewell/sourcemap-codec@1.4.15':
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
@@ -3300,8 +3300,8 @@ packages:
       uglify-js:
         optional: true
 
-  terser@5.27.0:
-    resolution: {integrity: sha512-bi1HRwVRskAjheeYl291n3JC4GgO/Ty4z1nVs5AAsmonJulGxpSektecnNedrwK9C7vpvVtcX3cw00VSLt7U2A==}
+  terser@5.31.0:
+    resolution: {integrity: sha512-Q1JFAoUKE5IMfI4Z/lkE/E6+SwgzO+x4tq4v1AyBLRj8VSYvRO6A/rQrPg1yud4g0En9EKI1TvFRF2tQFcoUkg==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -4416,10 +4416,10 @@ snapshots:
 
   '@jridgewell/set-array@1.2.1': {}
 
-  '@jridgewell/source-map@0.3.5':
+  '@jridgewell/source-map@0.3.6':
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.3
-      '@jridgewell/trace-mapping': 0.3.22
+      '@jridgewell/gen-mapping': 0.3.5
+      '@jridgewell/trace-mapping': 0.3.25
 
   '@jridgewell/sourcemap-codec@1.4.15': {}
 
@@ -5125,12 +5125,12 @@ snapshots:
 
   culori@3.3.0: {}
 
-  daisyui@4.6.0(postcss@8.4.33):
+  daisyui@4.6.0(postcss@8.4.38):
     dependencies:
       css-selector-tokenizer: 0.8.0
       culori: 3.3.0
       picocolors: 1.0.0
-      postcss-js: 4.0.1(postcss@8.4.33)
+      postcss-js: 4.0.1(postcss@8.4.38)
     transitivePeerDependencies:
       - postcss
 
@@ -6298,11 +6298,6 @@ snapshots:
       read-cache: 1.0.0
       resolve: 1.22.8
 
-  postcss-js@4.0.1(postcss@8.4.33):
-    dependencies:
-      camelcase-css: 2.0.1
-      postcss: 8.4.33
-
   postcss-js@4.0.1(postcss@8.4.38):
     dependencies:
       camelcase-css: 2.0.1
@@ -6827,12 +6822,12 @@ snapshots:
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
-      terser: 5.27.0
+      terser: 5.31.0
       webpack: 5.90.0(webpack-cli@5.1.4)
 
-  terser@5.27.0:
+  terser@5.31.0:
     dependencies:
-      '@jridgewell/source-map': 0.3.5
+      '@jridgewell/source-map': 0.3.6
       acorn: 8.11.3
       commander: 2.20.3
       source-map-support: 0.5.21
