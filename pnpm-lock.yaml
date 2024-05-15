@@ -55,7 +55,7 @@ importers:
         version: 3.0.6
       daisyui:
         specifier: ^4.6.0
-        version: 4.6.0(postcss@8.4.33)
+        version: 4.6.0(postcss@8.4.38)
       express:
         specifier: ~4.18.2
         version: 4.18.2
@@ -161,10 +161,10 @@ importers:
         version: 5.0.5
       sass:
         specifier: ^1.69.5
-        version: 1.70.0
+        version: 1.77.1
       sass-loader:
         specifier: ^14.0.0
-        version: 14.0.0(sass@1.70.0)(webpack@5.90.0(webpack-cli@5.1.4))
+        version: 14.0.0(sass@1.77.1)(webpack@5.90.0(webpack-cli@5.1.4))
       style-loader:
         specifier: ^3.3.3
         version: 3.3.4(webpack@5.90.0(webpack-cli@5.1.4))
@@ -2024,8 +2024,8 @@ packages:
     resolution: {integrity: sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==}
     engines: {node: '>= 4'}
 
-  immutable@4.3.5:
-    resolution: {integrity: sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==}
+  immutable@4.3.6:
+    resolution: {integrity: sha512-Ju0+lEMyzMVZarkTn/gqRpdqd5dOPaz1mCZ0SH3JV6iFw81PldE/PEB1hWVEA288HPt4WXW8O7AWxB10M+03QQ==}
 
   import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -3061,8 +3061,8 @@ packages:
       sass-embedded:
         optional: true
 
-  sass@1.70.0:
-    resolution: {integrity: sha512-uUxNQ3zAHeAx5nRFskBnrWzDUJrrvpCPD5FNAoRvTi0WwremlheES3tg+56PaVtCs5QDRX5CBLxxKMDJMEa1WQ==}
+  sass@1.77.1:
+    resolution: {integrity: sha512-OMEyfirt9XEfyvocduUIOlUSkWOXS/LAt6oblR/ISXCTukyavjex+zQNm51pPCOiFKY1QpWvEH1EeCkgyV3I6w==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -5125,12 +5125,12 @@ snapshots:
 
   culori@3.3.0: {}
 
-  daisyui@4.6.0(postcss@8.4.33):
+  daisyui@4.6.0(postcss@8.4.38):
     dependencies:
       css-selector-tokenizer: 0.8.0
       culori: 3.3.0
       picocolors: 1.0.0
-      postcss-js: 4.0.1(postcss@8.4.33)
+      postcss-js: 4.0.1(postcss@8.4.38)
     transitivePeerDependencies:
       - postcss
 
@@ -5715,7 +5715,7 @@ snapshots:
 
   ignore@5.3.0: {}
 
-  immutable@4.3.5: {}
+  immutable@4.3.6: {}
 
   import-fresh@3.3.0:
     dependencies:
@@ -6298,11 +6298,6 @@ snapshots:
       read-cache: 1.0.0
       resolve: 1.22.8
 
-  postcss-js@4.0.1(postcss@8.4.33):
-    dependencies:
-      camelcase-css: 2.0.1
-      postcss: 8.4.33
-
   postcss-js@4.0.1(postcss@8.4.38):
     dependencies:
       camelcase-css: 2.0.1
@@ -6533,18 +6528,18 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@14.0.0(sass@1.70.0)(webpack@5.90.0(webpack-cli@5.1.4)):
+  sass-loader@14.0.0(sass@1.77.1)(webpack@5.90.0(webpack-cli@5.1.4)):
     dependencies:
       neo-async: 2.6.2
       webpack: 5.90.0(webpack-cli@5.1.4)
     optionalDependencies:
-      sass: 1.70.0
+      sass: 1.77.1
 
-  sass@1.70.0:
+  sass@1.77.1:
     dependencies:
-      chokidar: 3.5.3
-      immutable: 4.3.5
-      source-map-js: 1.0.2
+      chokidar: 3.6.0
+      immutable: 4.3.6
+      source-map-js: 1.2.0
 
   sax@1.3.0: {}
 
