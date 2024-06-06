@@ -360,7 +360,7 @@ const LEMMY_UI: AppDetails = {
 
 const PHOTON: AppDetails = {
   name: "Photon",
-  description: "A sleek lemmy web UI.",
+  description: "A fully-featured, intuitive and clean web app for Lemmy.",
   link: "https://github.com/Xyphyn/photon",
   banner: "/static/assets/images/photon.webp",
   icon: "/static/assets/images/photon-logo.svg",
