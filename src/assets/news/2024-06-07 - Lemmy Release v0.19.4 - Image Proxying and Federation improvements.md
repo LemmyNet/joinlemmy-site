@@ -32,11 +32,11 @@ Admins and mods can now view the [report history](https://github.com/LemmyNet/le
 
 The functionality to resolve reports automatically when a post is removed was previously broken and is [now fixed](https://github.com/LemmyNet/lemmy/pull/4402). Additionally, reports for already removed items are now ignored.
 
-The [site.content_warning](https://github.com/LemmyNet/lemmy/pull/4393) setting lets admins show a message to users before rendering any content. If it is active, nsfw posts can be viewed without login.
+The [site.content_warning](https://github.com/LemmyNet/lemmy/pull/4393) setting lets admins show a message to users before rendering any content. If it is active, nsfw posts can be viewed without login, after consenting.
 
 Mods and admins can now [comment in locked posts](https://github.com/LemmyNet/lemmy/pull/4488).
 
-Mods and admins can also use external tools such as [LemmyAutomod](https://github.com/RikudouSage/LemmyAutomod) for more advanced tools.
+Mods and admins can also use external tools such as [LemmyAutomod](https://github.com/RikudouSage/LemmyAutomod) for more advanced cases.
 
 ### Media
 
@@ -90,6 +90,7 @@ This is already the third security audit of Lemmy, all organized by ROS. We're g
 ### Full Changelog
 
 - [API changes - lemmy-js-client 0.19.3 -> 0.19.4](https://github.com/LemmyNet/lemmy-js-client/compare/0.19.3-alpha.1...0.19.4)
+- [lemmy-client-rs](https://github.com/LemmyNet/lemmy-client-rs/pulls?q=is%3Apr+merged%3A%3E2024-01-22)
 - [Lemmy Backend](https://github.com/LemmyNet/lemmy/pulls?q=is%3Apr+merged%3A%3E2024-01-22)
 - [Lemmy-UI](https://github.com/LemmyNet/lemmy-ui/pulls?q=is%3Apr+merged%3A%3E2024-01-22)
 
@@ -116,4 +117,4 @@ If you like using Lemmy, and want to make sure that we will always be available 
 - [Liberapay](https://liberapay.com/Lemmy) (preferred option)
 - [Open Collective](https://opencollective.com/lemmy)
 - [Patreon](https://www.patreon.com/dessalines)
-- [Cryptocurrency](https://join-lemmy.org/donate) (scroll to bottom of page)
+- [Cryptocurrency](https://join-lemmy.org/crypto) (scroll to bottom of page)
