@@ -1,4 +1,4 @@
-# Lemmy Release 0.19.4
+# Lemmy v0.19.4 Release
 
 ## What is Lemmy?
 
