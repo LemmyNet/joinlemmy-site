@@ -10,10 +10,8 @@ This is a smaller bugfix release, with the following changes:
 
 ### Lemmy
 
-- [Replacing wav crate with hound](https://github.com/LemmyNet/lemmy/pull/4788).
 - [Don't change encoding style in clean_url_params](https://github.com/LemmyNet/lemmy/pull/4802).
 - [Fix for federation last_successful_id](https://github.com/LemmyNet/lemmy/issues/4363).
-- [Refactoring local user settings](https://github.com/LemmyNet/lemmy/pull/4746).
 - [Fixing featured_local trigger](https://github.com/LemmyNet/lemmy/pull/4837).
 - [Fix postres TLS connection](https://github.com/LemmyNet/lemmy/pull/4844).
 
