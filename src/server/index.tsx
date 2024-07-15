@@ -1,4 +1,9 @@
-import express, { RequestHandler, Request, Response } from "express";
+import express, {
+  RequestHandler,
+  Request,
+  Response,
+  NextFunction,
+} from "express";
 import { StaticRouter } from "inferno-router";
 import { renderToString } from "inferno-server";
 // import { matchPath } from "inferno-router";
@@ -12,6 +17,11 @@ import { getLanguageFromCookie, i18n } from "../shared/i18next";
 const server = express();
 const port = 1234;
 
+function cors(_req: Request, res: Response, next: NextFunction): void {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+}
+
 server.use(express.json() as RequestHandler);
 server.use(express.urlencoded({ extended: false }) as RequestHandler);
 server.use("/static", express.static(path.resolve("./dist")));
@@ -19,6 +29,7 @@ server.use("/docs", express.static(path.resolve("./dist/assets/docs")));
 server.use("/api", express.static(path.resolve("./dist/assets/api")));
 server.use(
   "/context.json",
+  cors,
   express.static(path.resolve("./dist/assets/lemmy_federation_context.json")),
 );
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
