@@ -96,7 +96,7 @@ This is already the third security audit of Lemmy, all organized by ROS. We're g
 
 ## Upgrade instructions
 
-We recommend upgrading to PostgreSQL 16 due to a known memory leak in PSQL 15. To use the new image proxy feature, pict-rs version 0.5+ is required. 
+We recommend upgrading to PostgreSQL 16 due to a known memory leak in PSQL 15. To use the new image proxy feature, pict-rs version 0.5+ is required.
 
 Follow the upgrade instructions for [ansible](https://github.com/LemmyNet/lemmy-ansible/blob/main/UPGRADING.md) or [docker](https://join-lemmy.org/docs/en/administration/install_docker.html#updating).
 
