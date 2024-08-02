@@ -535,4 +535,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["pl", "en", "ru", "be", "ua"],
     topics: [GENERAL, POLITICS, LGBTQ, ART],
   },
+  {
+    domain: "retrolemmy.com",
+    languages: ["en"],
+    topics: [GAMING, TECHNOLOGY],
+  },
 ];
