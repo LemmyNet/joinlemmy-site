@@ -12,10 +12,6 @@ export const INSTANCE_HELPERS: InstanceHelper[] = [
     name: "Lemmy Fediverse Observer",
     link: "https://lemmy.fediverse.observer/list",
   },
-  {
-    name: "Feddit's Lemmy Community Browser",
-    link: "https://browse.feddit.de/",
-  },
 ];
 
 export interface Topic {
@@ -406,7 +402,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL],
   },
   {
-    domain: "feddit.de",
+    domain: "feddit.org",
     languages: ["de"],
     topics: [GENERAL],
   },
