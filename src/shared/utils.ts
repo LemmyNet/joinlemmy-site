@@ -1,4 +1,10 @@
-import markdown_it from "markdown-it";
+import { default as MarkdownIt } from "markdown-it";
+import markdown_it_container from "markdown-it-container";
+import markdown_it_bidi from "markdown-it-bidi";
+import markdown_it_footnote from "markdown-it-footnote";
+import markdown_it_ruby from "markdown-it-ruby";
+import markdown_it_sub from "markdown-it-sub";
+import markdown_it_sup from "markdown-it-sup";
 
 let SHORTNUM_SI_FORMAT = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
@@ -15,11 +21,47 @@ export function isBrowser() {
   return typeof window !== "undefined";
 }
 
-export const md = new markdown_it({
+const spoilerConfig = {
+  validate: (params: string) => {
+    return params.trim().match(/^spoiler\s+(.*)$/);
+  },
+
+  render: (tokens: any, idx: any) => {
+    const m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/);
+    if (tokens[idx].nesting === 1) {
+      // opening tag
+      const summary = mdToHtmlInline(md.utils.escapeHtml(m[1])).__html;
+      return `<details><summary> ${summary} </summary>\n`;
+    } else {
+      // closing tag
+      return "</details>\n";
+    }
+  },
+};
+
+// Zero disables all rules.
+// Only explicitly allow a limited set of rules safe for use in post titles.
+export const mdLimited: MarkdownIt = new MarkdownIt("zero").enable([
+  "emphasis",
+  "backticks",
+  "strikethrough",
+]);
+
+export function mdToHtmlInline(text: string) {
+  return { __html: mdLimited.renderInline(text) };
+}
+
+export const md = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,
-});
+})
+  .use(markdown_it_sub)
+  .use(markdown_it_sup)
+  .use(markdown_it_footnote)
+  .use(markdown_it_container, "spoiler", spoilerConfig)
+  .use(markdown_it_ruby)
+  .use(markdown_it_bidi);
 
 export function mdToHtml(text: string) {
   return { __html: md.render(text) };
