@@ -222,30 +222,6 @@ const COMBUSTIBLE: AppDetails = {
   platforms: [Platform.Android],
 };
 
-const LIFTOFF: AppDetails = {
-  name: "LiftOff!",
-  description: "A mobile client for lemmy",
-  link: "https://github.com/liftoff-app/liftoff",
-  icon: "/static/assets/images/liftoff_icon.svg",
-  banner: "/static/assets/images/liftoff_screen.webp",
-  links: [
-    {
-      link: "https://apt.izzysoft.de/fdroid/index/apk/com.liftoffapp.liftoff",
-      icon: "f-droid",
-    },
-    {
-      link: "https://play.google.com/store/apps/details?id=com.liftoffapp.liftoff&pli=1",
-      icon: "googleplay",
-    },
-    {
-      link: "https://github.com/liftoff-app/liftoff",
-      icon: "github",
-    },
-  ],
-  sourceType: SourceType.Open,
-  platforms: [Platform.Android, Platform.IOS],
-};
-
 const BOOST: AppDetails = {
   name: "Boost for Lemmy",
   description: "A smooth app for Lemmy.",
@@ -460,7 +436,6 @@ export const APP_LIST: AppDetails[] = [
   JERBOA,
   ETERNITY,
   COMBUSTIBLE,
-  LIFTOFF,
   MLEM,
   LUNAR,
   MEMMY,
