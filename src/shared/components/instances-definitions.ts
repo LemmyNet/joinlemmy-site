@@ -536,4 +536,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [GAMING, TECHNOLOGY],
   },
+  {
+    domain: "lemmy.autism.place",
+    languages: ["en"],
+    topics: [GENERAL, HOBBIES],
+  },
 ];
