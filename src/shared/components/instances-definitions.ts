@@ -202,11 +202,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL],
   },
   {
-    domain: "lemmy.world",
-    languages: ["en"],
-    topics: [GENERAL],
-  },
-  {
     domain: "startrek.website",
     languages: ["en"],
     topics: [TECHNOLOGY, ART, POLITICS],
