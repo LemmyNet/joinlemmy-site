@@ -166,9 +166,9 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
           <div className="flex flex-row flex-wrap justify-between gap-2">
             <a
               className="btn btn-primary text-white max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
-              href={`${buildUrl(domain)}/signup`}
+              href={`${buildUrl(domain)}`}
             >
-              {i18n.t("sign_up")}
+              {i18n.t("explore")}
             </a>
             <button
               className="btn btn-secondary btn-outline text-white max-md:btn-block normal-case"
@@ -321,9 +321,9 @@ export const DetailsModal = ({
       )}
       <a
         className="btn btn-primary btn-block text-white normal-case"
-        href={`${buildUrl(domain)}/signup`}
+        href={`${buildUrl(domain)}`}
       >
-        {i18n.t("sign_up")}
+        {i18n.t("explore")}
       </a>
     </div>
   </dialog>
