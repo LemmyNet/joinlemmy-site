@@ -2,7 +2,6 @@
   "start_scan_instances": [
     "lemmy.ml",
     "lemm.ee",
-    "lemmy.world",
     "feddit.it",
     "lemmygrad.ml",
     "reddthat.com",
@@ -11,7 +10,8 @@
     "hexbear.net",
     "discuss.online",
     "feddit.org",
-    "lemmings.world"
+    "lemmings.world",
+    "lemmy.world"
   ],
   "exclude": [
     "lemmy.glasgow.social",
