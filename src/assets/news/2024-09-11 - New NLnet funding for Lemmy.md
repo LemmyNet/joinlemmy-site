@@ -1,5 +1,4 @@
-New NLnet funding for Lemmy
-===
+# New NLnet funding for Lemmy
 
 The [NLnet foundation](https://nlnet.nl/) has previously provided three funding rounds for Lemmy, which allowed Dessalines and Nutomic to work fulltime on the project. With this funding we were able to implement fundamental features such as federation, and to get Lemmy ready for production and to prepare for the huge migration of Reddit users.
 
@@ -18,14 +17,13 @@ Without further ado, here are the approved milestones and payment amounts:
 - [Automatic Language Tagging](https://github.com/LemmyNet/lemmy/issues/2870) (1500€)
 - [Poll support](https://github.com/LemmyNet/lemmy/issues/787) (3500€)
 - Moderation Improvements (4500€)
-    - [Include instance blocks in mod log](
-https://github.com/LemmyNet/lemmy/issues/2506) (750€)
-    - [Implement warnings, notify user when warned](https://github.com/LemmyNet/lemmy/issues/1424) (2250€)
-    - [Attach unresolved report counts to comment and post payloads](https://github.com/LemmyNet/lemmy/issues/4163) (1500€)
+  - [Include instance blocks in mod log](https://github.com/LemmyNet/lemmy/issues/2506) (750€)
+  - [Implement warnings, notify user when warned](https://github.com/LemmyNet/lemmy/issues/1424) (2250€)
+  - [Attach unresolved report counts to comment and post payloads](https://github.com/LemmyNet/lemmy/issues/4163) (1500€)
 - [Rework API Endpoints for API v4](https://github.com/LemmyNet/lemmy/issues/4428) (€ 6000)
-    - [Separate endpoints for image upload](https://github.com/LemmyNet/lemmy/issues/1772) (3000€)
-    - [Move taglines and emojis into separate paged endpoint](https://github.com/LemmyNet/lemmy/issues/4577) (1500)
-    - [Reduce amount of redundant data returned](https://github.com/LemmyNet/lemmy/issues/2957) (1500€)
+  - [Separate endpoints for image upload](https://github.com/LemmyNet/lemmy/issues/1772) (3000€)
+  - [Move taglines and emojis into separate paged endpoint](https://github.com/LemmyNet/lemmy/issues/4577) (1500)
+  - [Reduce amount of redundant data returned](https://github.com/LemmyNet/lemmy/issues/2957) (1500€)
 - [Multi-communities](https://github.com/LemmyNet/lemmy/issues/818) (6000€)
 - [Ease discovery of federated communities](https://github.com/LemmyNet/lemmy/issues/2951) (3000€)
 - [Post tags](https://github.com/LemmyNet/lemmy/issues/317) ([RFC link](https://github.com/LemmyNet/rfcs/blob/main/0004-post-tags.md), 4500€)
