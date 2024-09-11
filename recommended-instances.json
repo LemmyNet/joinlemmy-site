@@ -10,7 +10,8 @@
     "hexbear.net",
     "discuss.online",
     "feddit.org",
-    "lemmings.world"
+    "lemmings.world",
+    "lemmy.world"
   ],
   "exclude": [
     "lemmy.glasgow.social",
@@ -23,7 +24,6 @@
     "bakchodi.org",
     "lemmy.comfysnug.space",
     "rqd2.net",
-    "test.hexbear.net",
-    "lemmy.world"
+    "test.hexbear.net"
   ]
 }
