@@ -2,6 +2,7 @@
   "start_scan_instances": [
     "lemmy.ml",
     "lemm.ee",
+    "lemmy.world",
     "feddit.it",
     "lemmygrad.ml",
     "reddthat.com",
@@ -23,7 +24,6 @@
     "bakchodi.org",
     "lemmy.comfysnug.space",
     "rqd2.net",
-    "test.hexbear.net",
-    "lemmy.world"
+    "test.hexbear.net"
   ]
 }

@@ -65,6 +65,13 @@ try {
       .filter(
         i =>
           i.site_info.site_view.counts.users_active_month > min_monthly_users,
+      )
+      // Exclude large instances which represent more than 30% of all active users
+      .filter(
+        i => {
+          let active_users_percent = i.site_info.site_view.counts.users_active_month / stats.users_active_month;
+          return active_users_percent < 0.3;
+        }
       );
 
     let stats2 = {
