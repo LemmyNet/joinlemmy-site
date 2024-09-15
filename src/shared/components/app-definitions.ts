@@ -186,7 +186,7 @@ const ETERNITY: AppDetails = {
   banner: "/static/assets/images/eternity_screen.webp",
   links: [
     {
-      link: "https://apt.izzysoft.de/fdroid/index/apk/eu.toldi.infinityforlemmy",
+      link: "https://f-droid.org/en/packages/eu.toldi.infinityforlemmy",
       icon: "f-droid",
     },
     {
