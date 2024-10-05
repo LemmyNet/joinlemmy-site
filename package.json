@@ -24,7 +24,7 @@
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-transform-runtime": "^7.23.2",
     "@babel/plugin-transform-typescript": "^7.22.15",
-    "@babel/preset-env": "7.23.9",
+    "@babel/preset-env": "7.25.7",
     "@babel/preset-typescript": "^7.23.2",
     "@babel/runtime": "^7.23.2",
     "@glidejs/glide": "3.5.2",
