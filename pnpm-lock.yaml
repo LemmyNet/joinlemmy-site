@@ -30,8 +30,8 @@ importers:
         specifier: ^7.23.2
         version: 7.23.9
       '@glidejs/glide':
-        specifier: 3.5.2
-        version: 3.5.2
+        specifier: 3.6.2
+        version: 3.6.2
       '@tailwindcss/typography':
         specifier: ^0.5.10
         version: 0.5.15(tailwindcss@3.4.13)
@@ -864,8 +864,8 @@ packages:
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@glidejs/glide@3.5.2':
-    resolution: {integrity: sha512-7jGciNJ2bQ4eZLSNlSZ+VAyW63kALf420CvkEpK4lEsUfWJq9odqimci0YCiyNyMUFB+pWHwLYyNc57dijYsCg==}
+  '@glidejs/glide@3.6.2':
+    resolution: {integrity: sha512-oXw7In0IZV69PC0PChQakY+yh+UnqIb5+zfVuEIzub6Kkfl1foo7TAhr2PZXPzihOG9YS57t8wvdzBFEZ0aPVA==}
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -4467,7 +4467,7 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@glidejs/glide@3.5.2': {}
+  '@glidejs/glide@3.6.2': {}
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
