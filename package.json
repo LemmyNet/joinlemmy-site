@@ -78,7 +78,7 @@
     "lint-staged": "^15.0.2",
     "lodash": "^4.17.21",
     "prettier": "^3.0.3",
-    "rimraf": "^5.0.5",
+    "rimraf": "^6.0.0",
     "sass": "^1.69.5",
     "sass-loader": "^14.0.0",
     "style-loader": "^3.3.3",
