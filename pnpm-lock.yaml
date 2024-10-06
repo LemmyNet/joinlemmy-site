@@ -64,7 +64,7 @@ importers:
         version: 11.2.0
       i18next:
         specifier: ^23.6.0
-        version: 23.8.0
+        version: 23.15.2
       inferno:
         specifier: ^8.2.2
         version: 8.2.3
@@ -2114,8 +2114,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  i18next@23.8.0:
-    resolution: {integrity: sha512-1H+39doU9dQZrRprpnZ2aZetbX9I1N3bM/YGHN/ZkMJ//wJqrxDEqgI5mmSsh/rglsFBiNxI6UtFZfUO2A6XbA==}
+  i18next@23.15.2:
+    resolution: {integrity: sha512-zcPSWzCvw6uKnuYHIqs4W7hTuB9e3AFcSdZgvCWoPXIZsBjBd4djN2/2uOHIB+1DFFkQnMBXvhNg7J3WyCuywQ==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -5987,7 +5987,7 @@ snapshots:
 
   husky@9.1.6: {}
 
-  i18next@23.8.0:
+  i18next@23.15.2:
     dependencies:
       '@babel/runtime': 7.25.7
 
