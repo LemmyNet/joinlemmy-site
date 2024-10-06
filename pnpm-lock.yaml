@@ -52,7 +52,7 @@ importers:
         version: 12.0.2(webpack@5.90.0)
       countries-list:
         specifier: ^3.0.6
-        version: 3.0.6
+        version: 3.1.1
       daisyui:
         specifier: ^4.6.0
         version: 4.6.0(postcss@8.4.47)
@@ -1526,8 +1526,8 @@ packages:
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
-  countries-list@3.0.6:
-    resolution: {integrity: sha512-BCJODHTSRMIxS0W80NZw8bC7x6/WS8Tf4FdtFrEbW0FONBbqTAzOrKNG06UEMgLGxOZpOJddiVEdCztKLpmPxA==}
+  countries-list@3.1.1:
+    resolution: {integrity: sha512-nPklKJ5qtmY5MdBKw1NiBAoyx5Sa7p2yPpljZyQ7gyCN1m+eMFs9I6CT37Mxt8zvR5L3VzD3DJBE4WQzX3WF4A==}
 
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -5317,7 +5317,7 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  countries-list@3.0.6: {}
+  countries-list@3.1.1: {}
 
   cross-spawn@7.0.3:
     dependencies:
