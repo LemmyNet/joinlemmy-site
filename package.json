@@ -81,7 +81,7 @@
     "rimraf": "^6.0.0",
     "sass": "^1.69.5",
     "sass-loader": "^16.0.0",
-    "style-loader": "^3.3.3",
+    "style-loader": "^4.0.0",
     "terser": "^5.24.0",
     "typescript": "^5.2.2",
     "webpack-dev-server": "5.1.0"
