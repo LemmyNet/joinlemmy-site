@@ -136,8 +136,8 @@ importers:
         version: 0.6.2
     devDependencies:
       '@types/express':
-        specifier: ^4.17.20
-        version: 4.17.21
+        specifier: ^5.0.0
+        version: 5.0.0
       '@types/glidejs__glide':
         specifier: ^3.6.3
         version: 3.6.5
@@ -976,8 +976,14 @@ packages:
   '@types/express-serve-static-core@4.17.42':
     resolution: {integrity: sha512-ckM3jm2bf/MfB3+spLPWYPUH573plBFwpOhqQ2WottxYV85j1HQFlxmnTq57X1yHY9awZPig06hL/cLMgNWHIQ==}
 
+  '@types/express-serve-static-core@5.0.0':
+    resolution: {integrity: sha512-AbXMTZGt40T+KON9/Fdxx0B2WK5hsgxcfXJLr5bFpZ7b4JCex2WyQPTEKdXqfHiY5nKKBScZ7yCoO6Pvgxfvnw==}
+
   '@types/express@4.17.21':
     resolution: {integrity: sha512-ejlPM315qwLpaQlQDTjPdsUFSc6ZsP4AN6AlWnogPjQ7CVi7PYF3YVz+CY3jE2pwYf7E/7HlDAN0rV2GxTG0HQ==}
+
+  '@types/express@5.0.0':
+    resolution: {integrity: sha512-DvZriSMehGHL1ZNLzi6MidnsDhUZM/x2pRdDIKdwbUNqqwHxMlRdkxtn6/EPKyqKpHqTl/4nRZsRNLpZxZRpPQ==}
 
   '@types/glidejs__glide@3.6.5':
     resolution: {integrity: sha512-OUjzveIu+tiK5VvyPh6jTBJ/vH6+vC+XWzC2KJzpgUW8uancMJBa7R+BlXuvtSPdLw/pQForVasy0fm1D7JWOQ==}
@@ -4693,10 +4699,24 @@ snapshots:
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
 
+  '@types/express-serve-static-core@5.0.0':
+    dependencies:
+      '@types/node': 20.16.10
+      '@types/qs': 6.9.11
+      '@types/range-parser': 1.2.7
+      '@types/send': 0.17.4
+
   '@types/express@4.17.21':
     dependencies:
       '@types/body-parser': 1.19.5
       '@types/express-serve-static-core': 4.17.42
+      '@types/qs': 6.9.11
+      '@types/serve-static': 1.15.5
+
+  '@types/express@5.0.0':
+    dependencies:
+      '@types/body-parser': 1.19.5
+      '@types/express-serve-static-core': 5.0.0
       '@types/qs': 6.9.11
       '@types/serve-static': 1.15.5
 
@@ -4753,7 +4773,7 @@ snapshots:
 
   '@types/serve-index@1.9.4':
     dependencies:
-      '@types/express': 4.17.21
+      '@types/express': 5.0.0
 
   '@types/serve-static@1.15.5':
     dependencies:
