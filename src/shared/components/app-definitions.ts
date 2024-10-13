@@ -93,6 +93,22 @@ export const MODERATION_TOOLS: ToolDetails[] = [
   },
 ];
 
+const ECHO: AppDetails = {
+  name: "Echo",
+  description: "A fully native Lemmy Client for iOS",
+  link: "https://echo.rrainn.com",
+  icon: "/static/assets/images/echo.png",
+  banner: "/static/assets/images/echo_screen.png",
+  links: [
+    {
+      link: "https://echo.rrainn.com/download/iphone",
+      icon: "appleinc",
+    }
+  ],
+  sourceType: SourceType.Closed,
+  platforms: [Platform.IOS],
+};
+
 const VOYAGER: AppDetails = {
   name: "Voyager",
   description: "A Lemmy Client for iOS, Android and the web",
@@ -433,6 +449,7 @@ const SUMMIT: AppDetails = {
 };
 
 export const APP_LIST: AppDetails[] = [
+  ECHO,
   JERBOA,
   ETERNITY,
   COMBUSTIBLE,
