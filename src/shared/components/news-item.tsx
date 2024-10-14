@@ -22,7 +22,7 @@ export class NewsItem extends Component<any, any> {
   }
 
   get markdown(): string {
-    return news_md.find(v => v.title == this.title)?.markdown ?? "";
+    return news_md.find(v => v.title === this.title)?.markdown ?? "";
   }
 
   render() {

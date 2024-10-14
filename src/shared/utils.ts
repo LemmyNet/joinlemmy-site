@@ -6,7 +6,7 @@ import markdown_it_ruby from "markdown-it-ruby";
 import markdown_it_sub from "markdown-it-sub";
 import markdown_it_sup from "markdown-it-sup";
 
-let SHORTNUM_SI_FORMAT = new Intl.NumberFormat("en-US", {
+const SHORTNUM_SI_FORMAT = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
   //@ts-ignore
   notation: "compact",

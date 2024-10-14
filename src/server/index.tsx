@@ -35,7 +35,7 @@ server.use(
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
 
 function erudaInit(): string {
-  if (process.env["NODE_ENV"] == "development") {
+  if (process.env["NODE_ENV"] === "development") {
     return `
         <script src="//cdn.jsdelivr.net/npm/eruda"></script>
         <script>eruda.init();</script>
@@ -49,12 +49,12 @@ function setLanguage(req: Request, res: Response): string {
   // Setting the language for non-js browsers
   const cookieLang = getLanguageFromCookie(req.headers.cookie);
   let language: string;
-  if (req.query["lang"] != null) {
+  if (req.query["lang"] !== undefined) {
     language = req.query["lang"].toString();
     res.cookie("lang", language, {
       expires: new Date(Date.now() + 60 * 60 * 24 * 7),
     });
-  } else if (cookieLang != null) {
+  } else if (cookieLang !== undefined) {
     language = cookieLang;
   } else {
     language = req.headers["accept-language"]

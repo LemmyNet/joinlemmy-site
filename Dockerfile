@@ -1,5 +1,5 @@
 # Build the git includes for the docs
-FROM alpine:3 as docs_include
+FROM alpine:3 AS docs_include
 RUN apk add --no-cache git bash curl
 WORKDIR /app
 COPY lemmy-docs ./lemmy-docs
@@ -7,7 +7,7 @@ WORKDIR /app/lemmy-docs
 RUN ./update-includes.sh
 
 # Build the docs
-FROM alpine:3 as docs
+FROM alpine:3 AS docs
 WORKDIR /app
 RUN wget -O mdbook.tar.gz https://github.com/rust-lang/mdBook/releases/download/v0.4.30/mdbook-v0.4.30-x86_64-unknown-linux-musl.tar.gz
 RUN tar -xzf mdbook.tar.gz
@@ -15,7 +15,7 @@ COPY lemmy-docs ./lemmy-docs
 RUN ./mdbook build lemmy-docs -d ../docs
 
 # Build the typedoc API docs
-FROM node:alpine as api
+FROM node:alpine AS api
 WORKDIR /app
 COPY lemmy-js-client lemmy-js-client
 WORKDIR /app/lemmy-js-client
@@ -24,7 +24,7 @@ RUN pnpm i
 RUN pnpm run docs
 
 # Build the isomorphic app
-FROM node:alpine as builder
+FROM node:alpine AS builder
 RUN apk update && apk add python3 build-base gcc wget git curl --no-cache
 RUN curl -sf https://gobinaries.com/tj/node-prune | sh
 RUN corepack enable pnpm
@@ -63,7 +63,7 @@ RUN rm -rf ./node_modules/import-sort-parser-typescript
 RUN rm -rf ./node_modules/typescript
 RUN rm -rf ./node_modules/npm
 
-FROM node:alpine as runner
+FROM node:alpine AS runner
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/node_modules /app/node_modules
 

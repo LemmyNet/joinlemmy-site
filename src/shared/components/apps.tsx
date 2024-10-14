@@ -37,6 +37,7 @@ const AppDetailsTitle = ({ app }: AppDetailsCardProps) => (
     <img
       src={app.icon || "/static/assets/images/lemmy.svg"}
       className="rounded-xl w-7 h-7"
+      alt=""
     />
     <a href={app.link} className={`card-title text-2xl ${TEXT_GRADIENT}`}>
       {app.name}
@@ -68,9 +69,10 @@ const AppDetailsCard = ({ app }: AppDetailsCardProps) => (
       <img
         src={app.banner || "/static/assets/images/lemmy.svg"}
         className="rounded-xl max-h-96 mb-2"
+        alt=""
       />
       <p className="text-sm text-gray-300 mb-2">{app.description}</p>
-      {app.sourceType == SourceType.Closed && (
+      {app.sourceType === SourceType.Closed && (
         <div className="alert alert-warning">
           <Icon icon="alert-octagon" />
           <span>{i18n.t("closed_source_warning")}</span>
@@ -209,7 +211,7 @@ export class Apps extends Component<any, State> {
 }
 
 function handlePlatformChange(i: Apps, event: any) {
-  let platform: Platform = (event.target.value as Platform) ?? Platform.All;
+  const platform: Platform = (event.target.value as Platform) ?? Platform.All;
   i.setState({
     platform,
   });

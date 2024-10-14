@@ -72,7 +72,11 @@ export const Navbar = ({ footer = false }) => (
   >
     <div className="navbar-start">
       <Link className="btn btn-ghost normal-case text-xl" to="/">
-        <img src="/static/assets/images/lemmy.svg" className="h-12 w-12" />
+        <img
+          src="/static/assets/images/lemmy.svg"
+          className="h-12 w-12"
+          alt=""
+        />
       </Link>
     </div>
     <div className="navbar-center hidden lg:flex">
@@ -111,13 +115,10 @@ export const Navbar = ({ footer = false }) => (
           "dropdown-top": footer,
         })}
       >
-        <label tabIndex={0} className="btn btn-ghost lg:hidden">
+        <label className="btn btn-ghost lg:hidden">
           <Icon icon="align-right" size={IconSize.Large} />
         </label>
-        <ul
-          tabIndex={0}
-          className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-neutral-800 rounded-box w-52 items-center mt-3 "
-        >
+        <ul className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-neutral-800 rounded-box w-52 items-center mt-3 ">
           <NavLinks />
         </ul>
       </div>

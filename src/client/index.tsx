@@ -7,7 +7,7 @@ import { getLanguageFromCookie, i18n } from "../shared/i18next";
 // If query param is set, server updates cookie automatically,
 // so no need to check the query here
 const languageCookie = getLanguageFromCookie(document.cookie);
-if (languageCookie != null) {
+if (languageCookie !== undefined) {
   i18n.changeLanguage(languageCookie);
 } else {
   i18n.changeLanguage(navigator.language);

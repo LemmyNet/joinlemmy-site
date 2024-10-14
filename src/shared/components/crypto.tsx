@@ -39,7 +39,7 @@ const QrModal = ({ name, imgData }) => (
         </button>
       </form>
       <div className="container mx-auto">
-        <img className="w-auto" src={imgData} />
+        <img className="w-auto" src={imgData} alt="" />
       </div>
     </div>
   </dialog>
@@ -56,7 +56,7 @@ export class Crypto extends Component<any, State> {
   }
 
   async componentDidMount() {
-    let cryptoQr = new Map<string, string>();
+    const cryptoQr = new Map<string, string>();
     for (const c of CRYPTOS) {
       cryptoQr.set(c.name, await QRCode.toDataURL(c.address));
     }
