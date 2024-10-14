@@ -18,7 +18,7 @@ interface NewsInfo {
 
 function buildNewsInfoArray(): Array<NewsInfo> {
   return news_reversed.map(n => {
-    let split = n.title.split(" - ");
+    const split = n.title.split(" - ");
 
     return {
       dateStr: split[0],
@@ -48,7 +48,11 @@ const TitleBlock = () => (
   <div className="pt-16 text-center text-4xl font-bold mb-8">
     {title}
     <a href="/feed.xml" className="ml-4 inline-block">
-      <img src="/static/assets/images/rss.svg" width={24} />
+      <img
+        src="/static/assets/images/rss.svg"
+        width={24}
+        alt={i18n.t("rss_feeds")}
+      />
     </a>
   </div>
 );

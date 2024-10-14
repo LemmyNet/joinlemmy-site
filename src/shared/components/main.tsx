@@ -50,6 +50,7 @@ const CarouselBlock = () => (
                 "border-primary/[.15]": i & 1,
                 "border-secondary/[.15]": !(i & 1),
               })}
+              alt=""
             />
           ))}
         </ul>
@@ -116,7 +117,11 @@ const FollowCommunitiesBlock = ({ i }: MainProps) => (
 const FeatureCard = ({ pic, title, subtitle, classes }) => (
   <div className={`card ${CARD_GRADIENT} shadow-xl ${classes}`}>
     <div className="p-4">
-      <img src={pic} className="rounded-xl w-full object-fill min-h-[300px]" />
+      <img
+        src={pic}
+        className="rounded-xl w-full object-fill min-h-[300px]"
+        alt=""
+      />
     </div>
     <div className="card-body pt-0">
       <h2 className="card-title text-secondary">{title}</h2>
@@ -500,6 +505,7 @@ export class Main extends Component<Props, State> {
         <img
           src="/static/assets/images/world_background.svg"
           className="bg-top bg-no-repeat bg-contain opacity-20 absolute"
+          alt=""
         />
         <div className="container mx-auto px-4">
           <TitleBlock i={this} />

@@ -149,7 +149,7 @@ const GoldSponsorCards = ({ title, sponsors, color }: GoldSponsorCardsProps) =>
             <div className="flex flex-wrap flex-row justify-center">
               {s.avatar && (
                 <div className="avatar w-auto h-8">
-                  <img src={s.avatar} className="rounded" />
+                  <img src={s.avatar} className="rounded" alt="" />
                 </div>
               )}
               <span className="text-xs">{s.name}</span>
@@ -268,13 +268,13 @@ export class Donate extends Component<any, any> {
 }
 
 function convertTranslators(): Translation[] {
-  let trans: Translation[] = [];
+  const trans: Translation[] = [];
   for (const [key, value] of Object.entries(translators)) {
-    let split = key.split("_");
-    let lang = split[0];
-    let country = split[1] !== undefined ? split[1].toUpperCase() : undefined;
+    const split = key.split("_");
+    const lang = split[0];
+    const country = split[1] !== undefined ? split[1].toUpperCase() : undefined;
 
-    let t: Translation = {
+    const t: Translation = {
       lang,
       country,
       translators: value,

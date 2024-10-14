@@ -194,7 +194,7 @@ const imgError =
 
 const InstanceIcon = ({ domain, icon }) => (
   <a className="rounded-xl bg-neutral-800 p-4" href={buildUrl(domain)}>
-    <img className="w-24 h-24" src={icon} onError={imgError} />
+    <img className="w-24 h-24" src={icon} onError={imgError} alt="" />
   </a>
 );
 
@@ -257,11 +257,11 @@ export const StatsBadges = ({ users, comments, monthlyUsers }) => (
 );
 
 function registrationModeToString(registrationMode: string): string {
-  if (registrationMode == "Open") {
+  if (registrationMode === "Open") {
     return i18n.t("registrations_open");
-  } else if (registrationMode == "Closed") {
+  } else if (registrationMode === "Closed") {
     return i18n.t("registrations_closed");
-  } else if (registrationMode == "RequireApplication") {
+  } else if (registrationMode === "RequireApplication") {
     return i18n.t("requires_application");
   } else {
     return i18n.t("registrations_open");
@@ -293,10 +293,13 @@ export const DetailsModal = ({
         <img
           src={banner}
           className="object-cover w-full h-48 rounded-xl mb-3"
+          alt=""
         />
       )}
       <div className="flex flex-row flex-wrap gap-4 mb-3 items-center">
-        {icon && <img className="w-8 h-8" src={icon} onError={imgError} />}
+        {icon && (
+          <img className="w-8 h-8" src={icon} onError={imgError} alt="" />
+        )}
         <StatsBadges
           users={users}
           comments={comments}
@@ -375,11 +378,11 @@ interface Props {
 }
 
 function getSortFromQuery(sort?: string): Sort {
-  return SORTS.find(s => s.name == sort) ?? RANDOM_SORT;
+  return SORTS.find(s => s.name === sort) ?? RANDOM_SORT;
 }
 
 function getTopicFromQuery(topic?: string): Topic {
-  return TOPICS.find(c => c.name == topic) ?? ALL_TOPIC;
+  return TOPICS.find(c => c.name === topic) ?? ALL_TOPIC;
 }
 
 function getInstancesQueryParams() {
@@ -459,9 +462,9 @@ export class Instances extends Component<Props, State> {
     instances = instances.filter(i => !this.isOpenInstance(i));
 
     // Sort
-    if (this.state.sort == RANDOM_SORT) {
+    if (this.state.sort === RANDOM_SORT) {
       instances = sortRandom(instances);
-    } else if (this.state.sort == MOST_ACTIVE_SORT) {
+    } else if (this.state.sort === MOST_ACTIVE_SORT) {
       instances = sortActive(instances);
     } else {
       instances = sortActive(instances).reverse();
@@ -570,14 +573,14 @@ export class Instances extends Component<Props, State> {
 
 function handleSortChange(i: Instances, event: any) {
   i.setState({
-    sort: SORTS.find(s => s.name == event.target.value) ?? RANDOM_SORT,
+    sort: SORTS.find(s => s.name === event.target.value) ?? RANDOM_SORT,
   });
   i.buildInstanceList();
 }
 
 function handleTopicChange(i: Instances, event: any) {
   i.setState({
-    topic: TOPICS.find(c => c.name == event.target.value) ?? ALL_TOPIC,
+    topic: TOPICS.find(c => c.name === event.target.value) ?? ALL_TOPIC,
   });
   i.buildInstanceList();
 }

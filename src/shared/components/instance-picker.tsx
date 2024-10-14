@@ -48,7 +48,7 @@ export class InstancePicker extends Component<Props, State> {
             </button>
           </form>
           <div className="container mx-auto">
-            {this.state.activeStep == Step.Interest && (
+            {this.state.activeStep === Step.Interest && (
               <>
                 <p className="text-2xl font-bold text-center pb-4">
                   {i18n.t("what_topic")}
@@ -67,7 +67,7 @@ export class InstancePicker extends Component<Props, State> {
                 </div>
               </>
             )}
-            {this.state.activeStep == Step.Language && (
+            {this.state.activeStep === Step.Language && (
               <>
                 <p className="text-2xl font-bold text-center pb-4">
                   {i18n.t("what_language")}
@@ -94,21 +94,25 @@ export class InstancePicker extends Component<Props, State> {
             )}
 
             <ul className="steps steps-vertical lg:steps-horizontal w-full">
-              <li
-                onClick={linkEvent(this, handleResetInterests)}
-                className={classNames("step text-gray-300", {
-                  "step-primary": this.state.activeStep == Step.Interest,
-                })}
-              >
-                {i18n.t("interests")}
+              <li>
+                <button
+                  onClick={linkEvent(this, handleResetInterests)}
+                  className={classNames("step text-gray-300", {
+                    "step-primary": this.state.activeStep === Step.Interest,
+                  })}
+                >
+                  {i18n.t("interests")}
+                </button>
               </li>
-              <li
-                onClick={linkEvent(this, handleResetInterests)}
-                className={classNames("step text-gray-300", {
-                  "step-primary": this.state.activeStep == Step.Language,
-                })}
-              >
-                {i18n.t("languages")}
+              <li>
+                <button
+                  onClick={linkEvent(this, handleResetInterests)}
+                  className={classNames("step text-gray-300", {
+                    "step-primary": this.state.activeStep === Step.Language,
+                  })}
+                >
+                  {i18n.t("languages")}
+                </button>
               </li>
             </ul>
           </div>
@@ -120,7 +124,7 @@ export class InstancePicker extends Component<Props, State> {
 
 function handleTopicChange(i: InstancePicker, event: any) {
   i.setState({
-    topic: TOPICS.find(c => c.name == event.target.value) ?? ALL_TOPIC,
+    topic: TOPICS.find(c => c.name === event.target.value) ?? ALL_TOPIC,
     activeStep: Step.Language,
   });
 }
