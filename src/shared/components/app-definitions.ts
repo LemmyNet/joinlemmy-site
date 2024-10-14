@@ -103,7 +103,7 @@ const ECHO: AppDetails = {
     {
       link: "https://echo.rrainn.com/download/iphone",
       icon: "appleinc",
-    }
+    },
   ],
   sourceType: SourceType.Closed,
   platforms: [Platform.IOS],
