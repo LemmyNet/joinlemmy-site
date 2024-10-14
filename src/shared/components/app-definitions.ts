@@ -101,7 +101,7 @@ const ECHO: AppDetails = {
   banner: "/static/assets/images/echo_screen.png",
   links: [
     {
-      link: "https://echo.rrainn.com/download/iphone",
+      link: "https://apps.apple.com/us/app/echo-for-lemmy/id6450902296",
       icon: "appleinc",
     },
   ],
