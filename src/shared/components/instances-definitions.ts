@@ -433,12 +433,12 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   },
   {
     domain: "lemmy.pt",
-    languages: ["pt"],
+    languages: ["pt", "pt-BR"],
     topics: [GENERAL],
   },
   {
     domain: "lemmy.eco.br",
-    languages: ["pt"],
+    languages: ["pt", "pt-BR"],
     topics: [GENERAL],
   },
   {
