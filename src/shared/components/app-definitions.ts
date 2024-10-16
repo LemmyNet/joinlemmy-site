@@ -97,8 +97,8 @@ const ECHO: AppDetails = {
   name: "Echo",
   description: "A fully native Lemmy Client for iOS",
   link: "https://echo.rrainn.com",
-  icon: "/static/assets/images/echo.png",
-  banner: "/static/assets/images/echo_screen.png",
+  icon: "/static/assets/images/echo.webp",
+  banner: "/static/assets/images/echo_screen.webp",
   links: [
     {
       link: "https://apps.apple.com/us/app/echo-for-lemmy/id6450902296",
