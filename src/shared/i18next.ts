@@ -18,6 +18,7 @@ import { it } from "./translations/it";
 import { ja } from "./translations/ja";
 import { ko } from "./translations/ko";
 import { nb_NO } from "./translations/nb_NO";
+import { nn } from "./translations/nn";
 import { nl } from "./translations/nl";
 import { pl } from "./translations/pl";
 import { pt } from "./translations/pt";
@@ -43,6 +44,7 @@ export const LANGUAGES = [
   { resource: ja, code: "ja", name: "日本語" },
   { resource: ko, code: "ko", name: "한국어" },
   { resource: nb_NO, code: "nb-NO", name: "Norsk (bokmål)" },
+  { resource: nn, code: "nn", name: "nynorsk" },
   { resource: nl, code: "nl", name: "Nederlands" },
   { resource: pl, code: "pl", name: "Polski" },
   { resource: pt, code: "pt", name: "Português" },
