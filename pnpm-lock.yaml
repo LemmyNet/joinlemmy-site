@@ -103,7 +103,7 @@ importers:
         version: 4.0.0
       markdown-it-ruby:
         specifier: ^1.0.0
-        version: 1.0.0
+        version: 1.1.0
       markdown-it-sub:
         specifier: ^2.0.0
         version: 2.0.0
@@ -2704,8 +2704,8 @@ packages:
   markdown-it-footnote@4.0.0:
     resolution: {integrity: sha512-WYJ7urf+khJYl3DqofQpYfEYkZKbmXmwxQV8c8mO/hGIhgZ1wOe7R4HLFNwqx7TjILbnC98fuyeSsin19JdFcQ==}
 
-  markdown-it-ruby@1.0.0:
-    resolution: {integrity: sha512-vFGLWQpKJNYfvAGQjEUvWaQnIkvP3jm5hnzO8SCuyro0bqsowZNCn9KIKwjUHEh94e4sc43xtlrACTO1EqtsdA==}
+  markdown-it-ruby@1.1.0:
+    resolution: {integrity: sha512-Qy61wmnw4Rna5chHiwftcMgt1Gh5QFe/bnT621dJ1oG4i62Eux3iXYxh1DoRp53cp4g/OdqFx3lx4dDFm2YPOg==}
 
   markdown-it-sub@2.0.0:
     resolution: {integrity: sha512-iCBKgwCkfQBRg2vApy9vx1C1Tu6D8XYo8NvevI3OlwzBRmiMtsJ2sXupBgEA7PPxiDwNni3qIUkhZ6j5wofDUA==}
@@ -6887,7 +6887,7 @@ snapshots:
 
   markdown-it-footnote@4.0.0: {}
 
-  markdown-it-ruby@1.0.0: {}
+  markdown-it-ruby@1.1.0: {}
 
   markdown-it-sub@2.0.0: {}
 
