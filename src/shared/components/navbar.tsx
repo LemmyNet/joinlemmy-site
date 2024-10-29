@@ -115,10 +115,10 @@ export const Navbar = ({ footer = false }) => (
           "dropdown-top": footer,
         })}
       >
-        <label className="btn btn-ghost lg:hidden">
+        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
           <Icon icon="align-right" size={IconSize.Large} />
-        </label>
-        <ul className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-neutral-800 rounded-box w-52 items-center mt-3 ">
+        </div>
+        <ul className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-neutral-800 rounded-box w-52 items-center mt-3">
           <NavLinks />
         </ul>
       </div>
