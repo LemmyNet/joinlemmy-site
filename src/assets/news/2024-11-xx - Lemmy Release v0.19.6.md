@@ -14,7 +14,6 @@ The release itself contains numerous bug fixes and minor improvements:
 
 #### Enhancements
 
-- Enable more build optimizations
 - Parallel federation sending by @phiresky in [#4623](https://github.com/LemmyNet/lemmy/pull/4623)
 - Reduce CPU usage for generating link previews by @phiresky in [#4957](https://github.com/LemmyNet/lemmy/pull/4957)
 - Switch from OpenSSL to rustls by @kwaa in [#4901](https://github.com/LemmyNet/lemmy/pull/4901)
@@ -26,6 +25,7 @@ The release itself contains numerous bug fixes and minor improvements:
 - Allow users to view their own removed/deleted communities by @dessalines in [#4912](https://github.com/LemmyNet/lemmy/pull/4912)
 - Add backend check to enforce hierarchy of admins and mods by @dessalines in [#4860](https://github.com/LemmyNet/lemmy/pull/4860)
 - Do pictrs transformations for proxied image urls by @dessalines in [#4895](https://github.com/LemmyNet/lemmy/pull/4895)
+- Enable more build optimizations by @nutomic in [#5168](https://github.com/LemmyNet/lemmy/pull/5168)
 - Calculate "controversial" ranking with exponent instead of multiply (just like Reddit) by @dullbananas in [#4872](https://github.com/LemmyNet/lemmy/pull/4872)
 - Automatically remove tracking parameters from URLs by @dessalines [#5018](https://github.com/LemmyNet/lemmy/pull/5018)
 - Relax timeout for sending activities by @Nothing4You in [#4864](https://github.com/LemmyNet/lemmy/pull/4864)
@@ -96,9 +96,9 @@ The release itself contains numerous bug fixes and minor improvements:
 
 ## Upgrade instructions
 
-_Note_: This upgrade could take as long as ~30 minutes for older servers, due to needing to fix controversy ranks for all historical posts.
+This upgrade could take as long as ~30 minutes for larger servers, due to needing to recalculate controversy ranks for all historical posts.
 
-There are no config file changes with this release.
+There are no breaking changes with this release.
 
 Follow the upgrade instructions for [ansible](https://github.com/LemmyNet/lemmy-ansible/blob/main/UPGRADING.md) or [docker](https://join-lemmy.org/docs/en/administration/install_docker.html#updating).
 
