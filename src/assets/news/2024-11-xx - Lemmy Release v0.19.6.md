@@ -56,6 +56,8 @@ The release itself contains numerous bug fixes and minor improvements:
 
 ### Lemmy-UI
 
+- Fix full-size post images. by @dessalines in [#2797](https://github.com/LemmyNet/lemmy-ui/pull/2797)
+- Fix modlog ID filtering. by @dessalines in [#2795](https://github.com/LemmyNet/lemmy-ui/pull/2795)
 - Allow Arabic and Cyrillic characters when signing up or creating community by @SleeplessOne1917
 - UX - Swap "Select Language" and "Cancel/Preview/Reply" button locations around in commentsReverse order of buttons in Reply TextArea
 - Fix jump to content by @SleeplessOne1917
