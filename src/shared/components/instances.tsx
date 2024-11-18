@@ -133,7 +133,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
     const modalId = `modal_${domain}`;
 
     const extraButtonClasses =
-      "btn btn-secondary btn-outline text-white max-md:btn-block normal-case";
+      "btn btn-secondary btn-outline text-white max-md:btn-block";
 
     return (
       <div className="card card-bordered bg-neutral-900 shadow-xl">
