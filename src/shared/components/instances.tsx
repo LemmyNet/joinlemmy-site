@@ -170,6 +170,12 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
             >
               {i18n.t("explore")}
             </a>
+            <a
+              className="btn btn-secondary btn-outline text-white max-md:btn-block normal-case"
+              href={`${buildUrl(domain)}/signup`}
+            >
+              {i18n.t("join")}
+            </a>
             <button
               className="btn btn-secondary btn-outline text-white max-md:btn-block normal-case"
               onClick={linkEvent(this, handleModalClick)}
