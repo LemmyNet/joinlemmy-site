@@ -15,7 +15,7 @@ COPY lemmy-docs ./lemmy-docs
 RUN ./mdbook build lemmy-docs -d ../docs
 
 # Build the typedoc API docs
-FROM node:alpine AS api
+FROM node:20-alpine AS api
 WORKDIR /app
 COPY lemmy-js-client lemmy-js-client
 WORKDIR /app/lemmy-js-client
@@ -24,7 +24,7 @@ RUN pnpm i
 RUN pnpm run docs
 
 # Build the isomorphic app
-FROM node:alpine AS builder
+FROM node:20-alpine AS builder
 RUN apk update && apk add python3 build-base gcc wget git curl --no-cache
 RUN curl -sf https://gobinaries.com/tj/node-prune | sh
 RUN corepack enable pnpm
@@ -63,7 +63,7 @@ RUN rm -rf ./node_modules/import-sort-parser-typescript
 RUN rm -rf ./node_modules/typescript
 RUN rm -rf ./node_modules/npm
 
-FROM node:alpine AS runner
+FROM node:20-alpine AS runner
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/node_modules /app/node_modules
 
