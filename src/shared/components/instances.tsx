@@ -132,6 +132,9 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
 
     const modalId = `modal_${domain}`;
 
+    const extraButtonClasses =
+      "btn btn-secondary btn-outline text-white max-md:btn-block";
+
     return (
       <div className="card card-bordered bg-neutral-900 shadow-xl">
         <div className="card-body p-4">
@@ -170,8 +173,14 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
             >
               {i18n.t("explore")}
             </a>
+            <a
+              className={extraButtonClasses}
+              href={`${buildUrl(domain)}/signup`}
+            >
+              {i18n.t("join")}
+            </a>
             <button
-              className="btn btn-secondary btn-outline text-white max-md:btn-block normal-case"
+              className={extraButtonClasses}
               onClick={linkEvent(this, handleModalClick)}
             >
               {i18n.t("more_information")}
