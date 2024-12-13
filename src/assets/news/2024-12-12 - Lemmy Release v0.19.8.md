@@ -10,9 +10,10 @@ This release includes a few minor fixes and improvements. Merry Christmas Everyo
 
 ### Lemmy
 
+- [Fix post thumbnails by properly determining file type](https://github.com/LemmyNet/lemmy/pull/5225)
 - [Provide health endpoint for pictrs at `/pictrs/healthz`](https://github.com/LemmyNet/lemmy/pull/5224)
 - [Allow bypassing image proxy for specific domains](https://github.com/LemmyNet/lemmy/pull/5223) (can be configured via config value `pictrs.proxy_bypass_domains`, and `i.imgur.net` is bypassed by default)
-  [API returns content of removed comments for admins](https://github.com/LemmyNet/lemmy/pull/5245)
+- [API returns content of removed comments for admins](https://github.com/LemmyNet/lemmy/pull/5245)
 
 ### Lemmy-UI
 
