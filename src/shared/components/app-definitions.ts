@@ -448,6 +448,22 @@ const SUMMIT: AppDetails = {
   platforms: [Platform.Android],
 };
 
+const ARCTIC: AppDetails = {
+  name: "Arctic",
+  description: "A free and native iOS client, written in Swift.",
+  link: "https://lemmy.world/c/arctic",
+  icon: "/static/assets/images/arctic_icon.webp",
+  banner: "/static/assets/images/arctic_screens.webp",
+  links: [
+    {
+      link: "https://apps.apple.com/us/app/arctic-for-lemmy/id6457925837",
+      icon: "appleinc",
+    },
+  ],
+  sourceType: SourceType.Closed,
+  platforms: [Platform.IOS],
+};
+
 export const APP_LIST: AppDetails[] = [
   ECHO,
   JERBOA,
@@ -467,4 +483,5 @@ export const APP_LIST: AppDetails[] = [
   BOOST,
   SYNC,
   SUMMIT,
+  ARCTIC,
 ];
