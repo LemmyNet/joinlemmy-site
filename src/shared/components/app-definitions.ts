@@ -453,7 +453,7 @@ const ARCTIC: AppDetails = {
   description: "A free and native iOS client, written in Swift.",
   link: "https://lemmy.world/c/arctic",
   icon: "/static/assets/images/arctic_icon.webp",
-  banner: "/static/assets/images/arctic_screens.webp",
+  banner: "/static/assets/images/arctic_screen.webp",
   links: [
     {
       link: "https://apps.apple.com/us/app/arctic-for-lemmy/id6457925837",
