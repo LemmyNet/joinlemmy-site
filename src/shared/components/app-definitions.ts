@@ -398,21 +398,6 @@ const MLMYM: AppDetails = {
   platforms: [Platform.Web],
 };
 
-const LEMMYBB: AppDetails = {
-  name: "lemmyBB",
-  description: "A lemmy frontend based on phpBB.",
-  link: "https://github.com/LemmyNet/lemmyBB",
-  banner: "/static/assets/images/lemmybb_2.webp",
-  links: [
-    {
-      link: "https://github.com/LemmyNet/lemmyBB",
-      icon: "github",
-    },
-  ],
-  sourceType: SourceType.Open,
-  platforms: [Platform.Web],
-};
-
 const NEONMODEM: AppDetails = {
   name: "neonmodem",
   description: "BBS-style TUI client",
@@ -462,7 +447,6 @@ export const APP_LIST: AppDetails[] = [
   PHOTON,
   ALEXANDRITE,
   MLMYM,
-  LEMMYBB,
   NEONMODEM,
   BOOST,
   SYNC,
