@@ -26,7 +26,11 @@ server.use(express.json() as RequestHandler);
 server.use(express.urlencoded({ extended: false }) as RequestHandler);
 server.use("/static", express.static(path.resolve("./dist")));
 server.use("/docs", express.static(path.resolve("./dist/assets/docs")));
-server.use("/api", express.static(path.resolve("./dist/assets/api")));
+server.use("/api", express.static(path.resolve("./dist/assets/api.html")));
+server.use(
+  "/lemmy-js-client-docs",
+  express.static(path.resolve("./dist/assets/lemmy-js-client-docs")),
+);
 server.use(
   "/context.json",
   cors,

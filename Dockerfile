@@ -14,7 +14,7 @@ RUN tar -xzf mdbook.tar.gz
 COPY lemmy-docs ./lemmy-docs
 RUN ./mdbook build lemmy-docs -d ../docs
 
-# Build the typedoc API docs
+# Build the typedoc lemmy-js-client docs, and swagger.json
 FROM node:20-alpine AS api
 WORKDIR /app
 COPY lemmy-js-client lemmy-js-client
@@ -22,6 +22,7 @@ WORKDIR /app/lemmy-js-client
 RUN corepack enable pnpm
 RUN pnpm i
 RUN pnpm run docs
+RUN pnpm tsoa
 
 # Build the isomorphic app
 FROM node:20-alpine AS builder
@@ -48,9 +49,10 @@ COPY joinlemmy-translations joinlemmy-translations
 COPY lemmy-translations lemmy-translations
 COPY src src
 
-# Copy the docs and API
+# Copy the rust docs, lemmy-js-client docs, and OpenAPI docs.
 COPY --from=docs /app/docs ./src/assets/docs
-COPY --from=api /app/lemmy-js-client/docs ./src/assets/api
+COPY --from=api /app/lemmy-js-client/docs ./src/assets/lemmy-js-client-docs
+COPY --from=api /app/lemmy-js-client/redoc-static.html ./src/assets/api.html
 
 RUN pnpm i
 RUN pnpm prebuild:prod
