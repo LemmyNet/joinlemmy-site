@@ -15,9 +15,20 @@ COPY lemmy-docs ./lemmy-docs
 RUN ./mdbook build lemmy-docs -d ../docs
 
 # Build the typedoc lemmy-js-client docs, and swagger.json
-FROM node:20-alpine AS api
+FROM node:20-alpine AS api_latest
 WORKDIR /app
-COPY lemmy-js-client lemmy-js-client
+COPY lemmy-js-client-latest lemmy-js-client
+WORKDIR /app/lemmy-js-client
+RUN corepack enable pnpm
+RUN pnpm i
+RUN pnpm run docs
+# TODO OpenAPI isn't currently working for the latest docs. This can be changed after the next release.
+# RUN pnpm tsoa
+
+# Do the same for the api docs, but next
+FROM node:20-alpine AS api_next
+WORKDIR /app
+COPY lemmy-js-client-next lemmy-js-client
 WORKDIR /app/lemmy-js-client
 RUN corepack enable pnpm
 RUN pnpm i
@@ -51,8 +62,11 @@ COPY src src
 
 # Copy the rust docs, lemmy-js-client docs, and OpenAPI docs.
 COPY --from=docs /app/docs ./src/assets/docs
-COPY --from=api /app/lemmy-js-client/docs ./src/assets/lemmy-js-client-docs
-COPY --from=api /app/lemmy-js-client/redoc-static.html ./src/assets/api.html
+COPY --from=api_latest /app/lemmy-js-client/docs ./src/assets/lemmy-js-client-latest-docs
+# TODO OpenAPI isn't currently working for the latest docs. This can be changed after the next release.
+# COPY --from=api_latest /app/lemmy-js-client/redoc-static.html ./src/assets/api_latest.html
+COPY --from=api_next /app/lemmy-js-client/docs ./src/assets/lemmy-js-client-next-docs
+COPY --from=api_next /app/lemmy-js-client/redoc-static.html ./src/assets/api_next.html
 
 RUN pnpm i
 RUN pnpm prebuild:prod
