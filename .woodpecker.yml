@@ -21,7 +21,7 @@ steps:
   prettier_markdown_check:
     image: tmknom/prettier:3.2.5
     commands:
-      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client-latest" "!lemmy-js-client-next" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts" "!src/shared/donation_stats.ts" "!pnpm-lock.yaml"
+      - prettier -c . "!dist" "!lemmy-docs" "!lemmy-translations" "!joinlemmy-translations" "!lemmy-js-client-v0.19" "!lemmy-js-client-main" "!lemmy-stats-crawler" "!src/shared/instance_stats.ts" "!src/shared/donation_stats.ts" "!pnpm-lock.yaml"
     when:
       - event: pull_request
 

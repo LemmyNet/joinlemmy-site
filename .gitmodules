@@ -10,12 +10,12 @@
 	path = lemmy-translations
 	url = https://github.com/lemmynet/lemmy-translations
 	branch = main
-[submodule "lemmy-js-client-latest"]
-	path = lemmy-js-client-latest
+[submodule "lemmy-js-client-v0.19"]
+	path = lemmy-js-client-v0.19
 	url = https://github.com/LemmyNet/lemmy-js-client
 	branch = release/v0.19
-[submodule "lemmy-js-client-next"]
-	path = lemmy-js-client-next
+[submodule "lemmy-js-client-main"]
+	path = lemmy-js-client-main
 	url = https://github.com/LemmyNet/lemmy-js-client
 	branch = tsoa_1
 [submodule "lemmy-stats-crawler"]

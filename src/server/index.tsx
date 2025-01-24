@@ -27,26 +27,26 @@ server.use(express.urlencoded({ extended: false }) as RequestHandler);
 server.use("/static", express.static(path.resolve("./dist")));
 server.use("/docs", express.static(path.resolve("./dist/assets/docs")));
 
-// The latest release docs
+// The v0.19 release docs
 // TODO OpenAPI isn't currently working for the latest docs. This can be changed after the next release.
-// server.use("/api/latest", express.static(path.resolve("./dist/assets/api_latest.html")));
+// server.use("/api/v0.19", express.static(path.resolve("./dist/assets/api_v0.19.html")));
 server.use(
-  "/api/latest",
-  express.static(path.resolve("./dist/assets/lemmy-js-client-latest-docs")),
+  "/api/v0.19",
+  express.static(path.resolve("./dist/assets/lemmy-js-client-v0.19-docs")),
 );
 server.use(
-  "/lemmy-js-client-docs/latest",
-  express.static(path.resolve("./dist/assets/lemmy-js-client-latest-docs")),
+  "/lemmy-js-client-docs/v0.19",
+  express.static(path.resolve("./dist/assets/lemmy-js-client-v0.19-docs")),
 );
 
-// The Next release docs
+// The main release docs
 server.use(
-  "/api/next",
-  express.static(path.resolve("./dist/assets/api_next.html")),
+  "/api/main",
+  express.static(path.resolve("./dist/assets/api_main.html")),
 );
 server.use(
-  "/lemmy-js-client-docs/next",
-  express.static(path.resolve("./dist/assets/lemmy-js-client-next-docs")),
+  "/lemmy-js-client-docs/main",
+  express.static(path.resolve("./dist/assets/lemmy-js-client-main-docs")),
 );
 server.use(
   "/context.json",
