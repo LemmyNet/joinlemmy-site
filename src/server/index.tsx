@@ -28,8 +28,6 @@ server.use("/static", express.static(path.resolve("./dist")));
 server.use("/docs", express.static(path.resolve("./dist/assets/docs")));
 
 // The v0.19 release docs
-// TODO OpenAPI isn't currently working for the latest docs. This can be changed after the next release.
-// server.use("/api/v0.19", express.static(path.resolve("./dist/assets/api_v0.19.html")));
 server.use(
   "/api/v0.19",
   express.static(path.resolve("./dist/assets/lemmy-js-client-v0.19-docs")),
