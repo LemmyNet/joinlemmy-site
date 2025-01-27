@@ -17,7 +17,7 @@
 [submodule "lemmy-js-client-main"]
 	path = lemmy-js-client-main
 	url = https://github.com/LemmyNet/lemmy-js-client
-	branch = tsoa_1
+	branch = main
 [submodule "lemmy-stats-crawler"]
 	path = lemmy-stats-crawler
 	url = https://github.com/LemmyNet/lemmy-stats-crawler.git
