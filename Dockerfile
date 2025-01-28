@@ -14,14 +14,25 @@ RUN tar -xzf mdbook.tar.gz
 COPY lemmy-docs ./lemmy-docs
 RUN ./mdbook build lemmy-docs -d ../docs
 
-# Build the typedoc API docs
-FROM node:20-alpine AS api
+# Build the typedoc lemmy-js-client docs, and swagger.json
+FROM node:20-alpine AS api_v0.19
 WORKDIR /app
-COPY lemmy-js-client lemmy-js-client
+COPY lemmy-js-client-v0.19 lemmy-js-client
 WORKDIR /app/lemmy-js-client
 RUN corepack enable pnpm
 RUN pnpm i
 RUN pnpm run docs
+# OpenAPI isn't currently working for the v0.19 docs, so no pnpm tsoa
+
+# Do the same for the api docs, but on main
+FROM node:20-alpine AS api_main
+WORKDIR /app
+COPY lemmy-js-client-main lemmy-js-client
+WORKDIR /app/lemmy-js-client
+RUN corepack enable pnpm
+RUN pnpm i
+RUN pnpm run docs
+RUN pnpm tsoa
 
 # Build the isomorphic app
 FROM node:20-alpine AS builder
@@ -48,9 +59,11 @@ COPY joinlemmy-translations joinlemmy-translations
 COPY lemmy-translations lemmy-translations
 COPY src src
 
-# Copy the docs and API
+# Copy the rust docs, lemmy-js-client docs, and OpenAPI docs.
 COPY --from=docs /app/docs ./src/assets/docs
-COPY --from=api /app/lemmy-js-client/docs ./src/assets/api
+COPY --from=api_v0.19 /app/lemmy-js-client/docs ./src/assets/lemmy-js-client-v0.19-docs
+COPY --from=api_main /app/lemmy-js-client/docs ./src/assets/lemmy-js-client-main-docs
+COPY --from=api_main /app/lemmy-js-client/redoc-static.html ./src/assets/api_main.html
 
 RUN pnpm i
 RUN pnpm prebuild:prod
