@@ -8,6 +8,8 @@ With the new version there is all new [documentation based on OpenAPI](https://j
 
 Unfortunately there is no good way to see all the API changes between 0.19 and 0.20, but you can try viewing the [diff in lemmy-js-client](https://github.com/LemmyNet/lemmy-js-client/compare/release/v0.19...main), or look at the [OpenAPI docs](https://join-lemmy.org/api/main).
 
+If you have any questions about these changes, feel free to post in [!lemmy_support@lemmy.ml](https://lemmyverse.link/c/lemmy_support@lemmy.ml) or in the [Development Chat on Matrix](https://matrix.to/#/#lemmydev:matrix.org).
+
 In detail the following endpoints are changed with Lemmy 0.20:
 
 ## Rename account endpoints
