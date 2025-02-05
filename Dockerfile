@@ -19,7 +19,7 @@ FROM node:20-alpine AS api_v0.19
 WORKDIR /app
 COPY lemmy-js-client-v0.19 lemmy-js-client
 WORKDIR /app/lemmy-js-client
-RUN corepack enable pnpm
+RUN npm install -g corepack@latest && corepack enable pnpm
 RUN pnpm i
 RUN pnpm run docs
 # OpenAPI isn't currently working for the v0.19 docs, so no pnpm tsoa
@@ -29,7 +29,7 @@ FROM node:20-alpine AS api_main
 WORKDIR /app
 COPY lemmy-js-client-main lemmy-js-client
 WORKDIR /app/lemmy-js-client
-RUN corepack enable pnpm
+RUN npm install -g corepack@latest && corepack enable pnpm
 RUN pnpm i
 RUN pnpm run docs
 RUN pnpm tsoa
@@ -38,7 +38,7 @@ RUN pnpm tsoa
 FROM node:20-alpine AS builder
 RUN apk update && apk add python3 build-base gcc wget git curl --no-cache
 RUN curl -sf https://gobinaries.com/tj/node-prune | sh
-RUN corepack enable pnpm
+RUN npm install -g corepack@latest && corepack enable pnpm
 
 WORKDIR /app
 
