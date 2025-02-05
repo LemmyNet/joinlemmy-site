@@ -1,16 +1,16 @@
-# Breaking Changes in Lemmy 0.20
+# Breaking Changes in Lemmy 1.0
 
-The major breaking changes for version 0.20 are already implemented. However it will still take a lot of work to implement the new features in lemmy-ui, and publish the final release. So this is a good time for developers of Lemmy clients to start adapting the new API, and suggest changes before it gets finalized.
+The major breaking changes for version 1.0 are already implemented. However it will still take a lot of work to implement the new features in lemmy-ui, and publish the final release. So this is a good time for developers of Lemmy clients to start adapting the new API, and suggest changes before it gets finalized.
 
 If you use any apps, frontends or bots for Lemmy, please help us out by notifying the developers about this post.
 
-With the new version there is all new [documentation based on OpenAPI](https://join-lemmy.org/api/main), thanks to @dessalines and @MV-GH. You can also test the new API on [voyager.lemmy.ml](https://voyager.lemmy.ml), and with version `0.20.0-alpha.1`. Note that this server still uses lemmy-ui 0.19.8 with API v3, because lemmy-ui is not updated for the new backend version yet.
+With the new version there is all new [documentation based on OpenAPI](https://join-lemmy.org/api/main), thanks to @dessalines and @MV-GH. You can also test the new API on [voyager.lemmy.ml](https://voyager.lemmy.ml), and with version `1.0.0-alpha.1`. Note that this server still uses lemmy-ui 0.19.8 with API v3, because lemmy-ui is not updated for the new backend version yet.
 
-Unfortunately there is no good way to see all the API changes between 0.19 and 0.20, but you can try viewing the [diff in lemmy-js-client](https://github.com/LemmyNet/lemmy-js-client/compare/release/v0.19...main), or look at the [OpenAPI docs](https://join-lemmy.org/api/main).
+Unfortunately there is no good way to see all the API changes between 0.19 and 1.0, but you can try viewing the [diff in lemmy-js-client](https://github.com/LemmyNet/lemmy-js-client/compare/release/v0.19...main), or look at the [OpenAPI docs](https://join-lemmy.org/api/main).
 
-If you have any questions about these changes, feel free to post in [!lemmy_support@lemmy.ml](https://lemmyverse.link/c/lemmy_support@lemmy.ml) or in the [Development Chat on Matrix](https://matrix.to/#/#lemmydev:matrix.org).
+If you have any questions about these changes, feel free to post in [!lemmy_support@lemmy.ml](https://lemmyverse.link/c/lemmy_support@lemmy.ml) or in the [Development Chat on Matrix](https://matrix.to/#/#lemmydev:matrix.org). If you have suggestions for breaking API changes before the new version is finalized, [open an issue](https://github.com/LemmyNet/lemmy/issues).
 
-In detail the following endpoints are changed with Lemmy 0.20:
+In detail the following endpoints are changed with Lemmy 1.0:
 
 ## Rename account endpoints
 
@@ -26,7 +26,7 @@ https://github.com/LemmyNet/lemmy/pull/5216
 
 ## Combined endpoints
 
-There are various places in the UI where different types of data are shown together, for example posts and comments in the user profile. Until `0.19` these were queried separately, to display the (last 20 posts) and (last 20 comments). For `0.20` Dessalines implemented combined queries, so that the new endpoint `/api/v4/person/content` returns the last 20 (posts and comments). See the [issue](https://github.com/LemmyNet/lemmy/issues/2444) and linked pull requests for more details.
+There are various places in the UI where different types of data are shown together, for example posts and comments in the user profile. Until `0.19` these were queried separately, to display the (last 20 posts) and (last 20 comments). For `1.0` Dessalines implemented combined queries, so that the new endpoint `/api/v4/person/content` returns the last 20 (posts and comments). See the [issue](https://github.com/LemmyNet/lemmy/issues/2444) and linked pull requests for more details.
 
 The combined endpoints are:
 
