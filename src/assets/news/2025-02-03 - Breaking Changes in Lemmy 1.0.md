@@ -6,7 +6,7 @@ If you use any apps, frontends or bots for Lemmy, please help us out by notifyin
 
 With the new version there is all new [documentation based on OpenAPI](https://join-lemmy.org/api/main), thanks to @dessalines and @MV-GH. You can also test the new API on [voyager.lemmy.ml](https://voyager.lemmy.ml), and with Lemmy version `1.0.0-alpha.0`. Note that this server still uses lemmy-ui 0.19.8 with API v3, because lemmy-ui is not updated for the new backend version yet.
 
-Unfortunately there is no good way to see all the API changes between 0.19 and 1.0, but you can try viewing the [diff in lemmy-js-client](https://github.com/LemmyNet/lemmy-js-client/compare/release/v0.19...main), or look at the [OpenAPI docs](https://join-lemmy.org/api/main).
+Unfortunately there is no good way to see all the API changes between 0.19 and 1.0, but you can try viewing the [diff in lemmy-js-client](https://github.com/LemmyNet/lemmy-js-client/compare/release/v0.19...main), or see the pull requests listed below.
 
 If you have any questions about these changes, feel free to post in [!lemmy_support@lemmy.ml](https://lemmyverse.link/c/lemmy_support@lemmy.ml) or in the [Development Chat on Matrix](https://matrix.to/#/#lemmydev:matrix.org). If you have suggestions for breaking API changes before the new version is finalized, [open an issue](https://github.com/LemmyNet/lemmy/issues).
 
