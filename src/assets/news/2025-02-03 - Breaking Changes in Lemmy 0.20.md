@@ -10,7 +10,7 @@ Unfortunately there is no good way to see all the API changes between 0.19 and 1
 
 If you have any questions about these changes, feel free to post in [!lemmy_support@lemmy.ml](https://lemmyverse.link/c/lemmy_support@lemmy.ml) or in the [Development Chat on Matrix](https://matrix.to/#/#lemmydev:matrix.org). If you have suggestions for breaking API changes before the new version is finalized, [open an issue](https://github.com/LemmyNet/lemmy/issues).
 
-In detail the following endpoints are changed with Lemmy 1.0:
+Here are the major API changes in detail. As this is an alpha version there may be further breaking changes before the final release, but nothing major.
 
 ## Rename account endpoints
 
@@ -20,7 +20,7 @@ Various endpoints have been renamed, especially those under `/api/v3/user` have 
 - `/api/v3/user/login` to `/api/v4/account/auth/login`
 - `/api/v3/user/logout` to `/api/v4/account/auth/logout`
 - ...
-- `/api/v3/site` field `my_user` removed, now available at [`GET /api/v4/account`](https://join-lemmy.org/api/main#operation/GetMyUser)
+- `/api/v4/site` doesn't have `my_user` anymore, this is now available at [`GET /api/v4/account`](https://join-lemmy.org/api/main#operation/GetMyUser)
 
 https://github.com/LemmyNet/lemmy/pull/5216
 
@@ -52,17 +52,35 @@ The endpoints for image upload and proxying have been moved to `GET /api/v4/imag
 
 https://github.com/LemmyNet/lemmy/pull/5260
 
-## Slim comment views
+## Other Breaking Changes
 
-When fetching comments for a single post, you can now use the following endpoint to get a `CommentSlimView` that doesn't needlessly contain the post or community.
+This list is likely incomplete.
 
-- [GET `/api/v4/comment/list/slim`](https://join-lemmy.org/api/main#tag/Comment/operation/GetCommentsSlim)
+- [Adding a default_comment_sort_type column for local_site and local_user](https://github.com/LemmyNet/lemmy/pull/4469)
+- [Removing local_user.show_scores column, since its now on the local_user_vote_display_mode table.](https://github.com/LemmyNet/lemmy/pull/4497)
+- [Move custom emojis and tagline views to separate endpoints](https://github.com/LemmyNet/lemmy/pull/4580)
+- [Remove pointless block_views](https://github.com/LemmyNet/lemmy/pull/4841)
+- [Adding ability to restore content on user unban](https://github.com/LemmyNet/lemmy/pull/4845)
+- [Changing list_logins to return a ListLoginsResponse object.](https://github.com/LemmyNet/lemmy/pull/4888)
+- [Remove pointless local_user_id from LocalUserVoteDisplayMode](https://github.com/LemmyNet/lemmy/pull/4890)
+- [Remove enable nsfw](https://github.com/LemmyNet/lemmy/pull/5017)
+- [Instance blocks with mod log entry and expiration](https://github.com/LemmyNet/lemmy/pull/5214)
+- [Rename actor_id columns to ap_id](https://github.com/LemmyNet/lemmy/pull/5393)
+- [Include saved date in api responses](https://github.com/LemmyNet/lemmy/pull/5384)
 
-https://github.com/LemmyNet/lemmy/pull/5335
+## New Features (not breaking)
 
-## Other new Features
+This list is definitely incomplete, and more features will be added before the final release.
 
-- [SSO support](https://github.com/LemmyNet/lemmy/pull/4881)
+- New parameters for [GET /api/v4/search](https://join-lemmy.org/api/main#tag/Miscellaneous/operation/Search)
+- New parameters for [GET /api/v4/post/list](https://join-lemmy.org/api/main#tag/Post/operation/GetPosts)
+- [Adding a get_random_community endpoint.](https://github.com/LemmyNet/lemmy/pull/5042) - [GET /api/v4/community/random](https://join-lemmy.org/api/main#tag/Community/operation/GetRandomCommunity)
+- [Adding a can_mod field to CommentView, PostView, and CommunityView.](https://github.com/LemmyNet/lemmy/pull/5398) (not yet merged)
 - [Private communities](https://github.com/LemmyNet/lemmy/pull/5076)
+- [SSO support](https://github.com/LemmyNet/lemmy/pull/4881)
 - [Request idempodency support](https://github.com/LemmyNet/lemmy/pull/5329)
-- Lots of new parameters for search, list posts etc
+- [Add support for donation dialog](https://github.com/LemmyNet/lemmy/pull/5318)
+- [Return correct status code for rate limit error](https://github.com/LemmyNet/lemmy/pull/5333)
+- [Add media filter setting](https://github.com/LemmyNet/lemmy/pull/5325)
+- [Post scheduling](https://github.com/LemmyNet/lemmy/pull/5025)
+- [Slim comment views](https://github.com/LemmyNet/lemmy/pull/5335) - [GET `/api/v4/comment/list/slim`](https://join-lemmy.org/api/main#tag/Comment/operation/GetCommentsSlim)
