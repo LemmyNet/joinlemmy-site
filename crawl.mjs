@@ -26,14 +26,13 @@ try {
     "sh",
     [
       "-c",
-      `cargo run -- --json --start-instances ${all_recommended} \
+      `cargo run --release -- --json --start-instances ${all_recommended} \
       --exclude-instances ${recommended_instances.exclude} | \
       jq 'del(.instance_details[].federated_instances, \
         .instance_details[].site_info.all_languages, \
         .instance_details[].site_info.discussion_languages, \
         .instance_details[].site_info.admins, .instance_details[].site_info.taglines, \
         .instance_details[].site_info.custom_emojis, \
-        .instance_details[].site_info.site_view.site, \
         .instance_details[].site_info.site_view.local_site_rate_limit, \
         .instance_details[].site_info.site_view.local_site.application_question, \
         .instance_details[].site_info.site_view.local_site.legal_information, \
@@ -65,6 +64,10 @@ try {
       // Exclude instances with closed registration
       .filter(
         i => i.site_info.site_view.local_site.registration_mode != "closed",
+      )
+      // Exclude instances with open registration (often used by bots
+      .filter(
+        i => i.site_info.site_view.local_site.registration_mode != "open",
       )
       // Exclude instances with few active users
       .filter(

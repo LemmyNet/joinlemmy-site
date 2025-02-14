@@ -447,6 +447,8 @@ export class Instances extends Component<Props, State> {
     let instances = instance_stats.stats.instance_details;
     const recommended = RECOMMENDED_INSTANCES;
 
+    console.log(instances);
+
     // Language Filter
     if (this.state.language !== "all") {
       const languageRecs = recommended.filter(r =>
@@ -467,9 +469,6 @@ export class Instances extends Component<Props, State> {
       );
     }
 
-    // Filter out all open instances (often used by bots)
-    instances = instances.filter(i => !this.isOpenInstance(i));
-
     // Sort
     if (this.state.sort === RANDOM_SORT) {
       instances = sortRandom(instances);
@@ -478,6 +477,8 @@ export class Instances extends Component<Props, State> {
     } else {
       instances = sortActive(instances).reverse();
     }
+
+    console.log(instances);
 
     this.setState({ instances });
   }
