@@ -28,7 +28,7 @@ try {
     "sh",
     [
       "-c",
-      `cargo run --release -- --max-crawl-distance 0 --json --start-instances ${all_recommended} \
+      `cargo run --release -- --json --start-instances ${all_recommended} \
       --exclude-instances ${recommended_instances.exclude} | \
       jq 'del(.instance_details[].federated_instances, \
         .instance_details[].site_info.all_languages, \
