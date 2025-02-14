@@ -40,9 +40,9 @@ try {
         .instance_details[].site_info.site_view.local_site_rate_limit, \
         .instance_details[].site_info.site_view.local_site.application_question, \
         .instance_details[].site_info.site_view.local_site.legal_information, \
-        .instance_details[].site_info.site_view.local_site.slur_filter_regex)' | \
-        jq '.instance_details |= map(select(.site_info.site_view.local_site.registration_mode | contains ("RequireApplication")))' | \
-        jq '.instance_details |= map(select(.site_info.site_view.counts.users_active_month > ${min_monthly_users}))'`,
+        .instance_details[].site_info.site_view.local_site.slur_filter_regex) | \
+        .instance_details |= map(select(.site_info.site_view.local_site.registration_mode | contains ("RequireApplication"))) | \
+        .instance_details |= map(select(.site_info.site_view.counts.users_active_month > ${min_monthly_users}))'`,
     ],
     {
       cwd: "lemmy-stats-crawler",
@@ -53,7 +53,7 @@ try {
 
   run.stdout.on("data", data => {
     const strData = data.toString();
-    process.stdout.write(strData);
+    //process.stdout.write(strData);
     savedOutput += strData;
   });
 
@@ -63,7 +63,7 @@ try {
   });
 
   run.on("close", _exitCode => {
-    let data = `export const instance_stats = {stats: ${savedOutput}, recommended : ${JSON.stringify(recommended_instances)}}\n `;
+    let data = `export const instance_stats = {stats: ${savedOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
     fs.writeFileSync(instanceStatsFile, data);
   });
   run.await;
