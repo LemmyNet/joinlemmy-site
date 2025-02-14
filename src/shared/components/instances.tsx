@@ -447,7 +447,12 @@ export class Instances extends Component<Props, State> {
     let instances = instance_stats.stats.instance_details;
     const recommended = RECOMMENDED_INSTANCES;
 
-    console.log(instances);
+    instances = instances.filter(i => {
+      const active_users_percent =
+        i.site_info.site_view.counts.users_active_month /
+        instance_stats.stats.users_active_month;
+      return active_users_percent < 0.3;
+    });
 
     // Language Filter
     if (this.state.language !== "all") {

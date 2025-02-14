@@ -63,23 +63,7 @@ try {
   });
 
   run.on("close", _exitCode => {
-    var stats = JSON.parse(savedOutput);
-    stats.instance_details = stats.instance_details
-      // Exclude large instances which represent more than 30% of all active users
-      .filter(i => {
-        let active_users_percent =
-          i.site_info.site_view.counts.users_active_month /
-          stats.users_active_month;
-        return active_users_percent < 0.3;
-      });
-
-    let stats2 = {
-      stats: stats,
-      recommended: recommended_instances,
-    };
-
-    let data = `export const instance_stats = \n `;
-    data += JSON.stringify(stats2, null, 2) + ";";
+    let data = `export const instance_stats = {stats: ${savedOutput}, recommended : ${JSON.stringify(recommended_instances)}}\n `;
     fs.writeFileSync(instanceStatsFile, data);
   });
   run.await;
