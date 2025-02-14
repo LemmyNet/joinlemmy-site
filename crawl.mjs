@@ -4,7 +4,6 @@ import { spawn } from "child_process";
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
 const instanceStatsFile = "src/shared/instance_stats.ts";
-const min_monthly_users = 5;
 
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -28,7 +27,7 @@ try {
     "sh",
     [
       "-c",
-      `cargo run --release -- --json --start-instances ${all_recommended} \
+      `cargo run --release -- --joinlemmy-output --json --start-instances ${all_recommended} \
       --exclude-instances ${recommended_instances.exclude} | \
       jq 'del(.instance_details[].federated_instances, \
         .instance_details[].site_info.all_languages, \
@@ -40,9 +39,7 @@ try {
         .instance_details[].site_info.site_view.local_site_rate_limit, \
         .instance_details[].site_info.site_view.local_site.application_question, \
         .instance_details[].site_info.site_view.local_site.legal_information, \
-        .instance_details[].site_info.site_view.local_site.slur_filter_regex) | \
-        .instance_details |= map(select(.site_info.site_view.local_site.registration_mode | contains ("RequireApplication"))) | \
-        .instance_details |= map(select(.site_info.site_view.counts.users_active_month > ${min_monthly_users}))'`,
+        .instance_details[].site_info.site_view.local_site.slur_filter_regex)'`,
     ],
     {
       cwd: "lemmy-stats-crawler",
