@@ -32,7 +32,12 @@ try {
         .instance_details[].site_info.all_languages, \
         .instance_details[].site_info.discussion_languages, \
         .instance_details[].site_info.admins, .instance_details[].site_info.taglines, \
-        .instance_details[].site_info.custom_emojis)'`,
+        .instance_details[].site_info.custom_emojis, \
+        .instance_details[].site_info.site_view.site, \
+        .instance_details[].site_info.site_view.local_site_rate_limit, \
+        .instance_details[].site_info.site_view.local_site.application_question, \
+        .instance_details[].site_info.site_view.local_site.legal_information, \
+        .instance_details[].site_info.site_view.local_site.slur_filter_regex)'`,
     ],
     {
       cwd: "lemmy-stats-crawler",
