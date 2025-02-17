@@ -27,19 +27,8 @@ try {
     "sh",
     [
       "-c",
-      `cargo run --release -- --joinlemmy-output --json --start-instances ${all_recommended} \
-      --exclude-instances ${recommended_instances.exclude} | \
-      jq 'del(.instance_details[].federated_instances, \
-        .instance_details[].site_info.all_languages, \
-        .instance_details[].site_info.discussion_languages, \
-        .instance_details[].site_info.admins, 
-        .instance_details[].site_info.taglines, \
-        .instance_details[].site_info.custom_emojis, \
-        .instance_details[].site_info.site_view.site.public_key, \
-        .instance_details[].site_info.site_view.local_site_rate_limit, \
-        .instance_details[].site_info.site_view.local_site.application_question, \
-        .instance_details[].site_info.site_view.local_site.legal_information, \
-        .instance_details[].site_info.site_view.local_site.slur_filter_regex)'`,
+      `cargo run --release -- --max-crawl-distance 0 --joinlemmy-output --json --start-instances ${all_recommended} \
+      --exclude-instances ${recommended_instances.exclude}`,
     ],
     {
       cwd: "lemmy-stats-crawler",
