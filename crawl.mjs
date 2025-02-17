@@ -18,16 +18,14 @@ try {
       all_recommended.push(...recommended_instances[k]);
     }
   }
-  // Run Rust crawler with given params. Then pipe output directly into jq, to filter
-  // out fields with lots of data which we dont need. This is necessary because otherwise
-  // Javascript may crash when loading the crawl output.
-  // Filters all instances with closed registrations or those with open registrations
-  // (often used by bots). Instances with few active users are also excluded.
+  // Run the crawler with start instances and blocked instances. The parameter --joinlemmy-output
+  // makes it exclude some output data which is not needed here. This is done in Rust because `jq`
+  // uses excessive memory and crashes.
   const run = spawn(
     "sh",
     [
       "-c",
-      `cargo run --release -- --joinlemmy-output --json --start-instances ${all_recommended} \
+      `cargo run --release -- --joinlemmy-output --start-instances ${all_recommended} \
       --exclude-instances ${recommended_instances.exclude}`,
     ],
     {
@@ -39,7 +37,6 @@ try {
 
   run.stdout.on("data", data => {
     const strData = data.toString();
-    //process.stdout.write(strData);
     savedOutput += strData;
   });
 
@@ -49,6 +46,8 @@ try {
   });
 
   run.on("close", _exitCode => {
+    // Convert stats to json to be compiled directly into the code. Not using JSON.parse here as it
+    // uses too much memory and crashes.
     let data = `export const instance_stats = {stats: ${savedOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
     fs.writeFileSync(instanceStatsFile, data);
   });

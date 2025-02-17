@@ -483,8 +483,6 @@ export class Instances extends Component<Props, State> {
       instances = sortActive(instances).reverse();
     }
 
-    console.log(instances);
-
     this.setState({ instances });
   }
 
