@@ -27,7 +27,7 @@ try {
     "sh",
     [
       "-c",
-      `cargo run --release -- --max-crawl-distance 0 --joinlemmy-output --json --start-instances ${all_recommended} \
+      `cargo run --release -- --joinlemmy-output --json --start-instances ${all_recommended} \
       --exclude-instances ${recommended_instances.exclude}`,
     ],
     {
