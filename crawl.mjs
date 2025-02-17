@@ -4,7 +4,6 @@ import { spawn } from "child_process";
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
 const instanceStatsFile = "src/shared/instance_stats.ts";
-const min_monthly_users = 5;
 
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -19,20 +18,15 @@ try {
       all_recommended.push(...recommended_instances[k]);
     }
   }
-  // Run Rust crawler with given params. Then pipe output directly into jq, to filter
-  // out fields with lots of data which we dont need. This is necessary because otherwise
-  // Javascript may crash when loading the crawl output.
+  // Run the crawler with start instances and blocked instances. The parameter --joinlemmy-output
+  // makes it exclude some output data which is not needed here. This is done in Rust because `jq`
+  // uses excessive memory and crashes.
   const run = spawn(
     "sh",
     [
       "-c",
-      `cargo run -- --json --start-instances ${all_recommended} \
-      --exclude-instances ${recommended_instances.exclude} | \
-      jq 'del(.instance_details[].federated_instances, \
-        .instance_details[].site_info.all_languages, \
-        .instance_details[].site_info.discussion_languages, \
-        .instance_details[].site_info.admins, .instance_details[].site_info.taglines, \
-        .instance_details[].site_info.custom_emojis)'`,
+      `cargo run --release -- --joinlemmy-output --start-instances ${all_recommended} \
+      --exclude-instances ${recommended_instances.exclude}`,
     ],
     {
       cwd: "lemmy-stats-crawler",
@@ -43,7 +37,6 @@ try {
 
   run.stdout.on("data", data => {
     const strData = data.toString();
-    process.stdout.write(strData);
     savedOutput += strData;
   });
 
@@ -53,34 +46,9 @@ try {
   });
 
   run.on("close", _exitCode => {
-    var stats = JSON.parse(savedOutput);
-    // Crawl results from all instances include tons of data which needs to be compiled.
-    // If it is too much data it breaks the build, so we need to exclude as much as possible.
-    stats.instance_details = stats.instance_details
-      // Exclude instances with closed registration
-      .filter(
-        i => i.site_info.site_view.local_site.registration_mode != "closed",
-      )
-      // Exclude instances with few active users
-      .filter(
-        i =>
-          i.site_info.site_view.counts.users_active_month > min_monthly_users,
-      )
-      // Exclude large instances which represent more than 30% of all active users
-      .filter(i => {
-        let active_users_percent =
-          i.site_info.site_view.counts.users_active_month /
-          stats.users_active_month;
-        return active_users_percent < 0.3;
-      });
-
-    let stats2 = {
-      stats: stats,
-      recommended: recommended_instances,
-    };
-
-    let data = `export const instance_stats = \n `;
-    data += JSON.stringify(stats2, null, 2) + ";";
+    // Convert stats to json to be compiled directly into the code. Not using JSON.parse here as it
+    // uses too much memory and crashes.
+    let data = `export const instance_stats = {stats: ${savedOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
     fs.writeFileSync(instanceStatsFile, data);
   });
   run.await;

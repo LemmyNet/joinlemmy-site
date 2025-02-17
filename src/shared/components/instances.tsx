@@ -447,6 +447,13 @@ export class Instances extends Component<Props, State> {
     let instances = instance_stats.stats.instance_details;
     const recommended = RECOMMENDED_INSTANCES;
 
+    instances = instances.filter(i => {
+      const active_users_percent =
+        i.site_info.site_view.counts.users_active_month /
+        instance_stats.stats.users_active_month;
+      return active_users_percent < 0.3;
+    });
+
     // Language Filter
     if (this.state.language !== "all") {
       const languageRecs = recommended.filter(r =>
@@ -466,9 +473,6 @@ export class Instances extends Component<Props, State> {
         topicRecs.map(c => c.domain).includes(i.domain),
       );
     }
-
-    // Filter out all open instances (often used by bots)
-    instances = instances.filter(i => !this.isOpenInstance(i));
 
     // Sort
     if (this.state.sort === RANDOM_SORT) {
