@@ -1,6 +1,6 @@
 import { Component, InfernoEventHandler, linkEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
-import { i18n, LANGUAGES } from "../i18next";
+import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import { getQueryParams, mdToHtml, numToSI, sortRandom } from "../utils";
@@ -11,6 +11,7 @@ import {
   RECOMMENDED_INSTANCES,
   ALL_TOPIC,
   TOPICS,
+  availableLanguages,
 } from "./instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
@@ -558,9 +559,9 @@ export class Instances extends Component<Props, State> {
               <option key="all" value="all">
                 {i18n.t("all_languages")}
               </option>
-              {LANGUAGES.map((l, i) => (
-                <option key={i} value={l.code}>
-                  {l.name}
+              {availableLanguages().map(val => (
+                <option key={val.code} value={val.code}>
+                  {val.name}
                 </option>
               ))}
             </select>
