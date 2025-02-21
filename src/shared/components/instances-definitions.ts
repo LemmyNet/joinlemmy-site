@@ -42,11 +42,6 @@ const POLITICS: Topic = {
   icon: "hammer2",
 };
 
-const RELIGION: Topic = {
-  name: "religion",
-  icon: "david-star",
-};
-
 const LGBTQ: Topic = {
   name: "lgbtq",
   icon: "transgender-alt",
@@ -87,7 +82,6 @@ export const TOPICS: Topic[] = [
   GENERAL,
   TECHNOLOGY,
   POLITICS,
-  RELIGION,
   LGBTQ,
   ART,
   LITERATURE,
