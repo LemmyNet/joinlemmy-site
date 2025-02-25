@@ -1,3 +1,6 @@
+import { LANGUAGES } from "../i18next";
+import { instance_stats } from "../instance_stats";
+
 export interface InstanceHelper {
   name: string;
   link: string;
@@ -37,11 +40,6 @@ const TECHNOLOGY: Topic = {
 const POLITICS: Topic = {
   name: "politics",
   icon: "hammer2",
-};
-
-const RELIGION: Topic = {
-  name: "religion",
-  icon: "david-star",
 };
 
 const LGBTQ: Topic = {
@@ -84,7 +82,6 @@ export const TOPICS: Topic[] = [
   GENERAL,
   TECHNOLOGY,
   POLITICS,
-  RELIGION,
   LGBTQ,
   ART,
   LITERATURE,
@@ -98,6 +95,32 @@ export interface RecommendedInstance {
   domain: string;
   languages: string[];
   topics: Topic[];
+}
+
+// https://chrisengelsma.medium.com/3342e47b9448
+function uniqueFilter(value, index, self) {
+  return self.indexOf(value) === index;
+}
+
+export function availableLanguages() {
+  // domains of crawled instances
+  var domains = instance_stats.stats.instance_details.map(i => i.domain);
+  // language names from translations
+  var languageNames = new Map(LANGUAGES.map(l => [l.code, l.name]));
+
+  return (
+    RECOMMENDED_INSTANCES
+      // ignore instances that were not crawled
+      .filter(r => domains.includes(r.domain))
+      // take all unique languages defined in this file
+      .flatMap(r => r.languages)
+      .filter(uniqueFilter)
+      // get language name from code and return them together. skip languages with unknown name.
+      .flatMap(code => {
+        const name = languageNames.get(code);
+        return name ? [{ code, name }] : [];
+      })
+  );
 }
 
 export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
