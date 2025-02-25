@@ -115,14 +115,10 @@ export function availableLanguages() {
       // take all unique languages defined in this file
       .flatMap(r => r.languages)
       .filter(uniqueFilter)
-      // ignore languages that we dont have the name of
-      .filter(l => languageNames.has(l))
-      // return language code and name
-      .map(l => {
-        return {
-          code: l,
-          name: languageNames.get(l),
-        };
+      // get language name from code and return them together. skip languages with unknown name.
+      .flatMap(code => {
+        const name = languageNames.get(code);
+        return name ? [{ code, name }] : [];
       })
   );
 }
