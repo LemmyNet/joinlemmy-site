@@ -564,4 +564,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["en"],
     topics: [GENERAL, HOBBIES],
   },
+  {
+    domain: "feddit.bg",
+    languages: ["bg", "en"],
+    topics: [GENERAL],
+  },
 ];
