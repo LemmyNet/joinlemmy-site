@@ -569,4 +569,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["bg", "en"],
     topics: [GENERAL],
   },
+  {
+    domain: "fedit.pl",
+    languages: ["pl", "en"],
+    topics: [GENERAL],
+  },
 ];
