@@ -382,7 +382,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "lemmy.radio",
     languages: ["en"],
-    topics: [MUSIC, HOBBIES],
+    topics: [TECHNOLOGY, HOBBIES],
   },
   {
     domain: "feddit.ch",
