@@ -33,7 +33,7 @@ If you need help with the upgrade, you can ask in our [support forum](https://le
 
 ## Thanks to everyone
 
-We'd like to thank our many contributors and users of Lemmy for coding, translating, testing, and helping find and fix bugs. We're glad many people find it useful and enjoyable enough to contribute. 
+We'd like to thank our many contributors and users of Lemmy for coding, translating, testing, and helping find and fix bugs. We're glad many people find it useful and enjoyable enough to contribute.
 
 ## Support development
 
