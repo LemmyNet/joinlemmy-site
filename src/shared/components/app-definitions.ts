@@ -428,8 +428,12 @@ const SUMMIT: AppDetails = {
       link: "https://github.com/idunnololz/summit-for-lemmy",
       icon: "github",
     },
+    {
+      link: "https://github.com/idunnololz/summit",
+      icon: "github",
+    },
   ],
-  sourceType: SourceType.Closed,
+  sourceType: SourceType.Open,
   platforms: [Platform.Android],
 };
 
