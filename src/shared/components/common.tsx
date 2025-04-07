@@ -40,11 +40,8 @@ export const Badge = ({ content, outline = false }) => (
 export const DonateDesc = () => (
   <p className="text-sm text-gray-300 mb-3">
     <T i18nKey="donate_desc">
-      #
-      <Link className="link" to="/donate">
-        #
-      </Link>
-      #
+      <br />
+      <br />
     </T>
   </p>
 );
@@ -131,7 +128,7 @@ export const DonateBlock = () => (
     <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
       <div className="card-body px-8 md:px-32 py-16">
         <p className={`card-title text-4xl mb-3 ${TEXT_GRADIENT}`}>
-          {i18n.t("donate")}
+          {i18n.t("donate_subtitle")}
         </p>
         <DonateDesc />
         <FundingGoal />
