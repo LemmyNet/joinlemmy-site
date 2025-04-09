@@ -222,7 +222,7 @@ const FeatureCardsBlock = () => (
 
 const DiscussionPlatformBlock = () => (
   <div className="flex flex-col items-center mt-16">
-    <div className="card card-bordered bg-gradient-to-r text-transparent from-primary to-secondary shadow-xl">
+    <div className="card card-bordered bg-linear-to-r text-transparent from-primary to-secondary shadow-xl">
       <div className="card-body items-center px-8 md:px-32 py-16">
         <T
           i18nKey="create_discussion_platform"

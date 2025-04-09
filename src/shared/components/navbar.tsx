@@ -118,7 +118,7 @@ export const Navbar = ({ footer = false }) => (
         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
           <Icon icon="align-right" size={IconSize.Large} />
         </div>
-        <ul className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-neutral-800 rounded-box w-52 items-center mt-3">
+        <ul className="menu menu-sm dropdown-content z-1 p-2 shadow-sm bg-neutral-800 rounded-box w-52 items-center mt-3">
           <NavLinks />
         </ul>
       </div>
