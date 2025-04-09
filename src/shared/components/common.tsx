@@ -37,7 +37,7 @@ export const Badge = ({ content, outline = false }) => (
 );
 
 export const DonateDesc = () => (
-  <p className="text-sm text-gray-300 mb-3">
+  <p className="text-gray-300 mb-3">
     <T i18nKey="donate_desc">
       <br />
       <br />
@@ -93,6 +93,7 @@ const FundingGoal = () => (
       </div>
       <div
         className="text-xl font-bold tooltip"
+        style="text-decoration-line: underline;text-decoration-style: dotted;"
         data-tip={i18n.t("based_on_salary", {
           formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
         })}
@@ -101,7 +102,6 @@ const FundingGoal = () => (
           formattedCount1: FUNDED_DEVS.toFixed(1),
           formattedCount2: FUNDED_DEV_GOAL,
         })}
-        *
       </div>
     </div>
     <progress
