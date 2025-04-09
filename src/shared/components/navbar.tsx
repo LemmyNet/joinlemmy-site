@@ -59,7 +59,8 @@ function closeNavbarDropdown() {
 }
 
 function handleLanguageChange(_: any, event: ChangeEvent<HTMLSelectElement>) {
-  location.href = `/?lang=${event.target.value}`;
+  const new_location = location.href.split("?")[0];
+  location.href = new_location + `?lang=${event.target.value}`;
 }
 
 export const Footer = () => <Navbar footer />;
