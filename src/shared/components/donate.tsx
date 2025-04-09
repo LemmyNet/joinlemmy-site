@@ -54,6 +54,7 @@ export const DonateButtons = () => (
       className="btn btn-primary text-white max-md:btn-block grow"
       href="https://liberapay.com/Lemmy"
     >
+      <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
       <T i18nKey="support_on_liberapay">
         #<span className="font-bold">#</span>
       </T>
@@ -62,6 +63,7 @@ export const DonateButtons = () => (
       className="btn btn-secondary text-white max-md:btn-block grow"
       href="https://www.patreon.com/dessalines"
     >
+      <img src="/static/assets/icons/patreon.svg" alt="" width="24" />
       <T i18nKey="support_on_patreon">
         #<span className="font-bold">#</span>
       </T>
@@ -70,6 +72,7 @@ export const DonateButtons = () => (
       className="btn btn-primary text-white max-md:btn-block grow"
       href="https://opencollective.com/lemmy"
     >
+      <img src="/static/assets/icons/opencollective.svg" alt="" width="24" />
       <T i18nKey="support_on_opencollective">
         #<span className="font-bold">#</span>
       </T>
@@ -78,6 +81,7 @@ export const DonateButtons = () => (
       className="btn btn-secondary text-white max-md:btn-block grow"
       to="/crypto"
     >
+      <img src="/static/assets/icons/bitcoin.svg" alt="" width="24" />
       Crypto
     </Link>
   </div>
