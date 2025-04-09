@@ -3,14 +3,13 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import classNames from "classnames";
 import {
-  END_FUNDRAISER_DATE,
   FUNDED_DEVS,
   FUNDED_DEV_GOAL,
   MEDIAN_DEV_SALARY,
   TOTAL_RECURRING_MONTHLY_EUR,
   TOTAL_SUPPORTERS,
 } from "./donate-definitions";
-import { NUMBER_FORMAT, monthsBetween } from "../utils";
+import { NUMBER_FORMAT } from "../utils";
 
 export const TEXT_GRADIENT =
   "bg-gradient-to-r bg-clip-text text-transparent from-[#69D066] to-[#03A80E]";
@@ -115,9 +114,6 @@ const FundingGoal = () => (
         {i18n.t("supporters", {
           formattedCount: NUMBER_FORMAT.format(TOTAL_SUPPORTERS),
         })}
-      </div>
-      <div className="text-sm text-gray-300">
-        {monthsBetween(new Date(), END_FUNDRAISER_DATE)} months remaining
       </div>
     </div>
   </div>

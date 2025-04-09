@@ -154,6 +154,3 @@ export const FUNDED_DEVS = TOTAL_RECURRING_MONTHLY_EUR / MEDIAN_DEV_MONTHLY_EUR;
 
 //  Goal
 export const FUNDED_DEV_GOAL = 3;
-
-// End fundraiser date
-export const END_FUNDRAISER_DATE = new Date("2024-12-01");
