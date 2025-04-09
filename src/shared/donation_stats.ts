@@ -1,17 +1,17 @@
 export const donation_stats = [
   {
     name_: "liberapay",
-    patrons: 240,
-    amount: 1117.642289705737,
+    patrons: 253,
+    amount: 1133.5521538554433,
   },
   {
     name_: "opencollective",
-    patrons: 339,
-    amount: 498.63738990319996,
+    patrons: 341,
+    amount: 487.6445348587333,
   },
   {
     name_: "patreon",
-    patrons: 535,
-    amount: 741.9311856072,
+    patrons: 537,
+    amount: 798.1778083644,
   },
 ];
