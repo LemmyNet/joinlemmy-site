@@ -1,244 +1,18 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { T } from "inferno-i18next";
-import { translators } from "../translations/translators";
-import { languages, countries } from "countries-list";
 import { isBrowser } from "../utils";
-import { Badge, BottomSpacer, DonateBlock, TEXT_GRADIENT } from "./common";
+import { BottomSpacer, CARD_GRADIENT, TEXT_GRADIENT } from "./common";
+import { Link } from "inferno-router";
+import { T } from "inferno-i18next";
 import {
-  CODERS,
-  GOLD_SPONSORS,
-  SILVER_SPONSORS,
-  GoldSponsor,
-  HIGHLIGHTED_SPONSORS,
-  LATINUM_SPONSORS,
-  GENERAL_SPONSORS,
-  Translation,
+  FUNDED_DEVS,
+  FUNDED_DEV_GOAL,
+  MEDIAN_DEV_SALARY,
+  TOTAL_RECURRING_MONTHLY_EUR,
+  TOTAL_SUPPORTERS,
 } from "./donate-definitions";
-import classNames from "classnames";
-import { Icon } from "./icon";
-
-const SectionTitle = ({ title }) => (
-  <div className="text-2xl mb-3">{title}</div>
-);
-
-const ContributorsBlock = () => (
-  <div className="my-16">
-    <SectionTitle title={i18n.t("contributors")} />
-    <p className="text-sm text-gray-300 mb-3">{i18n.t("thanks_coders")}</p>
-    <CodersBlock />
-    <p className="text-sm text-gray-300 mt-6 mb-3">
-      {i18n.t("thanks_translators")}
-    </p>
-    <TranslatorsBlock />
-    <div className="card card-bordered bg-neutral-900 shadow-xl text-center text-secondary">
-      <div className="card-body p-4">
-        <p>
-          <T i18nKey="add_weblate">
-            #
-            <a
-              className="link"
-              href="https://weblate.join-lemmy.org/projects/lemmy/"
-            >
-              #
-            </a>
-          </T>
-        </p>
-      </div>
-    </div>
-  </div>
-);
-
-const CodersBlock = () => (
-  <div className="card card-bordered bg-neutral-900 shadow-xl">
-    <div className="card-body p-4">
-      <PersonBadges persons={CODERS} />
-    </div>
-  </div>
-);
-
-const TranslatorsBlock = () => {
-  // Split these into two cards for md
-  const transArr = convertTranslators();
-  const halfway = Math.floor(transArr.length / 2);
-
-  const first = transArr.slice(0, halfway);
-  const second = transArr.slice(halfway, transArr.length);
-
-  return (
-    <div className="mb-8">
-      <div className="max-md:hidden">
-        <div className="grid grid-cols-2 gap-4">
-          <TranslatorsCard translations={first} />
-          <TranslatorsCard translations={second} />
-        </div>
-      </div>
-      <div className="md:max-xl:hidden">
-        <TranslatorsCard translations={transArr} />
-      </div>
-    </div>
-  );
-};
-
-interface TranslatorsCardProps {
-  translations: Translation[];
-}
-
-const TranslatorsCard = ({ translations }: TranslatorsCardProps) => (
-  <div className="card card-bordered bg-neutral-900 shadow-xl">
-    <div className="card-body p-4">
-      <table>
-        {translations.map(t => (
-          <tr>
-            <td>
-              <div className="text-secondary">
-                <span>{languages[t.lang].native}</span>
-                {t.country && <span> {countries[t.country].native}</span>}
-                <span>:</span>
-              </div>
-            </td>
-            <td>
-              <PersonBadges persons={t.translators} />
-            </td>
-          </tr>
-        ))}
-      </table>
-    </div>
-  </div>
-);
-
-const SponsorsBlock = () => (
-  <div className="mb-16">
-    <SectionTitle title={i18n.t("sponsors")} />
-    <GoldSponsorCards
-      title={i18n.t("gold_pressed_latinum_sponsors_desc")}
-      sponsors={LATINUM_SPONSORS}
-      color="primary"
-    />
-    <GoldSponsorCards
-      title={i18n.t("gold_sponsors_desc")}
-      sponsors={GOLD_SPONSORS}
-      color="secondary"
-    />
-    <GoldSponsorCards
-      title={i18n.t("silver_sponsors_desc")}
-      sponsors={SILVER_SPONSORS}
-      color="warning"
-    />
-    <GeneralSponsorCard />
-  </div>
-);
-
-interface GoldSponsorCardsProps {
-  title: string;
-  sponsors: GoldSponsor[];
-  color: string;
-}
-
-const GoldSponsorCards = ({ title, sponsors, color }: GoldSponsorCardsProps) =>
-  sponsors.length > 0 && (
-    <div>
-      <p className="text-sm text-gray-300 mb-3">{title}</p>
-      <div className="flex flex-row flex-wrap gap-2 mb-2">
-        {sponsors.map(s => (
-          <a
-            className={`btn btn-${color} btn-outline w-32 h-16 normal-case`}
-            href={s.link}
-          >
-            <div className="flex flex-wrap flex-row justify-center">
-              {s.avatar && (
-                <div className="avatar w-auto h-8">
-                  <img src={s.avatar} className="rounded" alt="" />
-                </div>
-              )}
-              <span className="text-xs">{s.name}</span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-
-const GeneralSponsorCard = () => {
-  const highlighted: PersonBadgeData[] = HIGHLIGHTED_SPONSORS.map(name => {
-    return { name, primaryOutline: true, primaryAt: true };
-  });
-
-  const general: PersonBadgeData[] = GENERAL_SPONSORS.map(name => {
-    return { name, primaryAt: true };
-  });
-
-  const combined = highlighted.concat(general);
-
-  return (
-    <div>
-      <p className="text-sm text-gray-300 mt-6 mb-3">
-        {i18n.t("general_sponsors_desc")}
-      </p>
-      <div className="card card-bordered bg-neutral-900 shadow-xl">
-        <div className="card-body p-4">
-          <PersonBadges persons={combined} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-interface PersonBadgeData {
-  name: string;
-  link?: string;
-  primaryOutline?: boolean;
-  primaryAt?: boolean;
-}
-
-interface PersonBadgeProps {
-  person: PersonBadgeData;
-}
-
-const PersonBadge = ({ person }: PersonBadgeProps) =>
-  person.link ? (
-    <a href={person.link}>
-      <PersonBadgeInternal person={person} />
-    </a>
-  ) : (
-    <PersonBadgeInternal person={person} />
-  );
-
-const PersonBadgeInternal = ({ person }: PersonBadgeProps) => (
-  <Badge
-    content={
-      <div>
-        <Icon
-          icon="at-sign"
-          classes={classNames("fill-current text-gray-600", {
-            "text-primary": person.primaryAt,
-          })}
-        />
-        <span
-          className={classNames("ml-1", {
-            [`${TEXT_GRADIENT}`]: person.link,
-          })}
-        >
-          {person.name}
-        </span>
-      </div>
-    }
-    outline={person.primaryOutline}
-  />
-);
-
-interface PersonBadgesProps {
-  persons: PersonBadgeData[];
-}
-
-const PersonBadges = ({ persons }: PersonBadgesProps) => (
-  <div className="flex flex-row flex-wrap gap-2 mb-2">
-    {persons.map(p => (
-      <PersonBadge person={p} />
-    ))}
-  </div>
-);
+import { NUMBER_FORMAT } from "../utils";
 
 export class Donate extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -259,27 +33,109 @@ export class Donate extends Component<any, any> {
           <meta property={"title"} content={title} />
         </Helmet>
         <DonateBlock />
-        <ContributorsBlock />
-        <SponsorsBlock />
         <BottomSpacer />
       </div>
     );
   }
 }
 
-function convertTranslators(): Translation[] {
-  const trans: Translation[] = [];
-  for (const [key, value] of Object.entries(translators)) {
-    const split = key.split("_");
-    const lang = split[0];
-    const country = split[1] !== undefined ? split[1].toUpperCase() : undefined;
+export const DonateDesc = () => (
+  <p className="text-gray-300 mb-3">
+    <T i18nKey="donate_desc">
+      <br />
+      <br />
+    </T>
+  </p>
+);
 
-    const t: Translation = {
-      lang,
-      country,
-      translators: value,
-    };
-    trans.push(t);
-  }
-  return trans;
-}
+export const DonateButtons = () => (
+  <div className="flex flex-row flex-wrap justify-between gap-4">
+    <a
+      className="btn btn-primary text-white max-md:btn-block grow"
+      href="https://liberapay.com/Lemmy"
+    >
+      <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
+      <T i18nKey="support_on_liberapay">
+        #<span className="font-bold">#</span>
+      </T>
+    </a>
+    <a
+      className="btn btn-secondary text-white max-md:btn-block grow"
+      href="https://www.patreon.com/dessalines"
+    >
+      <img src="/static/assets/icons/patreon.svg" alt="" width="24" />
+      <T i18nKey="support_on_patreon">
+        #<span className="font-bold">#</span>
+      </T>
+    </a>
+    <a
+      className="btn btn-primary text-white max-md:btn-block grow"
+      href="https://opencollective.com/lemmy"
+    >
+      <img src="/static/assets/icons/opencollective.svg" alt="" width="24" />
+      <T i18nKey="support_on_opencollective">
+        #<span className="font-bold">#</span>
+      </T>
+    </a>
+    <Link
+      className="btn btn-secondary text-white max-md:btn-block grow"
+      to="/crypto"
+    >
+      <img src="/static/assets/icons/bitcoin.svg" alt="" width="24" />
+      Crypto
+    </Link>
+  </div>
+);
+
+const FundingGoal = () => (
+  <div className="flex flex-col flex-wrap mb-3 gap-4">
+    <div className="flex flex-row flex-wrap justify-between gap-4">
+      <div>
+        <span className="text-xl font-bold">
+          €{NUMBER_FORMAT.format(TOTAL_RECURRING_MONTHLY_EUR)}
+        </span>
+        <span className="text-gray-200 mr-3">
+          {i18n.t("per_month", { formattedCount: "" })}
+        </span>
+      </div>
+      <div
+        className="text-xl font-bold tooltip underline decoration-dotted"
+        data-tip={i18n.t("based_on_salary", {
+          formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
+        })}
+      >
+        {i18n.t("devs_funded", {
+          formattedCount1: FUNDED_DEVS.toFixed(1),
+          formattedCount2: FUNDED_DEV_GOAL,
+        })}
+      </div>
+    </div>
+    <progress
+      className="progress progress-primary w-auto"
+      value={FUNDED_DEVS}
+      max={FUNDED_DEV_GOAL}
+    ></progress>
+    <div className="flex flex-row flex-wrap justify-between gap-4">
+      <div className="text-sm text-gray-300">
+        {i18n.t("supporters", {
+          formattedCount: NUMBER_FORMAT.format(TOTAL_SUPPORTERS),
+        })}
+      </div>
+    </div>
+  </div>
+);
+
+export const DonateBlock = () => (
+  <div className="flex flex-col items-center pt-16">
+    <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
+      <div className="card-body px-8 md:px-32 py-16">
+        <p className={`card-title text-4xl mb-3 ${TEXT_GRADIENT}`}>
+          {i18n.t("donate_subtitle")}
+        </p>
+        <DonateDesc />
+        <FundingGoal />
+        <DonateButtons />
+      </div>
+    </div>
+  </div>
+);
