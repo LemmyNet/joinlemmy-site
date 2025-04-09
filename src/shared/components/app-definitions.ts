@@ -112,7 +112,7 @@ const ECHO: AppDetails = {
 const VOYAGER: AppDetails = {
   name: "Voyager",
   description: "A Lemmy Client for iOS, Android and the web",
-  link: "https://github.com/aeharding/voyager",
+  link: "https://getvoyager.app",
   icon: "/static/assets/images/voyager.png",
   banner: "/static/assets/images/voyager_screen.webp",
   links: [
