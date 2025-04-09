@@ -1,8 +1,13 @@
 @import 'tailwindcss';
 
 @plugin '@tailwindcss/typography';
-@plugin "daisyui" { 
-  themes: halloween; 
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "halloween";
+  default: true;
+          --color-primary: #12D10E,
+          --color-secondary: #06AFC6,
+          --base-content: #ffffff,
 }
 
 @theme {

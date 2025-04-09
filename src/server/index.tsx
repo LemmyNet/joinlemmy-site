@@ -104,7 +104,7 @@ server.get("/*", async (req, res) => {
 
   res.send(`
            <!DOCTYPE html>
-           <html ${helmet.htmlAttributes.toString()} lang="en" class="scroll-smooth">
+           <html ${helmet.htmlAttributes.toString()} lang="en" class="scroll-smooth" data-theme="halloween">
            <head>
            ${erudaInit()}
 

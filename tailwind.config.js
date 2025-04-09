@@ -2,18 +2,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  daisyui: {
-    themes: [
-      {
-        halloween: {
-          ...require("daisyui/src/theming/themes")["halloween"],
-          primary: "#12D10E",
-          secondary: "#06AFC6",
-          "base-content": "#ffffff",
-        },
-      },
-    ],
-  },
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     fontFamily: {
