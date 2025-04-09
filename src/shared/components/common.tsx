@@ -92,8 +92,7 @@ const FundingGoal = () => (
         </span>
       </div>
       <div
-        className="text-xl font-bold tooltip"
-        style="text-decoration-line: underline;text-decoration-style: dotted;"
+        className="text-xl font-bold tooltip underline decoration-dotted"
         data-tip={i18n.t("based_on_salary", {
           formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
         })}
