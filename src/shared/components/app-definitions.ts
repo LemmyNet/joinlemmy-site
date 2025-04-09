@@ -218,26 +218,6 @@ const ETERNITY: AppDetails = {
   platforms: [Platform.Android],
 };
 
-const COMBUSTIBLE: AppDetails = {
-  name: "Combustible",
-  description: "An Open-Source Lemmy Client For Android",
-  link: "https://github.com/TheBrokenRail/Combustible",
-  icon: "/static/assets/images/combustible_logo.webp",
-  banner: "/static/assets/images/combustible_screen.webp",
-  links: [
-    {
-      link: "https://apt.izzysoft.de/fdroid/index/apk/com.thebrokenrail.combustible",
-      icon: "f-droid",
-    },
-    {
-      link: "https://github.com/TheBrokenRail/Combustible",
-      icon: "github",
-    },
-  ],
-  sourceType: SourceType.Open,
-  platforms: [Platform.Android],
-};
-
 const BOOST: AppDetails = {
   name: "Boost for Lemmy",
   description: "A smooth app for Lemmy.",
@@ -288,47 +268,6 @@ const MLEM: AppDetails = {
     {
       link: "https://opencollective.com/mlem",
       icon: "opencollective",
-    },
-  ],
-  sourceType: SourceType.Open,
-  platforms: [Platform.IOS],
-};
-
-const LUNAR: AppDetails = {
-  name: "Lunar",
-  description: "A Lemmy Client for iOS written in Swift and SwiftUI",
-  link: "https://github.com/mani-sh-reddy/Lunar",
-  icon: "/static/assets/images/lunar_logo.webp",
-  banner: "/static/assets/images/lunar_screen.webp",
-  links: [
-    {
-      link: "https://testflight.apple.com/join/GEFCCQTb",
-      icon: "appleinc",
-    },
-    {
-      link: "https://github.com/mani-sh-reddy/Lunar",
-      icon: "github",
-    },
-  ],
-  sourceType: SourceType.Open,
-  platforms: [Platform.IOS],
-};
-
-const MEMMY: AppDetails = {
-  name: "Memmy",
-  description:
-    "A Lemmy Client built in React Native for iOS available on the App Store.",
-  link: "https://github.com/Memmy-App/memmy",
-  icon: "/static/assets/images/memmy_icon.png",
-  banner: "/static/assets/images/memmy_banner.webp",
-  links: [
-    {
-      link: "https://apps.apple.com/us/app/memmy-for-lemmy/id6450204299?platform=iphone",
-      icon: "appleinc",
-    },
-    {
-      link: "https://github.com/Memmy-App/memmy",
-      icon: "github",
     },
   ],
   sourceType: SourceType.Open,
@@ -457,10 +396,7 @@ export const APP_LIST: AppDetails[] = [
   ECHO,
   JERBOA,
   ETERNITY,
-  COMBUSTIBLE,
   MLEM,
-  LUNAR,
-  MEMMY,
   LEMMY_UI,
   VOYAGER,
   THUNDER,
