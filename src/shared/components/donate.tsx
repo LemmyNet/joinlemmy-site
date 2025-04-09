@@ -49,9 +49,9 @@ export const DonateDesc = () => (
 );
 
 export const DonateButtons = () => (
-  <div className="flex flex-row flex-wrap justify-between gap-2">
+  <div className="flex flex-row flex-wrap justify-between gap-4">
     <a
-      className="btn btn-primary text-white max-md:btn-block normal-case"
+      className="btn btn-primary text-white max-md:btn-block grow"
       href="https://liberapay.com/Lemmy"
     >
       <T i18nKey="support_on_liberapay">
@@ -59,7 +59,7 @@ export const DonateButtons = () => (
       </T>
     </a>
     <a
-      className="btn btn-secondary text-white max-md:btn-block normal-case"
+      className="btn btn-primary text-white max-md:btn-block grow"
       href="https://www.patreon.com/dessalines"
     >
       <T i18nKey="support_on_patreon">
@@ -67,7 +67,7 @@ export const DonateButtons = () => (
       </T>
     </a>
     <a
-      className="btn btn-primary text-white max-md:btn-block normal-case"
+      className="btn btn-primary text-white max-md:btn-block grow"
       href="https://opencollective.com/lemmy"
     >
       <T i18nKey="support_on_opencollective">
@@ -75,7 +75,7 @@ export const DonateButtons = () => (
       </T>
     </a>
     <Link
-      className="btn btn-secondary text-white max-md:btn-block normal-case"
+      className="btn btn-primary text-white max-md:btn-block grow"
       to="/crypto"
     >
       Crypto
