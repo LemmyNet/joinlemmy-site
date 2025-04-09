@@ -149,7 +149,7 @@ const GoldSponsorCards = ({ title, sponsors, color }: GoldSponsorCardsProps) =>
             <div className="flex flex-wrap flex-row justify-center">
               {s.avatar && (
                 <div className="avatar w-auto h-8">
-                  <img src={s.avatar} className="rounded" alt="" />
+                  <img src={s.avatar} className="rounded-sm" alt="" />
                 </div>
               )}
               <span className="text-xs">{s.name}</span>
