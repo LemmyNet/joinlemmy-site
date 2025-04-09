@@ -5,15 +5,11 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { getQueryParams, isBrowser } from "../utils";
 import { Icon } from "./icon";
-import {
-  BottomSpacer,
-  CARD_GRADIENT,
-  DonateBlock,
-  TEXT_GRADIENT,
-} from "./common";
+import { BottomSpacer, CARD_GRADIENT, TEXT_GRADIENT } from "./common";
 import { InstancePicker } from "./instance-picker";
 import classNames from "classnames";
 import Glide from "@glidejs/glide";
+import { DonateBlock } from "./donate";
 
 interface MainProps {
   i: Main;
