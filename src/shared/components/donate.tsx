@@ -59,7 +59,7 @@ export const DonateButtons = () => (
       </T>
     </a>
     <a
-      className="btn btn-primary text-white max-md:btn-block grow"
+      className="btn btn-secondary text-white max-md:btn-block grow"
       href="https://www.patreon.com/dessalines"
     >
       <T i18nKey="support_on_patreon">
@@ -75,7 +75,7 @@ export const DonateButtons = () => (
       </T>
     </a>
     <Link
-      className="btn btn-primary text-white max-md:btn-block grow"
+      className="btn btn-secondary text-white max-md:btn-block grow"
       to="/crypto"
     >
       Crypto
