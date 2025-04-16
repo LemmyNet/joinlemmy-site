@@ -5,48 +5,60 @@ import { i18n, LANGUAGES } from "../i18next";
 import classNames from "classnames";
 import { SELECT_CLASSES } from "./common";
 
-const NavLink = ({ content }) => <li className="text-gray-400">{content}</li>;
+const NavLink = ({ content }) => (
+  <li className="text-gray-400 w-full md:w-fit">{content}</li>
+);
+
+const LinkClass = "text-xl px-4  py-2 md:text-lg";
 
 const NavLinks = () => (
   <>
     <NavLink
       content={
-        <Link onClick={closeNavbarDropdown} to="/instances">
+        <Link
+          onClick={closeNavbarDropdown}
+          to="/instances"
+          className={LinkClass}
+        >
           {i18n.t("join")}
         </Link>
       }
     />
     <NavLink
       content={
-        <Link onClick={closeNavbarDropdown} to="/news">
+        <Link onClick={closeNavbarDropdown} to="/news" className={LinkClass}>
           {i18n.t("news")}
         </Link>
       }
     />
     <NavLink
       content={
-        <Link onClick={closeNavbarDropdown} to="/apps">
+        <Link onClick={closeNavbarDropdown} to="/apps" className={LinkClass}>
           {i18n.t("apps")}
         </Link>
       }
     />
     <NavLink
       content={
-        <Link onClick={closeNavbarDropdown} to="/donate">
+        <Link onClick={closeNavbarDropdown} to="/donate" className={LinkClass}>
           {i18n.t("donate")}
         </Link>
       }
     />
     <NavLink
       content={
-        <a onClick={closeNavbarDropdown} href="/docs/index.html">
+        <a
+          onClick={closeNavbarDropdown}
+          href="/docs/index.html"
+          className={LinkClass}
+        >
           {i18n.t("docs")}
         </a>
       }
     />
     <NavLink
       content={
-        <Link onClick={closeNavbarDropdown} to="/contact">
+        <Link onClick={closeNavbarDropdown} to="/contact" className={LinkClass}>
           {i18n.t("contact")}
         </Link>
       }
