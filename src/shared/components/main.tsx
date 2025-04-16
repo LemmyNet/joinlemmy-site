@@ -23,6 +23,7 @@ const TitleBlock = ({ i }: MainProps) => (
     </div>
     <div className="flex flex-row justify-around gap-4">
       <JoinServerButton i={i} />
+      <DonateButton />
       <SeeAllServersButton />
     </div>
   </div>
@@ -80,6 +81,12 @@ const JoinServerButton = ({ i }: MainProps) => (
   >
     {i18n.t("join_a_server")}
   </a>
+);
+
+const DonateButton = () => (
+  <Link to="/donate" className="btn btn-primary text-white normal-case z-10">
+    {i18n.t("donate")}
+  </Link>
 );
 
 const SeeAllServersButton = () => (
