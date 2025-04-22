@@ -40,7 +40,7 @@ export class Donate extends Component<any, any> {
 }
 
 export const DonateDesc = () => (
-  <p className="text-gray-300 mb-3">
+  <p className="text-gray-300 mb-3 text-justify">
     <T i18nKey="donate_desc">
       <br />
       <br />
