@@ -18,7 +18,7 @@
     "translations:generate": "node generate_translations.mjs",
     "translations:init": "git submodule init && pnpm translations:update",
     "translations:update": "git submodule update --remote --recursive",
-    "tailwind": "tailwindcss -i ./src/style.css -o ./dist/styles/styles.css",
+    "tailwind": "tailwindcss -i ./src/style.css -o ./dist/styles/styles.css --minify",
     "prepare": "husky",
     "start": "pnpm build:dev --watch & tailwind --watch"
   },
