@@ -5,60 +5,64 @@ import { i18n, LANGUAGES } from "../i18next";
 import classNames from "classnames";
 import { SELECT_CLASSES } from "./common";
 
-const NavLink = ({ content }) => (
+const NAV_LINK = ({ content }) => (
   <li className="text-gray-400 w-full md:w-fit">{content}</li>
 );
 
-const LinkClass = "text-xl px-4  py-2 md:text-lg";
+const LINK_CLASS = "text-xl px-4  py-2 md:text-lg";
 
 const NavLinks = () => (
   <>
-    <NavLink
+    <NAV_LINK
       content={
         <Link
           onClick={closeNavbarDropdown}
           to="/instances"
-          className={LinkClass}
+          className={LINK_CLASS}
         >
           {i18n.t("join")}
         </Link>
       }
     />
-    <NavLink
+    <NAV_LINK
       content={
-        <Link onClick={closeNavbarDropdown} to="/news" className={LinkClass}>
+        <Link onClick={closeNavbarDropdown} to="/news" className={LINK_CLASS}>
           {i18n.t("news")}
         </Link>
       }
     />
-    <NavLink
+    <NAV_LINK
       content={
-        <Link onClick={closeNavbarDropdown} to="/apps" className={LinkClass}>
+        <Link onClick={closeNavbarDropdown} to="/apps" className={LINK_CLASS}>
           {i18n.t("apps")}
         </Link>
       }
     />
-    <NavLink
+    <NAV_LINK
       content={
-        <Link onClick={closeNavbarDropdown} to="/donate" className={LinkClass}>
+        <Link onClick={closeNavbarDropdown} to="/donate" className={LINK_CLASS}>
           {i18n.t("donate")}
         </Link>
       }
     />
-    <NavLink
+    <NAV_LINK
       content={
         <a
           onClick={closeNavbarDropdown}
           href="/docs/index.html"
-          className={LinkClass}
+          className={LINK_CLASS}
         >
           {i18n.t("docs")}
         </a>
       }
     />
-    <NavLink
+    <NAV_LINK
       content={
-        <Link onClick={closeNavbarDropdown} to="/contact" className={LinkClass}>
+        <Link
+          onClick={closeNavbarDropdown}
+          to="/contact"
+          className={LINK_CLASS}
+        >
           {i18n.t("contact")}
         </Link>
       }
