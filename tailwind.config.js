@@ -7,7 +7,7 @@ module.exports = {
       {
         halloween: {
           ...require("daisyui/src/theming/themes")["halloween"],
-          primary: "#12D10E",
+          primary: "#0eae0b",
           secondary: "#06AFC6",
           "base-content": "#ffffff",
         },
