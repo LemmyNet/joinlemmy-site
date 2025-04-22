@@ -9,7 +9,6 @@ import { BottomSpacer, CARD_GRADIENT, TEXT_GRADIENT } from "./common";
 import { InstancePicker } from "./instance-picker";
 import classNames from "classnames";
 import Glide from "@glidejs/glide";
-import { DonateBlock } from "./donate";
 
 interface MainProps {
   i: Main;
@@ -90,10 +89,7 @@ const DonateButton = () => (
 );
 
 const SeeAllServersButton = () => (
-  <Link
-    to="/instances"
-    className="btn btn-secondary text-white normal-case z-10"
-  >
+  <Link to="/instances" className="btn btn-primary text-white normal-case z-10">
     {i18n.t("see_all_servers")}
   </Link>
 );
@@ -519,7 +515,6 @@ export class Main extends Component<Props, State> {
           <FeatureCardsBlock />
           <DiscussionPlatformBlock />
           <MoreFeaturesBlock />
-          <DonateBlock />
           <BottomSpacer />
         </div>
       </div>

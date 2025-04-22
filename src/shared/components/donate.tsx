@@ -39,7 +39,7 @@ export class Donate extends Component<any, any> {
   }
 }
 
-export const DonateDesc = () => (
+const DonateDesc = () => (
   <p className="text-gray-300 mb-3">
     <T i18nKey="donate_desc">
       <br />
@@ -48,7 +48,7 @@ export const DonateDesc = () => (
   </p>
 );
 
-export const DonateButtons = () => (
+const DonateButtons = () => (
   <div className="flex flex-row flex-wrap justify-between gap-4">
     <a
       className="btn btn-primary text-white max-md:btn-block grow"
@@ -58,7 +58,7 @@ export const DonateButtons = () => (
       {i18n.t("support_on_liberapay")}
     </a>
     <a
-      className="btn btn-secondary text-white max-md:btn-block grow"
+      className="btn btn-primary text-white max-md:btn-block grow"
       href="https://www.patreon.com/dessalines"
     >
       <img src="/static/assets/icons/patreon.svg" alt="" width="24" />
@@ -72,7 +72,7 @@ export const DonateButtons = () => (
       {i18n.t("support_on_opencollective")}
     </a>
     <Link
-      className="btn btn-secondary text-white max-md:btn-block grow"
+      className="btn btn-primary text-white max-md:btn-block grow"
       to="/crypto"
     >
       <img src="/static/assets/icons/bitcoin.svg" alt="" width="24" />
@@ -119,7 +119,7 @@ const FundingGoal = () => (
   </div>
 );
 
-export const DonateBlock = () => (
+const DonateBlock = () => (
   <div className="flex flex-col items-center pt-16">
     <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
       <div className="card-body px-8 md:px-32 py-16">
