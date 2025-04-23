@@ -8,8 +8,10 @@ const USDtoEURUrl =
 
 const liberaPayUrl = "https://liberapay.com/Lemmy/public.json";
 const openCollectiveUrl = "https://opencollective.com/lemmy.json";
-const patreonUrl = "https://www.patreon.com/api/campaigns/2692831";
 
+// This needs a `JOINLEMMY_PATREON_ACCESS_TOKEN` env var
+const patreonUrl = "https://www.patreon.com/api/oauth2/api/current_user/campaigns";
+const access_token = process.env["JOINLEMMY_PATREON_ACCESS_TOKEN"]
 const usdToEurRes = await fetch(USDtoEURUrl);
 const usdToEur = (await usdToEurRes.json()).usd.eur;
 
@@ -22,7 +24,7 @@ const openCollectiveRes = await fetch(openCollectiveUrl);
 const openCollectiveData = await openCollectiveRes.json();
 
 // In monthly USD, decimal
-const patreonRes = await fetch(patreonUrl);
+const patreonRes = await fetch(patreonUrl, {headers: {'Authorization': `Bearer ${access_token}`}});
 const patreonData = await patreonRes.json();
 
 const donationData = [
@@ -38,8 +40,8 @@ const donationData = [
   },
   {
     name_: "patreon",
-    patrons: patreonData.data.attributes.patron_count,
-    amount: (Number(patreonData.data.attributes.pledge_sum) / 100) * usdToEur,
+    patrons: patreonData.data[0].attributes.patron_count,
+    amount: (Number(patreonData.data[0].attributes.pledge_sum) / 100) * usdToEur,
   },
 ];
 
