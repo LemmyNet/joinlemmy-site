@@ -106,7 +106,7 @@ const FundingGoal = () => {
             })}
           </div>
         </div>
-        <div className="mt-1">
+        <div className="mt-1 hidden md:block">
           <span className="font-bold">
             €{NUMBER_FORMAT.format(TOTAL_RECURRING_MONTHLY_EUR)}
           </span>
