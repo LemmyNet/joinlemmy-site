@@ -5,15 +5,15 @@ import { i18n, LANGUAGES } from "../i18next";
 import classNames from "classnames";
 import { SELECT_CLASSES } from "./common";
 
-const NAV_LINK = ({ content }) => (
+const NavLink = ({ content }) => (
   <li className="text-gray-400 w-full md:w-fit">{content}</li>
 );
 
-const LINK_CLASS = "text-xl px-4  py-2 md:text-lg";
+const LINK_CLASS = "text-xl px-4 py-2 md:text-lg";
 
 const NavLinks = () => (
   <>
-    <NAV_LINK
+    <NavLink
       content={
         <Link
           onClick={closeNavbarDropdown}
@@ -24,28 +24,28 @@ const NavLinks = () => (
         </Link>
       }
     />
-    <NAV_LINK
+    <NavLink
       content={
         <Link onClick={closeNavbarDropdown} to="/news" className={LINK_CLASS}>
           {i18n.t("news")}
         </Link>
       }
     />
-    <NAV_LINK
+    <NavLink
       content={
         <Link onClick={closeNavbarDropdown} to="/apps" className={LINK_CLASS}>
           {i18n.t("apps")}
         </Link>
       }
     />
-    <NAV_LINK
+    <NavLink
       content={
         <Link onClick={closeNavbarDropdown} to="/donate" className={LINK_CLASS}>
           {i18n.t("donate")}
         </Link>
       }
     />
-    <NAV_LINK
+    <NavLink
       content={
         <a
           onClick={closeNavbarDropdown}
@@ -56,7 +56,7 @@ const NavLinks = () => (
         </a>
       }
     />
-    <NAV_LINK
+    <NavLink
       content={
         <Link
           onClick={closeNavbarDropdown}
