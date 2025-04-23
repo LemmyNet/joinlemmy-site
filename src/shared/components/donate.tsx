@@ -82,12 +82,13 @@ const DonateButtons = () => (
 );
 
 const FundingGoal = () => {
+  const percent_funded = FUNDED_DEVS / FUNDED_DEV_GOAL;
   var progress_classes = "h-5 progress w-auto mb-6 ";
   var text_classes = "flex flex-row flex-wrap justify-between gap-4 ";
-  if (TOTAL_RECURRING_MONTHLY_EUR < 4000) {
+  if (percent_funded < 50) {
     progress_classes += "progress-error";
     text_classes += "text-error/75";
-  } else if (TOTAL_RECURRING_MONTHLY_EUR < 7000) {
+  } else if (percent_funded < 90) {
     progress_classes += "progress-warning";
     text_classes += "text-warning";
   } else {
@@ -117,7 +118,9 @@ const FundingGoal = () => {
             formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
           })}
         >
-          {Math.round((FUNDED_DEVS / FUNDED_DEV_GOAL) * 100) + "% funded"}
+          {i18n.t("percent_funded", {
+            formattedCount: Math.round(percent_funded * 100),
+          })}
         </div>
       </div>
       <progress
