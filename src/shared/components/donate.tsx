@@ -71,6 +71,13 @@ const DonateButtons = () => (
       <img src="/static/assets/icons/opencollective.svg" alt="" width="24" />
       {i18n.t("support_on_opencollective")}
     </a>
+    <a
+      className="btn btn-primary text-white max-md:btn-block grow"
+      href="https://ko-fi.com/lemmynet"
+    >
+      <img src="/static/assets/icons/ko-fi.svg" alt="" width="24" />
+      {i18n.t("support_on_ko_fi")}
+    </a>
     <Link
       className="btn btn-primary text-white max-md:btn-block grow"
       to="/crypto"
