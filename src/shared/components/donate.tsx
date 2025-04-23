@@ -40,7 +40,7 @@ export class Donate extends Component<any, any> {
 }
 
 const DonateDesc = () => (
-  <p className="text-gray-300 mb-3">
+  <p className="text-gray-300 mb-3 text-justify">
     <T i18nKey="donate_desc">
       <br />
       <br />
@@ -81,43 +81,56 @@ const DonateButtons = () => (
   </div>
 );
 
-const FundingGoal = () => (
-  <div className="flex flex-col flex-wrap mb-3 gap-4">
-    <div className="flex flex-row flex-wrap justify-between gap-4">
-      <div>
-        <span className="text-xl font-bold">
-          €{NUMBER_FORMAT.format(TOTAL_RECURRING_MONTHLY_EUR)}
-        </span>
-        <span className="text-gray-200 mr-3">
-          {i18n.t("per_month", { formattedCount: "" })}
-        </span>
+const FundingGoal = () => {
+  const percent_funded = FUNDED_DEVS / FUNDED_DEV_GOAL;
+  var progress_classes = "h-5 progress w-auto mb-6 ";
+  var text_classes = "flex flex-row flex-wrap justify-between gap-4 ";
+  if (percent_funded < 50) {
+    progress_classes += "progress-error";
+    text_classes += "text-error/75";
+  } else if (percent_funded < 90) {
+    progress_classes += "progress-warning";
+    text_classes += "text-warning";
+  } else {
+    progress_classes += "progress-success";
+    text_classes += "text-success";
+  }
+  return (
+    <div className="flex flex-col mb-3 gap-4">
+      <div class="divider"></div>
+      <div className={text_classes}>
+        <div className="flex flex-row justify-between">
+          <div className="text-xl font-bold">
+            {i18n.t("supporters", {
+              formattedCount: NUMBER_FORMAT.format(TOTAL_SUPPORTERS),
+            })}
+          </div>
+        </div>
+        <div className="mt-1 hidden md:block">
+          <span className="font-bold">
+            €{NUMBER_FORMAT.format(TOTAL_RECURRING_MONTHLY_EUR)}
+          </span>
+          <span>{i18n.t("per_month", { formattedCount: "" })}</span>
+        </div>
+        <div
+          className="text-xl font-bold tooltip underline decoration-dotted"
+          data-tip={i18n.t("based_on_salary", {
+            formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
+          })}
+        >
+          {i18n.t("percent_funded", {
+            formattedCount: Math.round(percent_funded * 100),
+          })}
+        </div>
       </div>
-      <div
-        className="text-xl font-bold tooltip underline decoration-dotted"
-        data-tip={i18n.t("based_on_salary", {
-          formattedCount: NUMBER_FORMAT.format(MEDIAN_DEV_SALARY),
-        })}
-      >
-        {i18n.t("devs_funded", {
-          formattedCount1: FUNDED_DEVS.toFixed(1),
-          formattedCount2: FUNDED_DEV_GOAL,
-        })}
-      </div>
+      <progress
+        className={progress_classes}
+        value={FUNDED_DEVS}
+        max={FUNDED_DEV_GOAL}
+      ></progress>
     </div>
-    <progress
-      className="progress progress-primary w-auto"
-      value={FUNDED_DEVS}
-      max={FUNDED_DEV_GOAL}
-    ></progress>
-    <div className="flex flex-row flex-wrap justify-between gap-4">
-      <div className="text-sm text-gray-300">
-        {i18n.t("supporters", {
-          formattedCount: NUMBER_FORMAT.format(TOTAL_SUPPORTERS),
-        })}
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 const DonateBlock = () => (
   <div className="flex flex-col items-center pt-16">
