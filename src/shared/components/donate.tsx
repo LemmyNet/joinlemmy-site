@@ -89,10 +89,14 @@ const DonateButtons = () => (
 );
 
 const FundingGoal = () => {
-  const percent_funded = FUNDED_DEVS / FUNDED_DEV_GOAL;
+  const percent_funded = Math.min(
+    Math.round((FUNDED_DEVS / FUNDED_DEV_GOAL) * 100),
+    100,
+  );
+
   var progress_classes = "h-5 progress w-auto mb-6 ";
   var text_classes = "flex flex-row flex-wrap justify-between gap-4 ";
-  if (percent_funded < 50) {
+  if (percent_funded < 60) {
     progress_classes += "progress-error";
     text_classes += "text-error/75";
   } else if (percent_funded < 90) {
@@ -102,6 +106,7 @@ const FundingGoal = () => {
     progress_classes += "progress-success";
     text_classes += "text-success";
   }
+
   return (
     <div className="flex flex-col mb-3 gap-4">
       <div class="divider"></div>
@@ -126,14 +131,14 @@ const FundingGoal = () => {
           })}
         >
           {i18n.t("percent_funded", {
-            formattedCount: Math.round(percent_funded * 100),
+            formattedCount: percent_funded,
           })}
         </div>
       </div>
       <progress
         className={progress_classes}
-        value={FUNDED_DEVS}
-        max={FUNDED_DEV_GOAL}
+        value={percent_funded}
+        max={100}
       ></progress>
     </div>
   );
