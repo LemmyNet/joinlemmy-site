@@ -82,9 +82,10 @@ const DonateButtons = () => (
 );
 
 const FundingGoal = () => {
-  var percent_funded = FUNDED_DEVS / FUNDED_DEV_GOAL;
-  percent_funded = Math.round(percent_funded * 100);
-  percent_funded = Math.min(percent_funded, 100);
+  const percent_funded = Math.min(
+    Math.round((FUNDED_DEVS / FUNDED_DEV_GOAL) * 100),
+    100,
+  );
 
   var progress_classes = "h-5 progress w-auto mb-6 ";
   var text_classes = "flex flex-row flex-wrap justify-between gap-4 ";
