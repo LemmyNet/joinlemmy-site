@@ -59,6 +59,13 @@ const DonateButtons = () => (
     </a>
     <a
       className="btn btn-primary text-white max-md:btn-block grow"
+      href="https://ko-fi.com/lemmynet"
+    >
+      <img src="/static/assets/icons/ko-fi.svg" alt="" width="24" />
+      {i18n.t("support_on_ko_fi")}
+    </a>
+    <a
+      className="btn btn-primary text-white max-md:btn-block grow"
       href="https://www.patreon.com/dessalines"
     >
       <img src="/static/assets/icons/patreon.svg" alt="" width="24" />
