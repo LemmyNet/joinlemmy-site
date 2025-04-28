@@ -44,7 +44,7 @@ const donationData = [
   },
   {
     name_: "patreon",
-    patrons: patreonData.data[0].attributes.patron_count,
+    patrons: patreonData.data[0].attributes.paid_member_count,
     amount:
       (Number(patreonData.data[0].attributes.pledge_sum) / 100) * usdToEur,
   },
