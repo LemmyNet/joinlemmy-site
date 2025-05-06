@@ -14,6 +14,7 @@ export enum Platform {
   Android = "android",
   IOS = "ios",
   Web = "web",
+  MacOS = "macos",
   CLI = "cli",
 }
 
@@ -92,6 +93,26 @@ export const MODERATION_TOOLS: ToolDetails[] = [
       "Lemmy automod bot to prevent unvetted users from posting or commenting in a community.",
   },
 ];
+
+const BLORP: AppDetails = {
+  name: "Blorp",
+  description: "Another Client nobody asked for, web, iOS, and MacOS",
+  link: "https://blorpblorp.xyz",
+  icon: "/static/assets/images/blorp.png",
+  banner: "/static/assets/images/blorp_screen.webp",
+  links: [
+    {
+      link: "https://apps.apple.com/us/app/blorp-for-lemmy/id6739925430?platform=iphone",
+      icon: "appleinc",
+    },
+    {
+      link: "https://github.com/christianjuth/blorp",
+      icon: "github",
+    },
+  ],
+  sourceType: SourceType.Open,
+  platforms: [Platform.MacOS, Platform.IOS, Platform.Web],
+};
 
 const ECHO: AppDetails = {
   name: "Echo",
@@ -408,4 +429,5 @@ export const APP_LIST: AppDetails[] = [
   SYNC,
   SUMMIT,
   ARCTIC,
+  BLORP,
 ];
