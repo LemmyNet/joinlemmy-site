@@ -11,6 +11,7 @@ export enum SourceType {
 
 export enum Platform {
   All = "all_platforms",
+  Desktop = "desktop",
   Android = "android",
   IOS = "ios",
   Web = "web",
@@ -108,9 +109,13 @@ const BLORP: AppDetails = {
       link: "https://github.com/christianjuth/blorp",
       icon: "github",
     },
+    {
+      link: "https://github.com/christianjuth/blorp/releases/latest",
+      icon: "desktop",
+    },
   ],
   sourceType: SourceType.Open,
-  platforms: [Platform.IOS, Platform.Web],
+  platforms: [Platform.Desktop, Platform.IOS, Platform.Web],
 };
 
 const ECHO: AppDetails = {
