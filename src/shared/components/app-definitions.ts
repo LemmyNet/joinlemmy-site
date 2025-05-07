@@ -14,7 +14,6 @@ export enum Platform {
   Android = "android",
   IOS = "ios",
   Web = "web",
-  MacOS = "macos",
   CLI = "cli",
 }
 
@@ -111,7 +110,7 @@ const BLORP: AppDetails = {
     },
   ],
   sourceType: SourceType.Open,
-  platforms: [Platform.MacOS, Platform.IOS, Platform.Web],
+  platforms: [Platform.IOS, Platform.Web],
 };
 
 const ECHO: AppDetails = {
