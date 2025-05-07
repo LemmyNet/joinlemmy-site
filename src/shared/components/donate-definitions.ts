@@ -21,7 +21,12 @@ const patreon: FundingPlatform = {
   monthlyEUR: donation_stats[2].amount,
 };
 
-const fundingPlatforms = [liberapay, patreon, openCollective];
+const kofi: FundingPlatform = {
+  supporterCount: 19,
+  monthlyEUR: 112,
+};
+
+const fundingPlatforms = [liberapay, patreon, openCollective, kofi];
 
 export const TOTAL_RECURRING_MONTHLY_EUR = fundingPlatforms
   .map(f => f.monthlyEUR)
