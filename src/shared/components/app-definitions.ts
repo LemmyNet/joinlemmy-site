@@ -96,7 +96,7 @@ export const MODERATION_TOOLS: ToolDetails[] = [
 
 const BLORP: AppDetails = {
   name: "Blorp",
-  description: "Another Client nobody asked for, web, iOS, and MacOS",
+  description: "Another Lemmy client nobody asked for – web, iOS, and MacOS",
   link: "https://blorpblorp.xyz",
   icon: "/static/assets/images/blorp.png",
   banner: "/static/assets/images/blorp_screen.webp",
