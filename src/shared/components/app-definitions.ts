@@ -11,6 +11,7 @@ export enum SourceType {
 
 export enum Platform {
   All = "all_platforms",
+  Desktop = "desktop",
   Android = "android",
   IOS = "ios",
   Web = "web",
@@ -92,6 +93,30 @@ export const MODERATION_TOOLS: ToolDetails[] = [
       "Lemmy automod bot to prevent unvetted users from posting or commenting in a community.",
   },
 ];
+
+const BLORP: AppDetails = {
+  name: "Blorp",
+  description: "Another Lemmy client nobody asked for – web, iOS, and MacOS",
+  link: "https://blorpblorp.xyz",
+  icon: "/static/assets/images/blorp.png",
+  banner: "/static/assets/images/blorp_screen.webp",
+  links: [
+    {
+      link: "https://apps.apple.com/us/app/blorp-for-lemmy/id6739925430?platform=iphone",
+      icon: "appleinc",
+    },
+    {
+      link: "https://github.com/christianjuth/blorp",
+      icon: "github",
+    },
+    {
+      link: "https://github.com/christianjuth/blorp/releases/latest",
+      icon: "desktop",
+    },
+  ],
+  sourceType: SourceType.Open,
+  platforms: [Platform.Desktop, Platform.IOS, Platform.Web],
+};
 
 const ECHO: AppDetails = {
   name: "Echo",
@@ -408,4 +433,5 @@ export const APP_LIST: AppDetails[] = [
   SYNC,
   SUMMIT,
   ARCTIC,
+  BLORP,
 ];
