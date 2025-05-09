@@ -50,36 +50,39 @@ const DonateDesc = () => (
 
 const DonateButtons = () => (
   <div className="flex flex-row flex-wrap justify-between gap-4">
+    <div class="border-2 border-secondary p-2 rounded-md flex flex-col grow">
+      <a
+        className="btn btn-primary text-white max-md:btn-block"
+        href="https://liberapay.com/Lemmy"
+      >
+        <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
+        {i18n.t("support_on_liberapay")}
+      </a>
+      <span class="text-center text-primary pt-2">Preferred</span>
+    </div>
     <a
-      className="btn btn-primary text-white max-md:btn-block grow"
-      href="https://liberapay.com/Lemmy"
-    >
-      <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
-      {i18n.t("support_on_liberapay")}
-    </a>
-    <a
-      className="btn btn-primary text-white max-md:btn-block grow"
+      className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
       href="https://ko-fi.com/lemmynet"
     >
       <img src="/static/assets/icons/ko-fi.svg" alt="" width="24" />
       {i18n.t("support_on_ko_fi")}
     </a>
     <a
-      className="btn btn-primary text-white max-md:btn-block grow"
+      className="btn btn-primary text-white max-md:btn-block grow  mt-2.5"
       href="https://www.patreon.com/dessalines"
     >
       <img src="/static/assets/icons/patreon.svg" alt="" width="24" />
       {i18n.t("support_on_patreon")}
     </a>
     <a
-      className="btn btn-primary text-white max-md:btn-block grow"
+      className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
       href="https://opencollective.com/lemmy"
     >
       <img src="/static/assets/icons/opencollective.svg" alt="" width="24" />
       {i18n.t("support_on_opencollective")}
     </a>
     <Link
-      className="btn btn-primary text-white max-md:btn-block grow"
+      className="btn btn-primary text-white max-md:btn-block grow  mt-2.5"
       to="/crypto"
     >
       <img src="/static/assets/icons/bitcoin.svg" alt="" width="24" />
