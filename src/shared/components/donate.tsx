@@ -50,7 +50,7 @@ const DonateDesc = () => (
 
 const DonateButtons = () => (
   <div className="flex flex-row flex-wrap justify-between gap-4">
-    <div class="border-2 border-secondary p-2 rounded-md flex flex-col grow">
+    <div class="border-2 border-gray-300 p-2 rounded-md flex flex-col grow">
       <a
         className="btn btn-primary text-white max-md:btn-block"
         href="https://liberapay.com/Lemmy"
@@ -58,7 +58,7 @@ const DonateButtons = () => (
         <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
         {i18n.t("support_on_liberapay")}
       </a>
-      <span class="text-center text-primary pt-2">Preferred</span>
+      <span class="text-center text-gray-300 pt-2">Preferred</span>
     </div>
     <a
       className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
