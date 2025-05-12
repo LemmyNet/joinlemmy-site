@@ -58,7 +58,7 @@ const DonateButtons = () => (
         <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
         {i18n.t("support_on_liberapay")}
       </a>
-      <span class="text-center text-gray-300 pt-2">Preferred</span>
+      <span class="text-center text-gray-300 pt-2">{i18n.t("preferred")}</span>
     </div>
     <a
       className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
