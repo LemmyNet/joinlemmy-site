@@ -2,7 +2,7 @@ import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { isBrowser } from "../utils";
-import { BottomSpacer, CARD_GRADIENT, TEXT_GRADIENT } from "./common";
+import { BottomSpacer } from "./common";
 import { Link } from "inferno-router";
 import { T } from "inferno-i18next";
 import {
@@ -146,9 +146,9 @@ const FundingGoal = () => {
 
 const DonateBlock = () => (
   <div className="flex flex-col items-center pt-16">
-    <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
+    <div className="card card-bordered card-gradient shadow-xl">
       <div className="card-body px-8 md:px-32 py-16">
-        <p className={`card-title text-4xl mb-3 ${TEXT_GRADIENT}`}>
+        <p className="card-title text-4xl mb-3 text-gradient">
           {i18n.t("donate_subtitle")}
         </p>
         <DonateDesc />

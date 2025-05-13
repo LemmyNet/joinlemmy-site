@@ -5,7 +5,7 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { getQueryParams, isBrowser } from "../utils";
 import { Icon } from "./icon";
-import { BottomSpacer, CARD_GRADIENT, TEXT_GRADIENT } from "./common";
+import { BottomSpacer } from "./common";
 import { InstancePicker } from "./instance-picker";
 import classNames from "classnames";
 import Glide from "@glidejs/glide";
@@ -17,7 +17,7 @@ interface MainProps {
 const TitleBlock = ({ i }: MainProps) => (
   <div className="py-16 flex flex-col items-center">
     <div className="flex flex-col items-center gap-4 mb-8">
-      <p className={`text-6xl font-bold ${TEXT_GRADIENT} p-2`}>Lemmy</p>
+      <p className="text-6xl font-bold text-gradient p-2">Lemmy</p>
       <p className="text-3xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
     </div>
     <div className="flex flex-row justify-around gap-4">
@@ -58,7 +58,7 @@ const CarouselBlock = () => (
         {carouselImages.map((_, i) => (
           <button
             data-glide-dir={`=${i}`}
-            className={`glide__bullet ${TEXT_GRADIENT}`}
+            className="glide__bullet text-gradient"
           >
             ●
           </button>
@@ -96,13 +96,13 @@ const SeeAllServersButton = () => (
 
 const FollowCommunitiesBlock = ({ i }: MainProps) => (
   <div className="flex flex-col items-center">
-    <div className={`card card-bordered ${CARD_GRADIENT} shadow-xl`}>
+    <div className="card card-bordered card-gradient shadow-xl">
       <div className="card-body items-center px-8 md:px-32 py-16">
         <T
           i18nKey="follow_communities"
           className="card-title font-bold text-4xl text-center mb-3 inline-block"
         >
-          #<span className={TEXT_GRADIENT}>#</span>
+          #<span className="text-gradient">#</span>
         </T>
         <p className="text-sm text-gray-300 text-center mb-6">
           {i18n.t("lemmy_long_desc")}
@@ -114,7 +114,7 @@ const FollowCommunitiesBlock = ({ i }: MainProps) => (
 );
 
 const FeatureCard = ({ pic, title, subtitle, classes }) => (
-  <div className={`card ${CARD_GRADIENT} shadow-xl ${classes}`}>
+  <div className={`card card-gradient shadow-xl ${classes}`}>
     <div className="p-4">
       <img
         src={pic}
@@ -256,7 +256,7 @@ const DiscussionPlatformBlock = () => (
 const MoreFeaturesBlock = () => (
   <div className="mt-16">
     <T i18nKey="more_features" className={`text-center text-4xl mb-8`}>
-      #<span className={TEXT_GRADIENT}>#</span>
+      #<span className="text-gradient">#</span>
     </T>
     <div className="grid md:grid-cols-5 grid-cols-1 gap-4">
       <MoreFeaturesCard

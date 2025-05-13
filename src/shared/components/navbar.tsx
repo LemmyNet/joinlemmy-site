@@ -3,7 +3,6 @@ import { Link } from "inferno-router";
 import { Icon, IconSize } from "./icon";
 import { i18n, LANGUAGES } from "../i18next";
 import classNames from "classnames";
-import { SELECT_CLASSES } from "./common";
 
 const NavLink = ({ content }) => (
   <li className="text-gray-400 w-full md:w-fit">{content}</li>
@@ -113,7 +112,7 @@ export const Navbar = ({ footer = false }) => (
         <>
           <select
             onChange={linkEvent(this, handleLanguageChange)}
-            className={SELECT_CLASSES}
+            className="lemmy-select"
           >
             {LANGUAGES.map((l, i) => (
               <option

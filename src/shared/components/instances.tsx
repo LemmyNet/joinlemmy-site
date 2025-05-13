@@ -4,7 +4,7 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import { getQueryParams, mdToHtml, numToSI, sortRandom } from "../utils";
-import { Badge, SELECT_CLASSES, SectionTitle, TEXT_GRADIENT } from "./common";
+import { Badge, SectionTitle } from "./common";
 import {
   INSTANCE_HELPERS,
   Topic,
@@ -19,7 +19,7 @@ import { I18nKeys } from "i18next";
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
     <T i18nKey="lemmy_servers" className="text-4xl font-bold mb-8">
-      #<span className={TEXT_GRADIENT}>#</span>
+      #<span className="text-gradient">#</span>
     </T>
     <div
       className="tooltip"
@@ -162,7 +162,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
           </div>
           <a
             href={buildUrl(domain)}
-            className={`text-2xl font-bold ${TEXT_GRADIENT}`}
+            className="text-2xl font-bold text-gradient"
           >
             {domain}
           </a>
@@ -536,7 +536,7 @@ export class Instances extends Component<Props, State> {
           <div className="grow"></div>
           <div>
             <select
-              className={`${SELECT_CLASSES} mr-2`}
+              className="lemmy-select mr-2"
               value={this.state.topic.name}
               onChange={linkEvent(this, handleTopicChange)}
               name="topic_select"
@@ -553,7 +553,7 @@ export class Instances extends Component<Props, State> {
             <select
               value={this.state.language}
               onChange={linkEvent(this, handleLanguageChange)}
-              className={`${SELECT_CLASSES} mr-2`}
+              className="lemmy-select mr-2"
             >
               <option disabled>Languages</option>
               <option key="all" value="all">
@@ -568,7 +568,7 @@ export class Instances extends Component<Props, State> {
             <select
               value={this.state.sort.name}
               name="sort_select"
-              className={SELECT_CLASSES}
+              className="lemmy-select"
               onChange={linkEvent(this, handleSortChange)}
             >
               <option disabled>{i18n.t("sort")}</option>

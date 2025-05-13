@@ -1,11 +1,11 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { BottomSpacer, TEXT_GRADIENT } from "./common";
+import { BottomSpacer } from "./common";
 import { Icon } from "./icon";
 
 const TitleBlock = () => (
-  <div className={`pt-16 text-center text-4xl mb-8 ${TEXT_GRADIENT}`}>
+  <div className="pt-16 text-center text-4xl mb-8 text-gradient">
     {i18n.t("contact")}
   </div>
 );
