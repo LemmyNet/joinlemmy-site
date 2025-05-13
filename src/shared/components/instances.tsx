@@ -169,7 +169,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
           <p className="text-sm text-gray-300 mb-2">{description}</p>
           <div className="flex flex-row flex-wrap justify-between gap-2">
             <a
-              className="btn btn-primary text-white max-md:btn-block bg-linear-to-r from-[#69D066] to-[#03A80E] normal-case"
+              className="btn btn-primary text-white max-md:btn-block bg-linear-to-r from-green-400 to-green-600 normal-case"
               href={`${buildUrl(domain)}`}
             >
               {i18n.t("explore")}
