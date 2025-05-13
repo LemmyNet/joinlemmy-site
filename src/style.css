@@ -1,6 +1,5 @@
 @import "tailwindcss" source(".");
 
-@plugin '@tailwindcss/typography';
 @plugin "daisyui";
 @plugin "daisyui/theme" {
   name: "halloween";
