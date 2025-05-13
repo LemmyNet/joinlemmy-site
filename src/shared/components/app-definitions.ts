@@ -11,6 +11,7 @@ export enum SourceType {
 
 export enum Platform {
   All = "all_platforms",
+  Desktop = "desktop",
   Android = "android",
   IOS = "ios",
   Web = "web",
@@ -93,6 +94,30 @@ export const MODERATION_TOOLS: ToolDetails[] = [
   },
 ];
 
+const BLORP: AppDetails = {
+  name: "Blorp",
+  description: "Another Lemmy client nobody asked for – web, iOS, and MacOS",
+  link: "https://blorpblorp.xyz",
+  icon: "/static/assets/images/blorp.png",
+  banner: "/static/assets/images/blorp_screen.webp",
+  links: [
+    {
+      link: "https://apps.apple.com/us/app/blorp-for-lemmy/id6739925430?platform=iphone",
+      icon: "appleinc",
+    },
+    {
+      link: "https://github.com/christianjuth/blorp",
+      icon: "github",
+    },
+    {
+      link: "https://github.com/christianjuth/blorp/releases/latest",
+      icon: "desktop",
+    },
+  ],
+  sourceType: SourceType.Open,
+  platforms: [Platform.Desktop, Platform.IOS, Platform.Web],
+};
+
 const ECHO: AppDetails = {
   name: "Echo",
   description: "A fully native Lemmy Client for iOS",
@@ -112,7 +137,7 @@ const ECHO: AppDetails = {
 const VOYAGER: AppDetails = {
   name: "Voyager",
   description: "A Lemmy Client for iOS, Android and the web",
-  link: "https://github.com/aeharding/voyager",
+  link: "https://getvoyager.app",
   icon: "/static/assets/images/voyager.png",
   banner: "/static/assets/images/voyager_screen.webp",
   links: [
@@ -218,26 +243,6 @@ const ETERNITY: AppDetails = {
   platforms: [Platform.Android],
 };
 
-const COMBUSTIBLE: AppDetails = {
-  name: "Combustible",
-  description: "An Open-Source Lemmy Client For Android",
-  link: "https://github.com/TheBrokenRail/Combustible",
-  icon: "/static/assets/images/combustible_logo.webp",
-  banner: "/static/assets/images/combustible_screen.webp",
-  links: [
-    {
-      link: "https://apt.izzysoft.de/fdroid/index/apk/com.thebrokenrail.combustible",
-      icon: "f-droid",
-    },
-    {
-      link: "https://github.com/TheBrokenRail/Combustible",
-      icon: "github",
-    },
-  ],
-  sourceType: SourceType.Open,
-  platforms: [Platform.Android],
-};
-
 const BOOST: AppDetails = {
   name: "Boost for Lemmy",
   description: "A smooth app for Lemmy.",
@@ -288,47 +293,6 @@ const MLEM: AppDetails = {
     {
       link: "https://opencollective.com/mlem",
       icon: "opencollective",
-    },
-  ],
-  sourceType: SourceType.Open,
-  platforms: [Platform.IOS],
-};
-
-const LUNAR: AppDetails = {
-  name: "Lunar",
-  description: "A Lemmy Client for iOS written in Swift and SwiftUI",
-  link: "https://github.com/mani-sh-reddy/Lunar",
-  icon: "/static/assets/images/lunar_logo.webp",
-  banner: "/static/assets/images/lunar_screen.webp",
-  links: [
-    {
-      link: "https://testflight.apple.com/join/GEFCCQTb",
-      icon: "appleinc",
-    },
-    {
-      link: "https://github.com/mani-sh-reddy/Lunar",
-      icon: "github",
-    },
-  ],
-  sourceType: SourceType.Open,
-  platforms: [Platform.IOS],
-};
-
-const MEMMY: AppDetails = {
-  name: "Memmy",
-  description:
-    "A Lemmy Client built in React Native for iOS available on the App Store.",
-  link: "https://github.com/Memmy-App/memmy",
-  icon: "/static/assets/images/memmy_icon.png",
-  banner: "/static/assets/images/memmy_banner.webp",
-  links: [
-    {
-      link: "https://apps.apple.com/us/app/memmy-for-lemmy/id6450204299?platform=iphone",
-      icon: "appleinc",
-    },
-    {
-      link: "https://github.com/Memmy-App/memmy",
-      icon: "github",
     },
   ],
   sourceType: SourceType.Open,
@@ -457,10 +421,7 @@ export const APP_LIST: AppDetails[] = [
   ECHO,
   JERBOA,
   ETERNITY,
-  COMBUSTIBLE,
   MLEM,
-  LUNAR,
-  MEMMY,
   LEMMY_UI,
   VOYAGER,
   THUNDER,
@@ -472,4 +433,5 @@ export const APP_LIST: AppDetails[] = [
   SYNC,
   SUMMIT,
   ARCTIC,
+  BLORP,
 ];

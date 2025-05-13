@@ -3,6 +3,7 @@ import tseslint from "typescript-eslint";
 import prettier from "eslint-plugin-prettier/recommended";
 import jsxa11y from "eslint-plugin-jsx-a11y";
 import inferno from "eslint-plugin-inferno";
+import globals from "globals";
 
 export default [
   pluginJs.configs.recommended,
@@ -23,6 +24,7 @@ export default [
   {
     languageOptions: {
       parser: tseslint.parser,
+      globals: globals.node,
     },
   },
   // For some reason this has to be in its own block

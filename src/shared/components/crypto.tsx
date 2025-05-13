@@ -13,15 +13,15 @@ interface Cryptos {
 
 const CRYPTOS: Cryptos[] = [
   {
-    name: "bitcoin",
+    name: "Bitcoin",
     address: "1Hefs7miXS5ff5Ck5xvmjKjXf5242KzRtK",
   },
   {
-    name: "ethereum",
+    name: "Ethereum",
     address: "0x400c96c96acbC6E7B3B43B1dc1BB446540a88A01",
   },
   {
-    name: "monero",
+    name: "Monero",
     address:
       "41taVyY6e1xApqKyMVDRVxJ76sPkfZhALLTjRvVKpaAh2pBd4wv9RgYj1tSPrx8wc6iE1uWUfjtQdTmTy2FGMeChGVKPQuV",
   },
