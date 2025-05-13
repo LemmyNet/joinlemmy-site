@@ -429,7 +429,7 @@ const MoreFeaturesBlock = () => (
 const MoreFeaturesCard = ({ icons, text }) => (
   <div className="card card-bordered w-auto bg-neutral-800 shadow-xl">
     <div className="card-body">
-      <div className="btn btn-sm btn-secondary w-fit mb-2 pointer-events-none">
+      <div className="btn btn-sm btn-secondary w-fit mb-2 pointer-events-none text-black">
         {icons}
       </div>
       <p className="text-sm text-gray-300">{text}</p>
