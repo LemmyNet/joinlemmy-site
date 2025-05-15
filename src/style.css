@@ -55,7 +55,7 @@
 }
 
 .background-gradient-2 {
-  @apply min-h-full bg-linear-to-b from-transparent to-zinc-600/20 to-20%;
+  @apply min-h-full bg-linear-to-b from-transparent to-zinc-600/10 to-20%;
 }
 
 .icon {
