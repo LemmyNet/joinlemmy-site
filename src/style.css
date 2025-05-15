@@ -5,7 +5,11 @@
 @plugin "daisyui/theme" {
   name: "halloween";
   default: true;
-  --color-primary: var(--color-green-600);
+  --color-primary: color-mix(
+    in oklch,
+    var(--color-green-600) 75%,
+    var(--color-lime-400) 25%
+  );
   --color-secondary: var(--color-cyan-500);
 }
 
@@ -34,11 +38,11 @@
 }
 
 .lemmy-select {
-  @apply select select-sm w-fit text-gray-400;
+  @apply select w-fit text-gray-400;
 }
 
 .text-gradient {
-  @apply bg-linear-to-r bg-clip-text text-transparent from-green-400 to-green-600;
+  @apply bg-linear-to-r bg-clip-text text-transparent from-green-400 to-primary;
 }
 
 .card-gradient {
@@ -46,11 +50,11 @@
 }
 
 .background-gradient-1 {
-  @apply min-h-full bg-linear-to-r from-transparent via-green-500/15 to-transparent;
+  @apply min-h-full bg-linear-to-r from-transparent via-primary/15 to-transparent;
 }
 
 .background-gradient-2 {
-  @apply min-h-full bg-linear-to-b from-transparent to-black/30 to-20%;
+  @apply min-h-full bg-linear-to-b from-transparent to-black/10 to-20%;
 }
 
 .icon {
