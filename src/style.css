@@ -7,6 +7,7 @@
   default: true;
   --color-primary: oklch(0.65 0.2181 142.48);
   --color-secondary: oklch(0.69 0.1195 211.28);
+  --color-base-content: white;
 }
 
 @theme {
