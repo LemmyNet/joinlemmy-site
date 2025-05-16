@@ -13,6 +13,7 @@ import {
   TOTAL_SUPPORTERS,
 } from "./donate-definitions";
 import { NUMBER_FORMAT } from "../utils";
+import { Icon } from "./icon";
 
 export class Donate extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -50,16 +51,17 @@ const DonateDesc = () => (
 
 const DonateButtons = () => (
   <div className="flex flex-row flex-wrap justify-between gap-4">
-    <div class="border-2 border-gray-300 p-2 rounded-md flex flex-col grow">
-      <a
-        className="btn btn-primary text-white max-md:btn-block"
-        href="https://liberapay.com/Lemmy"
-      >
-        <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
-        {i18n.t("support_on_liberapay")}
-      </a>
-      <span class="text-center text-gray-300 pt-2">{i18n.t("preferred")}</span>
-    </div>
+    <a
+      className="btn btn-primary text-white max-md:btn-block grow mt-2.5 relative"
+      href="https://liberapay.com/Lemmy"
+    >
+      <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
+      {i18n.t("support_on_liberapay")}
+      <span className="badge text-black bg-amber-300 border-amber-300 absolute -end-4 -top-4">
+        <Icon icon="star" classes="-mr-1.5" />
+        {i18n.t("preferred")}
+      </span>
+    </a>
     <a
       className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
       href="https://ko-fi.com/lemmynet"
