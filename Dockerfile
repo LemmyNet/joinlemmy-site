@@ -52,7 +52,6 @@ COPY tsconfig.json \
   .babelrc \
   generate_translations.mjs \
   generate_rss_feed.mjs \
-  tailwind.config.js \
   ./
 
 COPY joinlemmy-translations joinlemmy-translations
