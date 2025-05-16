@@ -1,14 +1,66 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss" source(".");
+@plugin "@tailwindcss/typography";
+
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "halloween";
+  default: true;
+  --color-primary: oklch(0.65 0.2181 142.48);
+  --color-secondary: oklch(0.69 0.1195 211.28);
+  --color-base-content: white;
+}
+
+@theme {
+  --font-*: initial;
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-gradient-start: oklch(0.77 0.1736 143.14);
+  --color-gradient-end: oklch(0.65 0.2181 142.48);
+  --color-background-gradient: oklch(0.75 0.2504 142.47);
+  --depth: 0;
+  --noise: 0;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+.lemmy-select {
+  @apply select w-fit text-gray-400;
+}
+
+.text-gradient {
+  @apply bg-linear-to-r bg-clip-text text-transparent from-gradient-start to-gradient-end;
+}
+
+.card-gradient {
+  @apply bg-linear-to-r from-zinc-500/5 via-secondary/15 to-zinc-500/5;
+}
+
+.background-gradient-1 {
+  @apply min-h-full bg-linear-to-r from-transparent via-background-gradient/15 to-transparent;
+}
+
+.background-gradient-2 {
+  @apply min-h-full bg-linear-to-b from-transparent to-zinc-600/10 to-20%;
+}
 
 .icon {
-  display: inline-block;
-  max-width: 4rem;
-  max-height: 4rem;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+  @apply block max-w-16 max-h-16 stroke-0 stroke-current fill-current;
 }
 
 @font-face {

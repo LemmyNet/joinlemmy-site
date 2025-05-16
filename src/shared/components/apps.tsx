@@ -2,7 +2,7 @@ import { Component, linkEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
-import { BottomSpacer, SELECT_CLASSES, TEXT_GRADIENT } from "./common";
+import { BottomSpacer } from "./common";
 import {
   API_LIBRARIES,
   APP_LIST,
@@ -20,7 +20,7 @@ import { sortRandom } from "../utils";
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-4">
     <T i18nKey="lemmy_apps" className="text-4xl font-bold mb-3">
-      #<span className={TEXT_GRADIENT}>#</span>
+      #<span className="text-gradient">#</span>
     </T>
     <p className="text-2xl text-gray-300 text-center">
       {i18n.t("choose_from_apps")}
@@ -39,7 +39,7 @@ const AppDetailsTitle = ({ app }: AppDetailsCardProps) => (
       className="rounded-xl w-7 h-7"
       alt=""
     />
-    <a href={app.link} className={`card-title text-2xl ${TEXT_GRADIENT}`}>
+    <a href={app.link} className="card-title text-2xl text-gradient">
       {app.name}
     </a>
   </div>
@@ -112,9 +112,9 @@ const ToolsBlock = ({ title, items }: ToolsBlockProps) => (
         <ul>
           {items.map(a => (
             <li>
-              <span className={`${TEXT_GRADIENT} mr-2`}>●</span>
+              <span className="text-gradient mr-2">●</span>
               <span>
-                <a href={a.link} className={`${TEXT_GRADIENT}`}>
+                <a href={a.link} className="text-gradient">
                   {a.name}
                 </a>
               </span>
@@ -192,7 +192,7 @@ export class Apps extends Component<any, State> {
           <div className="grow"></div>
           <div>
             <select
-              className={`${SELECT_CLASSES} mr-2`}
+              className="lemmy-select mr-2"
               value={this.state.platform}
               onChange={linkEvent(this, handlePlatformChange)}
               name="platform_select"

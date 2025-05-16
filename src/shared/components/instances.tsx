@@ -4,7 +4,7 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import { getQueryParams, mdToHtml, numToSI, sortRandom } from "../utils";
-import { Badge, SELECT_CLASSES, SectionTitle, TEXT_GRADIENT } from "./common";
+import { Badge, SectionTitle } from "./common";
 import {
   INSTANCE_HELPERS,
   Topic,
@@ -19,7 +19,7 @@ import { I18nKeys } from "i18next";
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
     <T i18nKey="lemmy_servers" className="text-4xl font-bold mb-8">
-      #<span className={TEXT_GRADIENT}>#</span>
+      #<span className="text-gradient">#</span>
     </T>
     <div
       className="tooltip"
@@ -27,7 +27,7 @@ const TitleBlock = () => (
         formattedCount: numToSI(instance_stats.stats.users_active_month),
       })}
     >
-      <div className="stats shadow mb-8">
+      <div className="stats shadow-sm mb-8">
         <div className="stat">
           <div className="stat-figure text-primary">
             <Icon icon="globe" size={IconSize.Largest} />
@@ -162,14 +162,14 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
           </div>
           <a
             href={buildUrl(domain)}
-            className={`text-2xl font-bold ${TEXT_GRADIENT}`}
+            className="text-2xl font-bold text-gradient"
           >
             {domain}
           </a>
           <p className="text-sm text-gray-300 mb-2">{description}</p>
           <div className="flex flex-row flex-wrap justify-between gap-2">
             <a
-              className="btn btn-primary text-white max-md:btn-block bg-gradient-to-r from-[#69D066] to-[#03A80E] normal-case"
+              className="btn btn-primary text-white max-md:btn-block bg-linear-to-r from-green-400 to-green-600 normal-case"
               href={`${buildUrl(domain)}`}
             >
               {i18n.t("explore")}
@@ -536,7 +536,7 @@ export class Instances extends Component<Props, State> {
           <div className="grow"></div>
           <div>
             <select
-              className={`${SELECT_CLASSES} mr-2`}
+              className="lemmy-select mr-2"
               value={this.state.topic.name}
               onChange={linkEvent(this, handleTopicChange)}
               name="topic_select"
@@ -553,7 +553,7 @@ export class Instances extends Component<Props, State> {
             <select
               value={this.state.language}
               onChange={linkEvent(this, handleLanguageChange)}
-              className={`${SELECT_CLASSES} mr-2`}
+              className="lemmy-select mr-2"
             >
               <option disabled>Languages</option>
               <option key="all" value="all">
@@ -568,7 +568,7 @@ export class Instances extends Component<Props, State> {
             <select
               value={this.state.sort.name}
               name="sort_select"
-              className={SELECT_CLASSES}
+              className="lemmy-select"
               onChange={linkEvent(this, handleSortChange)}
             >
               <option disabled>{i18n.t("sort")}</option>

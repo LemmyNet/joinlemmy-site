@@ -6,7 +6,6 @@ import { routes } from "../routes";
 import { NoMatch } from "./no-match";
 import { Symbols } from "./symbols";
 import { Footer, Navbar } from "./navbar";
-import { BACKGROUND_GRADIENT_1, BACKGROUND_GRADIENT_2 } from "./common";
 
 export class App extends Component<any, any> {
   constructor(props: any, context: any) {
@@ -14,8 +13,8 @@ export class App extends Component<any, any> {
   }
   render() {
     return (
-      <div className={BACKGROUND_GRADIENT_1}>
-        <div className={BACKGROUND_GRADIENT_2}>
+      <div className="background-gradient-1">
+        <div className="background-gradient-2">
           <Provider i18next={i18n}>
             <div className="min-h-screen">
               <Navbar />

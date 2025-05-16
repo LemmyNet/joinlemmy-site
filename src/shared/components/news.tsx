@@ -4,7 +4,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { isBrowser, mdToHtml } from "../utils";
 import { news_md } from "../translations/news";
-import { BottomSpacer, TEXT_GRADIENT } from "./common";
+import { BottomSpacer } from "./common";
 
 const title = i18n.t("news");
 const news_reversed = news_md.reverse();
@@ -69,7 +69,7 @@ const NewsCard = ({ news }: NewsProps) => (
       <div className="grid md:grid-cols-12 grid-cols-1 gap-4">
         <div className="md:col-span-10">
           <div className="md:flex md:flex-row md:items-baseline md:space-x-3">
-            <Link to={news.url} className={`text-2xl ${TEXT_GRADIENT}`}>
+            <Link to={news.url} className="text-2xl text-gradient">
               {news.title}
             </Link>
             <div className="text-sm text-gray-500">{news.dateStr}</div>
