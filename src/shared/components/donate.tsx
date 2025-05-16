@@ -63,28 +63,28 @@ const DonateButtons = () => (
       </span>
     </a>
     <a
-      className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
+      className="btn btn-secondary text-white max-md:btn-block grow mt-2.5"
       href="https://ko-fi.com/lemmynet"
     >
       <img src="/static/assets/icons/ko-fi.svg" alt="" width="24" />
       {i18n.t("support_on_ko_fi")}
     </a>
     <a
-      className="btn btn-primary text-white max-md:btn-block grow  mt-2.5"
+      className="btn btn-secondary text-white max-md:btn-block grow  mt-2.5"
       href="https://www.patreon.com/dessalines"
     >
       <img src="/static/assets/icons/patreon.svg" alt="" width="24" />
       {i18n.t("support_on_patreon")}
     </a>
     <a
-      className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
+      className="btn btn-secondary text-white max-md:btn-block grow mt-2.5"
       href="https://opencollective.com/lemmy"
     >
       <img src="/static/assets/icons/opencollective.svg" alt="" width="24" />
       {i18n.t("support_on_opencollective")}
     </a>
     <Link
-      className="btn btn-primary text-white max-md:btn-block grow  mt-2.5"
+      className="btn btn-secondary text-white max-md:btn-block grow  mt-2.5"
       to="/crypto"
     >
       <img src="/static/assets/icons/bitcoin.svg" alt="" width="24" />
