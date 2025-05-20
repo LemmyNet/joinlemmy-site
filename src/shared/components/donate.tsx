@@ -57,34 +57,34 @@ const DonateButtons = () => (
     >
       <img src="/static/assets/icons/liberapay.svg" alt="" width="24" />
       {i18n.t("support_on_liberapay")}
-      <span className="badge text-black bg-amber-300 border-amber-300 absolute -end-4 -top-4">
+      <span className="badge badge-xs text-black bg-amber-300 border-amber-300 absolute -end-2 -top-2">
         <Icon icon="star" classes="-mr-1.5" />
         {i18n.t("preferred")}
       </span>
     </a>
     <a
-      className="btn btn-secondary text-white max-md:btn-block grow mt-2.5"
+      className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
       href="https://ko-fi.com/lemmynet"
     >
       <img src="/static/assets/icons/ko-fi.svg" alt="" width="24" />
       {i18n.t("support_on_ko_fi")}
     </a>
     <a
-      className="btn btn-secondary text-white max-md:btn-block grow  mt-2.5"
+      className="btn btn-primary text-white max-md:btn-block grow  mt-2.5"
       href="https://www.patreon.com/dessalines"
     >
       <img src="/static/assets/icons/patreon.svg" alt="" width="24" />
       {i18n.t("support_on_patreon")}
     </a>
     <a
-      className="btn btn-secondary text-white max-md:btn-block grow mt-2.5"
+      className="btn btn-primary text-white max-md:btn-block grow mt-2.5"
       href="https://opencollective.com/lemmy"
     >
       <img src="/static/assets/icons/opencollective.svg" alt="" width="24" />
       {i18n.t("support_on_opencollective")}
     </a>
     <Link
-      className="btn btn-secondary text-white max-md:btn-block grow  mt-2.5"
+      className="btn btn-primary text-white max-md:btn-block grow  mt-2.5"
       to="/crypto"
     >
       <img src="/static/assets/icons/bitcoin.svg" alt="" width="24" />
