@@ -96,7 +96,7 @@ export const MODERATION_TOOLS: ToolDetails[] = [
 
 const BLORP: AppDetails = {
   name: "Blorp",
-  description: "Another Lemmy client nobody asked for – web, iOS, and MacOS",
+  description: "A Threadiverse client for web, iOS, MacOS, and Android",
   link: "https://blorpblorp.xyz",
   icon: "/static/assets/images/blorp.png",
   banner: "/static/assets/images/blorp_screen.webp",
@@ -106,12 +106,16 @@ const BLORP: AppDetails = {
       icon: "appleinc",
     },
     {
-      link: "https://github.com/christianjuth/blorp",
-      icon: "github",
+      link: "https://play.google.com/store/apps/details?id=xyz.blorpblorp.app",
+      icon: "googleplay",
     },
     {
       link: "https://github.com/christianjuth/blorp/releases/latest",
       icon: "desktop",
+    },
+    {
+      link: "https://github.com/christianjuth/blorp",
+      icon: "github",
     },
   ],
   sourceType: SourceType.Open,
