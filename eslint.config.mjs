@@ -45,6 +45,7 @@ export default [
       "**/*.svg",
       "dist/*",
       ".yalc/*",
+      "lemmy-docs",
     ],
   },
   {
