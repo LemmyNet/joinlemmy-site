@@ -85,7 +85,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.0.2",
     "lodash": "^4.17.21",
-    "prettier": "^3.0.3",
+    "prettier": "^3.6.2",
     "rimraf": "^6.0.0",
     "sass": "^1.81.0",
     "sass-loader": "^16.0.3",
