@@ -12,7 +12,8 @@
 
 @theme {
   --font-*: initial;
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --color-gradient-start: oklch(0.77 0.1736 143.14);
   --color-gradient-end: oklch(0.65 0.2181 142.48);
