@@ -8,6 +8,8 @@ Lemmy is a self-hosted social link aggregation and discussion platform. It is co
 
 Recently some malicious users started to use an exploit where they would post rule violating content and then delete the account. This would prevent admins and mods from viewing the user profile to find other posts, and would also prevent federation of ban actions.
 
+This also fixes some issues with comment sorting, and adds a max page limit fetch of 10, for the long deprecated `page` param.
+
 The new release fixes these problems. Thanks to @flamingos-cant for contributing to solve this.
 
 ## Upgrade instructions
