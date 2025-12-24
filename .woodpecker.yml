@@ -6,7 +6,7 @@
 #      submodule_update_remote: true
 
 variables:
-  - &install_pnpm "npm i -g corepack && corepack enable pnpm"
+  - &install_pnpm "npm install --global corepack@latest && corepack enable pnpm"
 
 steps:
   prepare_repo:
