@@ -26,7 +26,7 @@ steps:
       - event: pull_request
 
   install:
-    image: node:alpine
+    image: node:20-bookworm-slim
     commands:
       - *install_pnpm
       - pnpm i
@@ -34,7 +34,7 @@ steps:
       - event: pull_request
 
   lint:
-    image: node:alpine
+    image: node:20-bookworm-slim
     commands:
       - *install_pnpm
       - pnpm lint
@@ -42,7 +42,7 @@ steps:
       - event: pull_request
 
   build_dev:
-    image: node:alpine
+    image: node:20-bookworm-slim
     commands:
       - *install_pnpm
       - pnpm prebuild:dev
@@ -51,7 +51,7 @@ steps:
       - event: pull_request
 
   nightly_instance_crawl:
-    image: node:alpine
+    image: node:20-bookworm-slim
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
       - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
@@ -74,7 +74,7 @@ steps:
       - event: cron
 
   release_instance_crawl:
-    image: node:alpine
+    image: node:20-bookworm-slim
     commands:
       # libpq and openssl can probably be removed after lemmy dep is upgraded to 0.16.4+
       - apk add cargo pkgconfig openssl openssl-dev libpq libpq-dev
