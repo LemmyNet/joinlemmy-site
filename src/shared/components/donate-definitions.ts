@@ -8,22 +8,22 @@ interface FundingPlatform {
 // Monthly counts in EUR
 const liberapay: FundingPlatform = {
   supporterCount: donation_stats[0].patrons,
-  monthlyEUR: donation_stats[0].amount,
+  monthlyEUR: donation_stats[0].amount_monthly_euro,
 };
 
 const openCollective: FundingPlatform = {
   supporterCount: donation_stats[1].patrons,
-  monthlyEUR: donation_stats[1].amount,
+  monthlyEUR: donation_stats[1].amount_monthly_euro,
 };
 
 const patreon: FundingPlatform = {
   supporterCount: donation_stats[2].patrons,
-  monthlyEUR: donation_stats[2].amount,
+  monthlyEUR: donation_stats[2].amount_monthly_euro,
 };
 
 const kofi: FundingPlatform = {
-  supporterCount: 19,
-  monthlyEUR: 112,
+  supporterCount: donation_stats[3].patrons,
+  monthlyEUR: donation_stats[3].amount_monthly_euro,
 };
 
 const fundingPlatforms = [liberapay, patreon, openCollective, kofi];
