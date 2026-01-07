@@ -21,6 +21,7 @@ const patreon: FundingPlatform = {
   monthlyEUR: donation_stats[2].amount,
 };
 
+/// Kofi doesnt provide this data via API, so we need to hardcode and manually update it.
 const kofi: FundingPlatform = {
   supporterCount: 826,
   monthlyEUR: 156,
