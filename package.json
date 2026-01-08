@@ -3,7 +3,7 @@
   "description": "A site for join-lemmy",
   "author": "Dessalines <tyhou13@gmx.com>",
   "license": "AGPL-3.0",
-  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977",
+  "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a",
   "repository": "https://github.com/LemmyNet/joinlemmy-site",
   "scripts": {
     "build:dev": "webpack --mode=development",
