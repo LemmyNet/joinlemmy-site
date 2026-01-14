@@ -568,7 +568,7 @@ export class Instances extends Component<Props, State> {
             <select
               value={this.state.sort.name}
               name="sort_select"
-              className="lemmy-select"
+              className="lemmy-select mr-2"
               onChange={linkEvent(this, handleSortChange)}
             >
               <option disabled>{i18n.t("sort")}</option>
@@ -578,6 +578,13 @@ export class Instances extends Component<Props, State> {
                 </option>
               ))}
             </select>
+            <button
+              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 tooltip"
+              onClick={linkEvent(this, handleVisitRandomInstance)}
+              data-tip="Visit a random Instance"
+            >
+              <Icon icon="shuffle" />
+            </button>
           </div>
         </div>
       </div>
@@ -602,6 +609,11 @@ function handleTopicChange(i: Instances, event: any) {
 function handleLanguageChange(i: Instances, event: any) {
   i.setState({ language: event.target.value });
   i.buildInstanceList();
+}
+
+function handleVisitRandomInstance(i: Instances, _event: any) {
+  const randomInstance = sortRandom(i.state.instances)[0].domain;
+  i.context.router.history.push(`https://${randomInstance}`);
 }
 
 function handleSeeAll(i: Instances) {
