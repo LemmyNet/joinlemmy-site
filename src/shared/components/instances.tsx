@@ -3,7 +3,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
-import { getQueryParams, mdToHtml, numToSI, sortRandom } from "../utils";
+import { getQueryParams, mdToHtml, numToSI } from "../utils";
 import { Badge, SectionTitle } from "./common";
 import {
   INSTANCE_HELPERS,
@@ -477,7 +477,7 @@ export class Instances extends Component<Props, State> {
 
     // Sort
     if (this.state.sort === RANDOM_SORT) {
-      instances = sortRandom(instances);
+      instances = sortSemiRandom(instances);
     } else if (this.state.sort === MOST_ACTIVE_SORT) {
       instances = sortActive(instances);
     } else {
@@ -611,4 +611,18 @@ function handleSeeAll(i: Instances) {
     topic: ALL_TOPIC,
   });
   i.buildInstanceList();
+}
+
+/// Semi-random instance sort, with larger instances always shown near the top.
+function sortSemiRandom(list: any[]): any[] {
+  return list
+    .map(i => {
+      const activeUsers = i.site_info.site_view.counts.users_active_month;
+      return {
+        instance: i,
+        sort: activeUsers + activeUsers * 3 * Math.random(),
+      };
+    })
+    .sort((a, b) => b.sort - a.sort)
+    .map(({ instance }) => instance);
 }
