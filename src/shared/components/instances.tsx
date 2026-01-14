@@ -581,7 +581,7 @@ export class Instances extends Component<Props, State> {
             <button
               className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 tooltip"
               onClick={linkEvent(this, handleVisitRandomInstance)}
-              data-tip="Visit a random Instance"
+              data-tip={i18n.t("visit_random_instance")}
             >
               <Icon icon="shuffle" />
             </button>
