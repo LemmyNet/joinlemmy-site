@@ -3,7 +3,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
-import { getQueryParams, mdToHtml, numToSI, sortRandom } from "../utils";
+import { getQueryParams, mdToHtml, numToSI } from "../utils";
 import { Badge, SectionTitle } from "./common";
 import {
   INSTANCE_HELPERS,
@@ -611,4 +611,34 @@ function handleSeeAll(i: Instances) {
     topic: ALL_TOPIC,
   });
   i.buildInstanceList();
+}
+
+function sortRandom(list: any[]): any[] {
+  // Use these values for the shuffle
+  const monthlyUsers = list.map(
+    i => i.site_info.site_view.counts.users_active_month,
+  );
+  const avgMonthlyUsers =
+    monthlyUsers.reduce((a, b) => a + b) / monthlyUsers.length;
+  const maxMonthlyUsers = Math.max(...monthlyUsers);
+
+  return list
+    .map(i => ({
+      instance: i,
+      sort: biasedRandom(
+        i.site_info.site_view.counts.users_active_month,
+        avgMonthlyUsers,
+        maxMonthlyUsers,
+      ),
+    }))
+    .sort((a, b) => b.sort - a.sort)
+    .map(({ instance }) => instance);
+}
+
+function biasedRandom(active_users, avg, max) {
+  // Lets introduce a better bias to random shuffle instances list
+  var influence = 1.25;
+  var rnd = Math.random() * (max / influence) + active_users;
+  var mix = Math.random() * influence;
+  return rnd * (1 - mix) + avg * mix;
 }
