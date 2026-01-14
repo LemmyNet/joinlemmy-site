@@ -635,7 +635,7 @@ function sortRandom(list: any[]): any[] {
     .map(({ instance }) => instance);
 }
 
-function biasedRandom(active_users, avg, max) {
+function biasedRandom(active_users: number, avg: number, max: number) {
   // Lets introduce a better bias to random shuffle instances list
   var influence = 1.25;
   var rnd = Math.random() * (max / influence) + active_users;
