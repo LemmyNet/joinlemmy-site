@@ -178,7 +178,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
               className={extraButtonClasses}
               href={`${buildUrl(domain)}/signup`}
             >
-              {i18n.t("join")}
+              {i18n.t("sign_up")}
             </a>
             <button
               className={extraButtonClasses}
