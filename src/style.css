@@ -61,7 +61,7 @@
 }
 
 .icon {
-  @apply block max-w-16 max-h-16 stroke-0 stroke-current fill-current;
+  @apply inline-flex max-w-16 max-h-16 stroke-0 stroke-current fill-current;
 }
 
 @font-face {
