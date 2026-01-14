@@ -477,7 +477,7 @@ export class Instances extends Component<Props, State> {
 
     // Sort
     if (this.state.sort === RANDOM_SORT) {
-      instances = sortRandom(instances);
+      instances = sortSemiRandom(instances);
     } else if (this.state.sort === MOST_ACTIVE_SORT) {
       instances = sortActive(instances);
     } else {
@@ -613,32 +613,16 @@ function handleSeeAll(i: Instances) {
   i.buildInstanceList();
 }
 
-function sortRandom(list: any[]): any[] {
-  // Use these values for the shuffle
-  const monthlyUsers = list.map(
-    i => i.site_info.site_view.counts.users_active_month,
-  );
-  const avgMonthlyUsers =
-    monthlyUsers.reduce((a, b) => a + b) / monthlyUsers.length;
-  const maxMonthlyUsers = Math.max(...monthlyUsers);
-
+/// Semi-random instance sort, with larger instances always shown near the top.
+function sortSemiRandom(list: any[]): any[] {
   return list
-    .map(i => ({
-      instance: i,
-      sort: biasedRandom(
-        i.site_info.site_view.counts.users_active_month,
-        avgMonthlyUsers,
-        maxMonthlyUsers,
-      ),
-    }))
+    .map(i => {
+      const activeUsers = i.site_info.site_view.counts.users_active_month;
+      return {
+        instance: i,
+        sort: activeUsers + activeUsers * 3 * Math.random(),
+      };
+    })
     .sort((a, b) => b.sort - a.sort)
     .map(({ instance }) => instance);
-}
-
-function biasedRandom(active_users: number, avg: number, max: number) {
-  // Lets introduce a better bias to random shuffle instances list
-  var influence = 1.25;
-  var rnd = Math.random() * (max / influence) + active_users;
-  var mix = Math.random() * influence;
-  return rnd * (1 - mix) + avg * mix;
 }
