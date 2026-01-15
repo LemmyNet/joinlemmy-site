@@ -10,20 +10,11 @@ import { InstancePicker } from "./instance-picker";
 import classNames from "classnames";
 import Glide from "@glidejs/glide";
 
-interface MainProps {
-  i: Main;
-}
-
-const TitleBlock = ({ i }: MainProps) => (
+const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
     <div className="flex flex-col items-center gap-4 mb-8">
       <p className="text-6xl font-bold text-gradient p-2">Lemmy</p>
       <p className="text-3xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
-    </div>
-    <div className="flex flex-row justify-around gap-4">
-      <JoinServerButton i={i} />
-      <DonateButton />
-      <SeeAllServersButton />
     </div>
   </div>
 );
@@ -78,36 +69,31 @@ const JoinServerButton = ({ i }: MainProps) => (
       showJoinModal();
     }}
   >
-    {i18n.t("join_a_server")}
+    Choose your Interests
   </a>
 );
 
-const DonateButton = () => (
-  <Link to="/donate" className="btn btn-primary text-white normal-case z-10">
-    {i18n.t("donate")}
-  </Link>
-);
-
-const SeeAllServersButton = () => (
-  <Link to="/instances" className="btn btn-primary text-white normal-case z-10">
-    {i18n.t("see_all_servers")}
-  </Link>
-);
-
-const FollowCommunitiesBlock = ({ i }: MainProps) => (
+const FollowCommunitiesBlock = () => (
   <div className="flex flex-col items-center">
     <div className="card card-bordered card-gradient shadow-xl">
       <div className="card-body items-center px-8 md:px-32 py-16">
-        <T
-          i18nKey="follow_communities"
-          className="card-title font-bold text-4xl text-center mb-3 inline-block"
-        >
-          #<span className="text-gradient">#</span>
-        </T>
-        <p className="text-sm text-gray-300 text-center mb-6">
+        <p className="text-gray-200 text-center mb-6">
           {i18n.t("lemmy_long_desc")}
         </p>
-        <JoinServerButton i={i} />
+        <p className="space-x-2">
+          <Link
+            to="/apps"
+            className="btn btn-primary text-white normal-case z-10"
+          >
+            {i18n.t("apps")}
+          </Link>
+          <Link
+            to="/instances"
+            className="btn btn-primary text-white normal-case z-10"
+          >
+            {i18n.t("see_all_servers")}
+          </Link>
+        </p>
       </div>
     </div>
   </div>

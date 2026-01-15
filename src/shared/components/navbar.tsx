@@ -19,7 +19,7 @@ const NavLinks = () => (
           to="/instances"
           className={LINK_CLASS}
         >
-          {i18n.t("join")}
+          Instances
         </Link>
       }
     />
