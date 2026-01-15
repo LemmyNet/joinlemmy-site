@@ -16,6 +16,7 @@ import {
 import { Icon } from "./icon";
 import { I18nKeys } from "i18next";
 import { sortRandom } from "../utils";
+import classNames from "classnames";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-4">
@@ -30,6 +31,7 @@ const TitleBlock = () => (
 
 interface AppDetailsCardProps {
   app: AppDetails;
+  activePlatform?: Platform;
 }
 
 const AppDetailsTitle = ({ app }: AppDetailsCardProps) => (
@@ -47,49 +49,60 @@ const AppDetailsTitle = ({ app }: AppDetailsCardProps) => (
 
 interface AppDetailsButtonsProps {
   links: AppLink;
+  activePlatform: Platform;
 }
 
-const AppDetailsButtons = ({ links }: AppDetailsButtonsProps) => {
-  const classes = "btn btn-sm btn-primary text-white normal-case";
+function buttonClasses(buttonType: Platform, activePlatform: Platform) {
+  const isActive =
+    activePlatform === buttonType || activePlatform === Platform.All;
+  return classNames("btn btn-sm btn-primary text-white normal-case", {
+    "btn-outline": !isActive,
+  });
+}
+
+const AppDetailsButtons = ({
+  links,
+  activePlatform,
+}: AppDetailsButtonsProps) => {
   return (
     <div className="space-x-2">
       {links.web && (
-        <div className={classes}>
+        <div className={buttonClasses(Platform.Web, activePlatform)}>
           <a href={links.web}>
             <Icon icon="globe" />
           </a>
         </div>
       )}
       {links.appleinc && (
-        <div className={classes}>
+        <div className={buttonClasses(Platform.IOS, activePlatform)}>
           <a href={links.appleinc}>
             <Icon icon="appleinc" />
           </a>
         </div>
       )}
       {links.googleplay && (
-        <div className={classes}>
+        <div className={buttonClasses(Platform.Android, activePlatform)}>
           <a href={links.googleplay}>
             <Icon icon="googleplay" />
           </a>
         </div>
       )}
       {links.fdroid && (
-        <div className={classes}>
+        <div className={buttonClasses(Platform.Android, activePlatform)}>
           <a href={links.fdroid}>
             <Icon icon="f-droid" />
           </a>
         </div>
       )}
       {links.desktop && (
-        <div className={classes}>
+        <div className={buttonClasses(Platform.Desktop, activePlatform)}>
           <a href={links.desktop}>
             <Icon icon="desktop" />
           </a>
         </div>
       )}
       {links.github && (
-        <div className={classes}>
+        <div className="btn btn-sm btn-primary btn-outline text-white normal-case">
           <a href={links.github}>
             <Icon icon="github" />
           </a>
@@ -99,7 +112,7 @@ const AppDetailsButtons = ({ links }: AppDetailsButtonsProps) => {
   );
 };
 
-const AppDetailsCard = ({ app }: AppDetailsCardProps) => (
+const AppDetailsCard = ({ app, activePlatform }: AppDetailsCardProps) => (
   <div className="card card-bordered bg-neutral-900 shadow-xl">
     <div className="card-body items-center">
       <AppDetailsTitle app={app} />
@@ -115,7 +128,10 @@ const AppDetailsCard = ({ app }: AppDetailsCardProps) => (
           <span>{i18n.t("closed_source_warning")}</span>
         </div>
       )}
-      <AppDetailsButtons links={app.links} />
+      <AppDetailsButtons
+        links={app.links}
+        activePlatform={activePlatform ?? Platform.All}
+      />
     </div>
   </div>
 );
@@ -126,12 +142,13 @@ const AppTitle = ({ title }) => (
 
 interface AppGridProps {
   apps: AppDetails[];
+  activePlatform: Platform;
 }
 
-const AppGrid = ({ apps }: AppGridProps) => (
+const AppGrid = ({ apps, activePlatform }: AppGridProps) => (
   <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mb-16">
     {apps.map(a => (
-      <AppDetailsCard app={a} />
+      <AppDetailsCard app={a} activePlatform={activePlatform} />
     ))}
   </div>
 );
@@ -208,7 +225,7 @@ export class Apps extends Component<any, State> {
         </Helmet>
         <TitleBlock />
         {this.filterAndTitleBlock()}
-        <AppGrid apps={this.state.apps} />
+        <AppGrid apps={this.state.apps} activePlatform={this.state.platform} />
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mb-16">
           <ToolsBlock title={i18n.t("api_libraries")} items={API_LIBRARIES} />
           <ToolsBlock

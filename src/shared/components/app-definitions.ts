@@ -11,10 +11,10 @@ export enum SourceType {
 
 export enum Platform {
   All = "all_platforms",
-  Desktop = "desktop",
-  Android = "android",
-  IOS = "ios",
   Web = "web",
+  IOS = "ios",
+  Android = "android",
+  Desktop = "desktop",
   CLI = "cli",
 }
 
@@ -126,7 +126,6 @@ const ECHO: AppDetails = {
   links: {
     appleinc: "https://apps.apple.com/us/app/echo-for-lemmy/id6450902296",
   },
-
   sourceType: SourceType.Closed,
   platforms: [Platform.IOS],
 };
@@ -159,12 +158,9 @@ const THUNDER: AppDetails = {
   banner: "/static/assets/images/thunder_screen.webp",
   links: {
     fdroid: "https://apt.izzysoft.de/fdroid/index/apk/com.hjiangsu.thunder",
-
     appleinc: "https://apps.apple.com/iq/app/thunder-for-lemmy/id6450518497",
-
     googleplay:
       "https://play.google.com/store/apps/details?id=com.hjiangsu.thunder",
-
     github: "https://github.com/thunder-app/thunder",
   },
   sourceType: SourceType.Open,
@@ -179,9 +175,7 @@ const JERBOA: AppDetails = {
   banner: "/static/assets/images/jerboa_screen.webp",
   links: {
     fdroid: "https://f-droid.org/en/packages/com.jerboa",
-
     googleplay: "https://play.google.com/store/apps/details?id=com.jerboa",
-
     github: "https://github.com/LemmyNet/jerboa",
   },
   sourceType: SourceType.Open,
@@ -196,10 +190,8 @@ const ETERNITY: AppDetails = {
   banner: "/static/assets/images/eternity_screen.webp",
   links: {
     fdroid: "https://f-droid.org/en/packages/eu.toldi.infinityforlemmy",
-
     googleplay:
       "https://play.google.com/store/apps/details?id=eu.toldi.infinityforlemmy",
-
     github: "https://codeberg.org/Bazsalanszky/Eternity",
   },
 
@@ -217,7 +209,6 @@ const BOOST: AppDetails = {
     googleplay:
       "https://play.google.com/store/apps/details?id=com.rubenmayayo.lemmy",
   },
-
   sourceType: SourceType.Closed,
   platforms: [Platform.Android],
 };
@@ -232,7 +223,6 @@ const SYNC: AppDetails = {
     googleplay:
       "https://play.google.com/store/apps/details?id=io.syncapps.lemmy_sync",
   },
-
   sourceType: SourceType.Closed,
   platforms: [Platform.Android],
 };
@@ -245,10 +235,8 @@ const MLEM: AppDetails = {
   banner: "/static/assets/images/mlem_screen.webp",
   links: {
     appleinc: "https://apps.apple.com/us/app/mlem-for-lemmy/id6450543782",
-
     github: "https://github.com/mlemgroup/mlem",
   },
-
   sourceType: SourceType.Open,
   platforms: [Platform.IOS],
 };
@@ -263,7 +251,6 @@ const PHOTON: AppDetails = {
     web: "https://phtn.app/",
     github: "https://github.com/Xyphyn/photon",
   },
-
   sourceType: SourceType.Open,
   platforms: [Platform.Web],
 };
@@ -279,7 +266,6 @@ const ALEXANDRITE: AppDetails = {
     github: "https://github.com/sheodox/alexandrite",
     web: "https://a.lemmy.world/lemmy.world",
   },
-
   sourceType: SourceType.Open,
   platforms: [Platform.Web],
 };
@@ -293,7 +279,6 @@ const MLMYM: AppDetails = {
     github: "https://github.com/rystaf/mlmym",
     web: "https://old.lemmy.world/",
   },
-
   sourceType: SourceType.Open,
   platforms: [Platform.Web],
 };
@@ -306,7 +291,6 @@ const NEONMODEM: AppDetails = {
   links: {
     github: "https://github.com/mrusme/neonmodem",
   },
-
   sourceType: SourceType.Open,
   platforms: [Platform.CLI],
 };
@@ -323,7 +307,6 @@ const SUMMIT: AppDetails = {
 
     github: "https://github.com/idunnololz/summit",
   },
-
   sourceType: SourceType.Open,
   platforms: [Platform.Android],
 };
@@ -337,7 +320,6 @@ const ARCTIC: AppDetails = {
   links: {
     appleinc: "https://apps.apple.com/us/app/arctic-for-lemmy/id6457925837",
   },
-
   sourceType: SourceType.Closed,
   platforms: [Platform.IOS],
 };
