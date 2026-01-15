@@ -9,6 +9,8 @@ import { BottomSpacer } from "./common";
 import { InstancePicker } from "./instance-picker";
 import classNames from "classnames";
 import Glide from "@glidejs/glide";
+import { linkEvent } from "inferno";
+import { handleVisitRandomInstance } from "./instances";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -93,6 +95,10 @@ const FollowCommunitiesBlock = () => (
           >
             {i18n.t("see_all_servers")}
           </Link>
+            <button
+              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 tooltip"
+              onClick={linkEvent(this, handleVisitRandomInstance)}
+            >{i18n.t("visit_random_instance")}</button>
         </p>
       </div>
     </div>

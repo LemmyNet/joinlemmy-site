@@ -611,7 +611,7 @@ function handleLanguageChange(i: Instances, event: any) {
   i.buildInstanceList();
 }
 
-function handleVisitRandomInstance(i: Instances, _event: any) {
+export function handleVisitRandomInstance(i: Instances, _event: any) {
   const randomInstance = sortSemiRandom(i.state.instances)[0].domain;
   i.context.router.history.push(`https://${randomInstance}`);
 }
