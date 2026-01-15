@@ -53,6 +53,11 @@ server.use(
 );
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
 
+server.get("/robots.txt", (_, res) => {
+  res.type("text/plain");
+  res.send("User-agent: *\nDisallow: /");
+});
+
 function erudaInit(): string {
   if (process.env["NODE_ENV"] === "development") {
     return `
