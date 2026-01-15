@@ -47,17 +47,39 @@ const AppDetailsTitle = ({ app }: AppDetailsCardProps) => (
   </div>
 );
 
+interface PlatformButtonProps {
+  icon: string;
+  activePlatform: Platform;
+  link?: string;
+  buttonType?: Platform;
+}
+
+const PlatformButton = ({
+  icon,
+  activePlatform,
+  link,
+  buttonType,
+}: PlatformButtonProps) => {
+  const isActive =
+    buttonType &&
+    (activePlatform === buttonType || activePlatform === Platform.All);
+  const classes = classNames("btn btn-sm btn-primary text-white normal-case", {
+    "btn-outline": !isActive,
+  });
+  return (
+    link && (
+      <div className={classes}>
+        <a href={link}>
+          <Icon icon={icon} />
+        </a>
+      </div>
+    )
+  );
+};
+
 interface AppDetailsButtonsProps {
   links: AppLink;
   activePlatform: Platform;
-}
-
-function buttonClasses(buttonType: Platform, activePlatform: Platform) {
-  const isActive =
-    activePlatform === buttonType || activePlatform === Platform.All;
-  return classNames("btn btn-sm btn-primary text-white normal-case", {
-    "btn-outline": !isActive,
-  });
 }
 
 const AppDetailsButtons = ({
@@ -66,48 +88,41 @@ const AppDetailsButtons = ({
 }: AppDetailsButtonsProps) => {
   return (
     <div className="space-x-2">
-      {links.web && (
-        <div className={buttonClasses(Platform.Web, activePlatform)}>
-          <a href={links.web}>
-            <Icon icon="globe" />
-          </a>
-        </div>
-      )}
-      {links.appleinc && (
-        <div className={buttonClasses(Platform.IOS, activePlatform)}>
-          <a href={links.appleinc}>
-            <Icon icon="appleinc" />
-          </a>
-        </div>
-      )}
-      {links.googleplay && (
-        <div className={buttonClasses(Platform.Android, activePlatform)}>
-          <a href={links.googleplay}>
-            <Icon icon="googleplay" />
-          </a>
-        </div>
-      )}
-      {links.fdroid && (
-        <div className={buttonClasses(Platform.Android, activePlatform)}>
-          <a href={links.fdroid}>
-            <Icon icon="f-droid" />
-          </a>
-        </div>
-      )}
-      {links.desktop && (
-        <div className={buttonClasses(Platform.Desktop, activePlatform)}>
-          <a href={links.desktop}>
-            <Icon icon="desktop" />
-          </a>
-        </div>
-      )}
-      {links.github && (
-        <div className="btn btn-sm btn-primary btn-outline text-white normal-case">
-          <a href={links.github}>
-            <Icon icon="github" />
-          </a>
-        </div>
-      )}
+      <PlatformButton
+        icon="globe"
+        activePlatform={activePlatform}
+        link={links.web}
+        buttonType={Platform.Web}
+      />
+      <PlatformButton
+        icon="appleinc"
+        activePlatform={activePlatform}
+        link={links.appleinc}
+        buttonType={Platform.IOS}
+      />
+      <PlatformButton
+        icon="googleplay"
+        activePlatform={activePlatform}
+        link={links.googleplay}
+        buttonType={Platform.Android}
+      />
+      <PlatformButton
+        icon="f-droid"
+        activePlatform={activePlatform}
+        link={links.fdroid}
+        buttonType={Platform.Android}
+      />
+      <PlatformButton
+        icon="desktop"
+        activePlatform={activePlatform}
+        link={links.desktop}
+        buttonType={Platform.Desktop}
+      />
+      <PlatformButton
+        icon="github"
+        activePlatform={activePlatform}
+        link={links.github}
+      />
     </div>
   );
 };
