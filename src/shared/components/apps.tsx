@@ -46,21 +46,58 @@ const AppDetailsTitle = ({ app }: AppDetailsCardProps) => (
 );
 
 interface AppDetailsButtonsProps {
-  links: AppLink[];
+  links: AppLink;
 }
 
-const AppDetailsButtons = ({ links }: AppDetailsButtonsProps) => (
-  <div className="flex flex-row justify-between gap-2">
-    {links.map(l => (
-      <a
-        className="btn btn-sm btn-primary text-white normal-case"
-        href={l.link}
-      >
-        <Icon icon={l.icon} />
-      </a>
-    ))}
-  </div>
-);
+const AppDetailsButtons = ({ links }: AppDetailsButtonsProps) => {
+  const classes = "btn btn-sm btn-primary text-white normal-case";
+  return (
+    <div className="space-x-2">
+      {links.web && (
+        <div className={classes}>
+          <a href={links.web}>
+            <Icon icon="globe" />
+          </a>
+        </div>
+      )}
+      {links.appleinc && (
+        <div className={classes}>
+          <a href={links.appleinc}>
+            <Icon icon="appleinc" />
+          </a>
+        </div>
+      )}
+      {links.googleplay && (
+        <div className={classes}>
+          <a href={links.googleplay}>
+            <Icon icon="googleplay" />
+          </a>
+        </div>
+      )}
+      {links.fdroid && (
+        <div className={classes}>
+          <a href={links.fdroid}>
+            <Icon icon="f-droid" />
+          </a>
+        </div>
+      )}
+      {links.desktop && (
+        <div className={classes}>
+          <a href={links.desktop}>
+            <Icon icon="desktop" />
+          </a>
+        </div>
+      )}
+      {links.github && (
+        <div className={classes}>
+          <a href={links.github}>
+            <Icon icon="github" />
+          </a>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const AppDetailsCard = ({ app }: AppDetailsCardProps) => (
   <div className="card card-bordered bg-neutral-900 shadow-xl">
