@@ -134,9 +134,6 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
 
     const modalId = `modal_${domain}`;
 
-    const extraButtonClasses =
-      "btn btn-secondary btn-outline text-white max-md:btn-block";
-
     return (
       <div className="card card-bordered bg-neutral-900 shadow-xl">
         <div className="card-body p-4">
@@ -165,21 +162,23 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
             <a href={buildUrl(domain)}>{domain}</a>
           </div>
           <p className="text-sm text-gray-300 mb-2">{description}</p>
-          <div className="flex flex-row flex-wrap justify-between gap-2 text-white">
-            <a
-              className="btn btn-primary text-white max-md:btn-block bg-linear-to-r from-green-400 to-green-600 normal-case"
-              href={`${buildUrl(domain)}`}
-            >
-              {i18n.t("explore")}
-            </a>
-            <a
-              className={extraButtonClasses}
-              href={`${buildUrl(domain)}/signup`}
-            >
-              {i18n.t("sign_up")}
-            </a>
+          <div>
+            <div className="flex gap-2">
+              <a
+                className="btn btn-primary text-white normal-case grow"
+                href={`${buildUrl(domain)}`}
+              >
+                {i18n.t("explore")}
+              </a>
+              <a
+                className="btn btn-primary text-white grow"
+                href={`${buildUrl(domain)}/signup`}
+              >
+                {i18n.t("sign_up")}
+              </a>
+            </div>
             <button
-              className={extraButtonClasses}
+              className="btn btn-secondary btn-outline text-white btn-block my-2"
               onClick={linkEvent(this, handleModalClick)}
             >
               {i18n.t("more_information")}
@@ -246,7 +245,7 @@ export const StatsBadges = ({ monthlyUsers, emailRequired, country }) => (
     {emailRequired ? (
       <Badge
         content={
-          <div className="text-sm text-gray-500 tooltip">
+          <div className="text-sm text-gray-500">
             <Icon icon="mail" classes="mr-2" />
             <span>Email required</span>
           </div>
