@@ -129,6 +129,8 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
     const monthlyUsers = instance.site_info.site_view.counts.users_active_month;
     const registrationMode =
       instance.site_info.site_view.local_site.registration_mode;
+    const emailRequired =
+      instance.site_info.site_view.local_site.require_email_verification;
 
     const modalId = `modal_${domain}`;
 
@@ -157,14 +159,19 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
               monthlyUsers={monthlyUsers}
             />
           </div>
-          <a
-            href={buildUrl(domain)}
-            className="text-2xl font-bold text-gradient"
-          >
-            {domain}
-          </a>
+          <div className="text-2xl font-bold text-gradient">
+            <a href={buildUrl(domain)}>{domain}</a>
+            {emailRequired && (
+              <span
+                className="mx-2 text-gray-500 tooltip"
+                data-tip="Email address required for registration"
+              >
+                <Icon icon="mail" size={IconSize.Large} />
+              </span>
+            )}
+          </div>
           <p className="text-sm text-gray-300 mb-2">{description}</p>
-          <div className="flex flex-row flex-wrap justify-between gap-2">
+          <div className="flex flex-row flex-wrap justify-between gap-2 text-white">
             <a
               className="btn btn-primary text-white max-md:btn-block bg-linear-to-r from-green-400 to-green-600 normal-case"
               href={`${buildUrl(domain)}`}
