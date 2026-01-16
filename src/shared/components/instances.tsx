@@ -151,24 +151,18 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
                 icon={icon}
                 sidebar={sidebar}
                 registrationMode={registrationMode}
+                emailRequired={emailRequired}
               />
             )}
             <InstanceIcon domain={domain} icon={icon} />
             <InstanceStats
+              emailRequired={emailRequired}
               country={instance.geo_ip}
               monthlyUsers={monthlyUsers}
             />
           </div>
           <div className="text-2xl font-bold text-gradient">
             <a href={buildUrl(domain)}>{domain}</a>
-            {emailRequired && (
-              <span
-                className="mx-2 text-gray-500 tooltip"
-                data-tip="Email address required for registration"
-              >
-                <Icon icon="mail" size={IconSize.Large} />
-              </span>
-            )}
           </div>
           <p className="text-sm text-gray-300 mb-2">{description}</p>
           <div className="flex flex-row flex-wrap justify-between gap-2 text-white">
@@ -212,19 +206,23 @@ const InstanceIcon = ({ domain, icon }) => (
   </a>
 );
 
-const InstanceStats = ({ country, monthlyUsers }) => (
+const InstanceStats = ({ country, emailRequired, monthlyUsers }) => (
   <div className="flex flex-col flex-wrap justify-between">
-    <StatsBadges country={country} monthlyUsers={monthlyUsers} />
+    <StatsBadges
+      country={country}
+      emailRequired={emailRequired}
+      monthlyUsers={monthlyUsers}
+    />
   </div>
 );
 
-export const StatsBadges = ({ monthlyUsers, country }) => (
+export const StatsBadges = ({ monthlyUsers, emailRequired, country }) => (
   <>
     <Badge
       content={
         <div className="text-sm text-gray-500 tooltip">
           <Icon icon="globe" classes="mr-2" />
-          <span>{country.name}</span>
+          <span>{country?.name ?? i18n.t("country_unknown")}</span>
         </div>
       }
     />
@@ -245,6 +243,18 @@ export const StatsBadges = ({ monthlyUsers, country }) => (
         </div>
       }
     />
+    {emailRequired ? (
+      <Badge
+        content={
+          <div className="text-sm text-gray-500 tooltip">
+            <Icon icon="mail" classes="mr-2" />
+            <span>Email required</span>
+          </div>
+        }
+      />
+    ) : (
+      <div></div>
+    )}
   </>
 );
 
@@ -269,6 +279,7 @@ export const DetailsModal = ({
   monthlyUsers,
   sidebar,
   registrationMode,
+  emailRequired,
 }) => (
   <dialog id={id} className="modal">
     <form method="dialog" className="modal-backdrop">
@@ -291,7 +302,11 @@ export const DetailsModal = ({
         {icon && (
           <img className="w-8 h-8" src={icon} onError={imgError} alt="" />
         )}
-        <StatsBadges country={country} monthlyUsers={monthlyUsers} />
+        <StatsBadges
+          emailRequired={emailRequired}
+          country={country}
+          monthlyUsers={monthlyUsers}
+        />
         <Badge
           content={
             <div className="text-sm text-gray-500">
