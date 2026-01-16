@@ -508,6 +508,10 @@ export class Instances extends Component<Props, State> {
   render() {
     const title = i18n.t("join_title");
 
+    const isFiltered =
+      this.state.country ||
+      this.state.topic !== ALL_TOPIC ||
+      this.state.language !== "all";
     return (
       <div className="container mx-auto px-4">
         <Helmet title={title}>
@@ -517,14 +521,11 @@ export class Instances extends Component<Props, State> {
         <ComparisonBlock />
         {this.filterAndTitleBlock()}
         <div className="mt-4">
-          {this.state.instances.length > 0 ? (
-            <InstanceCardGrid
-              title={i18n.t("popular_instances")}
-              instances={this.state.instances}
-            />
-          ) : (
-            this.seeAllBtn()
-          )}
+          <InstanceCardGrid
+            title={i18n.t("popular_instances")}
+            instances={this.state.instances}
+          />
+          {isFiltered && this.seeAllBtn()}
         </div>
       </div>
     );
@@ -532,10 +533,9 @@ export class Instances extends Component<Props, State> {
 
   seeAllBtn() {
     return (
-      <div>
-        <p className="text-sm text-gray-300 mb-4">{i18n.t("none_found")}</p>
+      <div className="flex justify-center p-8">
         <button
-          className="btn btn-sm btn-secondary text-white normal-case"
+          className="btn btn-secondary text-white normal-case"
           onClick={linkEvent(this, handleSeeAll)}
         >
           {i18n.t("see_all_servers")}
@@ -652,6 +652,7 @@ function handleSeeAll(i: Instances) {
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
+    country: undefined,
   });
   i.buildInstanceList();
 }
