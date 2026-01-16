@@ -24,12 +24,12 @@ export interface AppDetails {
   link: string;
   icon?: string;
   banner?: string;
-  links: AppLink;
+  links: AppLinks;
   sourceType: SourceType;
   platforms: Platform[];
 }
 
-export interface AppLink {
+export interface AppLinks {
   web?: string;
   appleinc?: string;
   googleplay?: string;
@@ -241,6 +241,18 @@ const MLEM: AppDetails = {
   platforms: [Platform.IOS],
 };
 
+const LEMMY_UI: AppDetails = {
+  name: "lemmy-ui",
+  description: "The official web app for lemmy.",
+  link: "https://github.com/LemmyNet/lemmy-ui",
+  banner: "/static/assets/images/mobile_pic.webp",
+  links: {
+    github: "https://github.com/LemmyNet/lemmy-ui",
+  },
+  sourceType: SourceType.Open,
+  platforms: [Platform.Web],
+};
+
 const PHOTON: AppDetails = {
   name: "Photon",
   description: "A fully-featured, intuitive and clean web app for Lemmy.",
@@ -329,6 +341,7 @@ export const APP_LIST: AppDetails[] = [
   JERBOA,
   ETERNITY,
   MLEM,
+  LEMMY_UI,
   VOYAGER,
   THUNDER,
   PHOTON,

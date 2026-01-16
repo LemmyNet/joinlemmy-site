@@ -8,7 +8,7 @@ import {
   APP_LIST,
   ToolDetails,
   AppDetails,
-  AppLink,
+  AppLinks,
   Platform,
   SourceType,
   MODERATION_TOOLS,
@@ -78,7 +78,7 @@ const PlatformButton = ({
 };
 
 interface AppDetailsButtonsProps {
-  links: AppLink;
+  links: AppLinks;
   activePlatform: Platform;
 }
 
