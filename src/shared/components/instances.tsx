@@ -578,13 +578,6 @@ export class Instances extends Component<Props, State> {
                 </option>
               ))}
             </select>
-            <button
-              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 tooltip"
-              onClick={linkEvent(this, handleVisitRandomInstance)}
-              data-tip={i18n.t("visit_random_instance")}
-            >
-              <Icon icon="shuffle" />
-            </button>
           </div>
         </div>
       </div>
@@ -609,11 +602,6 @@ function handleTopicChange(i: Instances, event: any) {
 function handleLanguageChange(i: Instances, event: any) {
   i.setState({ language: event.target.value });
   i.buildInstanceList();
-}
-
-export function handleVisitRandomInstance(i: Instances, _event: any) {
-  const randomInstance = sortSemiRandom(i.state.instances)[0].domain;
-  i.context.router.history.push(`https://${randomInstance}`);
 }
 
 function handleSeeAll(i: Instances) {

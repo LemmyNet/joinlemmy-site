@@ -19,7 +19,7 @@ const NavLinks = () => (
           to="/instances"
           className={LINK_CLASS}
         >
-          Instances
+          Servers
         </Link>
       }
     />

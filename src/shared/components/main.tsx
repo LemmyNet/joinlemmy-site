@@ -9,8 +9,7 @@ import { BottomSpacer } from "./common";
 import { InstancePicker } from "./instance-picker";
 import classNames from "classnames";
 import Glide from "@glidejs/glide";
-import { linkEvent } from "inferno";
-import { handleVisitRandomInstance } from "./instances";
+import { DEFAULT_INSTANCES } from "./instances-definitions";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -61,49 +60,41 @@ const CarouselBlock = () => (
   </div>
 );
 
-const JoinServerButton = ({ i }: MainProps) => (
-  <a
-    href="?showJoinModal=true"
-    className="btn btn-primary text-white normal-case z-10"
-    onClick={e => {
-      e.preventDefault();
-      i.setState({ resetInstancePicker: true });
-      showJoinModal();
-    }}
-  >
-    Choose your Interests
-  </a>
-);
-
-const FollowCommunitiesBlock = () => (
-  <div className="flex flex-col items-center">
-    <div className="card card-bordered card-gradient shadow-xl">
-      <div className="card-body items-center px-8 md:px-32 py-16">
-        <p className="text-gray-200 text-center mb-6">
-          {i18n.t("lemmy_long_desc")}
-        </p>
-        <p className="space-x-2">
-          <Link
-            to="/apps"
-            className="btn btn-primary text-white normal-case z-10"
-          >
-            {i18n.t("apps")}
-          </Link>
-          <Link
-            to="/instances"
-            className="btn btn-primary text-white normal-case z-10"
-          >
-            {i18n.t("see_all_servers")}
-          </Link>
-            <button
-              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 tooltip"
-              onClick={linkEvent(this, handleVisitRandomInstance)}
-            >{i18n.t("visit_random_instance")}</button>
-        </p>
+const FollowCommunitiesBlock = () => {
+  const random = Math.floor(Math.random() * DEFAULT_INSTANCES.length);
+  const domain = DEFAULT_INSTANCES[random];
+  return (
+    <div className="flex flex-col items-center">
+      <div className="card card-bordered card-gradient shadow-xl">
+        <div className="card-body items-center px-8 md:px-32 py-16">
+          <p className="text-gray-200 text-center mb-6">
+            {i18n.t("lemmy_long_desc")}
+          </p>
+          <p className="space-x-2">
+            <a
+              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600"
+              href={`https://${domain}`}
+            >
+              {i18n.t("join_instance", { domain })}
+            </a>
+            <Link
+              to="/instances"
+              className="btn btn-primary text-white normal-case z-10"
+            >
+              {i18n.t("see_all_servers")}
+            </Link>
+            <Link
+              to="/apps"
+              className="btn btn-primary btn-outline text-white normal-case z-10"
+            >
+              {i18n.t("apps")}
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const FeatureCard = ({ pic, title, subtitle, classes }) => (
   <div className={`card card-gradient shadow-xl ${classes}`}>
@@ -499,8 +490,8 @@ export class Main extends Component<Props, State> {
           alt=""
         />
         <div className="container mx-auto px-4">
-          <TitleBlock i={this} />
-          <FollowCommunitiesBlock i={this} />
+          <TitleBlock />
+          <FollowCommunitiesBlock />
         </div>
         <CarouselBlock />
         <div className="container mx-auto px-4">
