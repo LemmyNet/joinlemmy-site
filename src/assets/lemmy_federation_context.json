@@ -24,7 +24,10 @@
       "language": "sc:inLanguage",
       "identifier": "sc:identifier",
       "Hashtag": "as:Hashtag",
-      "featured": "mastodon:featured"
+      "featured": {
+        "@type": "@id",
+        "@id": "mastodon:featured"
+      }
     }
   ]
 }
