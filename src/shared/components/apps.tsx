@@ -17,6 +17,7 @@ import { Icon } from "./icon";
 import { I18nKeys } from "i18next";
 import { sortRandom } from "../utils";
 import classNames from "classnames";
+import { UAParser } from "ua-parser-js";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-4">
@@ -155,19 +156,6 @@ const AppTitle = ({ title }) => (
   <div className="text-2xl mb-3 text-gray-300">{title}</div>
 );
 
-interface AppGridProps {
-  apps: AppDetails[];
-  activePlatform: Platform;
-}
-
-const AppGrid = ({ apps, activePlatform }: AppGridProps) => (
-  <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mb-16">
-    {apps.map(a => (
-      <AppDetailsCard app={a} activePlatform={activePlatform} />
-    ))}
-  </div>
-);
-
 interface ToolsBlockProps {
   title: string;
   items: ToolDetails[];
@@ -205,7 +193,7 @@ interface State {
 export class Apps extends Component<any, State> {
   state: State = {
     apps: [],
-    platform: Platform.All,
+    platform: this.initialPlatform(),
   };
 
   constructor(props: any, context: any) {
@@ -215,6 +203,22 @@ export class Apps extends Component<any, State> {
   componentDidMount() {
     window.scrollTo(0, 0);
     this.buildAppList();
+  }
+
+  initialPlatform(): Platform {
+    console.log(navigator.userAgent);
+    const parser = new UAParser(navigator.userAgent);
+    // https://docs.uaparser.dev/api/main/idata/is.html
+    const os = parser.getOS();
+    if (os.is("ios")) {
+      return Platform.IOS;
+    } else if (os.is("android") || os.is("mobile")) {
+      return Platform.Android;
+    } else if (os.is("linux") || os.is("windows")) {
+      return Platform.Desktop;
+    } else {
+      return Platform.All;
+    }
   }
 
   buildAppList() {
@@ -240,7 +244,14 @@ export class Apps extends Component<any, State> {
         </Helmet>
         <TitleBlock />
         {this.filterAndTitleBlock()}
-        <AppGrid apps={this.state.apps} activePlatform={this.state.platform} />
+        <div className="mb-16">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+            {this.state.apps.map(a => (
+              <AppDetailsCard app={a} activePlatform={this.state.platform} />
+            ))}
+          </div>
+          {this.seeAllBtn()}
+        </div>
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mb-16">
           <ToolsBlock title={i18n.t("api_libraries")} items={API_LIBRARIES} />
           <ToolsBlock
@@ -249,6 +260,19 @@ export class Apps extends Component<any, State> {
           />
         </div>
         <BottomSpacer />
+      </div>
+    );
+  }
+
+  seeAllBtn() {
+    return (
+      <div className="flex justify-center p-8">
+        <button
+          className="btn btn-secondary text-white normal-case"
+          onClick={linkEvent(this, handleSeeAll)}
+        >
+          See all apps
+        </button>
       </div>
     );
   }
@@ -283,6 +307,13 @@ function handlePlatformChange(i: Apps, event: any) {
   const platform: Platform = (event.target.value as Platform) ?? Platform.All;
   i.setState({
     platform,
+  });
+  i.buildAppList();
+}
+
+function handleSeeAll(i: Apps) {
+  i.setState({
+    platform: Platform.All,
   });
   i.buildAppList();
 }
