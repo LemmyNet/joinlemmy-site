@@ -33,7 +33,7 @@ const ContactBtn = ({ title, url }) => (
     className="btn btn-block bg-neutral-800 mb-3 justify-start normal-case"
     href={url}
   >
-    <Icon icon="embed" classes={`fill-current text-primary`} />
+    <Icon icon="link" classes={`fill-current text-primary`} />
     <span className="underline">{title}</span>
   </a>
 );
