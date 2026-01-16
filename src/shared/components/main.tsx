@@ -10,6 +10,7 @@ import { InstancePicker } from "./instance-picker";
 import classNames from "classnames";
 import Glide from "@glidejs/glide";
 import { DEFAULT_INSTANCES } from "./instances-definitions";
+import { instance_stats } from "../instance_stats";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -61,8 +62,15 @@ const CarouselBlock = () => (
 );
 
 const FollowCommunitiesBlock = () => {
-  const random = Math.floor(Math.random() * DEFAULT_INSTANCES.length);
-  const domain = DEFAULT_INSTANCES[random];
+  // check crawl results to exclude instances which are down
+  const crawledInstances = instance_stats.stats.instance_details.map(
+    i => i.domain,
+  );
+  const defaults = DEFAULT_INSTANCES.filter(i => crawledInstances.includes(i));
+  // pick a random instance from the list
+  const random = Math.floor(Math.random() * defaults.length);
+  const domain = defaults[random];
+
   return (
     <div className="flex flex-col items-center">
       <div className="card card-bordered card-gradient shadow-xl">
