@@ -126,8 +126,6 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
       instance.site_info.site_view.site.icon ||
       "/static/assets/images/lemmy.svg";
     const banner = instance.site_info.site_view.site.banner;
-    const users = instance.site_info.site_view.counts.users;
-    const comments = instance.site_info.site_view.counts.comments;
     const monthlyUsers = instance.site_info.site_view.counts.users_active_month;
     const registrationMode =
       instance.site_info.site_view.local_site.registration_mode;
@@ -146,8 +144,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
                 id={modalId}
                 domain={domain}
                 banner={banner}
-                users={users}
-                comments={comments}
+                country={instance.geo_ip}
                 monthlyUsers={monthlyUsers}
                 icon={icon}
                 sidebar={sidebar}
@@ -156,8 +153,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
             )}
             <InstanceIcon domain={domain} icon={icon} />
             <InstanceStats
-              users={users}
-              comments={comments}
+              country={instance.geo_ip}
               monthlyUsers={monthlyUsers}
             />
           </div>
@@ -209,41 +205,19 @@ const InstanceIcon = ({ domain, icon }) => (
   </a>
 );
 
-const InstanceStats = ({ users, comments, monthlyUsers }) => (
+const InstanceStats = ({ country, monthlyUsers }) => (
   <div className="flex flex-col flex-wrap justify-between">
-    <StatsBadges
-      users={users}
-      comments={comments}
-      monthlyUsers={monthlyUsers}
-    />
+    <StatsBadges country={country} monthlyUsers={monthlyUsers} />
   </div>
 );
 
-export const StatsBadges = ({ users, comments, monthlyUsers }) => (
+export const StatsBadges = ({ monthlyUsers, country }) => (
   <>
     <Badge
       content={
-        <div
-          className="text-sm text-gray-500 tooltip"
-          data-tip={i18n.t("total_users", {
-            formattedCount: users.toLocaleString(),
-          })}
-        >
-          <Icon icon="users" classes="mr-2" />
-          <span>{users.toLocaleString()}</span>
-        </div>
-      }
-    />
-    <Badge
-      content={
-        <div
-          className="text-sm text-gray-500 tooltip"
-          data-tip={i18n.t("total_comments", {
-            formattedCount: comments.toLocaleString(),
-          })}
-        >
-          <Icon icon="message-circle" classes="mr-2" />
-          <span>{comments.toLocaleString()}</span>
+        <div className="text-sm text-gray-500 tooltip">
+          <Icon icon="globe" classes="mr-2" />
+          <span>{country.name}</span>
         </div>
       }
     />
@@ -284,8 +258,7 @@ export const DetailsModal = ({
   domain,
   icon,
   banner,
-  users,
-  comments,
+  country,
   monthlyUsers,
   sidebar,
   registrationMode,
@@ -311,11 +284,7 @@ export const DetailsModal = ({
         {icon && (
           <img className="w-8 h-8" src={icon} onError={imgError} alt="" />
         )}
-        <StatsBadges
-          users={users}
-          comments={comments}
-          monthlyUsers={monthlyUsers}
-        />
+        <StatsBadges country={country} monthlyUsers={monthlyUsers} />
         <Badge
           content={
             <div className="text-sm text-gray-500">
@@ -560,10 +529,10 @@ export class Instances extends Component<Props, State> {
               name="topic_select"
             >
               <option disabled selected>
-                Countries
+                {i18n.t("country_select")}
               </option>
               <option key="all" value="all">
-                All
+                {i18n.t("all_countries")}
               </option>
               {this.state.allCountries.map(c => (
                 <option key={c.iso_code} value={c.iso_code}>
