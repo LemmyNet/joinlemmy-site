@@ -12,6 +12,7 @@ import {
   ALL_TOPIC,
   TOPICS,
   availableLanguages,
+  Country,
 } from "./instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
@@ -377,6 +378,8 @@ interface State {
   sort: Sort;
   language: string;
   topic: Topic;
+  allCountries: Country[];
+  country?: Country;
   scroll: boolean;
 }
 
@@ -410,6 +413,14 @@ export class Instances extends Component<Props, State> {
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
+    allCountries: Array.from(
+      new Set(
+        instance_stats.stats.instance_details
+          .map(i => i.geo_ip)
+          .filter(i => i !== null),
+      ),
+    ),
+    country: undefined,
     scroll: false,
   };
 
@@ -462,6 +473,13 @@ export class Instances extends Component<Props, State> {
       );
       instances = instances.filter(i =>
         languageRecs.map(r => r.domain).includes(i.domain),
+      );
+    }
+
+    // Country filter
+    if (this.state.country) {
+      instances = instances.filter(
+        i => i.geo_ip?.iso_code === this.state.country?.iso_code,
       );
     }
 
@@ -537,6 +555,24 @@ export class Instances extends Component<Props, State> {
           <div>
             <select
               className="lemmy-select mr-2"
+              value={this.state.country?.name ?? "All"}
+              onChange={linkEvent(this, handleCountryChange)}
+              name="topic_select"
+            >
+              <option disabled selected>
+                Countries
+              </option>
+              <option key="all" value="all">
+                All
+              </option>
+              {this.state.allCountries.map(c => (
+                <option key={c.iso_code} value={c.iso_code}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            <select
+              className="lemmy-select mr-2"
               value={this.state.topic.name}
               onChange={linkEvent(this, handleTopicChange)}
               name="topic_select"
@@ -595,6 +631,13 @@ function handleSortChange(i: Instances, event: any) {
 function handleTopicChange(i: Instances, event: any) {
   i.setState({
     topic: TOPICS.find(c => c.name === event.target.value) ?? ALL_TOPIC,
+  });
+  i.buildInstanceList();
+}
+
+function handleCountryChange(i: Instances, event: any) {
+  i.setState({
+    country: i.state.allCountries.find(c => c.iso_code === event.target.value),
   });
   i.buildInstanceList();
 }

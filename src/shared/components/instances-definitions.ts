@@ -22,6 +22,11 @@ export interface Topic {
   icon: string;
 }
 
+export interface Country {
+  iso_code: string;
+  name: string;
+}
+
 export const ALL_TOPIC: Topic = {
   name: "all_topics",
   icon: "folder",
