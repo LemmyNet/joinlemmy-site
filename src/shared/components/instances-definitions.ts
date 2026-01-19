@@ -15,18 +15,31 @@ export const DEFAULT_INSTANCES = [
 
 export const INSTANCE_HELPERS: InstanceHelper[] = [
   {
-    name: "Lemmy Community Explorer",
-    link: "https://lemmyverse.net/communities",
+    name: "lemmyverse.net",
+    link: "https://lemmyverse.net",
   },
   {
-    name: "Lemmy Fediverse Observer",
+    name: "fediverse.observer (List)",
     link: "https://lemmy.fediverse.observer/list",
+  },
+  {
+    name: "fediverse.observer (Map)",
+    link: "https://lemmy.fediverse.observer/map",
   },
 ];
 
 export interface Topic {
   name: string;
   icon: string;
+}
+
+export interface GeoIpCountry {
+  iso_code?: string;
+  names?: GeoIpCountryNames;
+}
+
+export interface GeoIpCountryNames {
+  en: string;
 }
 
 export const ALL_TOPIC: Topic = {
