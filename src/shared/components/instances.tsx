@@ -143,7 +143,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
                 id={modalId}
                 domain={domain}
                 banner={banner}
-                country={instance.geo_ip}
+                geoIp={instance.geo_ip}
                 monthlyUsers={monthlyUsers}
                 icon={icon}
                 sidebar={sidebar}
@@ -154,7 +154,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
             <InstanceIcon domain={domain} icon={icon} />
             <InstanceStats
               emailRequired={emailRequired}
-              country={instance.geo_ip}
+              geoIp={instance.geo_ip}
               monthlyUsers={monthlyUsers}
             />
           </div>
@@ -205,23 +205,23 @@ const InstanceIcon = ({ domain, icon }) => (
   </a>
 );
 
-const InstanceStats = ({ country, emailRequired, monthlyUsers }) => (
+const InstanceStats = ({ geoIp, emailRequired, monthlyUsers }) => (
   <div className="flex flex-col flex-wrap gap-2">
     <StatsBadges
-      country={country}
+      geoIp={geoIp}
       emailRequired={emailRequired}
       monthlyUsers={monthlyUsers}
     />
   </div>
 );
 
-export const StatsBadges = ({ monthlyUsers, emailRequired, country }) => (
+export const StatsBadges = ({ monthlyUsers, emailRequired, geoIp }) => (
   <>
     <Badge
       content={
         <div className="text-sm text-gray-500 tooltip">
           <Icon icon="globe" classes="mr-2" />
-          <span>{country?.name ?? i18n.t("country_unknown")}</span>
+          <span>{geoIp?.country?.names?.en ?? i18n.t("country_unknown")}</span>
         </div>
       }
     />
@@ -272,7 +272,7 @@ export const DetailsModal = ({
   domain,
   icon,
   banner,
-  country,
+  geoIp,
   monthlyUsers,
   sidebar,
   registrationMode,
@@ -301,7 +301,7 @@ export const DetailsModal = ({
         )}
         <StatsBadges
           emailRequired={emailRequired}
-          country={country}
+          geoIp={geoIp}
           monthlyUsers={monthlyUsers}
         />
         <Badge
@@ -408,7 +408,6 @@ export class Instances extends Component<Props, State> {
 
   constructor(props: any, context: any) {
     super(props, context);
-    console.log(this.state.allCountries);
   }
 
   initCountries(): GeoIpCountry[] {
