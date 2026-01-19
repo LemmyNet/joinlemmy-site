@@ -26,6 +26,15 @@ export interface Topic {
   icon: string;
 }
 
+export interface GeoIpCountry {
+  iso_code?: string;
+  names?: GeoIpCountryNames;
+}
+
+export interface GeoIpCountryNames {
+  en: string;
+}
+
 export const ALL_TOPIC: Topic = {
   name: "all_topics",
   icon: "folder",

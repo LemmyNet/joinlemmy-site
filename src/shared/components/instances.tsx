@@ -12,6 +12,7 @@ import {
   ALL_TOPIC,
   TOPICS,
   availableLanguages,
+  GeoIpCountry,
 } from "./instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
@@ -46,7 +47,9 @@ const TitleBlock = () => (
           <div className="stat-value">
             {numToSI(instance_stats.stats.users_active_month)}
           </div>
-          <div className="stat-desc">{new Date().toLocaleDateString()}</div>
+          <div className="stat-desc">
+            {new Date(instance_stats.stats.time).toLocaleDateString()}
+          </div>
         </div>
       </div>
     </div>
@@ -125,16 +128,13 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
       instance.site_info.site_view.site.icon ||
       "/static/assets/images/lemmy.svg";
     const banner = instance.site_info.site_view.site.banner;
-    const users = instance.site_info.site_view.counts.users;
-    const comments = instance.site_info.site_view.counts.comments;
     const monthlyUsers = instance.site_info.site_view.counts.users_active_month;
     const registrationMode =
       instance.site_info.site_view.local_site.registration_mode;
+    const emailRequired =
+      instance.site_info.site_view.local_site.require_email_verification;
 
     const modalId = `modal_${domain}`;
-
-    const extraButtonClasses =
-      "btn btn-secondary btn-outline text-white max-md:btn-block";
 
     return (
       <div className="card card-bordered bg-neutral-900 shadow-xl">
@@ -145,43 +145,42 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
                 id={modalId}
                 domain={domain}
                 banner={banner}
-                users={users}
-                comments={comments}
+                geoIp={instance.geo_ip}
                 monthlyUsers={monthlyUsers}
                 icon={icon}
                 sidebar={sidebar}
                 registrationMode={registrationMode}
+                emailRequired={emailRequired}
               />
             )}
             <InstanceIcon domain={domain} icon={icon} />
             <InstanceStats
-              users={users}
-              comments={comments}
+              emailRequired={emailRequired}
+              geoIp={instance.geo_ip}
               monthlyUsers={monthlyUsers}
             />
           </div>
-          <a
-            href={buildUrl(domain)}
-            className="text-2xl font-bold text-gradient"
-          >
-            {domain}
-          </a>
+          <div className="text-2xl font-bold text-gradient">
+            <a href={buildUrl(domain)}>{domain}</a>
+          </div>
           <p className="text-sm text-gray-300 mb-2">{description}</p>
-          <div className="flex flex-row flex-wrap justify-between gap-2">
-            <a
-              className="btn btn-primary text-white max-md:btn-block bg-linear-to-r from-green-400 to-green-600 normal-case"
-              href={`${buildUrl(domain)}`}
-            >
-              {i18n.t("explore")}
-            </a>
-            <a
-              className={extraButtonClasses}
-              href={`${buildUrl(domain)}/signup`}
-            >
-              {i18n.t("sign_up")}
-            </a>
+          <div>
+            <div className="flex gap-2">
+              <a
+                className="btn btn-primary text-white normal-case grow"
+                href={`${buildUrl(domain)}`}
+              >
+                {i18n.t("explore")}
+              </a>
+              <a
+                className="btn btn-primary text-white grow"
+                href={`${buildUrl(domain)}/signup`}
+              >
+                {i18n.t("sign_up")}
+              </a>
+            </div>
             <button
-              className={extraButtonClasses}
+              className="btn btn-secondary btn-outline text-white btn-block my-2"
               onClick={linkEvent(this, handleModalClick)}
             >
               {i18n.t("more_information")}
@@ -208,41 +207,23 @@ const InstanceIcon = ({ domain, icon }) => (
   </a>
 );
 
-const InstanceStats = ({ users, comments, monthlyUsers }) => (
-  <div className="flex flex-col flex-wrap justify-between">
+const InstanceStats = ({ geoIp, emailRequired, monthlyUsers }) => (
+  <div className="flex flex-col flex-wrap gap-2">
     <StatsBadges
-      users={users}
-      comments={comments}
+      geoIp={geoIp}
+      emailRequired={emailRequired}
       monthlyUsers={monthlyUsers}
     />
   </div>
 );
 
-export const StatsBadges = ({ users, comments, monthlyUsers }) => (
+export const StatsBadges = ({ monthlyUsers, emailRequired, geoIp }) => (
   <>
     <Badge
       content={
-        <div
-          className="text-sm text-gray-500 tooltip"
-          data-tip={i18n.t("total_users", {
-            formattedCount: users.toLocaleString(),
-          })}
-        >
-          <Icon icon="users" classes="mr-2" />
-          <span>{users.toLocaleString()}</span>
-        </div>
-      }
-    />
-    <Badge
-      content={
-        <div
-          className="text-sm text-gray-500 tooltip"
-          data-tip={i18n.t("total_comments", {
-            formattedCount: comments.toLocaleString(),
-          })}
-        >
-          <Icon icon="message-circle" classes="mr-2" />
-          <span>{comments.toLocaleString()}</span>
+        <div className="text-sm text-gray-500 tooltip">
+          <Icon icon="globe" classes="mr-2" />
+          <span>{geoIp?.country?.names?.en ?? i18n.t("country_unknown")}</span>
         </div>
       }
     />
@@ -263,6 +244,16 @@ export const StatsBadges = ({ users, comments, monthlyUsers }) => (
         </div>
       }
     />
+    {emailRequired && (
+      <Badge
+        content={
+          <div className="text-sm text-gray-500">
+            <Icon icon="mail" classes="mr-2" />
+            <span>Email required</span>
+          </div>
+        }
+      />
+    )}
   </>
 );
 
@@ -283,11 +274,11 @@ export const DetailsModal = ({
   domain,
   icon,
   banner,
-  users,
-  comments,
+  geoIp,
   monthlyUsers,
   sidebar,
   registrationMode,
+  emailRequired,
 }) => (
   <dialog id={id} className="modal">
     <form method="dialog" className="modal-backdrop">
@@ -311,8 +302,8 @@ export const DetailsModal = ({
           <img className="w-8 h-8" src={icon} onError={imgError} alt="" />
         )}
         <StatsBadges
-          users={users}
-          comments={comments}
+          emailRequired={emailRequired}
+          geoIp={geoIp}
           monthlyUsers={monthlyUsers}
         />
         <Badge
@@ -377,6 +368,8 @@ interface State {
   sort: Sort;
   language: string;
   topic: Topic;
+  allCountries: GeoIpCountry[];
+  country?: GeoIpCountry;
   scroll: boolean;
 }
 
@@ -410,6 +403,8 @@ export class Instances extends Component<Props, State> {
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
+    allCountries: this.initCountries(),
+    country: undefined,
     scroll: false,
   };
 
@@ -417,6 +412,19 @@ export class Instances extends Component<Props, State> {
     super(props, context);
   }
 
+  initCountries(): GeoIpCountry[] {
+    const countries = instance_stats.stats.instance_details
+      .filter(i => Object.keys(i.geo_ip.country).length !== 0)
+      .map(i => i.geo_ip.country);
+    const dedup = countries.reduce((acc, obj) => {
+      var exist = acc.find(i => obj.iso_code === i.iso_code);
+      if (!exist) {
+        acc.push(obj);
+      }
+      return acc;
+    }, [] as GeoIpCountry[]);
+    return dedup;
+  }
   // Set the filters by the query params if they exist
   componentDidMount() {
     this.setState(getInstancesQueryParams());
@@ -465,6 +473,13 @@ export class Instances extends Component<Props, State> {
       );
     }
 
+    // Country filter
+    if (this.state.country) {
+      instances = instances.filter(
+        i => i.geo_ip?.country.iso_code === this.state.country?.iso_code,
+      );
+    }
+
     // Topic filter
     if (this.state.topic !== ALL_TOPIC) {
       const topicRecs = recommended.filter(r =>
@@ -490,6 +505,10 @@ export class Instances extends Component<Props, State> {
   render() {
     const title = i18n.t("join_title");
 
+    const isFiltered =
+      this.state.country ||
+      this.state.topic !== ALL_TOPIC ||
+      this.state.language !== "all";
     return (
       <div className="container mx-auto px-4">
         <Helmet title={title}>
@@ -499,14 +518,11 @@ export class Instances extends Component<Props, State> {
         <ComparisonBlock />
         {this.filterAndTitleBlock()}
         <div className="mt-4">
-          {this.state.instances.length > 0 ? (
-            <InstanceCardGrid
-              title={i18n.t("popular_instances")}
-              instances={this.state.instances}
-            />
-          ) : (
-            this.seeAllBtn()
-          )}
+          <InstanceCardGrid
+            title={i18n.t("popular_instances")}
+            instances={this.state.instances}
+          />
+          {isFiltered && this.seeAllBtn()}
         </div>
       </div>
     );
@@ -514,10 +530,9 @@ export class Instances extends Component<Props, State> {
 
   seeAllBtn() {
     return (
-      <div>
-        <p className="text-sm text-gray-300 mb-4">{i18n.t("none_found")}</p>
+      <div className="flex justify-center p-8">
         <button
-          className="btn btn-sm btn-secondary text-white normal-case"
+          className="btn btn-secondary text-white normal-case"
           onClick={linkEvent(this, handleSeeAll)}
         >
           {i18n.t("see_all_servers")}
@@ -535,6 +550,24 @@ export class Instances extends Component<Props, State> {
           </div>
           <div className="grow"></div>
           <div>
+            <select
+              className="lemmy-select mr-2"
+              value={this.state.country?.names?.en ?? "All"}
+              onChange={linkEvent(this, handleCountryChange)}
+              name="topic_select"
+            >
+              <option disabled selected>
+                {i18n.t("country_select")}
+              </option>
+              <option key="all" value="all">
+                {i18n.t("all_countries")}
+              </option>
+              {this.state.allCountries.map(c => (
+                <option key={c.iso_code} value={c.iso_code}>
+                  {c.names?.en}
+                </option>
+              ))}
+            </select>
             <select
               className="lemmy-select mr-2"
               value={this.state.topic.name}
@@ -599,6 +632,13 @@ function handleTopicChange(i: Instances, event: any) {
   i.buildInstanceList();
 }
 
+function handleCountryChange(i: Instances, event: any) {
+  i.setState({
+    country: i.state.allCountries.find(c => c.iso_code === event.target.value),
+  });
+  i.buildInstanceList();
+}
+
 function handleLanguageChange(i: Instances, event: any) {
   i.setState({ language: event.target.value });
   i.buildInstanceList();
@@ -609,6 +649,7 @@ function handleSeeAll(i: Instances) {
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
+    country: undefined,
   });
   i.buildInstanceList();
 }
