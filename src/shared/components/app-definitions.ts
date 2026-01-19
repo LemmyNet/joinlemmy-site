@@ -11,10 +11,10 @@ export enum SourceType {
 
 export enum Platform {
   All = "all_platforms",
-  Desktop = "desktop",
-  Android = "android",
-  IOS = "ios",
   Web = "web",
+  IOS = "ios",
+  Android = "android",
+  Desktop = "desktop",
   CLI = "cli",
 }
 
@@ -24,14 +24,18 @@ export interface AppDetails {
   link: string;
   icon?: string;
   banner?: string;
-  links: AppLink[];
+  links: AppLinks;
   sourceType: SourceType;
   platforms: Platform[];
 }
 
-export interface AppLink {
-  link: string;
-  icon: string;
+export interface AppLinks {
+  web?: string;
+  appleinc?: string;
+  googleplay?: string;
+  fdroid?: string;
+  desktop?: string;
+  github?: string;
 }
 
 export const API_LIBRARIES: ToolDetails[] = [
@@ -100,24 +104,15 @@ const BLORP: AppDetails = {
   link: "https://blorpblorp.xyz",
   icon: "/static/assets/images/blorp.png",
   banner: "/static/assets/images/blorp_screen.webp",
-  links: [
-    {
-      link: "https://apps.apple.com/us/app/blorp-for-lemmy/id6739925430?platform=iphone",
-      icon: "appleinc",
-    },
-    {
-      link: "https://play.google.com/store/apps/details?id=xyz.blorpblorp.app",
-      icon: "googleplay",
-    },
-    {
-      link: "https://github.com/christianjuth/blorp/releases/latest",
-      icon: "desktop",
-    },
-    {
-      link: "https://github.com/christianjuth/blorp",
-      icon: "github",
-    },
-  ],
+  links: {
+    appleinc:
+      "https://apps.apple.com/us/app/blorp-for-lemmy/id6739925430?platform=iphone",
+    googleplay:
+      "https://play.google.com/store/apps/details?id=xyz.blorpblorp.app",
+    desktop: "https://github.com/christianjuth/blorp/releases/latest",
+    github: "https://github.com/christianjuth/blorp",
+    web: "https://blorpblorp.xyz",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Desktop, Platform.IOS, Platform.Web],
 };
@@ -128,12 +123,9 @@ const ECHO: AppDetails = {
   link: "https://echo.rrainn.com",
   icon: "/static/assets/images/echo.webp",
   banner: "/static/assets/images/echo_screen.webp",
-  links: [
-    {
-      link: "https://apps.apple.com/us/app/echo-for-lemmy/id6450902296",
-      icon: "appleinc",
-    },
-  ],
+  links: {
+    appleinc: "https://apps.apple.com/us/app/echo-for-lemmy/id6450902296",
+  },
   sourceType: SourceType.Closed,
   platforms: [Platform.IOS],
 };
@@ -144,28 +136,15 @@ const VOYAGER: AppDetails = {
   link: "https://getvoyager.app",
   icon: "/static/assets/images/voyager.png",
   banner: "/static/assets/images/voyager_screen.webp",
-  links: [
-    {
-      link: "https://apps.apple.com/us/app/voyager-for-lemmy/id6451429762?platform=iphone",
-      icon: "appleinc",
-    },
-    {
-      link: "https://f-droid.org/en/packages/app.vger.voyager",
-      icon: "f-droid",
-    },
-    {
-      link: "https://play.google.com/store/apps/details?id=app.vger.voyager",
-      icon: "googleplay",
-    },
-    {
-      link: "https://github.com/aeharding/voyager",
-      icon: "github",
-    },
-    {
-      link: "https://www.patreon.com/voyagerapp",
-      icon: "patreon",
-    },
-  ],
+  links: {
+    appleinc:
+      "https://apps.apple.com/us/app/voyager-for-lemmy/id6451429762?platform=iphone",
+    fdroid: "https://f-droid.org/en/packages/app.vger.voyager",
+    googleplay:
+      "https://play.google.com/store/apps/details?id=app.vger.voyager",
+    github: "https://github.com/aeharding/voyager",
+    web: "https://vger.app/",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Android, Platform.IOS, Platform.Web],
 };
@@ -177,24 +156,13 @@ const THUNDER: AppDetails = {
   link: "https://github.com/thunder-app/thunder",
   icon: "/static/assets/images/thunder_logo.webp",
   banner: "/static/assets/images/thunder_screen.webp",
-  links: [
-    {
-      link: "https://apt.izzysoft.de/fdroid/index/apk/com.hjiangsu.thunder",
-      icon: "f-droid",
-    },
-    {
-      link: "https://apps.apple.com/iq/app/thunder-for-lemmy/id6450518497",
-      icon: "appleinc",
-    },
-    {
-      link: "https://play.google.com/store/apps/details?id=com.hjiangsu.thunder",
-      icon: "googleplay",
-    },
-    {
-      link: "https://github.com/thunder-app/thunder",
-      icon: "github",
-    },
-  ],
+  links: {
+    fdroid: "https://apt.izzysoft.de/fdroid/index/apk/com.hjiangsu.thunder",
+    appleinc: "https://apps.apple.com/iq/app/thunder-for-lemmy/id6450518497",
+    googleplay:
+      "https://play.google.com/store/apps/details?id=com.hjiangsu.thunder",
+    github: "https://github.com/thunder-app/thunder",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Android, Platform.IOS],
 };
@@ -205,20 +173,11 @@ const JERBOA: AppDetails = {
   link: "https://github.com/LemmyNet/jerboa",
   icon: "/static/assets/images/jerboa.svg",
   banner: "/static/assets/images/jerboa_screen.webp",
-  links: [
-    {
-      link: "https://f-droid.org/en/packages/com.jerboa",
-      icon: "f-droid",
-    },
-    {
-      link: "https://play.google.com/store/apps/details?id=com.jerboa",
-      icon: "googleplay",
-    },
-    {
-      link: "https://github.com/LemmyNet/jerboa",
-      icon: "github",
-    },
-  ],
+  links: {
+    fdroid: "https://f-droid.org/en/packages/com.jerboa",
+    googleplay: "https://play.google.com/store/apps/details?id=com.jerboa",
+    github: "https://github.com/LemmyNet/jerboa",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Android],
 };
@@ -229,20 +188,13 @@ const ETERNITY: AppDetails = {
   link: "https://codeberg.org/Bazsalanszky/Eternity",
   icon: "/static/assets/images/eternity_icon.webp",
   banner: "/static/assets/images/eternity_screen.webp",
-  links: [
-    {
-      link: "https://f-droid.org/en/packages/eu.toldi.infinityforlemmy",
-      icon: "f-droid",
-    },
-    {
-      link: "https://play.google.com/store/apps/details?id=eu.toldi.infinityforlemmy",
-      icon: "googleplay",
-    },
-    {
-      link: "https://codeberg.org/Bazsalanszky/Eternity",
-      icon: "github",
-    },
-  ],
+  links: {
+    fdroid: "https://f-droid.org/en/packages/eu.toldi.infinityforlemmy",
+    googleplay:
+      "https://play.google.com/store/apps/details?id=eu.toldi.infinityforlemmy",
+    github: "https://codeberg.org/Bazsalanszky/Eternity",
+  },
+
   sourceType: SourceType.Open,
   platforms: [Platform.Android],
 };
@@ -253,12 +205,10 @@ const BOOST: AppDetails = {
   link: "https://play.google.com/store/apps/details?id=com.rubenmayayo.lemmy",
   icon: "/static/assets/images/boost_icon.webp",
   banner: "/static/assets/images/boost_screen.webp",
-  links: [
-    {
-      link: "https://play.google.com/store/apps/details?id=com.rubenmayayo.lemmy",
-      icon: "googleplay",
-    },
-  ],
+  links: {
+    googleplay:
+      "https://play.google.com/store/apps/details?id=com.rubenmayayo.lemmy",
+  },
   sourceType: SourceType.Closed,
   platforms: [Platform.Android],
 };
@@ -269,12 +219,10 @@ const SYNC: AppDetails = {
   link: "https://play.google.com/store/apps/details?id=io.syncapps.lemmy_sync",
   icon: "/static/assets/images/sync_icon.webp",
   banner: "/static/assets/images/sync_screen.webp",
-  links: [
-    {
-      link: "https://play.google.com/store/apps/details?id=io.syncapps.lemmy_sync",
-      icon: "googleplay",
-    },
-  ],
+  links: {
+    googleplay:
+      "https://play.google.com/store/apps/details?id=io.syncapps.lemmy_sync",
+  },
   sourceType: SourceType.Closed,
   platforms: [Platform.Android],
 };
@@ -285,20 +233,10 @@ const MLEM: AppDetails = {
   link: "https://github.com/mlemgroup/mlem",
   icon: "/static/assets/images/mlem.png",
   banner: "/static/assets/images/mlem_screen.webp",
-  links: [
-    {
-      link: "https://apps.apple.com/us/app/mlem-for-lemmy/id6450543782",
-      icon: "appleinc",
-    },
-    {
-      link: "https://github.com/mlemgroup/mlem",
-      icon: "github",
-    },
-    {
-      link: "https://opencollective.com/mlem",
-      icon: "opencollective",
-    },
-  ],
+  links: {
+    appleinc: "https://apps.apple.com/us/app/mlem-for-lemmy/id6450543782",
+    github: "https://github.com/mlemgroup/mlem",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.IOS],
 };
@@ -308,12 +246,9 @@ const LEMMY_UI: AppDetails = {
   description: "The official web app for lemmy.",
   link: "https://github.com/LemmyNet/lemmy-ui",
   banner: "/static/assets/images/mobile_pic.webp",
-  links: [
-    {
-      link: "https://github.com/LemmyNet/lemmy-ui",
-      icon: "github",
-    },
-  ],
+  links: {
+    github: "https://github.com/LemmyNet/lemmy-ui",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Web],
 };
@@ -324,12 +259,10 @@ const PHOTON: AppDetails = {
   link: "https://github.com/Xyphyn/photon",
   banner: "/static/assets/images/photon.webp",
   icon: "/static/assets/images/photon-logo.svg",
-  links: [
-    {
-      link: "https://github.com/Xyphyn/photon",
-      icon: "github",
-    },
-  ],
+  links: {
+    web: "https://phtn.app/",
+    github: "https://github.com/Xyphyn/photon",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Web],
 };
@@ -341,12 +274,10 @@ const ALEXANDRITE: AppDetails = {
   link: "https://github.com/sheodox/alexandrite",
   icon: "/static/assets/images/alexandrite_logo.svg",
   banner: "/static/assets/images/alexandrite_screen.webp",
-  links: [
-    {
-      link: "https://github.com/sheodox/alexandrite",
-      icon: "github",
-    },
-  ],
+  links: {
+    github: "https://github.com/sheodox/alexandrite",
+    web: "https://a.lemmy.world/lemmy.world",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Web],
 };
@@ -356,12 +287,10 @@ const MLMYM: AppDetails = {
   description: "A familiar desktop experience for lemmy",
   link: "https://github.com/rystaf/mlmym",
   banner: "/static/assets/images/mlmym_screen.webp",
-  links: [
-    {
-      link: "https://github.com/rystaf/mlmym",
-      icon: "github",
-    },
-  ],
+  links: {
+    github: "https://github.com/rystaf/mlmym",
+    web: "https://old.lemmy.world/",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Web],
 };
@@ -371,12 +300,9 @@ const NEONMODEM: AppDetails = {
   description: "BBS-style TUI client",
   link: "https://github.com/mrusme/neonmodem",
   banner: "/static/assets/images/neonmodem.webp",
-  links: [
-    {
-      link: "https://github.com/mrusme/neonmodem",
-      icon: "github",
-    },
-  ],
+  links: {
+    github: "https://github.com/mrusme/neonmodem",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.CLI],
 };
@@ -387,20 +313,12 @@ const SUMMIT: AppDetails = {
   link: "https://play.google.com/store/apps/details?id=com.idunnololz.summit",
   icon: "/static/assets/images/summit_logo.svg",
   banner: "/static/assets/images/summit_screen.webp",
-  links: [
-    {
-      link: "https://play.google.com/store/apps/details?id=com.idunnololz.summit",
-      icon: "googleplay",
-    },
-    {
-      link: "https://github.com/idunnololz/summit-for-lemmy",
-      icon: "github",
-    },
-    {
-      link: "https://github.com/idunnololz/summit",
-      icon: "github",
-    },
-  ],
+  links: {
+    googleplay:
+      "https://play.google.com/store/apps/details?id=com.idunnololz.summit",
+
+    github: "https://github.com/idunnololz/summit",
+  },
   sourceType: SourceType.Open,
   platforms: [Platform.Android],
 };
@@ -411,12 +329,9 @@ const ARCTIC: AppDetails = {
   link: "https://lemmy.world/c/arctic",
   icon: "/static/assets/images/arctic_icon.webp",
   banner: "/static/assets/images/arctic_screen.webp",
-  links: [
-    {
-      link: "https://apps.apple.com/us/app/arctic-for-lemmy/id6457925837",
-      icon: "appleinc",
-    },
-  ],
+  links: {
+    appleinc: "https://apps.apple.com/us/app/arctic-for-lemmy/id6457925837",
+  },
   sourceType: SourceType.Closed,
   platforms: [Platform.IOS],
 };
