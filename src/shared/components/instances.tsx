@@ -3,7 +3,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
-import { getQueryParams, mdToHtml, numToSI } from "../utils";
+import { getQueryParams, mdToHtml, numToSI, sortRandom } from "../utils";
 import { Badge, SectionTitle } from "./common";
 import {
   INSTANCE_HELPERS,
@@ -62,7 +62,7 @@ const ComparisonBlock = () => (
     <div className="card card-bordered bg-neutral-900 shadow-xl">
       <div className="card-body p-4">
         <div className="flex flex-row flex-wrap gap-4 mb-2">
-          {INSTANCE_HELPERS.map(i => (
+          {sortRandom(INSTANCE_HELPERS).map(i => (
             <Badge
               content={
                 <a href={i.link}>
