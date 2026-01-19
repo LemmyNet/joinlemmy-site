@@ -67,7 +67,7 @@ const ComparisonBlock = () => (
               content={
                 <a href={i.link}>
                   <Icon
-                    icon="embed"
+                    icon="link"
                     classes={`fill-current text-primary mr-2`}
                   />
                   <span className="text-gray-300">{i.name}</span>
