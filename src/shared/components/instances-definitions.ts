@@ -22,9 +22,13 @@ export interface Topic {
   icon: string;
 }
 
-export interface Country {
-  iso_code: string;
-  name: string;
+export interface GeoIpCountry {
+  iso_code?: string;
+  names?: GeoIpCountryNames;
+}
+
+export interface GeoIpCountryNames {
+  en: string;
 }
 
 export const ALL_TOPIC: Topic = {

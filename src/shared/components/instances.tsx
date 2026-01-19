@@ -12,7 +12,7 @@ import {
   ALL_TOPIC,
   TOPICS,
   availableLanguages,
-  Country,
+  GeoIpCountry,
 } from "./instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
@@ -366,8 +366,8 @@ interface State {
   sort: Sort;
   language: string;
   topic: Topic;
-  allCountries: Country[];
-  country?: Country;
+  allCountries: GeoIpCountry[];
+  country?: GeoIpCountry;
   scroll: boolean;
 }
 
@@ -401,21 +401,29 @@ export class Instances extends Component<Props, State> {
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
-    allCountries: Array.from(
-      new Set(
-        instance_stats.stats.instance_details
-          .map(i => i.geo_ip)
-          .filter(i => i !== null),
-      ),
-    ),
+    allCountries: this.initCountries(),
     country: undefined,
     scroll: false,
   };
 
   constructor(props: any, context: any) {
     super(props, context);
+    console.log(this.state.allCountries);
   }
 
+  initCountries(): GeoIpCountry[] {
+    const countries = instance_stats.stats.instance_details
+      .filter(i => Object.keys(i.geo_ip.country).length !== 0)
+      .map(i => i.geo_ip.country);
+    const dedup = countries.reduce((acc, obj) => {
+      var exist = acc.find(i => obj.iso_code === i.iso_code);
+      if (!exist) {
+        acc.push(obj);
+      }
+      return acc;
+    }, [] as GeoIpCountry[]);
+    return dedup;
+  }
   // Set the filters by the query params if they exist
   componentDidMount() {
     this.setState(getInstancesQueryParams());
@@ -467,7 +475,7 @@ export class Instances extends Component<Props, State> {
     // Country filter
     if (this.state.country) {
       instances = instances.filter(
-        i => i.geo_ip?.iso_code === this.state.country?.iso_code,
+        i => i.geo_ip?.country.iso_code === this.state.country?.iso_code,
       );
     }
 
@@ -543,7 +551,7 @@ export class Instances extends Component<Props, State> {
           <div>
             <select
               className="lemmy-select mr-2"
-              value={this.state.country?.name ?? "All"}
+              value={this.state.country?.names?.en ?? "All"}
               onChange={linkEvent(this, handleCountryChange)}
               name="topic_select"
             >
@@ -555,7 +563,7 @@ export class Instances extends Component<Props, State> {
               </option>
               {this.state.allCountries.map(c => (
                 <option key={c.iso_code} value={c.iso_code}>
-                  {c.name}
+                  {c.names?.en}
                 </option>
               ))}
             </select>
