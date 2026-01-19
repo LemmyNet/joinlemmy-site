@@ -8,8 +8,8 @@ export interface InstanceHelper {
 
 export const INSTANCE_HELPERS: InstanceHelper[] = [
   {
-    name: "Lemmy Community Explorer",
-    link: "https://lemmyverse.net/communities",
+    name: "Lemmy Instance Explorer",
+    link: "https://lemmyverse.net",
   },
   {
     name: "Lemmy Fediverse Observer",
