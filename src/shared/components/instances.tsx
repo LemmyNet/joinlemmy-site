@@ -206,7 +206,7 @@ const InstanceIcon = ({ domain, icon }) => (
 );
 
 const InstanceStats = ({ country, emailRequired, monthlyUsers }) => (
-  <div className="flex flex-col flex-wrap justify-between">
+  <div className="flex flex-col flex-wrap gap-2">
     <StatsBadges
       country={country}
       emailRequired={emailRequired}
@@ -242,7 +242,7 @@ export const StatsBadges = ({ monthlyUsers, emailRequired, country }) => (
         </div>
       }
     />
-    {emailRequired ? (
+    {emailRequired && (
       <Badge
         content={
           <div className="text-sm text-gray-500">
@@ -251,8 +251,6 @@ export const StatsBadges = ({ monthlyUsers, emailRequired, country }) => (
           </div>
         }
       />
-    ) : (
-      <div></div>
     )}
   </>
 );
