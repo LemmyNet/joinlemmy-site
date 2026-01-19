@@ -278,7 +278,7 @@ export class Apps extends Component<any, State> {
       <div className="flex justify-center p-8">
         <button
           className="btn btn-secondary text-white normal-case"
-          onClick={linkEvent(this, handleSeeAll)}
+          onClick={() => handleSeeAll(this)}
         >
           See all apps
         </button>
