@@ -106,3 +106,13 @@ export function sortRandom<T>(list: T[]): T[] {
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 }
+
+export function uniqueEntries<T>(list: T[]): T[] {
+  return list.reduce((acc, obj) => {
+    var exist = acc.find(i => obj === i);
+    if (!exist) {
+      acc.push(obj);
+    }
+    return acc;
+  }, [] as T[]);
+}
