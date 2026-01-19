@@ -3,7 +3,7 @@ import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
-import { getQueryParams, mdToHtml, numToSI } from "../utils";
+import { getQueryParams, mdToHtml, numToSI, uniqueEntries } from "../utils";
 import { Badge, SectionTitle } from "./common";
 import {
   INSTANCE_HELPERS,
@@ -388,10 +388,10 @@ function getTopicFromQuery(topic?: string): Topic {
   return TOPICS.find(c => c.name === topic) ?? ALL_TOPIC;
 }
 
-function getInstancesQueryParams() {
+function getInstancesQueryParams(lang: string) {
   return getQueryParams<Props>({
     sort: getSortFromQuery,
-    language: d => d || "all",
+    language: d => d ?? lang,
     topic: getTopicFromQuery,
     scroll: d => !!d,
   });
@@ -401,7 +401,7 @@ export class Instances extends Component<Props, State> {
   state: State = {
     instances: [],
     sort: RANDOM_SORT,
-    language: "all",
+    language: this.initLanguage(),
     topic: ALL_TOPIC,
     allCountries: this.initCountries(),
     country: undefined,
@@ -425,9 +425,16 @@ export class Instances extends Component<Props, State> {
     }, [] as GeoIpCountry[]);
     return dedup;
   }
+  initLanguage() {
+    const allLanguages = uniqueEntries(
+      RECOMMENDED_INSTANCES.flatMap(i => i.languages),
+    );
+    const res = allLanguages.find(l => l === navigator.language) ?? "all";
+    return res;
+  }
   // Set the filters by the query params if they exist
   componentDidMount() {
-    this.setState(getInstancesQueryParams());
+    this.setState(getInstancesQueryParams(this.state.language));
     // This is browser intensive, so run in the background
     setTimeout(() => {
       this.buildInstanceList();
@@ -554,7 +561,7 @@ export class Instances extends Component<Props, State> {
               className="lemmy-select mr-2"
               value={this.state.country?.names?.en ?? "All"}
               onChange={linkEvent(this, handleCountryChange)}
-              name="topic_select"
+              name="country_select"
             >
               <option disabled selected>
                 {i18n.t("country_select")}
