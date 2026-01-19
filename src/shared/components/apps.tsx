@@ -208,16 +208,25 @@ export class Apps extends Component<any, State> {
   initialPlatform(): Platform {
     console.log(navigator.userAgent);
     const parser = new UAParser(navigator.userAgent);
-    // https://docs.uaparser.dev/api/main/idata/is.html
-    const os = parser.getOS();
-    if (os.is("ios")) {
+
+    // Mash all the info together and see if we can match anything
+    // https://docs.uaparser.dev/info/os/name.html
+    const info = (
+      parser.getOS().toString() + parser.getDevice().toString()
+    ).toLowerCase();
+    console.log(info);
+    if (info.includes("ios")) {
       return Platform.IOS;
-    } else if (os.is("android") || os.is("mobile")) {
+    } else if (info.includes("android") || info.includes("mobile")) {
       return Platform.Android;
-    } else if (os.is("linux") || os.is("windows")) {
+    } else if (
+      info.includes("linux") ||
+      info.includes("windows") ||
+      info.includes("macos")
+    ) {
       return Platform.Desktop;
     } else {
-      return Platform.All;
+      return Platform.Web;
     }
   }
 
