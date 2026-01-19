@@ -47,7 +47,9 @@ const TitleBlock = () => (
           <div className="stat-value">
             {numToSI(instance_stats.stats.users_active_month)}
           </div>
-          <div className="stat-desc">{new Date().toLocaleDateString()}</div>
+          <div className="stat-desc">
+            {new Date(instance_stats.stats.time).toLocaleDateString()}
+          </div>
         </div>
       </div>
     </div>
