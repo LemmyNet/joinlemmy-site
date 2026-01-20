@@ -3,7 +3,7 @@ import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
-import { getQueryParams, isBrowser } from "../utils";
+import { getQueryParams, isBrowser, sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
 import { InstancePicker } from "./instance-picker";
@@ -62,14 +62,14 @@ const CarouselBlock = () => (
 );
 
 const FollowCommunitiesBlock = () => {
-  // check crawl results to exclude instances which are down
+  // Check crawl results to exclude instances which are down
   const crawledInstances = instance_stats.stats.instance_details.map(
     i => i.domain,
   );
   const defaults = DEFAULT_INSTANCES.filter(i => crawledInstances.includes(i));
-  // pick a random instance from the list
-  const random = Math.floor(Math.random() * defaults.length);
-  const domain = defaults[random];
+  // Pick a random instance from the list. In development crawled instances may be empty, so
+  // add fallback.
+  const domain = sortRandom(defaults)[0] || sortRandom(DEFAULT_INSTANCES)[0];
 
   return (
     <div className="flex flex-col items-center">
@@ -81,21 +81,15 @@ const FollowCommunitiesBlock = () => {
           <p className="space-x-2">
             <a
               className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600"
-              href={`https://${domain}`}
+              href={`https://${domain}/signup`}
             >
               {i18n.t("join_instance", { domain })}
             </a>
             <Link
               to="/instances"
-              className="btn btn-primary text-white normal-case z-10"
-            >
-              {i18n.t("see_all_servers")}
-            </Link>
-            <Link
-              to="/apps"
               className="btn btn-primary btn-outline text-white normal-case z-10"
             >
-              {i18n.t("apps")}
+              {i18n.t("see_all_servers")}
             </Link>
           </p>
         </div>
@@ -116,6 +110,27 @@ const FeatureCard = ({ pic, title, subtitle, classes }) => (
     <div className="card-body pt-0">
       <h2 className="card-title text-secondary">{title}</h2>
       <p className="text-sm text-gray-300">{subtitle}</p>
+    </div>
+  </div>
+);
+
+const FeatureCardNew = ({ pic, title, subtitle, button, link }) => (
+  <div className="card card-gradient shadow-xl flex md:flex-row p-4 mt-2">
+    <div className="basis-1/2 shrink">
+      <img
+        className="rounded-xl min-w-24 min-h-24 object-fill"
+        src={pic}
+        alt=""
+      />
+    </div>
+    <div className="card-body basis-1/2 grow-3">
+      <h2 className="card-title text-secondary">{title}</h2>
+      <p className="text-sm text-gray-300">{subtitle}</p>
+      <span className="grid">
+        <a className="btn btn-primary text-white mx-auto" href={link}>
+          {button}
+        </a>
+      </span>
     </div>
   </div>
 );
@@ -207,6 +222,39 @@ const FeatureCardsBlock = () => (
     <ModToolsCard classes="md:col-span-4" />
     <CensorshipCard classes="md:col-span-4" />
     <FederationCard classes="md:col-span-4" />
+  </div>
+);
+
+const NewFeaturesBlock = () => (
+  <div className="gap-4 mt-16">
+    <FeatureCardNew
+      pic="/static/assets/images/feature_1.png"
+      title="Upvotes and Threaded Comments"
+      subtitle="Lorem Ipsum. TODO: link to docs?"
+      button="Getting Started"
+      link="/docs/users/01-getting-started.html"
+    />
+    <FeatureCardNew
+      pic="/static/assets/images/blorp_screen.webp"
+      title="Apps"
+      subtitle="Numerous different apps available. "
+      button="Apps"
+      link="/apps"
+    />
+    <FeatureCardNew
+      pic="/static/assets/images/main_powerful.webp"
+      title="Non-Commercial"
+      subtitle="TODO: text from https://lemmy.ml/post/29579005"
+      button="Donate"
+      link="/donate"
+    />
+    <FeatureCardNew
+      pic="/static/assets/images/main_powerful.webp"
+      title="Selfhosted"
+      subtitle="Run Lemmy on your own server. Easy to install and low resource usage."
+      button="Create a server"
+      link="/docs/administration/administration.html"
+    />
   </div>
 );
 
@@ -501,9 +549,8 @@ export class Main extends Component<Props, State> {
           <TitleBlock />
           <FollowCommunitiesBlock />
         </div>
-        <CarouselBlock />
         <div className="container mx-auto px-4">
-          <FeatureCardsBlock />
+          <NewFeaturesBlock />
           <DiscussionPlatformBlock />
           <MoreFeaturesBlock />
           <BottomSpacer />
