@@ -1,3 +1,4 @@
+import test from "node:test";
 import { LANGUAGES } from "../i18next";
 import { instance_stats } from "../instance_stats";
 
@@ -193,11 +194,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL, TECHNOLOGY],
   },
   {
-    domain: "lemmy.sdfeu.org",
-    languages: ["en"],
-    topics: [GENERAL, TECHNOLOGY],
-  },
-  {
     domain: "pawb.social",
     languages: ["en"],
     topics: [LGBTQ],
@@ -248,11 +244,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [TECHNOLOGY, ART, POLITICS],
   },
   {
-    domain: "lemmy.fmhy.ml",
-    languages: ["en"],
-    topics: [TECHNOLOGY],
-  },
-  {
     domain: "discuss.tchncs.de",
     languages: ["en", "de"],
     topics: [GENERAL, TECHNOLOGY],
@@ -278,28 +269,13 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL],
   },
   {
-    domain: "links.dartboard.social",
-    languages: ["en"],
-    topics: [GENERAL],
-  },
-  {
     domain: "poptalk.scrubbles.tech",
     languages: ["en"],
     topics: [MUSIC],
   },
   {
-    domain: "aiparadise.moe",
-    languages: ["en"],
-    topics: [TECHNOLOGY, ART],
-  },
-  {
     domain: "jlai.lu",
     languages: ["fr"],
-    topics: [GENERAL],
-  },
-  {
-    domain: "kerala.party",
-    languages: ["ml"],
     topics: [GENERAL],
   },
   {
@@ -313,19 +289,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL],
   },
   {
-    domain: "partizle.com",
-    languages: ["en"],
-    topics: [GENERAL, TECHNOLOGY],
-  },
-  {
     domain: "sub.wetshaving.social",
     languages: ["en"],
     topics: [HOBBIES],
-  },
-  {
-    domain: "iusearchlinux.fyi",
-    languages: ["en"],
-    topics: [TECHNOLOGY],
   },
   {
     domain: "feddit.dk",
@@ -358,11 +324,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL],
   },
   {
-    domain: "lemmyonline.com",
-    languages: ["en"],
-    topics: [TECHNOLOGY],
-  },
-  {
     domain: "lemmy.wtf",
     languages: ["en"],
     topics: [GENERAL],
@@ -378,19 +339,9 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [ART, LITERATURE],
   },
   {
-    domain: "lib.lgbt",
-    languages: ["en"],
-    topics: [LGBTQ],
-  },
-  {
     domain: "suppo.fi",
     languages: ["en", "fi"],
     topics: [GENERAL],
-  },
-  {
-    domain: "lemmy.studio",
-    languages: ["en"],
-    topics: [MUSIC, HOBBIES, ART],
   },
   {
     domain: "lemmy.radio",
@@ -398,53 +349,8 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [TECHNOLOGY, HOBBIES],
   },
   {
-    domain: "feddit.ch",
-    languages: ["en"],
-    topics: [GENERAL],
-  },
-  {
-    domain: "preserve.games",
-    languages: ["en"],
-    topics: [GAMING],
-  },
-  {
-    domain: "lemmy.my.id",
-    languages: ["id"],
-    topics: [GENERAL],
-  },
-  {
-    domain: "lemmyfly.org",
-    languages: ["en"],
-    topics: [HOBBIES],
-  },
-  {
-    domain: "lemmy.spacestation14.com",
-    languages: ["en"],
-    topics: [GAMING],
-  },
-  {
-    domain: "eslemmy.es",
-    languages: ["es"],
-    topics: [GENERAL],
-  },
-  {
-    domain: "dmv.social",
-    languages: ["en"],
-    topics: [GENERAL],
-  },
-  {
-    domain: "feddit.ro",
-    languages: ["ro"],
-    topics: [GENERAL],
-  },
-  {
     domain: "feddit.org",
     languages: ["de"],
-    topics: [GENERAL],
-  },
-  {
-    domain: "lemmy.ninja",
-    languages: ["en"],
     topics: [GENERAL],
   },
   {
@@ -488,11 +394,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [TECHNOLOGY],
   },
   {
-    domain: "tabinezumi.net",
-    languages: ["ja"],
-    topics: [TECHNOLOGY],
-  },
-  {
     domain: "lm.korako.me",
     languages: ["ja"],
     topics: [TECHNOLOGY],
@@ -513,11 +414,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL, TECHNOLOGY, GAMING],
   },
   {
-    domain: "dormi.zone",
-    languages: ["en"],
-    topics: [GAMING],
-  },
-  {
     domain: "ani.social",
     languages: ["en"],
     topics: [HOBBIES, ART],
@@ -531,11 +427,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     domain: "leminal.space",
     languages: ["en"],
     topics: [GENERAL, ART, MUSIC],
-  },
-  {
-    domain: "lemmy.best",
-    languages: ["en"],
-    topics: [GENERAL],
   },
   {
     domain: "lemy.lol",
@@ -571,11 +462,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     domain: "retrolemmy.com",
     languages: ["en"],
     topics: [GAMING, TECHNOLOGY],
-  },
-  {
-    domain: "lemmy.autism.place",
-    languages: ["en"],
-    topics: [GENERAL, HOBBIES],
   },
   {
     domain: "feddit.bg",
