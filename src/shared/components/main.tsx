@@ -115,17 +115,18 @@ const FeatureCard = ({ pic, title, subtitle, classes }) => (
 );
 
 const FeatureCardNew = ({ pic, title, subtitle, button, link }) => (
-  <div className="card card-gradient shadow-xl flex md:flex-row p-4 mt-2">
-    <div className="basis-1/2 shrink">
-      <img
-        className="rounded-xl min-w-24 min-h-24 object-fill"
+  <div
+    className="card card-gradient shadow-xl grid p-4 mt-4 md:grid-cols-2"
+  >
+    <div className=""><img
+        className="rounded-xl object-fill"
         src={pic}
         alt=""
       />
     </div>
-    <div className="card-body basis-1/2 grow-3">
-      <h2 className="card-title text-secondary">{title}</h2>
-      <p className="text-sm text-gray-300">{subtitle}</p>
+    <div className="card-body">
+      <h2 className="card-title text-white text-2xl">{title}</h2>
+      <p className="text-gray-300">{subtitle}</p>
       <span className="grid">
         <a className="btn btn-primary text-white mx-auto" href={link}>
           {button}
@@ -225,33 +226,34 @@ const FeatureCardsBlock = () => (
   </div>
 );
 
+// TODO: make sure each card/image has the same height
 const NewFeaturesBlock = () => (
   <div className="gap-4 mt-16">
     <FeatureCardNew
       pic="/static/assets/images/feature_1.png"
       title="Upvotes and Threaded Comments"
-      subtitle="Lorem Ipsum. TODO: link to docs?"
+      subtitle="Posts can be upvoted or downvoted. The most interesting ones rise to the top. You can choose between different sort options. Threaded comments to follow discussions easily. Works like Reddit."
       button="Getting Started"
       link="/docs/users/01-getting-started.html"
     />
     <FeatureCardNew
       pic="/static/assets/images/blorp_screen.webp"
-      title="Apps"
-      subtitle="Numerous different apps available. "
+      title="Various Apps Available"
+      subtitle="Choose between more than a dozen apps for different platforms and preferences. There are apps for iOS, Android, Desktop and Web. Developers can create their own applications and tools using the open API."
       button="Apps"
       link="/apps"
     />
     <FeatureCardNew
       pic="/static/assets/images/main_powerful.webp"
-      title="Non-Commercial"
-      subtitle="TODO: text from https://lemmy.ml/post/29579005"
+      title="Non-Commercial and Open Source"
+      subtitle="Lemmy is not controlled by any company. There is no profit motive, no advertising and no user tracking. Development is all in the open, and funded solely by donations. TODO: text from https://lemmy.ml/post/29579005"
       button="Donate"
       link="/donate"
     />
     <FeatureCardNew
       pic="/static/assets/images/main_powerful.webp"
-      title="Selfhosted"
-      subtitle="Run Lemmy on your own server. Easy to install and low resource usage."
+      title="Decentralized and Selfhosted"
+      subtitle="Run Lemmy on your own server. Easy to install and low resource usage. TODO: split these into separate cards?"
       button="Create a server"
       link="/docs/administration/administration.html"
     />
@@ -551,7 +553,6 @@ export class Main extends Component<Props, State> {
         </div>
         <div className="container mx-auto px-4">
           <NewFeaturesBlock />
-          <DiscussionPlatformBlock />
           <MoreFeaturesBlock />
           <BottomSpacer />
         </div>
