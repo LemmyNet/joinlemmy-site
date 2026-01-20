@@ -63,16 +63,11 @@
   @apply inline-flex max-w-16 max-h-16 stroke-0 stroke-current fill-current;
 }
 
-/* 
-TODO: not working to change text size
-https://stackoverflow.com/a/79755359
-*/
-@layer utilities {
-  .card-body {
-    & {
-      font-size: 1rem;
-    }
-  }
+@utility card-body {
+  font-size: 1rem;
+}
+@utility btn {
+  font-size: 1rem;
 }
 
 @font-face {
@@ -80,7 +75,5 @@ https://stackoverflow.com/a/79755359
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  /* TODO: also not working to change `text-base` to 1rem */
-  font-size: 1rem;
   src: url("../assets/fonts/Inter.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }

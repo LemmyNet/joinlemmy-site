@@ -115,14 +115,9 @@ const FeatureCard = ({ pic, title, subtitle, classes }) => (
 );
 
 const FeatureCardNew = ({ pic, title, subtitle, button, link }) => (
-  <div
-    className="card card-gradient shadow-xl grid p-4 mt-4 md:grid-cols-2"
-  >
-    <div className=""><img
-        className="rounded-xl object-fill"
-        src={pic}
-        alt=""
-      />
+  <div className="card card-gradient shadow-xl grid p-4 mt-4 md:grid-cols-2">
+    <div className="">
+      <img className="rounded-xl object-fill" src={pic} alt="" />
     </div>
     <div className="card-body">
       <h2 className="card-title text-white text-2xl">{title}</h2>
