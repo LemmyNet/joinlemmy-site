@@ -437,8 +437,7 @@ export class Instances extends Component<Props, State> {
     );
     // TODO: consider using `navigator.languages` which has an array of all enabled langs
     const lang = navigator.language.split("-")[0];
-    const res = allLanguages.find(l => l === lang) ?? "all";
-    return res;
+    return allLanguages.find(l => l === lang) ?? "all";
   }
   // Set the filters by the query params if they exist
   componentDidMount() {
