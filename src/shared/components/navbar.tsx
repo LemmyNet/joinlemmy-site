@@ -101,30 +101,21 @@ export const Navbar = ({ footer = false }) => (
       </ul>
     </div>
     <div className="navbar-end">
-      {footer ? (
-        <a
-          className="text-sm text-gray-600 max-md:hidden text-right"
-          href="https://github.com/LemmyNet/lemmy/blob/main/LICENSE"
+      {!footer && (
+        <select
+          onChange={linkEvent(this, handleLanguageChange)}
+          className="lemmy-select"
         >
-          {i18n.t("copyright_line")}
-        </a>
-      ) : (
-        <>
-          <select
-            onChange={linkEvent(this, handleLanguageChange)}
-            className="lemmy-select"
-          >
-            {LANGUAGES.map((l, i) => (
-              <option
-                key={i}
-                value={l.code}
-                selected={i18n.language.startsWith(l.code)}
-              >
-                {l.name}
-              </option>
-            ))}
-          </select>
-        </>
+          {LANGUAGES.map((l, i) => (
+            <option
+              key={i}
+              value={l.code}
+              selected={i18n.language.startsWith(l.code)}
+            >
+              {l.name}
+            </option>
+          ))}
+        </select>
       )}
       <div
         className={classNames("dropdown dropdown-end", {

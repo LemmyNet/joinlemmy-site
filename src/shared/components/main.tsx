@@ -75,37 +75,37 @@ const NewFeaturesBlock = () => (
   <div className="gap-4 mt-16">
     <FeatureCard
       pic="/static/assets/images/feature_1.webp"
-      title="Upvotes and Threaded Comments"
-      subtitle="Posts can be upvoted or downvoted. The most interesting ones rise to the top. You can choose between different sort options. Threaded comments to follow discussions easily. Works like Reddit."
-      button="Getting Started"
+      title={i18n.t("feature_upvotes_threaded_title")}
+      subtitle={i18n.t("feature_upvotes_threaded_desc")}
+      button={i18n.t("button_getting_started")}
       link="/docs/users/01-getting-started.html"
     />
     <FeatureCard
       pic="/static/assets/images/feature_2.webp"
-      title="Many different Apps"
-      subtitle="Choose between more than a dozen apps for different platforms and preferences. There are apps for iOS, Android, Desktop and Web. Developers can create their own applications and tools using the open API."
-      button="Apps"
+      title={i18n.t("feature_apps_title")}
+      subtitle={i18n.t("feature_apps_desc")}
+      button={i18n.t("apps")}
       link="/apps"
     />
     <FeatureCard
       pic="/static/assets/images/feature_3.webp"
-      title="Non-Commercial"
-      subtitle="Lemmy is not controlled by any company. There is no profit motive, no advertising and no user tracking. Moderation actions are transparent and can be viewed in the mod log. Development is all in the open, and funded solely by donations."
-      button="Donate"
+      title={i18n.t("feature_non_commercial_title")}
+      subtitle={i18n.t("feature_non_commercial_desc")}
+      button={i18n.t("donate")}
       link="/donate"
     />
     <FeatureCard
       pic="/static/assets/images/feature_4.webp"
-      title="Decentralized and Selfhosted"
-      subtitle="The Lemmyverse consists of hundreds of interconnected servers operated by different people. You can also run Lemmy on your own server, using easy installation methods via Ansible or Docker. Resource usage is very low thanks to Rust, so it can run on a small Raspberry Pi or alongside other services."
-      button="Create a server"
+      title={i18n.t("feature_decentralized_selfhosted_title")}
+      subtitle={i18n.t("feature_decentralized_selfhosted_desc")}
+      button={i18n.t("button_create_server")}
       link="/docs/administration/administration.html"
     />
     <FeatureCard
       pic="/static/assets/images/feature_5.webp"
-      title="Open Source"
-      subtitle="Lemmy is entirely open source. You can follow the development process and make suggestions for new features. You can also fork the code and implement new changes yourself."
-      button="Source Code"
+      title={i18n.t("feature_open_source_title")}
+      subtitle={i18n.t("feature_open_source_desc")}
+      button={i18n.t("button_source_code")}
       link="https://github.com/LemmyNet"
     />
   </div>
