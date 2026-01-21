@@ -67,9 +67,7 @@ const FollowCommunitiesBlock = () => {
     i => i.domain,
   );
   const defaults = DEFAULT_INSTANCES.filter(i => crawledInstances.includes(i));
-  // Pick a random instance from the list. In development crawled instances may be empty, so
-  // add fallback.
-  const domain = sortRandom(defaults)[0] || sortRandom(DEFAULT_INSTANCES)[0];
+  const domain = sortRandom(defaults)[0];
 
   return (
     <div className="flex flex-col items-center">
@@ -117,7 +115,7 @@ const FeatureCard = ({ pic, title, subtitle, classes }) => (
 const FeatureCardNew = ({ pic, title, subtitle, button, link }) => (
   <div className="card card-gradient shadow-xl grid p-4 mt-4 md:grid-cols-2">
     <div className="">
-      <img className="rounded-xl object-fill" src={pic} alt="" />
+      <img className="rounded-xl object-scale-down" src={pic} width="480" height="300" />
     </div>
     <div className="card-body">
       <h2 className="card-title text-white text-2xl">{title}</h2>
@@ -225,32 +223,39 @@ const FeatureCardsBlock = () => (
 const NewFeaturesBlock = () => (
   <div className="gap-4 mt-16">
     <FeatureCardNew
-      pic="/static/assets/images/feature_1.png"
+      pic="/static/assets/images/feature_1.webp"
       title="Upvotes and Threaded Comments"
       subtitle="Posts can be upvoted or downvoted. The most interesting ones rise to the top. You can choose between different sort options. Threaded comments to follow discussions easily. Works like Reddit."
       button="Getting Started"
       link="/docs/users/01-getting-started.html"
     />
     <FeatureCardNew
-      pic="/static/assets/images/blorp_screen.webp"
-      title="Various Apps Available"
+      pic="/static/assets/images/feature_2.webp"
+      title="Many different Apps"
       subtitle="Choose between more than a dozen apps for different platforms and preferences. There are apps for iOS, Android, Desktop and Web. Developers can create their own applications and tools using the open API."
       button="Apps"
       link="/apps"
     />
     <FeatureCardNew
-      pic="/static/assets/images/main_powerful.webp"
-      title="Non-Commercial and Open Source"
-      subtitle="Lemmy is not controlled by any company. There is no profit motive, no advertising and no user tracking. Development is all in the open, and funded solely by donations. TODO: text from https://lemmy.ml/post/29579005"
+      pic="/static/assets/images/feature_3.webp"
+      title="Non-Commercial"
+      subtitle="Lemmy is not controlled by any company. There is no profit motive, no advertising and no user tracking. Moderation actions are transparent and can be viewed in the mod log. Development is all in the open, and funded solely by donations."
       button="Donate"
       link="/donate"
     />
     <FeatureCardNew
-      pic="/static/assets/images/main_powerful.webp"
+      pic="/static/assets/images/feature_4.webp"
       title="Decentralized and Selfhosted"
-      subtitle="Run Lemmy on your own server. Easy to install and low resource usage. TODO: split these into separate cards?"
+      subtitle="The Lemmyverse consists of hundreds of interconnected servers operated by different people. You can also run Lemmy on your own server, using easy installation methods via Ansible or Docker. Resource usage is very low thanks to Rust, so it can run on a small Raspberry Pi or alongside other services."
       button="Create a server"
       link="/docs/administration/administration.html"
+    />
+    <FeatureCardNew
+      pic="/static/assets/images/feature_5.webp"
+      title="Open Source"
+      subtitle="Lemmy is entirely open source. You can follow the development process and make suggestions for new features. You can also fork the code and implement new changes yourself."
+      button="Source Code"
+      link="https://github.com/LemmyNet"
     />
   </div>
 );
