@@ -564,7 +564,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   },
   {
     domain: "szmer.info",
-    languages: ["pl", "en", "ru", "be", "ua"],
+    languages: ["pl"],
     topics: [GENERAL, POLITICS, LGBTQ, ART],
   },
   {
