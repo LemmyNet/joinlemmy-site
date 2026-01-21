@@ -7,8 +7,6 @@ import { getQueryParams, isBrowser, sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
 import { InstancePicker } from "./instance-picker";
-import classNames from "classnames";
-import Glide from "@glidejs/glide";
 import { DEFAULT_INSTANCES } from "./instances-definitions";
 import { instance_stats } from "../instance_stats";
 
@@ -17,46 +15,6 @@ const TitleBlock = () => (
     <div className="flex flex-col items-center gap-4 mb-8">
       <p className="text-6xl font-bold text-gradient p-2">Lemmy</p>
       <p className="text-3xl font-medium text-center">{i18n.t("lemmy_desc")}</p>
-    </div>
-  </div>
-);
-
-const carouselImages = [
-  "/static/assets/images/main_screen_2.webp",
-  "/static/assets/images/main_screen_3.webp",
-  "/static/assets/images/main_screen_1.webp",
-];
-
-const CarouselBlock = () => (
-  <div className="px-8 mt-16">
-    <div className="glide">
-      <div className="glide__track" data-glide-el="track">
-        <ul className="glide__slides">
-          {carouselImages.map((image, i) => (
-            <img
-              src={image}
-              className={classNames("rounded-box border-8 z-10 glide__slide", {
-                "border-primary/[.15]": i & 1,
-                "border-secondary/[.15]": !(i & 1),
-              })}
-              alt=""
-            />
-          ))}
-        </ul>
-      </div>
-      <div
-        className="glide__bullets flex justify-center py-2 gap-4"
-        data-glide-el="controls[nav]"
-      >
-        {carouselImages.map((_, i) => (
-          <button
-            data-glide-dir={`=${i}`}
-            className="glide__bullet text-gradient"
-          >
-            ●
-          </button>
-        ))}
-      </div>
     </div>
   </div>
 );
@@ -96,26 +54,10 @@ const FollowCommunitiesBlock = () => {
   );
 };
 
-const FeatureCard = ({ pic, title, subtitle, classes }) => (
-  <div className={`card card-gradient shadow-xl ${classes}`}>
-    <div className="p-4">
-      <img
-        src={pic}
-        className="rounded-xl w-full object-fill min-h-[300px]"
-        alt=""
-      />
-    </div>
-    <div className="card-body pt-0">
-      <h2 className="card-title text-secondary">{title}</h2>
-      <p className="text-sm text-gray-300">{subtitle}</p>
-    </div>
-  </div>
-);
-
-const FeatureCardNew = ({ pic, title, subtitle, button, link }) => (
+const FeatureCard = ({ pic, title, subtitle, button, link }) => (
   <div className="card card-gradient shadow-xl grid p-4 mt-4 md:grid-cols-2">
     <div className="">
-      <img className="rounded-xl object-scale-down" src={pic} width="480" height="300" />
+      <img className="rounded-xl" src={pic} alt="" />
     </div>
     <div className="card-body">
       <h2 className="card-title text-white text-2xl">{title}</h2>
@@ -129,168 +71,43 @@ const FeatureCardNew = ({ pic, title, subtitle, button, link }) => (
   </div>
 );
 
-const OpenSourceCard = ({ classes }) => (
-  <FeatureCard
-    classes={classes}
-    pic={"/static/assets/images/main_open_source.webp"}
-    title={i18n.t("open_source")}
-    subtitle={
-      <T i18nKey="open_source_desc">
-        #
-        <a className="link" href="https://github.com/LemmyNet">
-          #
-        </a>
-        <a className="link" href="https://en.wikipedia.org/wiki/Copyleft">
-          #
-        </a>
-        <a
-          className="link"
-          href="https://github.com/LemmyNet/lemmy/blob/master/LICENSE"
-        >
-          #
-        </a>
-      </T>
-    }
-  />
-);
-
-const BlazingFastCard = ({ classes }) => (
-  <FeatureCard
-    classes={classes}
-    pic={"/static/assets/images/main_blazing_fast.webp"}
-    title={i18n.t("blazing_fast")}
-    subtitle={
-      <T i18nKey="blazing_fast_desc">
-        #
-        <a className="link" href="https://www.rust-lang.org">
-          #
-        </a>
-        <a className="link" href="https://actix.rs/">
-          #
-        </a>
-        <a className="link" href="http://diesel.rs/">
-          #
-        </a>
-        <a className="link" href="https://infernojs.org">
-          #
-        </a>
-        <a className="link" href="https://www.typescriptlang.org/">
-          #
-        </a>
-      </T>
-    }
-  />
-);
-
-const ModToolsCard = ({ classes }) => (
-  <FeatureCard
-    classes={classes}
-    pic={"/static/assets/images/main_powerful.webp"}
-    title={i18n.t("mod_tools")}
-    subtitle={i18n.t("mod_tools_desc")}
-  />
-);
-
-const CensorshipCard = ({ classes }) => (
-  <FeatureCard
-    classes={classes}
-    pic={"/static/assets/images/main_censorship.webp"}
-    title={i18n.t("censorship_resistant")}
-    subtitle={i18n.t("censorship_resistant_desc")}
-  />
-);
-
-const FederationCard = ({ classes }) => (
-  <FeatureCard
-    classes={classes}
-    pic={"/static/assets/images/main_federation.webp"}
-    title={i18n.t("federation")}
-    subtitle={i18n.t("federation_desc")}
-  />
-);
-
-const FeatureCardsBlock = () => (
-  <div className="grid md:grid-cols-12 grid-cols-1 gap-4 mt-16">
-    <OpenSourceCard classes="md:col-span-7" />
-    <BlazingFastCard classes="md:col-span-5" />
-    <ModToolsCard classes="md:col-span-4" />
-    <CensorshipCard classes="md:col-span-4" />
-    <FederationCard classes="md:col-span-4" />
-  </div>
-);
-
-// TODO: make sure each card/image has the same height
 const NewFeaturesBlock = () => (
   <div className="gap-4 mt-16">
-    <FeatureCardNew
+    <FeatureCard
       pic="/static/assets/images/feature_1.webp"
       title="Upvotes and Threaded Comments"
       subtitle="Posts can be upvoted or downvoted. The most interesting ones rise to the top. You can choose between different sort options. Threaded comments to follow discussions easily. Works like Reddit."
       button="Getting Started"
       link="/docs/users/01-getting-started.html"
     />
-    <FeatureCardNew
+    <FeatureCard
       pic="/static/assets/images/feature_2.webp"
       title="Many different Apps"
       subtitle="Choose between more than a dozen apps for different platforms and preferences. There are apps for iOS, Android, Desktop and Web. Developers can create their own applications and tools using the open API."
       button="Apps"
       link="/apps"
     />
-    <FeatureCardNew
+    <FeatureCard
       pic="/static/assets/images/feature_3.webp"
       title="Non-Commercial"
       subtitle="Lemmy is not controlled by any company. There is no profit motive, no advertising and no user tracking. Moderation actions are transparent and can be viewed in the mod log. Development is all in the open, and funded solely by donations."
       button="Donate"
       link="/donate"
     />
-    <FeatureCardNew
+    <FeatureCard
       pic="/static/assets/images/feature_4.webp"
       title="Decentralized and Selfhosted"
       subtitle="The Lemmyverse consists of hundreds of interconnected servers operated by different people. You can also run Lemmy on your own server, using easy installation methods via Ansible or Docker. Resource usage is very low thanks to Rust, so it can run on a small Raspberry Pi or alongside other services."
       button="Create a server"
       link="/docs/administration/administration.html"
     />
-    <FeatureCardNew
+    <FeatureCard
       pic="/static/assets/images/feature_5.webp"
       title="Open Source"
       subtitle="Lemmy is entirely open source. You can follow the development process and make suggestions for new features. You can also fork the code and implement new changes yourself."
       button="Source Code"
       link="https://github.com/LemmyNet"
     />
-  </div>
-);
-
-const DiscussionPlatformBlock = () => (
-  <div className="flex flex-col items-center mt-16">
-    <div className="card card-bordered bg-linear-to-r text-transparent from-primary to-secondary shadow-xl">
-      <div className="card-body items-center px-8 md:px-32 py-16">
-        <T
-          i18nKey="create_discussion_platform"
-          className="card-title font-medium text-4xl text-center text-white mb-3 inline-block"
-        >
-          #<span className="font-bold">#</span>
-        </T>
-        <T
-          i18nKey="create_discussion_platform_desc"
-          className="text-sm text-white text-center mb-6"
-        >
-          #
-          <a className="link" href={`/docs/administration/administration.html`}>
-            #
-          </a>
-          <i>#</i>
-          <a className="link" href="https://en.wikipedia.org/wiki/Fediverse">
-            #
-          </a>
-        </T>
-        <a
-          className="btn btn-primary bg-white text-primary normal-case"
-          href={`/docs/administration/administration.html`}
-        >
-          {i18n.t("run_a_server")}
-        </a>
-      </div>
-    </div>
   </div>
 );
 
@@ -507,18 +324,6 @@ export class Main extends Component<Props, State> {
   }
 
   componentDidMount() {
-    new Glide(".glide", {
-      type: "carousel",
-      gap: 50,
-      perView: 3,
-      breakpoints: {
-        800: {
-          perView: 1,
-        },
-      },
-      autoplay: 3000,
-      hoverpause: true,
-    }).mount();
     if (isBrowser()) {
       window.scrollTo(0, 0);
     }
