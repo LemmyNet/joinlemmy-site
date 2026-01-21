@@ -20,7 +20,7 @@
     "translations:update": "git submodule update --remote --recursive",
     "tailwind": "pnpx @tailwindcss/cli -i ./src/style.css -o ./dist/styles/styles.css --minify",
     "prepare": "husky",
-    "start": "pnpm build:dev --watch & pnpx @tailwindcss/cli --watch"
+    "dev": "pnpm build:dev --watch & pnpx @tailwindcss/cli --watch"
   },
   "dependencies": {
     "@babel/core": "^7.23.2",
