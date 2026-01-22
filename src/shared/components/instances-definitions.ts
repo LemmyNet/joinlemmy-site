@@ -248,11 +248,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL, TECHNOLOGY],
   },
   {
-    domain: "lemm.ee",
-    languages: ["en"],
-    topics: [GENERAL],
-  },
-  {
     domain: "reddthat.com",
     languages: ["en"],
     topics: [GENERAL, TECHNOLOGY],
