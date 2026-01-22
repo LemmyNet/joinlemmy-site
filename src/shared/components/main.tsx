@@ -3,10 +3,9 @@ import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
-import { getQueryParams, isBrowser, sortRandom } from "../utils";
+import { sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
-import { InstancePicker } from "./instance-picker";
 import { DEFAULT_INSTANCES } from "./instances-definitions";
 import { instance_stats } from "../instance_stats";
 
@@ -295,49 +294,15 @@ const MoreFeaturesCard = ({ icons, text }) => (
   </div>
 );
 
-function getMainQueryParams() {
-  return getQueryParams<Props>({
-    showJoinModal: d => !!d,
-  });
-}
-
-interface Props {
-  showJoinModal?: boolean;
-}
-
-interface State {
-  resetInstancePicker: boolean;
-  showJoinModal?: boolean;
-}
-
-function showJoinModal() {
-  (document.getElementById("picker") as any).showModal();
-}
-
-export class Main extends Component<Props, State> {
-  state: State = {
-    resetInstancePicker: false,
-  };
-
+export class Main extends Component<object, object> {
   constructor(props: any, context: any) {
     super(props, context);
-  }
-
-  componentDidMount() {
-    if (isBrowser()) {
-      window.scrollTo(0, 0);
-    }
-    this.setState(getMainQueryParams());
-    if (this.state.showJoinModal) {
-      showJoinModal();
-    }
   }
 
   render() {
     const title = i18n.t("lemmy_title");
     return (
       <div>
-        <InstancePicker reset={this.state.resetInstancePicker} />
         <Helmet title={title}>
           <meta property={"title"} content={title} />
           <link
