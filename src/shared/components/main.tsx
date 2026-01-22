@@ -31,19 +31,19 @@ const FollowCommunitiesBlock = () => {
     <div className="flex flex-col items-center">
       <div className="card card-bordered card-gradient shadow-xl">
         <div className="card-body items-center px-8 md:px-32 py-16">
-          <p className="text-gray-200 text-center mb-6">
+          <p className="text-gray-200  text-justify mb-6">
             {i18n.t("lemmy_long_desc")}
           </p>
-          <p className="space-x-2">
+          <p className="grid items-center md:grid-cols-2 gap-2">
             <a
-              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600"
+              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 w-full"
               href={`https://${domain}/signup`}
             >
               {i18n.t("join_instance", { domain })}
             </a>
             <Link
               to="/instances"
-              className="btn btn-primary btn-outline text-white normal-case z-10"
+              className="btn btn-primary btn-outline text-white w-full"
             >
               {i18n.t("see_all_servers")}
             </Link>
@@ -59,9 +59,9 @@ const FeatureCard = ({ pic, title, subtitle, button, link }) => (
     <div className="">
       <img className="rounded-xl" src={pic} alt="" />
     </div>
-    <div className="card-body">
+    <div className="card-body p-0 py-4 md:px-4 md:py-0">
       <h2 className="card-title text-white text-2xl">{title}</h2>
-      <p className="text-gray-300">{subtitle}</p>
+      <p className="text-gray-300 text-justify">{subtitle}</p>
       <span className="grid">
         <a className="btn btn-primary text-white mx-auto" href={link}>
           {button}
@@ -71,7 +71,7 @@ const FeatureCard = ({ pic, title, subtitle, button, link }) => (
   </div>
 );
 
-const NewFeaturesBlock = () => (
+const FeaturesBlock = () => (
   <div className="gap-4 mt-16">
     <FeatureCard
       pic="/static/assets/images/feature_1.webp"
@@ -357,7 +357,7 @@ export class Main extends Component<Props, State> {
           <FollowCommunitiesBlock />
         </div>
         <div className="container mx-auto px-4">
-          <NewFeaturesBlock />
+          <FeaturesBlock />
           <MoreFeaturesBlock />
           <BottomSpacer />
         </div>
