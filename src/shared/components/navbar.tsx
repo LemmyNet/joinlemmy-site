@@ -1,4 +1,4 @@
-import { ChangeEvent, linkEvent } from "inferno";
+import { ChangeEvent } from "inferno";
 import { Link } from "inferno-router";
 import { Icon, IconSize } from "./icon";
 import { i18n, LANGUAGES } from "../i18next";
@@ -103,7 +103,7 @@ export const Navbar = ({ footer = false }) => (
     <div className="navbar-end">
       {!footer && (
         <select
-          onChange={linkEvent(this, handleLanguageChange)}
+          onChange={e => handleLanguageChange(this, e)}
           className="lemmy-select"
         >
           {LANGUAGES.map((l, i) => (
