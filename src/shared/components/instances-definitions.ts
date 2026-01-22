@@ -1,4 +1,3 @@
-import test from "node:test";
 import { LANGUAGES } from "../i18next";
 import { instance_stats } from "../instance_stats";
 
@@ -455,7 +454,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   },
   {
     domain: "szmer.info",
-    languages: ["pl", "en", "ru", "be", "ua"],
+    languages: ["pl"],
     topics: [GENERAL, POLITICS, LGBTQ, ART],
   },
   {
