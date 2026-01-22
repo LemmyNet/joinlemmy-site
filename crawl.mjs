@@ -26,7 +26,7 @@ try {
     [
       "-c",
       `cargo run --release -- --joinlemmy-output --start-instances ${all_recommended} \
-      --exclude-instances ${recommended_instances.exclude} --max-crawl-distance 0`,
+      --exclude-instances ${recommended_instances.exclude}`,
     ],
     {
       cwd: "lemmy-stats-crawler",
