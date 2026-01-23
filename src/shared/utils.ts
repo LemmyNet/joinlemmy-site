@@ -106,3 +106,7 @@ export function sortRandom<T>(list: T[]): T[] {
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 }
+
+export function uniqueEntries<T>(list: T[]): T[] {
+  return [...new Set(list)];
+}

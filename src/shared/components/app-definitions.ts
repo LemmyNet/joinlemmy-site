@@ -15,7 +15,6 @@ export enum Platform {
   IOS = "ios",
   Android = "android",
   Desktop = "desktop",
-  CLI = "cli",
 }
 
 export interface AppDetails {
@@ -304,7 +303,7 @@ const NEONMODEM: AppDetails = {
     github: "https://github.com/mrusme/neonmodem",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.CLI],
+  platforms: [Platform.Desktop],
 };
 
 const SUMMIT: AppDetails = {

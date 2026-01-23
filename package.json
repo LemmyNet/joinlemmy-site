@@ -20,7 +20,7 @@
     "translations:update": "git submodule update --remote --recursive",
     "tailwind": "pnpx @tailwindcss/cli -i ./src/style.css -o ./dist/styles/styles.css --minify",
     "prepare": "husky",
-    "start": "pnpm build:dev --watch & pnpx @tailwindcss/cli --watch"
+    "dev": "pnpm build:dev --watch & pnpx @tailwindcss/cli --watch"
   },
   "dependencies": {
     "@babel/core": "^7.23.2",
@@ -34,7 +34,7 @@
     "babel-plugin-inferno": "^6.7.0",
     "classnames": "^2.3.2",
     "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^12.0.2",
+    "copy-webpack-plugin": "^13.0.0",
     "express": "~4.21.0",
     "fs-extra": "^11.2.0",
     "i18next": "^23.16.5",
@@ -55,18 +55,17 @@
     "markdown-it-sup": "^2.0.0",
     "node-fetch": "^3.3.2",
     "qrcode": "^1.5.3",
-    "run-node-webpack-plugin": "^1.3.0",
-    "webpack": "5.96.1",
-    "webpack-cli": "^5.1.4",
+    "run-node-webpack-plugin": "^2.0.0",
+    "ua-parser-js": "^2.0.8",
+    "webpack": "5.104.1",
+    "webpack-cli": "^6.0.1",
     "webpack-node-externals": "^3.0.0",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "tailwindcss": "^4.1.6",
+    "@eslint/js": "^9.25.1",
     "@tailwindcss/cli": "^4.1.6",
     "@tailwindcss/typography": "^0.5.16",
-    "daisyui": "^5.0.35",
-    "@eslint/js": "^9.25.1",
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.0",
     "@types/node-fetch": "^2.6.12",
@@ -74,6 +73,7 @@
     "@typescript-eslint/eslint-plugin": "^8.14.0",
     "@typescript-eslint/parser": "^8.14.0",
     "css-loader": "^7.0.0",
+    "daisyui": "^5.0.35",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-inferno": "^7.34.0",
@@ -88,10 +88,11 @@
     "sass": "^1.81.0",
     "sass-loader": "^16.0.3",
     "style-loader": "^4.0.0",
+    "tailwindcss": "^4.1.6",
     "terser": "^5.24.0",
     "typescript": "^5.2.2",
     "typescript-eslint": "^8.14.0",
-    "webpack-dev-server": "5.2.1"
+    "webpack-dev-server": "5.2.3"
   },
   "engines": {
     "node": ">=8.9.0"
