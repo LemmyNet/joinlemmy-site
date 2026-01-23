@@ -145,7 +145,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
     return (
       <div className="card card-bordered bg-neutral-900 shadow-xl">
         <div className="card-body p-4">
-          <div className="flex flex-row flex-wrap gap-4">
+          <div className="flex flex-row gap-4">
             {this.state.showModal && (
               <DetailsModal
                 id={modalId}
@@ -214,7 +214,7 @@ const InstanceIcon = ({ domain, icon }) => (
 );
 
 const InstanceStats = ({ geoIp, emailRequired, monthlyUsers }) => (
-  <div className="flex flex-col flex-wrap gap-2">
+  <div className="flex flex-col flex-nowrap h-min gap-2">
     <StatsBadges
       geoIp={geoIp}
       emailRequired={emailRequired}
@@ -227,7 +227,7 @@ export const StatsBadges = ({ monthlyUsers, emailRequired, geoIp }) => (
   <>
     <Badge
       content={
-        <div className="text-sm text-gray-500 tooltip">
+        <div className="text-sm text-gray-500 tooltip text-ellipsis whitespace-nowrap">
           <Icon icon="globe" classes="mr-2" />
           <span>{geoIp?.country?.names?.en ?? i18n.t("country_unknown")}</span>
         </div>
