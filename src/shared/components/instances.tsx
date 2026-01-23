@@ -169,7 +169,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
           <div className="text-2xl font-bold text-gradient">
             <a href={buildUrl(domain)}>{domain}</a>
           </div>
-          <p className="text-sm text-gray-300 mb-2">{description}</p>
+          <p className="text-gray-300 mb-2">{description}</p>
           <div>
             <div className="flex gap-2">
               <a
@@ -615,7 +615,7 @@ export class Instances extends Component<Props, State> {
             <select
               value={this.state.sort.name}
               name="sort_select"
-              className="lemmy-select"
+              className="lemmy-select mr-2"
               onChange={linkEvent(this, handleSortChange)}
             >
               <option disabled>{i18n.t("sort")}</option>

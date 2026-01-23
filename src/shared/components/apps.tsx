@@ -137,7 +137,7 @@ const AppDetailsCard = ({ app, activePlatform }: AppDetailsCardProps) => (
         className="rounded-xl max-h-96 mb-2"
         alt=""
       />
-      <p className="text-sm text-gray-300 mb-2">{app.description}</p>
+      <p className="text-gray-300 mb-2">{app.description}</p>
       {app.sourceType === SourceType.Closed && (
         <div className="alert alert-warning">
           <Icon icon="alert-octagon" />
