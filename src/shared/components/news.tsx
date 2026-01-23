@@ -2,7 +2,7 @@ import { Component } from "inferno";
 import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { isBrowser, mdToHtml } from "../utils";
+import { mdToHtml } from "../utils";
 import { news_md } from "../translations/news";
 import { BottomSpacer } from "./common";
 
@@ -95,12 +95,6 @@ const NewsCard = ({ news }: NewsProps) => (
 export class News extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
-  }
-
-  componentDidMount() {
-    if (isBrowser()) {
-      window.scrollTo(0, 0);
-    }
   }
 
   render() {

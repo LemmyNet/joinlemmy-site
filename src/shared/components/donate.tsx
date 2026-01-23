@@ -1,7 +1,6 @@
 import { Component } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { isBrowser } from "../utils";
 import { BottomSpacer } from "./common";
 import { Link } from "inferno-router";
 import { T } from "inferno-i18next";
@@ -18,12 +17,6 @@ import { Icon } from "./icon";
 export class Donate extends Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
-  }
-
-  componentDidMount() {
-    if (isBrowser()) {
-      window.scrollTo(0, 0);
-    }
   }
 
   render() {

@@ -201,7 +201,6 @@ export class Apps extends Component<any, State> {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
     this.buildAppList();
   }
 
