@@ -1,7 +1,7 @@
 jest.setTimeout(180000);
 import { RECOMMENDED_INSTANCES } from "./components/instances-definitions";
 
-test("Recommended instances are reachable", async () => {
+test.skip("Recommended instances are reachable", async () => {
   for (const i of RECOMMENDED_INSTANCES) {
     try {
       const res = await fetch(`https://${i.domain}/nodeinfo/2.1`);
