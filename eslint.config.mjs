@@ -69,7 +69,6 @@ export default [
       "max-statements": 0,
       "max-params": 0,
       "new-cap": 0,
-      "no-console": 0,
       "no-duplicate-imports": 0,
       "no-extra-parens": 0,
       "no-return-assign": 0,

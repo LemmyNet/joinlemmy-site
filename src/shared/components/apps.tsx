@@ -217,7 +217,6 @@ export class Apps extends Component<any, State> {
     const info = (
       parser.getOS().toString() + parser.getDevice().toString()
     ).toLowerCase();
-    console.log(info);
     if (info.includes("ios")) {
       return Platform.IOS;
     } else if (info.includes("android") || info.includes("mobile")) {
