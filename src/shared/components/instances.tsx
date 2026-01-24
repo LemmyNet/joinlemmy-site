@@ -423,7 +423,7 @@ export class Instances extends Component<Props, State> {
       .filter(i => Object.keys(i.geo_ip.country).length !== 0)
       .map(i => i.geo_ip.country);
     const dedup = countries.reduce((acc, obj) => {
-      var exist = acc.find(i => obj.iso_code === i.iso_code);
+      const exist = acc.find(i => obj.iso_code === i.iso_code);
       if (!exist) {
         acc.push(obj);
       }
