@@ -5,6 +5,7 @@ import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import {
   getQueryParams,
+  isBrowser,
   mdToHtml,
   numToSI,
   sortRandom,
@@ -435,9 +436,15 @@ export class Instances extends Component<Props, State> {
     const allLanguages = uniqueEntries(
       RECOMMENDED_INSTANCES.flatMap(i => i.languages),
     );
-    // TODO: consider using `navigator.languages` which has an array of all enabled langs
-    const lang = navigator.language.split("-")[0];
-    return allLanguages.find(l => l === lang) ?? "all";
+
+    if (isBrowser()) {
+      // TODO: consider using `navigator.languages` which has an array of all enabled langs
+      const lang = navigator.language.split("-")[0];
+      return allLanguages.find(l => l === lang) ?? "all";
+      window.scrollTo(0, 0);
+    } else {
+      return "all";
+    }
   }
   // Set the filters by the query params if they exist
   componentDidMount() {
