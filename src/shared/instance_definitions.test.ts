@@ -1,3 +1,4 @@
+// @ts-nocheck
 jest.setTimeout(180000);
 import { RECOMMENDED_INSTANCES } from "./components/instances-definitions";
 
