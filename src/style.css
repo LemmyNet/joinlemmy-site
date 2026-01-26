@@ -1,5 +1,4 @@
 @import "tailwindcss" source(".");
-@plugin "@tailwindcss/typography";
 
 @plugin "daisyui";
 @plugin "daisyui/theme" {
@@ -62,6 +61,13 @@
 
 .icon {
   @apply inline-flex max-w-16 max-h-16 stroke-0 stroke-current fill-current;
+}
+
+@utility card-body {
+  font-size: 1rem;
+}
+@utility btn {
+  font-size: 1rem;
 }
 
 @font-face {

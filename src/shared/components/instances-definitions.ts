@@ -6,6 +6,8 @@ export interface InstanceHelper {
   link: string;
 }
 
+export const DEFAULT_INSTANCES = ["thelemmy.club", "lemmus.org"];
+
 export const INSTANCE_HELPERS: InstanceHelper[] = [
   {
     name: "lemmyverse.net",

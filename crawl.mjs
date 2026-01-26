@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, { readFileSync } from "fs";
 import { spawn } from "child_process";
 
 const outDir = "src/shared/translations/";
@@ -25,7 +25,7 @@ try {
     "sh",
     [
       "-c",
-      `cargo run --release -- --joinlemmy-output --start-instances ${all_recommended} \
+      `cargo run --release -- --start-instances ${all_recommended} --out-path ../crawl-results \
       --exclude-instances ${recommended_instances.exclude}`,
     ],
     {
@@ -33,12 +33,6 @@ try {
       encoding: "utf8",
     },
   );
-  let savedOutput = "";
-
-  run.stdout.on("data", data => {
-    const strData = data.toString();
-    savedOutput += strData;
-  });
 
   run.stderr.on("data", data => {
     const strData = data.toString();
@@ -48,7 +42,8 @@ try {
   run.on("close", _exitCode => {
     // Convert stats to json to be compiled directly into the code. Not using JSON.parse here as it
     // uses too much memory and crashes.
-    let data = `export const instance_stats = {stats: ${savedOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
+    let crawlOutput = readFileSync("crawl-results/joinlemmy.json");
+    let data = `export const instance_stats = {stats: ${crawlOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
     fs.writeFileSync(instanceStatsFile, data);
   });
   run.await;
