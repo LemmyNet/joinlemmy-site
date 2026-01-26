@@ -119,9 +119,9 @@ function uniqueFilter(value, index, self) {
 
 export function availableLanguages() {
   // domains of crawled instances
-  var domains = instance_stats.stats.instance_details.map(i => i.domain);
+  const domains = instance_stats.stats.instance_details.map(i => i.domain);
   // language names from translations
-  var languageNames = new Map(LANGUAGES.map(l => [l.code, l.name]));
+  const languageNames = new Map(LANGUAGES.map(l => [l.code, l.name]));
 
   return (
     RECOMMENDED_INSTANCES
