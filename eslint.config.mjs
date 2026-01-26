@@ -30,9 +30,7 @@ export default [
   // For some reason this has to be in its own block
   {
     ignores: [
-      "crawl.mjs",
-      "generate_rss_feed.mjs",
-      "generate_translations.mjs",
+      "*.mjs",
       "lemmy-js-client-main",
       "lemmy-js-client-v0.19",
       "webpack.config.js",
@@ -46,6 +44,7 @@ export default [
       "dist/*",
       ".yalc/*",
       "lemmy-docs",
+      "src/shared/instance_definitions.test.ts",
     ],
   },
   {
