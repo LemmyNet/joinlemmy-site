@@ -1,4 +1,4 @@
-import { ChangeEvent, linkEvent } from "inferno";
+import { ChangeEvent } from "inferno";
 import { Link } from "inferno-router";
 import { Icon, IconSize } from "./icon";
 import { i18n, LANGUAGES } from "../i18next";
@@ -19,7 +19,7 @@ const NavLinks = () => (
           to="/instances"
           className={LINK_CLASS}
         >
-          {i18n.t("join")}
+          {i18n.t("servers")}
         </Link>
       }
     />
@@ -101,30 +101,21 @@ export const Navbar = ({ footer = false }) => (
       </ul>
     </div>
     <div className="navbar-end">
-      {footer ? (
-        <a
-          className="text-sm text-gray-600 max-md:hidden text-right"
-          href="https://github.com/LemmyNet/lemmy/blob/main/LICENSE"
+      {!footer && (
+        <select
+          onChange={e => handleLanguageChange(this, e)}
+          className="lemmy-select"
         >
-          {i18n.t("copyright_line")}
-        </a>
-      ) : (
-        <>
-          <select
-            onChange={linkEvent(this, handleLanguageChange)}
-            className="lemmy-select"
-          >
-            {LANGUAGES.map((l, i) => (
-              <option
-                key={i}
-                value={l.code}
-                selected={i18n.language.startsWith(l.code)}
-              >
-                {l.name}
-              </option>
-            ))}
-          </select>
-        </>
+          {LANGUAGES.map((l, i) => (
+            <option
+              key={i}
+              value={l.code}
+              selected={i18n.language.startsWith(l.code)}
+            >
+              {l.name}
+            </option>
+          ))}
+        </select>
       )}
       <div
         className={classNames("dropdown dropdown-end", {

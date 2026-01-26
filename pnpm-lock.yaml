@@ -29,9 +29,6 @@ importers:
       '@babel/runtime':
         specifier: ^7.23.2
         version: 7.27.1
-      '@glidejs/glide':
-        specifier: 3.5.2
-        version: 3.5.2
       babel-loader:
         specifier: ^9.1.3
         version: 9.2.1(@babel/core@7.26.0)(webpack@5.104.1)
@@ -138,9 +135,6 @@ importers:
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0
-      '@types/glidejs__glide':
-        specifier: ^3.6.3
-        version: 3.6.5
       '@types/node':
         specifier: ^22.9.0
         version: 22.9.0
@@ -836,9 +830,6 @@ packages:
     resolution: {integrity: sha512-HFZ4Mp26nbWk9d/BpvP0YNL6W4UoZF0VFcTw/aPPA8RpOxeFQgK+ClABGgAUXs9Y/RGX/l1vOmrqz1MQt9MNuw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@glidejs/glide@3.5.2':
-    resolution: {integrity: sha512-7jGciNJ2bQ4eZLSNlSZ+VAyW63kALf420CvkEpK4lEsUfWJq9odqimci0YCiyNyMUFB+pWHwLYyNc57dijYsCg==}
-
   '@humanfs/core@0.19.0':
     resolution: {integrity: sha512-2cbWIHbZVEweE853g8jymffCA+NCMiuqeECeBBLm8dg2oFdjuGJhgN4UAbI+6v0CKbbhvtXA4qV8YR5Ji86nmw==}
     engines: {node: '>=18.18.0'}
@@ -1252,9 +1243,6 @@ packages:
 
   '@types/express@5.0.0':
     resolution: {integrity: sha512-DvZriSMehGHL1ZNLzi6MidnsDhUZM/x2pRdDIKdwbUNqqwHxMlRdkxtn6/EPKyqKpHqTl/4nRZsRNLpZxZRpPQ==}
-
-  '@types/glidejs__glide@3.6.5':
-    resolution: {integrity: sha512-OUjzveIu+tiK5VvyPh6jTBJ/vH6+vC+XWzC2KJzpgUW8uancMJBa7R+BlXuvtSPdLw/pQForVasy0fm1D7JWOQ==}
 
   '@types/glob@7.2.0':
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
@@ -5111,8 +5099,6 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@glidejs/glide@3.5.2': {}
-
   '@humanfs/core@0.19.0': {}
 
   '@humanfs/node@0.16.5':
@@ -5545,8 +5531,6 @@ snapshots:
       '@types/express-serve-static-core': 5.0.0
       '@types/qs': 6.9.11
       '@types/serve-static': 1.15.5
-
-  '@types/glidejs__glide@3.6.5': {}
 
   '@types/glob@7.2.0':
     dependencies:
