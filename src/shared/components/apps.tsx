@@ -15,7 +15,7 @@ import {
 } from "./app-definitions";
 import { Icon } from "./icon";
 import { I18nKeys } from "i18next";
-import { sortRandom } from "../utils";
+import { isBrowser, sortRandom } from "../utils";
 import classNames from "classnames";
 import { UAParser } from "ua-parser-js";
 
@@ -206,7 +206,10 @@ export class Apps extends Component<any, State> {
   }
 
   initialPlatform(): Platform {
-    console.log(navigator.userAgent);
+    if (!isBrowser()) {
+      return Platform.All;
+    }
+
     const parser = new UAParser(navigator.userAgent);
 
     // Mash all the info together and see if we can match anything
@@ -214,7 +217,6 @@ export class Apps extends Component<any, State> {
     const info = (
       parser.getOS().toString() + parser.getDevice().toString()
     ).toLowerCase();
-    console.log(info);
     if (info.includes("ios")) {
       return Platform.IOS;
     } else if (info.includes("android") || info.includes("mobile")) {
