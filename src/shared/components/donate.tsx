@@ -99,8 +99,8 @@ const FundingGoal = () => {
     100,
   );
 
-  var progress_classes = "h-5 progress w-auto mb-6 ";
-  var text_classes = "flex flex-row flex-wrap justify-between gap-4 ";
+  let progress_classes = "h-5 progress w-auto mb-6 ";
+  let text_classes = "flex flex-row flex-wrap justify-between gap-4 ";
   if (percent_funded < 60) {
     progress_classes += "progress-error";
     text_classes += "text-error/75";

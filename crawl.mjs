@@ -42,7 +42,7 @@ try {
   run.on("close", _exitCode => {
     // Convert stats to json to be compiled directly into the code. Not using JSON.parse here as it
     // uses too much memory and crashes.
-    let crawlOutput = readFileSync("crawl-results/joinlemmy.json");
+    let crawlOutput = readFileSync("crawl-results/instances/joinlemmy.json");
     let data = `export const instance_stats = {stats: ${crawlOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
     fs.writeFileSync(instanceStatsFile, data);
   });

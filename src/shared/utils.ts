@@ -8,7 +8,6 @@ import markdown_it_sup from "markdown-it-sup";
 
 const SHORTNUM_SI_FORMAT = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
-  //@ts-ignore
   notation: "compact",
   compactDisplay: "short",
 });
