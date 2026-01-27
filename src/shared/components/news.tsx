@@ -24,7 +24,7 @@ function buildNewsInfoArray(): Array<NewsInfo> {
       dateStr: split[0],
       title: split[1],
       preview: split[2] || previewMarkdown(n.markdown),
-      url: `news/${titleToUrl(n.title)}`,
+      url: `/news/${titleToUrl(n.title)}`,
     };
   });
 }
