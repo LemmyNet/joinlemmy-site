@@ -244,7 +244,7 @@ const LEMMY_UI: AppDetails = {
   name: "lemmy-ui",
   description: "The official web app for lemmy.",
   link: "https://github.com/LemmyNet/lemmy-ui",
-  banner: "/static/assets/images/mobile_pic.webp",
+  banner: "/static/assets/images/lemmy_ui.webp",
   links: {
     github: "https://github.com/LemmyNet/lemmy-ui",
   },
