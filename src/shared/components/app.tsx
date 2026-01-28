@@ -16,7 +16,7 @@ export class App extends Component<any, any> {
       <div className="background-gradient-1">
         <div className="background-gradient-2">
           <Provider i18next={i18n}>
-            <div className="min-h-screen">
+            <div className="min-h-screen md:max-w-5xl md:mx-auto">
               <Navbar />
               <Switch>
                 {routes.map(({ path, exact, component: C, ...rest }) => (

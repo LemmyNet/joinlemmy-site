@@ -52,6 +52,11 @@ const POLITICS: Topic = {
   icon: "hammer2",
 };
 
+const REGIONAL: Topic = {
+  name: "regional",
+  icon: "globe",
+};
+
 const LGBTQ: Topic = {
   name: "lgbtq",
   icon: "transgender-alt",
@@ -92,6 +97,7 @@ export const TOPICS: Topic[] = [
   GENERAL,
   TECHNOLOGY,
   POLITICS,
+  REGIONAL,
   LGBTQ,
   ART,
   LITERATURE,
@@ -212,7 +218,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "lemmy.ca",
     languages: ["en"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "beehaw.org",
@@ -227,7 +233,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "midwest.social",
     languages: ["en"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "lemmy.world",
@@ -267,7 +273,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "jlai.lu",
     languages: ["fr"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "monero.town",
@@ -277,7 +283,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "mujico.org",
     languages: ["es"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "sub.wetshaving.social",
@@ -287,12 +293,12 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "feddit.dk",
     languages: ["da"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "feddit.nu",
     languages: ["sv"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "mtgzone.com",
@@ -312,7 +318,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "tucson.social",
     languages: ["en"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "lemmy.wtf",
@@ -342,7 +348,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "feddit.org",
     languages: ["de"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "discuss.tchncs.de",
@@ -352,52 +358,52 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "sh.itjust.works",
     languages: ["en", "fr"],
-    topics: [GENERAL, GAMING],
+    topics: [GENERAL, GAMING, REGIONAL],
   },
   {
     domain: "feddit.nl",
     languages: ["nl"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "aussie.zone",
     languages: ["en"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "lemmy.pt",
     languages: ["pt", "pt-BR"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "lemmy.eco.br",
     languages: ["pt", "pt-BR"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "feddit.cl",
     languages: ["es"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "lemmy.eus",
     languages: ["eu"],
-    topics: [TECHNOLOGY],
+    topics: [TECHNOLOGY, REGIONAL],
   },
   {
     domain: "lm.korako.me",
     languages: ["ja"],
-    topics: [TECHNOLOGY],
+    topics: [TECHNOLOGY, REGIONAL],
   },
   {
     domain: "feddit.it",
     languages: ["it"],
-    topics: [TECHNOLOGY],
+    topics: [TECHNOLOGY, REGIONAL],
   },
   {
     domain: "feddit.uk",
     languages: ["en"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "lemmings.world",
@@ -447,7 +453,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "szmer.info",
     languages: ["pl"],
-    topics: [GENERAL, POLITICS, LGBTQ, ART],
+    topics: [GENERAL, POLITICS, LGBTQ, ART, REGIONAL],
   },
   {
     domain: "retrolemmy.com",
@@ -457,11 +463,11 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
   {
     domain: "feddit.bg",
     languages: ["bg", "en"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
   {
     domain: "fedit.pl",
     languages: ["pl", "en"],
-    topics: [GENERAL],
+    topics: [GENERAL, REGIONAL],
   },
 ];
