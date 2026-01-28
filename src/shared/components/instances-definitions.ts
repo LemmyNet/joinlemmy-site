@@ -28,11 +28,6 @@ export interface Topic {
   icon: string;
 }
 
-export interface GeoIpCountry {
-  iso_code?: string;
-  names?: GeoIpCountryNames;
-}
-
 export interface GeoIpCountryNames {
   en: string;
 }
