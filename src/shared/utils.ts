@@ -1,4 +1,4 @@
-import { default as MarkdownIt } from "markdown-it";
+import { default as MarkdownIt, PluginSimple, PluginWithParams, Token } from "markdown-it";
 import markdown_it_container from "markdown-it-container";
 import markdown_it_bidi from "markdown-it-bidi";
 import markdown_it_footnote from "markdown-it-footnote";
@@ -12,7 +12,7 @@ const SHORTNUM_SI_FORMAT = new Intl.NumberFormat("en-US", {
   compactDisplay: "short",
 });
 
-export function numToSI(value: any) {
+export function numToSI(value: number): string {
   return SHORTNUM_SI_FORMAT.format(value);
 }
 
@@ -25,8 +25,8 @@ const spoilerConfig = {
     return params.trim().match(/^spoiler\s+(.*)$/);
   },
 
-  render: (tokens: any, idx: any) => {
-    const m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/);
+  render: (tokens: Token[], idx: number) => {
+    const m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/) ?? "";
     if (tokens[idx].nesting === 1) {
       // opening tag
       const summary = mdToHtmlInline(md.utils.escapeHtml(m[1])).__html;
@@ -55,12 +55,12 @@ export const md = new MarkdownIt({
   linkify: true,
   typographer: true,
 })
-  .use(markdown_it_sub)
-  .use(markdown_it_sup)
-  .use(markdown_it_footnote)
-  .use(markdown_it_container, "spoiler", spoilerConfig)
-  .use(markdown_it_ruby)
-  .use(markdown_it_bidi);
+  .use(markdown_it_sub as PluginSimple)
+  .use(markdown_it_sup as PluginSimple)
+  .use(markdown_it_footnote as PluginSimple)
+  .use(markdown_it_container as PluginWithParams, "spoiler", spoilerConfig)
+  .use(markdown_it_ruby as PluginSimple)
+  .use(markdown_it_bidi as PluginSimple);
 
 export function mdToHtml(text: string) {
   return { __html: md.render(text) };

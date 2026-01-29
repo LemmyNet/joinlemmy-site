@@ -119,7 +119,7 @@ export interface RecommendedInstance {
 }
 
 // https://chrisengelsma.medium.com/3342e47b9448
-function uniqueFilter(value, index, self) {
+function uniqueFilter(value:string, index:number, self:string[]) {
   return self.indexOf(value) === index;
 }
 

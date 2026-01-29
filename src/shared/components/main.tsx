@@ -295,7 +295,7 @@ const MoreFeaturesCard = ({ icons, text }) => (
 );
 
 export class Main extends Component<object, object> {
-  constructor(props: any, context: any) {
+  constructor(props: object, context: object) {
     super(props, context);
   }
 

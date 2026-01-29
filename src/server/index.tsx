@@ -83,12 +83,12 @@ function setLanguage(req: Request, res: Response): string {
   return language;
 }
 
-server.get("/*", async (req, res) => {
+server.get("/*", async (req: Request, res:Response) => {
   // const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
   const context = {} as any;
 
   const language = setLanguage(req, res);
-  i18n.changeLanguage(language);
+  await i18n.changeLanguage(language);
 
   const wrapper = (
     <StaticRouter location={req.url} context={context}>

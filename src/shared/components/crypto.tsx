@@ -94,7 +94,7 @@ export class Crypto extends Component<any, State> {
                       className="btn btn-ghost"
                       onClick={() =>
                         (
-                          document.getElementById(`qr-modal-${c.name}`) as any
+                          document.getElementById(`qr-modal-${c.name}`) as HTMLDialogElement
                         ).showModal()
                       }
                     >
