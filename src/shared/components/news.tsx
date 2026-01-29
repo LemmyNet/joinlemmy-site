@@ -92,7 +92,7 @@ const NewsCard = ({ news }: NewsProps) => (
   </div>
 );
 
-export class News extends Component<any, any> {
+export class News extends Component<object, object> {
   componentDidMount() {
     if (isBrowser()) {
       window.scrollTo(0, 0);

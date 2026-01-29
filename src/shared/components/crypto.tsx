@@ -49,8 +49,8 @@ interface State {
   cryptoQr: Map<string, string>;
 }
 
-export class Crypto extends Component<any, State> {
-  state = { cryptoQr: new Map() };
+export class Crypto extends Component<object, State> {
+  state = { cryptoQr: new Map<string, string>() };
 
   componentDidMount() {
     void (async () => {

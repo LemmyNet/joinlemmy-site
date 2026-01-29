@@ -1,6 +1,6 @@
 import { Component } from "inferno";
 
-export class Symbols extends Component<any, any> {
+export class Symbols extends Component<object, object> {
   render() {
     return (
       <svg

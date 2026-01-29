@@ -15,7 +15,7 @@ import {
 import { NUMBER_FORMAT } from "../utils";
 import { Icon } from "./icon";
 
-export class Donate extends Component<any, any> {
+export class Donate extends Component<object, object> {
   componentDidMount() {
     if (isBrowser()) {
       window.scrollTo(0, 0);

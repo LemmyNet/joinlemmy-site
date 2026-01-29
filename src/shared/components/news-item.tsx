@@ -4,7 +4,7 @@ import { news_md } from "../translations/news";
 import { isBrowser, mdToHtml } from "../utils";
 import { BottomSpacer } from "./common";
 
-export class NewsItem extends Component<any, any> {
+export class NewsItem extends Component<any, object> {
   componentDidMount() {
     if (isBrowser()) {
       window.scrollTo(0, 0);
