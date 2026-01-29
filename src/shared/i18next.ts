@@ -56,11 +56,11 @@ export const LANGUAGES = [
 const resources: Resource = {};
 LANGUAGES.forEach(l => (resources[l.code] = l.resource));
 
-function format(value: any, format: any): any {
+function format(value: string, format: string): string {
   return format === "uppercase" ? value.toUpperCase() : value;
 }
 
-i18next.init({
+await i18next.init({
   debug: false,
   // load: 'languageOnly',
   // initImmediate: false,

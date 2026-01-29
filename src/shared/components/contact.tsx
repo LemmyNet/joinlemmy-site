@@ -38,10 +38,7 @@ const ContactBtn = ({ title, url }) => (
   </a>
 );
 
-export class Contact extends Component<any, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
+export class Contact extends Component<object, object> {
   render() {
     const title = i18n.t("contact_title");
     return (
