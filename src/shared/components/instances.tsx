@@ -382,7 +382,7 @@ interface State {
   language: string;
   topic: Topic;
   allLocations: Location[];
-  selected_location?: Location;
+  selectedLocation?: Location;
   scroll: boolean;
 }
 
@@ -417,7 +417,7 @@ export class Instances extends Component<Props, State> {
     language: this.initLanguage(),
     topic: ALL_TOPIC,
     allLocations: this.initLocations(),
-    selected_location: undefined,
+    selectedLocation: undefined,
     scroll: false,
   };
 
@@ -429,15 +429,15 @@ export class Instances extends Component<Props, State> {
     const continents = instance_stats.stats.instance_details
       .filter(i => Object.keys(i.geo_ip.continent).length !== 0)
       .map(i => i.geo_ip.continent)
-      .map(i => {
-        return { code: i.code, name: i.names?.en } as Location;
-      });
+      // filter nulls
+      .flatMap(i => (i.code && i.names.en ? i : []))
+      .map((i): Location => ({ code: i.code, name: i.names.en }));
     const countries = instance_stats.stats.instance_details
       .filter(i => Object.keys(i.geo_ip.country).length !== 0)
       .map(i => i.geo_ip.country)
-      .map(i => {
-        return { code: i.iso_code, name: i.names?.en } as Location;
-      });
+      // filter nulls
+      .flatMap(i => (i.iso_code && i.names.en ? i : []))
+      .map((i): Location => ({ code: i.iso_code, name: i.names.en }));
 
     // for some reason this doesnt work with uniqueEntries()
     return continents.concat(countries).reduce((acc, obj) => {
@@ -511,8 +511,8 @@ export class Instances extends Component<Props, State> {
     }
 
     // Hosted in filter
-    if (this.state.selected_location) {
-      const code = this.state.selected_location?.code;
+    if (this.state.selectedLocation) {
+      const code = this.state.selectedLocation?.code;
       instances = instances.filter(
         i =>
           i.geo_ip?.country.iso_code === code ||
@@ -546,7 +546,7 @@ export class Instances extends Component<Props, State> {
     const title = i18n.t("join_title");
 
     const isFiltered =
-      this.state.selected_location ||
+      this.state.selectedLocation ||
       this.state.topic !== ALL_TOPIC ||
       this.state.language !== "all";
     return (
@@ -592,8 +592,8 @@ export class Instances extends Component<Props, State> {
           <div>
             <select
               className="lemmy-select mr-2"
-              value={this.state.selected_location?.name ?? "All"}
-              onChange={linkEvent(this, handleHostedInChange)}
+              value={this.state.selectedLocation?.name ?? "All"}
+              onChange={e => handleHostedInChange(this, e)}
               name="hosted_in_select"
             >
               <option disabled selected>
@@ -674,7 +674,7 @@ function handleTopicChange(i: Instances, event: any) {
 
 function handleHostedInChange(i: Instances, event: any) {
   i.setState({
-    selected_location: i.state.allLocations.find(
+    selectedLocation: i.state.allLocations.find(
       c => c.code === event.target.value,
     ),
   });
@@ -691,7 +691,7 @@ function handleSeeAll(i: Instances) {
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
-    selected_location: undefined,
+    selectedLocation: undefined,
   });
   i.buildInstanceList();
 }
