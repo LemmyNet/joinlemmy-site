@@ -8,9 +8,9 @@ import { getLanguageFromCookie, i18n } from "../shared/i18next";
 // so no need to check the query here
 const languageCookie = getLanguageFromCookie(document.cookie);
 if (languageCookie !== undefined) {
-  i18n.changeLanguage(languageCookie);
+  await i18n.changeLanguage(languageCookie);
 } else {
-  i18n.changeLanguage(navigator.language);
+  await i18n.changeLanguage(navigator.language);
 }
 
 const wrapper = (
