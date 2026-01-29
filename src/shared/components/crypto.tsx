@@ -55,12 +55,14 @@ export class Crypto extends Component<any, State> {
     super(props, context);
   }
 
-  async componentDidMount() {
-    const cryptoQr = new Map<string, string>();
-    for (const c of CRYPTOS) {
-      cryptoQr.set(c.name, await QRCode.toDataURL(c.address));
-    }
-    this.setState({ cryptoQr });
+  componentDidMount() {
+    void (async () => {
+      const cryptoQr = new Map<string, string>();
+      for (const c of CRYPTOS) {
+        cryptoQr.set(c.name, await QRCode.toDataURL(c.address));
+      }
+      this.setState({ cryptoQr });
+    })();
   }
 
   render() {
@@ -94,7 +96,9 @@ export class Crypto extends Component<any, State> {
                       className="btn btn-ghost"
                       onClick={() =>
                         (
-                          document.getElementById(`qr-modal-${c.name}`) as HTMLDialogElement
+                          document.getElementById(
+                            `qr-modal-${c.name}`,
+                          ) as HTMLDialogElement
                         ).showModal()
                       }
                     >

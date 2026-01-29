@@ -276,7 +276,7 @@ export class Apps extends Component<any, State> {
     );
   }
 
-  seeAllBtn():InfernoNode {
+  seeAllBtn(): InfernoNode {
     return (
       <div className="flex justify-center p-8">
         <button

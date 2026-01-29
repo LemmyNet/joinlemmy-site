@@ -69,7 +69,7 @@ function setLanguage(req: Request, res: Response): string {
   const cookieLang = getLanguageFromCookie(req.headers.cookie);
   let language: string;
   if (req.query["lang"] !== undefined) {
-    language = req.query["lang"].toString();
+    language = req.query["lang"] as string;
     res.cookie("lang", language, {
       expires: new Date(Date.now() + 60 * 60 * 24 * 7),
     });
@@ -83,7 +83,7 @@ function setLanguage(req: Request, res: Response): string {
   return language;
 }
 
-server.get("/*", async (req: Request, res:Response) => {
+server.get("/*", async (req: Request, res: Response) => {
   // const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
   const context = {} as any;
 

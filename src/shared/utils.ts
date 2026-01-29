@@ -1,4 +1,9 @@
-import { default as MarkdownIt, PluginSimple, PluginWithParams, Token } from "markdown-it";
+import {
+  default as MarkdownIt,
+  PluginSimple,
+  PluginWithParams,
+  Token,
+} from "markdown-it";
 import markdown_it_container from "markdown-it-container";
 import markdown_it_bidi from "markdown-it-bidi";
 import markdown_it_footnote from "markdown-it-footnote";
