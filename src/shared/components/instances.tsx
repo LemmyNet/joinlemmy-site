@@ -19,7 +19,6 @@ import {
   ALL_TOPIC,
   TOPICS,
   availableLanguages,
-  GeoIpCountry,
 } from "./instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
@@ -230,7 +229,9 @@ export const StatsBadges = ({ monthlyUsers, emailRequired, geoIp }) => (
       content={
         <div className="text-sm text-gray-500 tooltip text-ellipsis whitespace-nowrap">
           <Icon icon="globe" classes="mr-2" />
-          <span>{geoIp?.country?.names?.en ?? i18n.t("country_unknown")}</span>
+          <span>
+            {geoIp?.country?.names?.en ?? i18n.t("hosted_in_unknown")}
+          </span>
         </div>
       }
     />
@@ -370,13 +371,18 @@ function sortActive(instances: any[]): any[] {
   );
 }
 
+interface Location {
+  code: string;
+  name: string;
+}
+
 interface State {
   instances: any[];
   sort: Sort;
   language: string;
   topic: Topic;
-  allCountries: GeoIpCountry[];
-  country?: GeoIpCountry;
+  allLocations: Location[];
+  selectedLocation?: Location;
   scroll: boolean;
 }
 
@@ -410,8 +416,8 @@ export class Instances extends Component<Props, State> {
     sort: RANDOM_SORT,
     language: this.initLanguage(),
     topic: ALL_TOPIC,
-    allCountries: this.initCountries(),
-    country: undefined,
+    allLocations: this.initLocations(),
+    selectedLocation: undefined,
     scroll: false,
   };
 
@@ -419,18 +425,28 @@ export class Instances extends Component<Props, State> {
     super(props, context);
   }
 
-  initCountries(): GeoIpCountry[] {
+  initLocations(): Location[] {
+    const continents = instance_stats.stats.instance_details
+      .filter(i => Object.keys(i.geo_ip.continent).length !== 0)
+      .map(i => i.geo_ip.continent)
+      // filter nulls
+      .flatMap(i => (i.code && i.names.en ? i : []))
+      .map((i): Location => ({ code: i.code, name: i.names.en }));
     const countries = instance_stats.stats.instance_details
       .filter(i => Object.keys(i.geo_ip.country).length !== 0)
-      .map(i => i.geo_ip.country);
-    const dedup = countries.reduce((acc, obj) => {
-      const exist = acc.find(i => obj.iso_code === i.iso_code);
+      .map(i => i.geo_ip.country)
+      // filter nulls
+      .flatMap(i => (i.iso_code && i.names.en ? i : []))
+      .map((i): Location => ({ code: i.iso_code, name: i.names.en }));
+
+    // for some reason this doesnt work with uniqueEntries()
+    return continents.concat(countries).reduce((acc, obj) => {
+      const exist = acc.find(i => obj.code === i.code);
       if (!exist) {
         acc.push(obj);
       }
       return acc;
-    }, [] as GeoIpCountry[]);
-    return dedup;
+    }, [] as Location[]);
   }
   initLanguage() {
     const allLanguages = uniqueEntries(
@@ -494,10 +510,13 @@ export class Instances extends Component<Props, State> {
       );
     }
 
-    // Country filter
-    if (this.state.country) {
+    // Hosted in filter
+    if (this.state.selectedLocation) {
+      const code = this.state.selectedLocation?.code;
       instances = instances.filter(
-        i => i.geo_ip?.country.iso_code === this.state.country?.iso_code,
+        i =>
+          i.geo_ip?.country.iso_code === code ||
+          i.geo_ip.continent.code === code,
       );
     }
 
@@ -527,7 +546,7 @@ export class Instances extends Component<Props, State> {
     const title = i18n.t("join_title");
 
     const isFiltered =
-      this.state.country ||
+      this.state.selectedLocation ||
       this.state.topic !== ALL_TOPIC ||
       this.state.language !== "all";
     return (
@@ -573,19 +592,19 @@ export class Instances extends Component<Props, State> {
           <div>
             <select
               className="lemmy-select mr-2"
-              value={this.state.country?.names?.en ?? "All"}
-              onChange={linkEvent(this, handleCountryChange)}
-              name="country_select"
+              value={this.state.selectedLocation?.name ?? "All"}
+              onChange={e => handleHostedInChange(this, e)}
+              name="hosted_in_select"
             >
               <option disabled selected>
-                {i18n.t("country_select")}
+                {i18n.t("hosted_in_select")}
               </option>
               <option key="all" value="all">
-                {i18n.t("all_countries")}
+                {i18n.t("all_locations")}
               </option>
-              {this.state.allCountries.map(c => (
-                <option key={c.iso_code} value={c.iso_code}>
-                  {c.names?.en}
+              {this.state.allLocations.map(c => (
+                <option key={c.code} value={c.code}>
+                  {c.name}
                 </option>
               ))}
             </select>
@@ -653,9 +672,11 @@ function handleTopicChange(i: Instances, event: any) {
   i.buildInstanceList();
 }
 
-function handleCountryChange(i: Instances, event: any) {
+function handleHostedInChange(i: Instances, event: any) {
   i.setState({
-    country: i.state.allCountries.find(c => c.iso_code === event.target.value),
+    selectedLocation: i.state.allLocations.find(
+      c => c.code === event.target.value,
+    ),
   });
   i.buildInstanceList();
 }
@@ -670,7 +691,7 @@ function handleSeeAll(i: Instances) {
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
-    country: undefined,
+    selectedLocation: undefined,
   });
   i.buildInstanceList();
 }
