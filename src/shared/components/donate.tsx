@@ -110,7 +110,7 @@ const FundingGoal = () => {
 
   return (
     <div className="flex flex-col mb-3 gap-4">
-      <div class="divider"></div>
+      <div className="divider"></div>
       <div className={text_classes}>
         <div className="flex flex-row justify-between">
           <div className="text-xl font-bold">

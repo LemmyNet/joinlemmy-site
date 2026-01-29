@@ -56,6 +56,13 @@ export default [
     files: ["src/**/*.js", "src/**/*.mjs", "src/**/*.ts", "src/**/*.tsx"],
     rules: {
       "@typescript-eslint/no-useless-constructor": "error",
+      "no-console": ["error", { allow: ["warn", "error", "info", "debug", "assert"] }],
+      "inferno/jsx-boolean-value": "error",
+      "inferno/jsx-props-class-name": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
       "@typescript-eslint/no-explicit-any": 0,
       "@typescript-eslint/no-unsafe-assignment": 0,
       "@typescript-eslint/no-unsafe-call": 0,

@@ -134,7 +134,7 @@ server.get("/*", async (req: Request, res: Response) => {
 });
 
 server.listen(port, () => {
-  console.log(`http://localhost:${port}`);
+  console.info(`http://localhost:${port}`);
 });
 
 process.on("SIGINT", () => {
