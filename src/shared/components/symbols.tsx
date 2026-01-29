@@ -1,10 +1,6 @@
 import { Component } from "inferno";
 
 export class Symbols extends Component<any, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
   render() {
     return (
       <svg

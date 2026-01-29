@@ -51,9 +51,6 @@ interface State {
 
 export class Crypto extends Component<any, State> {
   state = { cryptoQr: new Map() };
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
 
   componentDidMount() {
     void (async () => {

@@ -5,10 +5,6 @@ import { isBrowser, mdToHtml } from "../utils";
 import { BottomSpacer } from "./common";
 
 export class NewsItem extends Component<any, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
   componentDidMount() {
     if (isBrowser()) {
       window.scrollTo(0, 0);

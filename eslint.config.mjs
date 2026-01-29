@@ -1,6 +1,5 @@
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
-import prettier from "eslint-plugin-prettier/recommended";
 import jsxa11y from "eslint-plugin-jsx-a11y";
 import inferno from "eslint-plugin-inferno";
 import globals from "globals";
@@ -56,6 +55,7 @@ export default [
   {
     files: ["src/**/*.js", "src/**/*.mjs", "src/**/*.ts", "src/**/*.tsx"],
     rules: {
+      "@typescript-eslint/no-useless-constructor": "error",
       "@typescript-eslint/no-explicit-any": 0,
       "@typescript-eslint/no-unsafe-assignment": 0,
       "@typescript-eslint/no-unsafe-call": 0,

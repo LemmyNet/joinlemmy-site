@@ -121,10 +121,6 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
     showModal: false,
   };
 
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
   render() {
     const instance = this.props.instance;
 
@@ -414,10 +410,6 @@ export class Instances extends Component<Props, State> {
     country: undefined,
     scroll: false,
   };
-
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
 
   initCountries(): GeoIpCountry[] {
     const countries = instance_stats.stats.instance_details

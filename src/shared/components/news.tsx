@@ -93,10 +93,6 @@ const NewsCard = ({ news }: NewsProps) => (
 );
 
 export class News extends Component<any, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
   componentDidMount() {
     if (isBrowser()) {
       window.scrollTo(0, 0);

@@ -295,10 +295,6 @@ const MoreFeaturesCard = ({ icons, text }) => (
 );
 
 export class Main extends Component<object, object> {
-  constructor(props: object, context: object) {
-    super(props, context);
-  }
-
   render() {
     const title = i18n.t("lemmy_title");
     return (
