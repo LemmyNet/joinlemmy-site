@@ -109,7 +109,13 @@ export function getQueryString<T extends Record<string, string | undefined>>(
 ) {
   const searchParams = new URLSearchParams();
   Object.entries(obj)
-    .filter(([, val]) => val !== undefined && val !== null)
+    .filter(
+      ([, val]) =>
+        val !== undefined &&
+        val !== null &&
+        !val.includes("all") &&
+        val !== "random",
+    )
     .forEach(([key, val]) => searchParams.set(key, val ?? ""));
   const params = searchParams.toString();
   if (params) {

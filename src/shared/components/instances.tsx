@@ -345,22 +345,18 @@ export const DetailsModal = ({
 
 interface Sort {
   name: string;
-  icon: string;
 }
 
 const RANDOM_SORT: Sort = {
   name: "random",
-  icon: "TBD",
 };
 
 const MOST_ACTIVE_SORT: Sort = {
   name: "most_active",
-  icon: "TBD",
 };
 
 const LEAST_ACTIVE_SORT: Sort = {
   name: "least_active",
-  icon: "TBD",
 };
 
 const SORTS: Sort[] = [RANDOM_SORT, MOST_ACTIVE_SORT, LEAST_ACTIVE_SORT];
@@ -396,11 +392,20 @@ function initTopic(): Topic {
   }
 }
 
+function initSort(): Sort {
+  const sort = getQueryParams().get("sort");
+  if (sort !== null) {
+    return SORTS.find(c => c.name === sort) ?? RANDOM_SORT;
+  } else {
+    return ALL_TOPIC;
+  }
+}
+
 export class Instances extends Component<object, State> {
   state: State = {
     instances: [],
     allLocations: this.initLocations(),
-    sort: RANDOM_SORT,
+    sort: initSort(),
     language: this.initLanguage(),
     topic: initTopic(),
     location: undefined,
@@ -650,7 +655,6 @@ export class Instances extends Component<object, State> {
     this.setState(newState);
     this.buildInstanceList();
 
-    // TODO: exclude params which have default values (eg language == All)
     const queryParams: QueryParams<State> = {
       location: this.state.location?.code,
       language: this.state.language,
