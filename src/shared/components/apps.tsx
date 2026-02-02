@@ -129,21 +129,22 @@ const AppDetailsButtons = ({
 };
 
 const AppDetailsCard = ({ app, activePlatform }: AppDetailsCardProps) => (
-  <div className="card card-bordered bg-neutral-900 shadow-xl">
-    <div className="card-body items-center">
-      <AppDetailsTitle app={app} />
+  <div className="card card-bordered bg-neutral-900 shadow-xl rounded-xl">
+    <figure className="relative">
       <img
         src={app.banner || "/static/assets/images/lemmy.svg"}
-        className="rounded-xl max-h-96 mb-2"
+        className="max-h-96 mb-2"
         alt=""
       />
-      <p className="text-gray-300 mb-2">{app.description}</p>
-      {app.sourceType === SourceType.Closed && (
-        <div className="alert alert-warning">
-          <Icon icon="alert-octagon" />
-          <span>{i18n.t("closed_source_warning")}</span>
-        </div>
+      {app.sourceType === SourceType.Open && (
+        <span className="bg-green-400 absolute bottom-10 right-10 p-2 rounded-xl border border-gray-300">
+          {i18n.t("feature_open_source_title")}
+        </span>
       )}
+    </figure>
+    <div className="card-body items-center">
+      <AppDetailsTitle app={app} />
+      <p className="text-gray-300 mb-2">{app.description}</p>
       <AppDetailsButtons
         links={app.links}
         activePlatform={activePlatform ?? Platform.All}
