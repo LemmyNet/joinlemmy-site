@@ -142,7 +142,7 @@ const AppDetailsCard = ({ app, activePlatform }: AppDetailsCardProps) => (
         </span>
       )}
     </figure>
-    <div className="card-body items-center">
+    <div className="card-body items-center p-4">
       <AppDetailsTitle app={app} />
       <p className="text-gray-300 mb-2">{app.description}</p>
       <AppDetailsButtons
