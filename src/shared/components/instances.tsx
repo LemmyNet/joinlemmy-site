@@ -5,9 +5,11 @@ import { T } from "inferno-i18next";
 import { instance_stats } from "../instance_stats";
 import {
   getQueryParams,
+  getQueryString,
   isBrowser,
   mdToHtml,
   numToSI,
+  QueryParams,
   sortRandom,
   uniqueEntries,
 } from "../utils";
@@ -378,51 +380,37 @@ interface Location {
 
 interface State {
   instances: any[];
-  sort: Sort;
-  language: string;
-  topic: Topic;
   allLocations: Location[];
-  selectedLocation?: Location;
-  scroll: boolean;
-}
-
-interface Props {
   sort: Sort;
   language: string;
   topic: Topic;
-  scroll: boolean;
+  location?: Location;
 }
 
-function getSortFromQuery(sort?: string): Sort {
-  return SORTS.find(s => s.name === sort) ?? RANDOM_SORT;
+function initTopic(): Topic {
+  const topic = getQueryParams().get("topic");
+  if (topic !== null) {
+    return TOPICS.find(c => c.name === topic) ?? ALL_TOPIC;
+  } else {
+    return ALL_TOPIC;
+  }
 }
 
-function getTopicFromQuery(topic?: string): Topic {
-  return TOPICS.find(c => c.name === topic) ?? ALL_TOPIC;
-}
-
-function getInstancesQueryParams(lang: string) {
-  return getQueryParams<Props>({
-    sort: getSortFromQuery,
-    language: d => d ?? lang,
-    topic: getTopicFromQuery,
-    scroll: d => !!d,
-  });
-}
-
-export class Instances extends Component<Props, State> {
+export class Instances extends Component<object, State> {
   state: State = {
     instances: [],
+    allLocations: this.initLocations(),
     sort: RANDOM_SORT,
     language: this.initLanguage(),
-    topic: ALL_TOPIC,
-    allLocations: this.initLocations(),
-    selectedLocation: undefined,
-    scroll: false,
+    topic: initTopic(),
+    location: undefined,
   };
 
   constructor(props: any, context: any) {
     super(props, context);
+    if (isBrowser()) {
+      window.scrollTo(0, 0);
+    }
   }
 
   initLocations(): Location[] {
@@ -448,7 +436,13 @@ export class Instances extends Component<Props, State> {
       return acc;
     }, [] as Location[]);
   }
+
   initLanguage() {
+    const lang = getQueryParams().get("language");
+    if (lang != null) {
+      return lang;
+    }
+
     const allLanguages = uniqueEntries(
       RECOMMENDED_INSTANCES.flatMap(i => i.languages),
     );
@@ -457,36 +451,27 @@ export class Instances extends Component<Props, State> {
       // TODO: consider using `navigator.languages` which has an array of all enabled langs
       const lang = navigator.language.split("-")[0];
       return allLanguages.find(l => l === lang) ?? "all";
-      window.scrollTo(0, 0);
     } else {
       return "all";
     }
   }
+
   // Set the filters by the query params if they exist
   componentDidMount() {
-    this.setState(getInstancesQueryParams(this.state.language));
+    this.setState({ location: this.initSelectedLocation() });
     // This is browser intensive, so run in the background
     setTimeout(() => {
       this.buildInstanceList();
-      this.scrollToSearch();
     }, 0);
   }
 
-  scrollToSearch() {
-    if (this.state.scroll) {
-      const el = document.getElementById("search")?.offsetTop;
-      if (el) {
-        window.scrollTo({ top: el, behavior: "smooth" });
-      }
+  initSelectedLocation(): Location | undefined {
+    const location = getQueryParams().get("location");
+    if (location != null) {
+      return this.state.allLocations.find(l => l.code === location);
+    } else {
+      return undefined;
     }
-  }
-
-  isOpenInstance(i: any): boolean {
-    return !(
-      i.site_info.site_view.local_site.registration_mode !== "Open" ||
-      i.site_info.site_view.local_site.captcha_enabled ||
-      i.site_info.site_view.local_site.require_email_verification
-    );
   }
 
   buildInstanceList() {
@@ -511,8 +496,8 @@ export class Instances extends Component<Props, State> {
     }
 
     // Hosted in filter
-    if (this.state.selectedLocation) {
-      const code = this.state.selectedLocation?.code;
+    if (this.state.location) {
+      const code = this.state.location?.code;
       instances = instances.filter(
         i =>
           i.geo_ip?.country.iso_code === code ||
@@ -546,7 +531,7 @@ export class Instances extends Component<Props, State> {
     const title = i18n.t("join_title");
 
     const isFiltered =
-      this.state.selectedLocation ||
+      this.state.location ||
       this.state.topic !== ALL_TOPIC ||
       this.state.language !== "all";
     return (
@@ -592,7 +577,7 @@ export class Instances extends Component<Props, State> {
           <div>
             <select
               className="lemmy-select mr-2"
-              value={this.state.selectedLocation?.name ?? "All"}
+              value={this.state.location?.name ?? "All"}
               onChange={e => handleHostedInChange(this, e)}
               name="hosted_in_select"
             >
@@ -610,7 +595,7 @@ export class Instances extends Component<Props, State> {
             </select>
             <select
               className="lemmy-select mr-2"
-              value={this.state.topic.name}
+              value={this.state.topic?.name}
               onChange={linkEvent(this, handleTopicChange)}
               name="topic_select"
             >
@@ -639,7 +624,7 @@ export class Instances extends Component<Props, State> {
               ))}
             </select>
             <select
-              value={this.state.sort.name}
+              value={this.state.sort?.name}
               name="sort_select"
               className="lemmy-select mr-2"
               onChange={linkEvent(this, handleSortChange)}
@@ -656,44 +641,60 @@ export class Instances extends Component<Props, State> {
       </div>
     );
   }
+
+  updateUrl(partialState: Partial<State>) {
+    const newState = {
+      ...this.state,
+      ...partialState,
+    };
+    this.setState(newState);
+    this.buildInstanceList();
+
+    // TODO: exclude params which have default values (eg language == All)
+    const queryParams: QueryParams<State> = {
+      location: this.state.location?.code,
+      language: this.state.language,
+      topic: this.state.topic?.name,
+      sort: this.state.sort?.name,
+    };
+
+    window.history.replaceState(
+      {},
+      "",
+      `/instances${getQueryString(queryParams)}`,
+    );
+  }
 }
 
 function handleSortChange(i: Instances, event: any) {
-  i.setState({
+  i.updateUrl({
     sort: SORTS.find(s => s.name === event.target.value) ?? RANDOM_SORT,
   });
-  i.buildInstanceList();
 }
 
 function handleTopicChange(i: Instances, event: any) {
-  i.setState({
+  i.updateUrl({
     topic: TOPICS.find(c => c.name === event.target.value) ?? ALL_TOPIC,
   });
-  i.buildInstanceList();
 }
 
 function handleHostedInChange(i: Instances, event: any) {
-  i.setState({
-    selectedLocation: i.state.allLocations.find(
-      c => c.code === event.target.value,
-    ),
+  i.updateUrl({
+    location: i.state.allLocations.find(c => c.code === event.target.value),
   });
-  i.buildInstanceList();
 }
 
 function handleLanguageChange(i: Instances, event: any) {
-  i.setState({ language: event.target.value });
-  i.buildInstanceList();
+  i.updateUrl({ language: event.target.value });
 }
 
 function handleSeeAll(i: Instances) {
-  i.setState({
+  i.updateUrl({
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
-    selectedLocation: undefined,
+    location: undefined,
   });
-  i.buildInstanceList();
 }
 
 /// Semi-random instance sort, with larger instances always shown near the top.
