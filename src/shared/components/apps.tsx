@@ -1,4 +1,4 @@
-import { Component, linkEvent } from "inferno";
+import { Component, InfernoNode, linkEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
@@ -18,6 +18,7 @@ import { I18nKeys } from "i18next";
 import { isBrowser, sortRandom } from "../utils";
 import classNames from "classnames";
 import { UAParser } from "ua-parser-js";
+import { FormEvent } from "inferno";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-4">
@@ -196,10 +197,6 @@ export class Apps extends Component<any, State> {
     platform: this.initialPlatform(),
   };
 
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0);
     this.buildAppList();
@@ -275,7 +272,7 @@ export class Apps extends Component<any, State> {
     );
   }
 
-  seeAllBtn() {
+  seeAllBtn(): InfernoNode {
     return (
       <div className="flex justify-center p-8">
         <button
@@ -314,7 +311,7 @@ export class Apps extends Component<any, State> {
   }
 }
 
-function handlePlatformChange(i: Apps, event: any) {
+function handlePlatformChange(i: Apps, event: FormEvent<HTMLSelectElement>) {
   const platform: Platform = (event.target.value as Platform) ?? Platform.All;
   i.setState({
     platform,

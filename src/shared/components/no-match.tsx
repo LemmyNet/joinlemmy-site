@@ -1,10 +1,6 @@
 import { Component } from "inferno";
 
-export class NoMatch extends Component<any, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
+export class NoMatch extends Component<object, object> {
   render() {
     return (
       <div className="container mx-auto px-4">

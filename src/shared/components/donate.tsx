@@ -15,11 +15,7 @@ import {
 import { NUMBER_FORMAT } from "../utils";
 import { Icon } from "./icon";
 
-export class Donate extends Component<any, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
+export class Donate extends Component<object, object> {
   componentDidMount() {
     if (isBrowser()) {
       window.scrollTo(0, 0);
@@ -114,7 +110,7 @@ const FundingGoal = () => {
 
   return (
     <div className="flex flex-col mb-3 gap-4">
-      <div class="divider"></div>
+      <div className="divider"></div>
       <div className={text_classes}>
         <div className="flex flex-row justify-between">
           <div className="text-xl font-bold">

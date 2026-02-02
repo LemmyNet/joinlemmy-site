@@ -49,18 +49,17 @@ interface State {
   cryptoQr: Map<string, string>;
 }
 
-export class Crypto extends Component<any, State> {
-  state = { cryptoQr: new Map() };
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
+export class Crypto extends Component<object, State> {
+  state = { cryptoQr: new Map<string, string>() };
 
-  async componentDidMount() {
-    const cryptoQr = new Map<string, string>();
-    for (const c of CRYPTOS) {
-      cryptoQr.set(c.name, await QRCode.toDataURL(c.address));
-    }
-    this.setState({ cryptoQr });
+  componentDidMount() {
+    void (async () => {
+      const cryptoQr = new Map<string, string>();
+      for (const c of CRYPTOS) {
+        cryptoQr.set(c.name, await QRCode.toDataURL(c.address));
+      }
+      this.setState({ cryptoQr });
+    })();
   }
 
   render() {
@@ -94,7 +93,9 @@ export class Crypto extends Component<any, State> {
                       className="btn btn-ghost"
                       onClick={() =>
                         (
-                          document.getElementById(`qr-modal-${c.name}`) as any
+                          document.getElementById(
+                            `qr-modal-${c.name}`,
+                          ) as HTMLDialogElement
                         ).showModal()
                       }
                     >

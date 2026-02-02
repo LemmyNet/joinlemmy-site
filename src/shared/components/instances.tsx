@@ -120,10 +120,6 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
     showModal: false,
   };
 
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
-
   render() {
     const instance = this.props.instance;
 
@@ -420,10 +416,6 @@ export class Instances extends Component<Props, State> {
     selectedLocation: undefined,
     scroll: false,
   };
-
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
 
   initLocations(): Location[] {
     const continents = instance_stats.stats.instance_details

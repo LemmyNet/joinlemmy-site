@@ -80,7 +80,7 @@ ${keys.map(key => `    | "${key}"`).join("\n")};
       TInterpolationMap extends Record<string, unknown> = StringMap
     >(
       key: I18nKeys | I18nKeys[],
-      options?: TOptions<TInterpolationMap> | string
+      options?: TOptions<TInterpolationMap>
     ): TResult;
     // overloaded usage
     <
@@ -89,7 +89,7 @@ ${keys.map(key => `    | "${key}"`).join("\n")};
     >(
       key: I18nKeys | I18nKeys[],
       defaultValue?: string,
-      options?: TOptions<TInterpolationMap> | string
+      options?: TOptions<TInterpolationMap>
     ): TResult;
   }
 

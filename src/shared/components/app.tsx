@@ -7,10 +7,7 @@ import { NoMatch } from "./no-match";
 import { Symbols } from "./symbols";
 import { Footer, Navbar } from "./navbar";
 
-export class App extends Component<any, any> {
-  constructor(props: any, context: any) {
-    super(props, context);
-  }
+export class App extends Component<object, object> {
   render() {
     return (
       <div className="background-gradient-1">
