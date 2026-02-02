@@ -64,12 +64,19 @@ function erudaInit(): string {
   }
 }
 
-function setLanguage(req: Request, res: Response): string {
+interface Query {
+  lang?: string;
+}
+
+function setLanguage(
+  req: Request<object, object, object, Query>,
+  res: Response,
+): string {
   // Setting the language for non-js browsers
   const cookieLang = getLanguageFromCookie(req.headers.cookie);
   let language: string;
-  if (req.query["lang"] !== undefined) {
-    language = req.query["lang"] as string;
+  if (req.query.lang !== undefined) {
+    language = req.query.lang;
     res.cookie("lang", language, {
       expires: new Date(Date.now() + 60 * 60 * 24 * 7),
     });
@@ -83,26 +90,28 @@ function setLanguage(req: Request, res: Response): string {
   return language;
 }
 
-server.get("/*", async (req: Request, res: Response) => {
-  // const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
-  const context = {} as any;
+server.get(
+  "/*",
+  async (req: Request<object, object, object, Query>, res: Response) => {
+    // const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
+    const context = {} as any;
 
-  const language = setLanguage(req, res);
-  await i18n.changeLanguage(language);
+    const language = setLanguage(req, res);
+    await i18n.changeLanguage(language);
 
-  const wrapper = (
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>
-  );
-  if (context.url) {
-    return res.redirect(context.url);
-  }
+    const wrapper = (
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    );
+    if (context.url) {
+      return res.redirect(context.url);
+    }
 
-  const root = renderToString(wrapper);
-  const helmet = Helmet.renderStatic();
+    const root = renderToString(wrapper);
+    const helmet = Helmet.renderStatic();
 
-  res.send(`
+    res.send(`
            <!DOCTYPE html>
            <html ${helmet.htmlAttributes.toString()} lang="en" class="scroll-smooth" data-theme="halloween">
            <head>
@@ -131,7 +140,8 @@ server.get("/*", async (req: Request, res: Response) => {
            </body>
          </html>
 `);
-});
+  },
+);
 
 server.listen(port, () => {
   console.info(`http://localhost:${port}`);

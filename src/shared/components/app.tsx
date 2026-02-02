@@ -6,7 +6,6 @@ import { routes } from "../routes";
 import { NoMatch } from "./no-match";
 import { Symbols } from "./symbols";
 import { Footer, Navbar } from "./navbar";
-import { InfernoNode } from "inferno";
 
 export class App extends Component<object, object> {
   render() {
@@ -33,6 +32,6 @@ export class App extends Component<object, object> {
           </Provider>
         </div>
       </div>
-    ) as InfernoNode;
+    );
   }
 }
