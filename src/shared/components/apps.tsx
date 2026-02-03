@@ -126,15 +126,15 @@ const AppDetailsButtons = ({
 };
 
 const AppDetailsCard = ({ app, activePlatform }: AppDetailsCardProps) => (
-  <div className="card card-bordered bg-neutral-900 shadow-xl rounded-xl">
+  <div className="card card-bordered bg-neutral-900 shadow-xl rounded-xl relative max-h-96">
     <figure>
       <img
         src={app.banner || "/static/assets/images/lemmy.svg"}
-        className="max-h-96 mb-2"
+        className="mb-2"
         alt=""
       />
     </figure>
-    <div className="card-body items-center p-4">
+    <div className="card-body items-center p-4 absolute bottom-0 bg-neutral-900/90 w-full">
       <AppDetailsTitle app={app} />
       <p className="text-gray-300 mb-2">{app.description}</p>
       <AppDetailsButtons
