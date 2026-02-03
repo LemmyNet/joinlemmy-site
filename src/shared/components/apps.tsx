@@ -10,7 +10,6 @@ import {
   AppDetails,
   AppLinks,
   Platform,
-  SourceType,
   MODERATION_TOOLS,
 } from "./app-definitions";
 import { Icon } from "./icon";
@@ -130,17 +129,12 @@ const AppDetailsButtons = ({
 
 const AppDetailsCard = ({ app, activePlatform }: AppDetailsCardProps) => (
   <div className="card card-bordered bg-neutral-900 shadow-xl rounded-xl">
-    <figure className="relative">
+    <figure>
       <img
         src={app.banner || "/static/assets/images/lemmy.svg"}
         className="max-h-96 mb-2"
         alt=""
       />
-      {app.sourceType === SourceType.Open && (
-        <span className="bg-green-400 absolute bottom-10 right-10 p-2 rounded-xl border border-gray-300">
-          {i18n.t("feature_open_source_title")}
-        </span>
-      )}
     </figure>
     <div className="card-body items-center p-4">
       <AppDetailsTitle app={app} />
