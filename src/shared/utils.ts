@@ -71,22 +71,12 @@ export function mdToHtml(text: string) {
   return { __html: md.render(text) };
 }
 
-export function getQueryParams<T extends Record<string, any>>(processors: {
-  [K in keyof T]: (param: string) => T[K];
-}): T {
+export function getQueryParams(): URLSearchParams {
   if (isBrowser()) {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    return Array.from(Object.entries(processors)).reduce(
-      (acc, [key, process]) => ({
-        ...acc,
-        [key]: process(searchParams.get(key)),
-      }),
-      {} as T,
-    );
+    return new URLSearchParams(window.location.search);
+  } else {
+    return new URLSearchParams();
   }
-
-  return {} as T;
 }
 
 export const NUMBER_FORMAT = new Intl.NumberFormat("en", {
@@ -112,5 +102,29 @@ export function sortRandom<T>(list: T[]): T[] {
 }
 
 export function uniqueEntries<T>(list: T[]): T[] {
-  return [...new Set(list)];
+  return Array.from(new Set(list));
+}
+
+export type QueryParams<T extends Record<string, any>> = {
+  [key in keyof T]?: string;
+};
+
+export function getQueryString<T extends Record<string, string | undefined>>(
+  obj: T,
+) {
+  const searchParams = new URLSearchParams();
+  Object.entries(obj)
+    .filter(
+      ([, val]) =>
+        val !== undefined &&
+        val !== null &&
+        !val.includes("all") &&
+        val !== "random",
+    )
+    .forEach(([key, val]) => searchParams.set(key, val ?? ""));
+  const params = searchParams.toString();
+  if (params) {
+    return "?" + params;
+  }
+  return "";
 }
