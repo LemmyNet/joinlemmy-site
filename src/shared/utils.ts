@@ -97,7 +97,7 @@ export function sortRandom<T>(list: T[]): T[] {
 }
 
 export function uniqueEntries<T>(list: T[]): T[] {
-  return [...new Set(list)];
+  return Array.from(new Set(list));
 }
 
 export type QueryParams<T extends Record<string, any>> = {

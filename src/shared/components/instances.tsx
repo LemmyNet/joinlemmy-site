@@ -385,20 +385,12 @@ interface State {
 
 function initTopic(): Topic {
   const topic = getQueryParams().get("topic");
-  if (topic !== null) {
-    return TOPICS.find(c => c.name === topic) ?? ALL_TOPIC;
-  } else {
-    return ALL_TOPIC;
-  }
+  return topic ? (TOPICS.find(c => c.name === topic) ?? ALL_TOPIC) : ALL_TOPIC;
 }
 
 function initSort(): Sort {
   const sort = getQueryParams().get("sort");
-  if (sort !== null) {
-    return SORTS.find(c => c.name === sort) ?? RANDOM_SORT;
-  } else {
-    return ALL_TOPIC;
-  }
+  return sort ? (SORTS.find(c => c.name === sort) ?? RANDOM_SORT) : RANDOM_SORT;
 }
 
 export class Instances extends Component<object, State> {
@@ -413,9 +405,6 @@ export class Instances extends Component<object, State> {
 
   constructor(props: any, context: any) {
     super(props, context);
-    if (isBrowser()) {
-      window.scrollTo(0, 0);
-    }
   }
 
   initLocations(): Location[] {
@@ -444,20 +433,22 @@ export class Instances extends Component<object, State> {
 
   initLanguage() {
     const lang = getQueryParams().get("language");
-    if (lang != null) {
+    if (lang) {
       return lang;
-    }
-
-    const allLanguages = uniqueEntries(
-      RECOMMENDED_INSTANCES.flatMap(i => i.languages),
-    );
-
-    if (isBrowser()) {
-      // TODO: consider using `navigator.languages` which has an array of all enabled langs
-      const lang = navigator.language.split("-")[0];
-      return allLanguages.find(l => l === lang) ?? "all";
     } else {
-      return "all";
+      const allLanguages = uniqueEntries(
+        RECOMMENDED_INSTANCES.flatMap(i => i.languages),
+      );
+
+      if (isBrowser()) {
+        window.scrollTo(0, 0);
+
+        // TODO: consider using `navigator.languages` which has an array of all enabled langs
+        const lang = navigator.language.split("-")[0];
+        return allLanguages.find(l => l === lang) ?? "all";
+      } else {
+        return "all";
+      }
     }
   }
 
