@@ -68,11 +68,9 @@ const PlatformButton = ({
   });
   return (
     link && (
-      <div className={classes}>
-        <a href={link}>
-          <Icon icon={icon} />
-        </a>
-      </div>
+      <a href={link} className={classes}>
+        <Icon icon={icon} />
+      </a>
     )
   );
 };
