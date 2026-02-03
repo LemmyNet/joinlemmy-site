@@ -470,4 +470,5 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     languages: ["pl", "en"],
     topics: [GENERAL, REGIONAL],
   },
+  { domain: "chachara.club", languages: ["es"], topics: [REGIONAL] },
 ];
