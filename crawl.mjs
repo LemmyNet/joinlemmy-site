@@ -1,16 +1,16 @@
-import fs, { readFileSync } from "fs";
-import { spawn } from "child_process";
+import { mkdirSync, readFileSync, writeFileSync } from "fs";
+import { spawnSync } from "child_process";
 
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
 const instanceStatsFile = "src/shared/instance_stats.ts";
 
-fs.mkdirSync(outDir, { recursive: true });
+mkdirSync(outDir, { recursive: true });
 
 // crawl instance stats
 try {
   const recommended_instances = JSON.parse(
-    fs.readFileSync(recommendationsFile, "utf8"),
+    readFileSync(recommendationsFile, "utf8"),
   );
   var all_recommended = [];
   for (var k in recommended_instances) {
@@ -21,7 +21,7 @@ try {
   // Run the crawler with start instances and blocked instances. The parameter --joinlemmy-output
   // makes it exclude some output data which is not needed here. This is done in Rust because `jq`
   // uses excessive memory and crashes.
-  const run = spawn(
+  const crawl = spawnSync(
     "sh",
     [
       "-c",
@@ -34,19 +34,16 @@ try {
     },
   );
 
-  run.stderr.on("data", data => {
-    const strData = data.toString();
-    process.stdout.write(strData);
-  });
+  if (crawl.stderr) {
+    process.stdout.write(crawl.stderr);
+  }
 
-  run.on("close", _exitCode => {
-    // Convert stats to json to be compiled directly into the code. Not using JSON.parse here as it
-    // uses too much memory and crashes.
-    let crawlOutput = readFileSync("crawl-results/instances/joinlemmy.json");
-    let data = `export const instance_stats = {stats: ${crawlOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
-    fs.writeFileSync(instanceStatsFile, data);
-  });
-  run.await;
+  // Convert stats to json to be compiled directly into the code. Not using JSON.parse here as it
+  // uses too much memory and crashes.
+  spawnSync("gunzip", ["crawl-results/instances/joinlemmy.json.gz"]);
+  let crawlOutput = readFileSync("crawl-results/instances/joinlemmy.json");
+  let data = `export const instance_stats = {stats: ${crawlOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
+  writeFileSync(instanceStatsFile, data);
 } catch (err) {
   console.error(err);
 }
