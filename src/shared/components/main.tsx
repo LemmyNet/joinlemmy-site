@@ -18,7 +18,11 @@ const TitleBlock = () => (
   </div>
 );
 
-const FollowCommunitiesBlock = ({ suggested_instance }) => {
+type FollowCommunitiesBlockProps = { suggested_instance: string };
+
+function FollowCommunitiesBlock({
+  suggested_instance,
+}: FollowCommunitiesBlockProps) {
   return (
     <div className="flex flex-col items-center">
       <div className="card card-bordered card-gradient shadow-xl">
@@ -44,7 +48,7 @@ const FollowCommunitiesBlock = ({ suggested_instance }) => {
       </div>
     </div>
   );
-};
+}
 
 const FeatureCard = ({ pic, title, subtitle, button, link }) => (
   <div className="card card-gradient shadow-xl grid p-4 mt-4 md:grid-cols-2">
