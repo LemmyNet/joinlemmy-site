@@ -471,4 +471,7 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL, REGIONAL],
   },
   { domain: "chachara.club", languages: ["es"], topics: [REGIONAL] },
+  { domain: "lemy.nl", languages: ["ne"], topics: [REGIONAL] },
+  { domain: "fasheng.ing", languages: ["zh"], topics: [REGIONAL] },
+  { domain: "europe.pub", languages: ["en"], topics: [REGIONAL] },
 ];
