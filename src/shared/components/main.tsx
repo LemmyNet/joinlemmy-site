@@ -6,8 +6,8 @@ import { T } from "inferno-i18next";
 import { sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
-import { SUGGESTED_INSTANCES } from "./instances-definitions";
 import { instance_stats } from "../instance_stats";
+import { INSTANCE_METADATA } from "./instances-definitions";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -305,9 +305,10 @@ export class Main extends Component<object, State> {
     const crawledInstances = instance_stats.stats.instance_details.map(
       i => i.domain,
     );
-    const defaults = SUGGESTED_INSTANCES.filter(i =>
-      crawledInstances.includes(i),
-    );
+    const defaults = INSTANCE_METADATA.filter(i => i.suggested)
+      .map(i => i.domain)
+      .filter(i => crawledInstances.includes(i));
+
     return sortRandom(defaults)[0];
   }
 

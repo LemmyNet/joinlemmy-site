@@ -6,8 +6,6 @@ export interface InstanceHelper {
   link: string;
 }
 
-export const SUGGESTED_INSTANCES = ["thelemmy.club", "lemmus.org"];
-
 export const INSTANCE_HELPERS: InstanceHelper[] = [
   {
     name: "lemmyverse.net",
@@ -111,6 +109,7 @@ export interface InstanceMetadata {
   domain: string;
   languages: string[];
   topics: Topic[];
+  suggested?: boolean;
 }
 
 // https://chrisengelsma.medium.com/3342e47b9448
@@ -329,6 +328,19 @@ export const INSTANCE_METADATA: InstanceMetadata[] = [
     domain: "thelemmy.club",
     languages: ["en"],
     topics: [GENERAL],
+    suggested: true,
+  },
+  {
+    domain: "lemmus.org",
+    languages: ["en"],
+    topics: [GENERAL],
+    suggested: true,
+  },
+  {
+    domain: "lemmy.org",
+    languages: ["en"],
+    topics: [GENERAL],
+    suggested: true,
   },
   {
     domain: "bookwormstory.social",
