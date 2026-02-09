@@ -13,6 +13,7 @@ import { App } from "../shared/components/app";
 import process from "process";
 import { Helmet } from "inferno-helmet";
 import { getLanguageFromCookie, i18n } from "../shared/i18next";
+import { getSuggestedInstance } from "../shared/components/main";
 
 const server = express();
 const port = 1234;
@@ -52,6 +53,12 @@ server.use(
   express.static(path.resolve("./dist/assets/lemmy_federation_context.json")),
 );
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
+server.use("/api/v1/instances/suggested", test);
+
+function test(_req: Request, res: Response) {
+  const json = [getSuggestedInstance()];
+  res.contentType("application/json").send(json);
+}
 
 function erudaInit(): string {
   if (process.env["NODE_ENV"] === "development") {

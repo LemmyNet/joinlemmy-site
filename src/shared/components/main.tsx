@@ -297,19 +297,8 @@ interface State {
 
 export class Main extends Component<object, State> {
   state: State = {
-    suggested_instance: this.initSuggested(),
+    suggested_instance: getSuggestedInstance(),
   };
-
-  initSuggested(): string {
-    // Check crawl results to exclude instances which are down
-    const crawledInstances = instance_stats.stats.instance_details.map(
-      i => i.domain,
-    );
-    const defaults = SUGGESTED_INSTANCES.filter(i =>
-      crawledInstances.includes(i),
-    );
-    return sortRandom(defaults)[0];
-  }
 
   render() {
     const title = i18n.t("lemmy_title");
@@ -343,4 +332,15 @@ export class Main extends Component<object, State> {
       </div>
     );
   }
+}
+
+export function getSuggestedInstance(): string {
+  // Check crawl results to exclude instances which are down
+  const crawledInstances = instance_stats.stats.instance_details.map(
+    i => i.domain,
+  );
+  const defaults = SUGGESTED_INSTANCES.filter(i =>
+    crawledInstances.includes(i),
+  );
+  return sortRandom(defaults)[0];
 }
