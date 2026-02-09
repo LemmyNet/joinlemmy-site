@@ -17,7 +17,7 @@ import { Badge, SectionTitle } from "./common";
 import {
   INSTANCE_HELPERS,
   Topic,
-  RECOMMENDED_INSTANCES,
+  INSTANCE_METADATA,
   ALL_TOPIC,
   TOPICS,
   availableLanguages,
@@ -429,7 +429,7 @@ export class Instances extends Component<object, State> {
       return lang;
     } else {
       const allLanguages = uniqueEntries(
-        RECOMMENDED_INSTANCES.flatMap(i => i.languages),
+        INSTANCE_METADATA.flatMap(i => i.languages),
       );
 
       if (isBrowser()) {
@@ -464,7 +464,7 @@ export class Instances extends Component<object, State> {
 
   buildInstanceList() {
     let instances = instance_stats.stats.instance_details;
-    const recommended = RECOMMENDED_INSTANCES;
+    const metadata = INSTANCE_METADATA;
 
     instances = instances.filter(i => {
       const active_users_percent =
@@ -475,7 +475,7 @@ export class Instances extends Component<object, State> {
 
     // Language Filter
     if (this.state.language !== "all") {
-      const languageRecs = recommended.filter(r =>
+      const languageRecs = metadata.filter(r =>
         r.languages.includes(this.state.language),
       );
       instances = instances.filter(i =>
@@ -495,7 +495,7 @@ export class Instances extends Component<object, State> {
 
     // Topic filter
     if (this.state.topic !== ALL_TOPIC) {
-      const topicRecs = recommended.filter(r =>
+      const topicRecs = metadata.filter(r =>
         r.topics.includes(this.state.topic),
       );
       instances = instances.filter(i =>
