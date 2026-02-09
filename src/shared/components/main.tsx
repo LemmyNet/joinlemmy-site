@@ -6,7 +6,7 @@ import { T } from "inferno-i18next";
 import { sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
-import { DEFAULT_INSTANCES } from "./instances-definitions";
+import { SUGGESTED_INSTANCES } from "./instances-definitions";
 import { instance_stats } from "../instance_stats";
 
 const TitleBlock = () => (
@@ -18,14 +18,11 @@ const TitleBlock = () => (
   </div>
 );
 
-const FollowCommunitiesBlock = () => {
-  // Check crawl results to exclude instances which are down
-  const crawledInstances = instance_stats.stats.instance_details.map(
-    i => i.domain,
-  );
-  const defaults = DEFAULT_INSTANCES.filter(i => crawledInstances.includes(i));
-  const domain = sortRandom(defaults)[0];
+type FollowCommunitiesBlockProps = { suggested_instance: string };
 
+function FollowCommunitiesBlock({
+  suggested_instance,
+}: FollowCommunitiesBlockProps) {
   return (
     <div className="flex flex-col items-center">
       <div className="card card-bordered card-gradient shadow-xl">
@@ -36,9 +33,9 @@ const FollowCommunitiesBlock = () => {
           <p className="grid items-center md:grid-cols-2 gap-2">
             <a
               className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 w-full"
-              href={`https://${domain}/signup`}
+              href={`https://${suggested_instance}/signup`}
             >
-              {i18n.t("join_instance", { domain })}
+              {i18n.t("join_instance", { domain: suggested_instance })}
             </a>
             <Link
               to="/instances"
@@ -51,7 +48,7 @@ const FollowCommunitiesBlock = () => {
       </div>
     </div>
   );
-};
+}
 
 const FeatureCard = ({ pic, title, subtitle, button, link }) => (
   <div className="card card-gradient shadow-xl grid p-4 mt-4 md:grid-cols-2">
@@ -294,7 +291,26 @@ const MoreFeaturesCard = ({ icons, text }) => (
   </div>
 );
 
-export class Main extends Component<object, object> {
+interface State {
+  suggested_instance: string;
+}
+
+export class Main extends Component<object, State> {
+  state: State = {
+    suggested_instance: this.initSuggested(),
+  };
+
+  initSuggested(): string {
+    // Check crawl results to exclude instances which are down
+    const crawledInstances = instance_stats.stats.instance_details.map(
+      i => i.domain,
+    );
+    const defaults = SUGGESTED_INSTANCES.filter(i =>
+      crawledInstances.includes(i),
+    );
+    return sortRandom(defaults)[0];
+  }
+
   render() {
     const title = i18n.t("lemmy_title");
     return (
@@ -315,7 +331,9 @@ export class Main extends Component<object, object> {
         />
         <div className="container mx-auto px-4">
           <TitleBlock />
-          <FollowCommunitiesBlock />
+          <FollowCommunitiesBlock
+            suggested_instance={this.state.suggested_instance}
+          />
         </div>
         <div className="container mx-auto px-4">
           <FeaturesBlock />
