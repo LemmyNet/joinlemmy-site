@@ -337,6 +337,12 @@ export const INSTANCE_METADATA: InstanceMetadata[] = [
     suggested: true,
   },
   {
+    domain: "lemmy.org",
+    languages: ["en"],
+    topics: [GENERAL],
+    suggested: true,
+  },
+  {
     domain: "bookwormstory.social",
     languages: ["en"],
     topics: [ART, LITERATURE],
