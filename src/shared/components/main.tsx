@@ -3,11 +3,13 @@ import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
-import { sortRandom } from "../utils";
+import { isBrowser, sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
 import { SUGGESTED_INSTANCES } from "./instances-definitions";
 import { instance_stats } from "../instance_stats";
+import { open as Geolite_open, GeoIpDbName } from "geolite2-redist";
+import maxmind, { CountryResponse } from "maxmind";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -297,8 +299,26 @@ interface State {
 
 export class Main extends Component<object, State> {
   state: State = {
-    suggested_instance: getSuggestedInstance(),
+    suggested_instance: "",
   };
+
+  constructor(props: object, state: State) {
+    super(props, state);
+
+    (async () => {
+      this.setState({ suggested_instance: await this.initSuggestedInstance() });
+    })();
+  }
+
+  async initSuggestedInstance(): Promise<string> {
+    if (isBrowser()) {
+      const res = await fetch("/api/v1/instances/suggested");
+      return await res.text();
+    } else {
+      // TODO: how to get client ip, need to pass as prop?
+      return getSuggestedInstance("123.123.123.123");
+    }
+  }
 
   render() {
     const title = i18n.t("lemmy_title");
@@ -334,13 +354,42 @@ export class Main extends Component<object, State> {
   }
 }
 
-export function getSuggestedInstance(): string {
+export async function getSuggestedInstance(ip: string): Promise<string> {
   // Check crawl results to exclude instances which are down
   const crawledInstances = instance_stats.stats.instance_details.map(
     i => i.domain,
   );
-  const defaults = SUGGESTED_INSTANCES.filter(i =>
-    crawledInstances.includes(i),
+  const suggested: string[][] = Object.entries(SUGGESTED_INSTANCES)
+    .map(([k, _]) => {
+      const v2 = SUGGESTED_INSTANCES[k].filter(i =>
+        crawledInstances.includes(i),
+      );
+      return [k, v2];
+    })
+    .filter(([_, v]) => v != 0);
+  console.log(suggested);
+
+  // TODO: move to static
+  const reader = await Geolite_open(
+    GeoIpDbName.Country, // Use the enum instead of a string!
+    path => maxmind.open<CountryResponse>(path),
   );
-  return sortRandom(defaults)[0];
+
+  const lookup = reader.get(ip);
+
+  const forCountry: string[] = suggested[lookup!.country!.iso_code];
+
+  if (forCountry) {
+    return sortRandom(forCountry)[0];
+  }
+
+  const forContinent: string[] = suggested[lookup!.continent!.code];
+
+  if (forContinent) {
+    return sortRandom(forContinent)[0];
+  }
+
+  reader.close();
+
+  return sortRandom(suggested["fallback"])[0];
 }

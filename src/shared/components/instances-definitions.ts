@@ -6,7 +6,11 @@ export interface InstanceHelper {
   link: string;
 }
 
-export const SUGGESTED_INSTANCES = ["thelemmy.club", "lemmus.org"];
+export const SUGGESTED_INSTANCES = {
+  fallback: ["thelemmy.club", "lemmus.org"],
+  de: ["feddit.org"],
+  empty: ["asd"],
+};
 
 export const INSTANCE_HELPERS: InstanceHelper[] = [
   {

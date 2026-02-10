@@ -55,8 +55,10 @@ server.use(
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
 server.use("/api/v1/instances/suggested", test);
 
-function test(_req: Request, res: Response) {
-  const json = [getSuggestedInstance()];
+function test(req: Request, res: Response) {
+  //const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  const ip = "54.36.178.108";
+  const json = [getSuggestedInstance(ip)];
   res.contentType("application/json").send(json);
 }
 
