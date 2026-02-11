@@ -6,7 +6,10 @@ import { T } from "inferno-i18next";
 import { isBrowser, sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
-import { SUGGESTED_INSTANCES, SuggestedInstancesType } from "./instances-definitions";
+import {
+  SUGGESTED_INSTANCES,
+  SuggestedInstancesType,
+} from "./instances-definitions";
 import { instance_stats } from "../instance_stats";
 import { open as Geolite_open, GeoIpDbName } from "geolite2-redist";
 import maxmind, { CountryResponse } from "maxmind";
@@ -294,33 +297,25 @@ const MoreFeaturesCard = ({ icons, text }) => (
 );
 
 interface State {
-  suggested_instance: string;
+  suggested_instance: Promise<string>;
 }
 
 export class Main extends Component<object, State> {
   state: State = {
-    suggested_instance: "",
+    suggested_instance: this.initSuggestedInstance(),
   };
-
-  constructor(props: object, state: State) {
-    super(props, state);
-
-    (async () => {
-      this.setState({ suggested_instance: await this.initSuggestedInstance() });
-    })();
-  }
 
   async initSuggestedInstance(): Promise<string> {
     if (isBrowser()) {
       const res = await fetch("/api/v1/instances/suggested");
-      return await res.text();
+      return await res.json();
     } else {
       // TODO: how to get client ip, need to pass as prop?
       return getSuggestedInstance("123.123.123.123");
     }
   }
 
-  render() {
+  async render() {
     const title = i18n.t("lemmy_title");
     return (
       <div>
@@ -341,7 +336,7 @@ export class Main extends Component<object, State> {
         <div className="container mx-auto px-4">
           <TitleBlock />
           <FollowCommunitiesBlock
-            suggested_instance={this.state.suggested_instance}
+            suggested_instance={await this.state.suggested_instance}
           />
         </div>
         <div className="container mx-auto px-4">
@@ -354,44 +349,44 @@ export class Main extends Component<object, State> {
   }
 }
 
-export async function getSuggestedInstance(ip: string): Promise<string> {
+const GeoIpReader = await Geolite_open(
+  GeoIpDbName.Country, // Use the enum instead of a string!
+  path => maxmind.open<CountryResponse>(path),
+);
+export function getSuggestedInstance(ip?: string): string {
   // Check crawl results to exclude instances which are down
   const crawledInstances = instance_stats.stats.instance_details.map(
     i => i.domain,
   );
-  const suggested: SuggestedInstancesType = Object.keys(SUGGESTED_INSTANCES)
-    .reduce((result, key) => {
-      const filtered = SUGGESTED_INSTANCES[key].filter(i =>
-        crawledInstances.includes(i),
-      );
-      if (filtered.length) {
-        result[key] = filtered;
+  const suggested: SuggestedInstancesType = Object.keys(
+    SUGGESTED_INSTANCES,
+  ).reduce((result, key) => {
+    const filtered = SUGGESTED_INSTANCES[key].filter(i =>
+      crawledInstances.includes(i),
+    );
+    if (filtered.length) {
+      result[key] = filtered;
+    }
+    return result;
+  }, {});
+
+  if (ip) {
+    const lookup = GeoIpReader.get(ip);
+    const country = lookup?.country?.iso_code;
+    const continent = lookup?.continent?.code;
+
+    if (country) {
+      const forCountry: string[] = suggested[country];
+      if (forCountry) {
+        return sortRandom(forCountry)[0];
       }
-      return result;
-    }, {});
-  console.log(suggested);
-
-  // TODO: move to static
-  const reader = await Geolite_open(
-    GeoIpDbName.Country, // Use the enum instead of a string!
-    path => maxmind.open<CountryResponse>(path),
-  );
-
-  const lookup = reader.get(ip);
-
-  const forCountry: string[] = suggested[lookup?.country?.iso_code];
-
-  if (forCountry) {
-    return sortRandom(forCountry)[0];
+    } else if (continent) {
+      const forContinent: string[] = suggested[continent];
+      if (forContinent) {
+        return sortRandom(forContinent)[0];
+      }
+    }
   }
-
-  const forContinent: string[] = suggested[lookup!.continent!.code];
-
-  if (forContinent) {
-    return sortRandom(forContinent)[0];
-  }
-
-  reader.close();
 
   return sortRandom(suggested["fallback"])[0];
 }

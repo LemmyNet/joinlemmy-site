@@ -56,8 +56,9 @@ server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
 server.use("/api/v1/instances/suggested", suggested);
 
 function suggested(req: Request, res: Response) {
-  const ip: string = req.headers['x-forwarded-for'] ?? req.socket.remoteAddress;
-  console.log(ip);
+  const f = req.headers["x-forwarded-for"] as string;
+  const s = req.socket.remoteAddress;
+  const ip: string | undefined = f ?? s;
   const json = [getSuggestedInstance(ip)];
   res.contentType("application/json").send(json);
 }
