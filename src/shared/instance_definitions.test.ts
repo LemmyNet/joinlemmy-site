@@ -1,9 +1,9 @@
 // @ts-nocheck
 jest.setTimeout(180000);
-import { RECOMMENDED_INSTANCES } from "./components/instances-definitions";
+import { INSTANCE_METADATA } from "./components/instances-definitions";
 
 test.skip("Recommended instances are reachable", async () => {
-  for (const i of RECOMMENDED_INSTANCES) {
+  for (const i of INSTANCE_METADATA) {
     try {
       const res = await fetch(`https://${i.domain}/nodeinfo/2.1`);
       if (res.status !== 200) {

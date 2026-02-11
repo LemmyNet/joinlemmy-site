@@ -130,7 +130,7 @@ export const TOPICS: Topic[] = [
   SPORTS,
 ];
 
-export interface RecommendedInstance {
+export interface InstanceMetadata {
   domain: string;
   languages: string[];
   topics: Topic[];
@@ -148,7 +148,7 @@ export function availableLanguages() {
   const languageNames = new Map(LANGUAGES.map(l => [l.code, l.name]));
 
   return (
-    RECOMMENDED_INSTANCES
+    INSTANCE_METADATA
       // ignore instances that were not crawled
       .filter(r => domains.includes(r.domain))
       // take all unique languages defined in this file
@@ -162,7 +162,7 @@ export function availableLanguages() {
   );
 }
 
-export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
+export const INSTANCE_METADATA: InstanceMetadata[] = [
   {
     domain: "lemmy.ml",
     languages: ["en"],
@@ -494,4 +494,6 @@ export const RECOMMENDED_INSTANCES: RecommendedInstance[] = [
     topics: [GENERAL, REGIONAL],
   },
   { domain: "chachara.club", languages: ["es"], topics: [REGIONAL] },
+  { domain: "fasheng.ing", languages: ["zh"], topics: [REGIONAL] },
+  { domain: "europe.pub", languages: ["en"], topics: [REGIONAL] },
 ];
