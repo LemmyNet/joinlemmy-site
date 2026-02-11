@@ -9,7 +9,7 @@ export interface InstanceHelper {
 export type SuggestedInstancesType = { [key: string]: string[] };
 export const SUGGESTED_INSTANCES: SuggestedInstancesType = {
   EU: ["europe.pub"],
-  de: ["feddit.org"],
+  SA: ["feddit.cl"],
   uk: ["feddit.uk"],
   it: ["feddit.it"],
   ca: ["lemmy.ca"],

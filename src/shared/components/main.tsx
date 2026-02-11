@@ -391,5 +391,6 @@ export function getSuggestedInstance(ip?: string): string {
     }
   }
 
+  // TODO: can also pick a suggested instance by language here
   return sortRandom(suggested["fallback"])[0];
 }
