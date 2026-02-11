@@ -56,10 +56,7 @@ server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
 server.use("/api/v1/instances/suggested", suggested);
 
 function suggested(req: Request, res: Response) {
-  const f = req.headers["x-forwarded-for"] as string;
-  const s = req.socket.remoteAddress;
-  const ip: string | undefined = f ?? s;
-  const json = [getSuggestedInstance(ip)];
+  const json = [getSuggestedInstance(clientIp(req))];
   res.contentType("application/json").send(json);
 }
 
@@ -100,6 +97,14 @@ function setLanguage(
   return language;
 }
 
+function clientIp(
+  req: Request<object, object, object, Query>,
+): string | undefined {
+  const f = req.headers["x-forwarded-for"] as string;
+  const s = req.socket.remoteAddress;
+  return f ?? s;
+}
+
 server.get(
   "/*",
   async (req: Request<object, object, object, Query>, res: Response) => {
@@ -111,7 +116,7 @@ server.get(
 
     const wrapper = (
       <StaticRouter location={req.url} context={context}>
-        <App />
+        <App ip={clientIp(req)} />
       </StaticRouter>
     );
     if (context.url) {

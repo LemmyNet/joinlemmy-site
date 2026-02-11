@@ -300,7 +300,11 @@ interface State {
   suggested_instance: Promise<string>;
 }
 
-export class Main extends Component<object, State> {
+interface Props {
+  ip?: string;
+}
+
+export class Main extends Component<Props, State> {
   state: State = {
     suggested_instance: this.initSuggestedInstance(),
   };
@@ -308,10 +312,9 @@ export class Main extends Component<object, State> {
   async initSuggestedInstance(): Promise<string> {
     if (isBrowser()) {
       const res = await fetch("/api/v1/instances/suggested");
-      return await res.json();
+      return await res.json()[0];
     } else {
-      // TODO: how to get client ip, need to pass as prop?
-      return getSuggestedInstance("123.123.123.123");
+      return getSuggestedInstance(this.props.ip);
     }
   }
 
