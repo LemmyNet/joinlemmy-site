@@ -13,7 +13,7 @@
     "update-donations": "node update_donations.mjs",
     "lint": "pnpm translations:generate && tsc --noEmit && pnpm eslint --report-unused-disable-directives && pnpm prettier --check \"src/**/*.{ts,tsx,js,mjs,css,scss}\"",
     "prebuild:dev": "pnpm clean && pnpm translations:generate && pnpm tailwind && pnpm generate_rss_feed",
-    "prebuild:prod": "pnpm clean && pnpm translations:generate && pnpm tailwind && pnpm generate_rss_feed",
+    "prebuild:prod": "pnpm clean && pnpm translations:generate && pnpm tailwind && pnpm generate_rss_feed && node -e \"import('geolite2-redist').then(geolite => geolite.downloadDbs())\"",
     "generate_rss_feed": "node generate_rss_feed.mjs",
     "translations:generate": "node generate_translations.mjs",
     "translations:init": "git submodule init && pnpm translations:update",

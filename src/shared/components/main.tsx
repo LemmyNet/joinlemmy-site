@@ -352,10 +352,10 @@ export class Main extends Component<Props, State> {
   }
 }
 
-const GeoIpReader = await Geolite_open(
-  GeoIpDbName.Country, // Use the enum instead of a string!
-  path => maxmind.open<CountryResponse>(path),
+const GeoDbReader = await Geolite_open(GeoIpDbName.Country, path =>
+  maxmind.open<CountryResponse>(path),
 );
+
 export function getSuggestedInstance(ip?: string): string {
   // Check crawl results to exclude instances which are down
   const crawledInstances = instance_stats.stats.instance_details.map(
@@ -374,7 +374,7 @@ export function getSuggestedInstance(ip?: string): string {
   }, {});
 
   if (ip) {
-    const lookup = GeoIpReader.get(ip);
+    const lookup = GeoDbReader.get(ip);
     const country = lookup?.country?.iso_code;
     const continent = lookup?.continent?.code;
 
