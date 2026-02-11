@@ -6,7 +6,7 @@ import { T } from "inferno-i18next";
 import { isBrowser, sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
-import { SUGGESTED_INSTANCES } from "./instances-definitions";
+import { SUGGESTED_INSTANCES, SuggestedInstancesType } from "./instances-definitions";
 import { instance_stats } from "../instance_stats";
 import { open as Geolite_open, GeoIpDbName } from "geolite2-redist";
 import maxmind, { CountryResponse } from "maxmind";
@@ -359,14 +359,16 @@ export async function getSuggestedInstance(ip: string): Promise<string> {
   const crawledInstances = instance_stats.stats.instance_details.map(
     i => i.domain,
   );
-  const suggested: string[][] = Object.entries(SUGGESTED_INSTANCES)
-    .map(([k, _]) => {
-      const v2 = SUGGESTED_INSTANCES[k].filter(i =>
+  const suggested: SuggestedInstancesType = Object.keys(SUGGESTED_INSTANCES)
+    .reduce((result, key) => {
+      const filtered = SUGGESTED_INSTANCES[key].filter(i =>
         crawledInstances.includes(i),
       );
-      return [k, v2];
-    })
-    .filter(([_, v]) => v != 0);
+      if (filtered.length) {
+        result[key] = filtered;
+      }
+      return result;
+    }, {});
   console.log(suggested);
 
   // TODO: move to static
@@ -377,7 +379,7 @@ export async function getSuggestedInstance(ip: string): Promise<string> {
 
   const lookup = reader.get(ip);
 
-  const forCountry: string[] = suggested[lookup!.country!.iso_code];
+  const forCountry: string[] = suggested[lookup?.country?.iso_code];
 
   if (forCountry) {
     return sortRandom(forCountry)[0];

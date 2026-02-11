@@ -6,10 +6,29 @@ export interface InstanceHelper {
   link: string;
 }
 
-export const SUGGESTED_INSTANCES = {
-  fallback: ["thelemmy.club", "lemmus.org"],
-  de: ["feddit.org"],
-  empty: ["asd"],
+export type SuggestedInstancesType = {[key: string]: string[]};
+export const SUGGESTED_INSTANCES:SuggestedInstancesType = {
+  "de": ["feddit.org"],
+  "uk": ["feddit.uk"],
+  "it": ["feddit.it"],
+  "ca": ["lemmy.ca"],
+  "fi": ["sopuli.xyz"],
+  "dk": ["feddit.dk"],
+  "fr": ["jlai.lu"],
+  "au": ["aussie.zone"],
+  "pl": ["szmer.info"],
+  "nz": ["lemmy.nz"],
+  "eu": ["europe.pub"],
+  "br": ["lemmy.eco.br"],
+  "se": ["feddit.nu"],
+  "cl": ["feddit.cl"],
+  "pt": ["lemmy.pt"],
+  "mx": ["mujico.org"],
+  "cn": ["fasheng.ing"],
+  "nl": ["lemy.nl"],
+  "es": ["chachara.club"],
+  "lt": ["group.lt"],
+  "fallback": ["thelemmy.club", "lemmus.org", "lemmy.org"],
 };
 
 export const INSTANCE_HELPERS: InstanceHelper[] = [

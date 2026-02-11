@@ -53,11 +53,11 @@ server.use(
   express.static(path.resolve("./dist/assets/lemmy_federation_context.json")),
 );
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
-server.use("/api/v1/instances/suggested", test);
+server.use("/api/v1/instances/suggested", suggested);
 
-function test(req: Request, res: Response) {
-  //const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  const ip = "54.36.178.108";
+function suggested(req: Request, res: Response) {
+  const ip: string = req.headers['x-forwarded-for'] ?? req.socket.remoteAddress;
+  console.log(ip);
   const json = [getSuggestedInstance(ip)];
   res.contentType("application/json").send(json);
 }
