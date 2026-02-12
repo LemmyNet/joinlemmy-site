@@ -13,6 +13,7 @@ import { App } from "../shared/components/app";
 import process from "process";
 import { Helmet } from "inferno-helmet";
 import { getLanguageFromCookie, i18n } from "../shared/i18next";
+import { getSuggestedInstance } from "../shared/components/main";
 
 const server = express();
 const port = 1234;
@@ -52,6 +53,12 @@ server.use(
   express.static(path.resolve("./dist/assets/lemmy_federation_context.json")),
 );
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
+server.use("/api/v1/instances/suggested", suggested);
+
+function suggested(req: Request, res: Response) {
+  const json = [getSuggestedInstance(clientIp(req))];
+  res.contentType("application/json").send(json);
+}
 
 function erudaInit(): string {
   if (process.env["NODE_ENV"] === "development") {
@@ -90,6 +97,14 @@ function setLanguage(
   return language;
 }
 
+function clientIp(
+  req: Request<object, object, object, Query>,
+): string | undefined {
+  const f = req.headers["x-forwarded-for"] as string;
+  const s = req.socket.remoteAddress;
+  return f ?? s;
+}
+
 server.get(
   "/*",
   async (req: Request<object, object, object, Query>, res: Response) => {
@@ -101,7 +116,7 @@ server.get(
 
     const wrapper = (
       <StaticRouter location={req.url} context={context}>
-        <App />
+        <App ip={clientIp(req)} />
       </StaticRouter>
     );
     if (context.url) {
