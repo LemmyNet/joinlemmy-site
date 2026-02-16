@@ -3,11 +3,16 @@ import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
-import { sortRandom } from "../utils";
+import { isBrowser, sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
-import { SUGGESTED_INSTANCES } from "./instances-definitions";
-import { instance_stats } from "../instance_stats";
+import {
+  SUGGESTED_INSTANCES,
+  SuggestedInstancesType,
+} from "../data/instances-definitions";
+import { instance_stats } from "../data/instance_stats";
+import { open as Geolite_open, GeoIpDbName } from "geolite2-redist";
+import maxmind, { CountryResponse } from "maxmind";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -292,26 +297,28 @@ const MoreFeaturesCard = ({ icons, text }) => (
 );
 
 interface State {
-  suggested_instance: string;
+  suggested_instance: Promise<string>;
 }
 
-export class Main extends Component<object, State> {
+interface Props {
+  ip?: string;
+}
+
+export class Main extends Component<Props, State> {
   state: State = {
-    suggested_instance: this.initSuggested(),
+    suggested_instance: this.initSuggestedInstance(),
   };
 
-  initSuggested(): string {
-    // Check crawl results to exclude instances which are down
-    const crawledInstances = instance_stats.stats.instance_details.map(
-      i => i.domain,
-    );
-    const defaults = SUGGESTED_INSTANCES.filter(i =>
-      crawledInstances.includes(i),
-    );
-    return sortRandom(defaults)[0];
+  async initSuggestedInstance(): Promise<string> {
+    if (isBrowser()) {
+      const res = await fetch("/api/v1/instances/suggested");
+      return await res.json()[0];
+    } else {
+      return getSuggestedInstance(this.props.ip);
+    }
   }
 
-  render() {
+  async render() {
     const title = i18n.t("lemmy_title");
     return (
       <div>
@@ -332,7 +339,7 @@ export class Main extends Component<object, State> {
         <div className="container mx-auto px-4">
           <TitleBlock />
           <FollowCommunitiesBlock
-            suggested_instance={this.state.suggested_instance}
+            suggested_instance={await this.state.suggested_instance}
           />
         </div>
         <div className="container mx-auto px-4">
@@ -343,4 +350,47 @@ export class Main extends Component<object, State> {
       </div>
     );
   }
+}
+
+const GeoDbReader = await Geolite_open(GeoIpDbName.Country, path =>
+  maxmind.open<CountryResponse>(path),
+);
+
+export function getSuggestedInstance(ip?: string): string {
+  // Check crawl results to exclude instances which are down
+  const crawledInstances = instance_stats.stats.instance_details.map(
+    i => i.domain,
+  );
+  const suggested: SuggestedInstancesType = Object.keys(
+    SUGGESTED_INSTANCES,
+  ).reduce((result, key) => {
+    const filtered = SUGGESTED_INSTANCES[key].filter(i =>
+      crawledInstances.includes(i),
+    );
+    if (filtered.length) {
+      result[key] = filtered;
+    }
+    return result;
+  }, {});
+
+  if (ip) {
+    const lookup = GeoDbReader.get(ip);
+    const country = lookup?.country?.iso_code;
+    const continent = lookup?.continent?.code;
+
+    if (country) {
+      const forCountry: string[] = suggested[country];
+      if (forCountry) {
+        return sortRandom(forCountry)[0];
+      }
+    } else if (continent) {
+      const forContinent: string[] = suggested[continent];
+      if (forContinent) {
+        return sortRandom(forContinent)[0];
+      }
+    }
+  }
+
+  // TODO: can also pick a suggested instance by language here
+  return sortRandom(suggested["fallback"])[0];
 }

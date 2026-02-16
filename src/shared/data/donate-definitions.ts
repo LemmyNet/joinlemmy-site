@@ -1,4 +1,4 @@
-import { donation_stats } from "../donation_stats";
+import { donation_stats } from "./donation_stats";
 
 interface FundingPlatform {
   supporterCount: number;

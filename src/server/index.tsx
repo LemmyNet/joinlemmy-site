@@ -13,6 +13,9 @@ import { App } from "../shared/components/app";
 import process from "process";
 import { Helmet } from "inferno-helmet";
 import { getLanguageFromCookie, i18n } from "../shared/i18next";
+import { getSuggestedInstance } from "../shared/components/main";
+import { instance_stats } from "../shared/data/instance_stats";
+import { INSTANCE_METADATA } from "../shared/data/instances-definitions";
 
 const server = express();
 const port = 1234;
@@ -52,6 +55,36 @@ server.use(
   express.static(path.resolve("./dist/assets/lemmy_federation_context.json")),
 );
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
+server.use("/api/v1/instances/suggested", suggested_instances);
+server.use("/api/v1/instances/all", all_instances);
+
+function suggested_instances(req: Request, res: Response) {
+  const json = [getSuggestedInstance(clientIp(req))];
+  res.contentType("application/json").send(json);
+}
+
+function all_instances(_req: Request, res: Response) {
+  const instances = new Map(
+    instance_stats.stats.instance_details.map(i => [i.domain, i]),
+  );
+  const metadata = new Map(INSTANCE_METADATA.map(i => [i.domain, i]));
+  const combined = new Map();
+
+  // Merge instances and metadata together
+  // https://codingtechroom.com/question/-join-two-maps-by-key-in-javascript
+  for (const [key, value] of instances) {
+    combined.set(key, value);
+  }
+  for (const [key, value] of metadata) {
+    if (combined.has(key)) {
+      combined.set(key, Object.assign({}, combined.get(key), value));
+    } else {
+      combined.set(key, value);
+    }
+  }
+
+  res.contentType("application/json").send(combined);
+}
 
 function erudaInit(): string {
   if (process.env["NODE_ENV"] === "development") {
@@ -90,6 +123,14 @@ function setLanguage(
   return language;
 }
 
+function clientIp(
+  req: Request<object, object, object, Query>,
+): string | undefined {
+  const f = req.headers["x-forwarded-for"] as string;
+  const s = req.socket.remoteAddress;
+  return f ?? s;
+}
+
 server.get(
   "/*",
   async (req: Request<object, object, object, Query>, res: Response) => {
@@ -101,7 +142,7 @@ server.get(
 
     const wrapper = (
       <StaticRouter location={req.url} context={context}>
-        <App />
+        <App ip={clientIp(req)} />
       </StaticRouter>
     );
     if (context.url) {
