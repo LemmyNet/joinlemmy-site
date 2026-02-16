@@ -9,8 +9,8 @@ import { BottomSpacer } from "./common";
 import {
   SUGGESTED_INSTANCES,
   SuggestedInstancesType,
-} from "./instances-definitions";
-import { instance_stats } from "../instance_stats";
+} from "../data/instances-definitions";
+import { instance_stats } from "../data/instance_stats";
 import { open as Geolite_open, GeoIpDbName } from "geolite2-redist";
 import maxmind, { CountryResponse } from "maxmind";
 

@@ -1,5 +1,5 @@
 import { LANGUAGES } from "../i18next";
-import { instance_stats } from "../instance_stats";
+import { instance_stats } from "./instance_stats";
 
 export interface InstanceHelper {
   name: string;
