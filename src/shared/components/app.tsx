@@ -1,6 +1,6 @@
 import { Component } from "inferno";
 import { Route, Switch } from "inferno-router";
-import { Provider } from "inferno-i18next";
+import { Provider } from "inferno-i18next-dess";
 import { i18n } from "../i18next";
 import { routes } from "../routes";
 import { NoMatch } from "./no-match";

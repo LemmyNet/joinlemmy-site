@@ -1,7 +1,7 @@
 import { Component, InfernoNode, linkEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { T } from "inferno-i18next";
+import { T } from "inferno-i18next-dess";
 import { BottomSpacer } from "./common";
 import {
   API_LIBRARIES,
