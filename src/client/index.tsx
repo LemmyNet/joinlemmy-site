@@ -1,14 +1,14 @@
 import { hydrate } from "inferno-hydrate";
 import { BrowserRouter } from "inferno-router";
 import { App } from "../shared/components/app";
-import { getLanguageFromCookie, init } from "../shared/i18next";
+import { getLanguageFromCookie, initI18n } from "../shared/i18next";
 
 async function startClient() {
   // Setting the language for js browsers
   // If query param is set, server updates cookie automatically,
   // so no need to check the query here
   const languageCookie = getLanguageFromCookie(document.cookie);
-  const i18n = await init();
+  const i18n = await initI18n();
 
   if (languageCookie !== undefined) {
     await i18n.changeLanguage(languageCookie);

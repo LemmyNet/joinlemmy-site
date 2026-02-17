@@ -64,7 +64,7 @@ export let i18n = i18next;
 
 export { resources };
 
-export async function init() {
+export async function initI18n() {
   const options: InitOptions = {
     debug: false,
     // load: 'languageOnly',
