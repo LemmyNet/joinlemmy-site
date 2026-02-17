@@ -105,6 +105,9 @@
   },
   "engineStrict": true,
   "lint-staged": {
-    "*.{ts,tsx,js}": ["prettier --write", "eslint --fix"]
+    "*.{ts,tsx,js}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
