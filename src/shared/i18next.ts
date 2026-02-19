@@ -72,7 +72,7 @@ export async function initI18n() {
     fallbackLng: "en",
     resources,
     interpolation: { format },
-    showSupportNotice: false
+    showSupportNotice: false,
   };
 
   const i18nI = i18next.createInstance(options);
