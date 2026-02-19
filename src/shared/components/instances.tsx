@@ -377,6 +377,7 @@ interface State {
   language: string;
   topic: Topic;
   location?: Location;
+  show_nsfw: boolean;
 }
 
 function initTopic(): Topic {
@@ -389,6 +390,11 @@ function initSort(): Sort {
   return sort ? (SORTS.find(c => c.name === sort) ?? RANDOM_SORT) : RANDOM_SORT;
 }
 
+function initShowNsfw(): boolean {
+  const show_nsfw = getQueryParams().get("show_nsfw");
+  return show_nsfw === "true";
+}
+
 export class Instances extends Component<object, State> {
   state: State = {
     instances: [],
@@ -397,6 +403,7 @@ export class Instances extends Component<object, State> {
     language: this.initLanguage(),
     topic: initTopic(),
     location: undefined,
+    show_nsfw: initShowNsfw(),
   };
 
   initLocations(): Location[] {
@@ -472,6 +479,12 @@ export class Instances extends Component<object, State> {
         instance_stats.stats.users_active_month;
       return active_users_percent < 0.3;
     });
+
+    if (!this.state.show_nsfw) {
+      instances = instances.filter(
+        i => i.site_info.site_view.site.content_warning !== null,
+      );
+    }
 
     // Language Filter
     if (this.state.language !== "all") {
@@ -624,6 +637,15 @@ export class Instances extends Component<object, State> {
                 </option>
               ))}
             </select>
+            <label className="label">
+              <input
+                checked={this.state.show_nsfw}
+                type="checkbox"
+                className="toggle mr-2"
+                onClick={e => handleNsfwChange(this, e)}
+              />
+              Show NSFW
+            </label>
           </div>
         </div>
       </div>
@@ -643,6 +665,7 @@ export class Instances extends Component<object, State> {
       language: this.state.language,
       topic: this.state.topic?.name,
       sort: this.state.sort?.name,
+      show_nsfw: this.state.show_nsfw ? "true" : "false",
     };
 
     window.history.replaceState(
@@ -673,6 +696,11 @@ function handleHostedInChange(i: Instances, event: any) {
 
 function handleLanguageChange(i: Instances, event: any) {
   i.updateUrl({ language: event.target.value });
+}
+
+function handleNsfwChange(i: Instances, event: Event) {
+  // TODO: show dialog with age confirmation
+  i.updateUrl({ show_nsfw: event.target?.checked });
 }
 
 function handleSeeAll(i: Instances) {
