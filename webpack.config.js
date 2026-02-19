@@ -76,7 +76,7 @@ const createServerConfig = (_env, mode) => {
 };
 const createClientConfig = (_env, mode) => {
   const config = merge({}, base, {
-    target: "browserslist",
+    target: "web",
     mode,
     entry: "./src/client/index.tsx",
     output: {
