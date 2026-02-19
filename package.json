@@ -20,7 +20,7 @@
     "translations:update": "git submodule update --remote --recursive",
     "tailwind": "pnpx @tailwindcss/cli -i ./src/style.css -o ./dist/styles/styles.css --minify",
     "prepare": "husky",
-    "dev": "pnpx @tailwindcss/cli && pnpm build:dev --watch",
+    "dev": "pnpm tailwind && pnpm build:dev --watch",
     "test": "jest src/"
   },
   "browserslist": "fully supports es6",
