@@ -12,7 +12,7 @@ import { App } from "../shared/components/app";
 // import { routes } from "../shared/routes";
 import process from "process";
 import { Helmet } from "inferno-helmet";
-import { getLanguageFromCookie, i18n } from "../shared/i18next";
+import { getLanguageFromCookie, initI18n } from "../shared/i18next";
 
 const server = express();
 const port = 1234;
@@ -97,11 +97,12 @@ server.get(
     const context = {} as any;
 
     const language = setLanguage(req, res);
+    const i18n = await initI18n();
     await i18n.changeLanguage(language);
 
     const wrapper = (
       <StaticRouter location={req.url} context={context}>
-        <App />
+        <App i18n={i18n} />
       </StaticRouter>
     );
     if (context.url) {
