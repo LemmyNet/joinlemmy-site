@@ -1,4 +1,4 @@
-import i18next, { i18nTyped, Resource } from "i18next";
+import i18next, { InitOptions, Resource } from "i18next";
 
 // Languages
 import { bg } from "./translations/bg";
@@ -60,18 +60,27 @@ function format(value: string, format: string): string {
   return format === "uppercase" ? value.toUpperCase() : value;
 }
 
-await i18next.init({
-  debug: false,
-  // load: 'languageOnly',
-  // initImmediate: false,
-  fallbackLng: "en",
-  resources,
-  interpolation: { format },
-});
-
-export const i18n = i18next as i18nTyped;
+export let i18n = i18next;
 
 export { resources };
+
+export async function initI18n() {
+  const options: InitOptions = {
+    debug: false,
+    // load: 'languageOnly',
+    // initImmediate: false,
+    fallbackLng: "en",
+    resources,
+    interpolation: { format },
+    showSupportNotice: false,
+  };
+
+  const i18nI = i18next.createInstance(options);
+  await i18nI.init();
+  i18n = i18nI;
+
+  return i18nI;
+}
 
 // https://gist.github.com/hunan-rostomyan/28e8702c1cecff41f7fe64345b76f2ca
 export function getLanguageFromCookie(cookies?: string): string | undefined {
