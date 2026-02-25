@@ -62,22 +62,21 @@ export function all_instances(_req: Request, res: Response): void {
     instance_stats.stats.instance_details.map(i => [i.domain, i]),
   );
   const metadata = new Map(INSTANCE_METADATA.map(i => [i.domain, i]));
-  const combined = new Map();
+  const combined = {};
 
   // Merge instances and metadata together
   // https://codingtechroom.com/question/-join-two-maps-by-key-in-javascript
   for (const [key, value] of instances) {
-    combined.set(key, value);
+    combined[key] = value;
   }
   for (const [key, value] of metadata) {
-    if (combined.has(key)) {
-      combined.set(key, Object.assign({}, combined.get(key), value));
+    if (combined[key]) {
+      combined[key] = Object.assign({}, combined[key], value);
     } else {
-      combined.set(key, value);
+      combined[key] = value;
     }
   }
 
-  // TODO: during logging this is fine, but actual http response is empty???
   res.json(combined);
 }
 
