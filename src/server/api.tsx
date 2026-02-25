@@ -8,6 +8,7 @@ import { sortRandom } from "../shared/utils";
 import { open as Geolite_open, GeoIpDbName } from "geolite2-redist";
 import maxmind, { CountryResponse } from "maxmind";
 import { Request, Response } from "express";
+import { Query } from "server";
 
 const GeoDbReader = await Geolite_open(GeoIpDbName.Country, path =>
   maxmind.open<CountryResponse>(path),
@@ -80,7 +81,9 @@ export function all_instances(_req: Request, res: Response): void {
   res.json(combined);
 }
 
-function clientIp(req: Request): string | undefined {
+function clientIp(
+  req: Request<object, object, object, Query>,
+): string | undefined {
   const f = req.headers["x-forwarded-for"] as string;
   const s = req.socket.remoteAddress;
   return f ?? s;

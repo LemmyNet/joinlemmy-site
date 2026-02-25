@@ -293,19 +293,21 @@ interface State {
   suggested_instance: string;
 }
 
-export class Main extends Component<object, State> {
-  state: State = {
-    suggested_instance: "",
-  };
+interface Props {
+  ip?: string;
+}
+
+export class Main extends Component<Props, State> {
+  state: State = { suggested_instance: "" };
 
   async componentDidMount() {
-    // TODO: also handle for SSR
+    // TODO: Should be able to initialize this during SSR by passing in client ip, but
+    //       complicated to get it working.
     if (isBrowser()) {
-      const res = await fetch(
-        `${window.location.hostname}/api/v1/instances/suggested`,
-      );
+      const url = `${window.location.href}api/v1/instances/suggested`;
+      const res = await fetch(url);
       this.setState({
-        suggested_instance: res.json[0],
+        suggested_instance: await res.json(),
       });
     }
   }

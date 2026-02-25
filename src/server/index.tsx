@@ -67,7 +67,7 @@ function erudaInit(): string {
   }
 }
 
-interface Query {
+export interface Query {
   lang?: string;
 }
 
