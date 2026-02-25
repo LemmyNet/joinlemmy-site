@@ -29,6 +29,7 @@ import {
 } from "./instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
+import { createRef } from "inferno";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
@@ -410,6 +411,7 @@ export class Instances extends Component<object, State> {
     location: undefined,
     show_nsfw: initShowNsfw(),
   };
+  modalDivRef = createRef<HTMLDialogElement>();
 
   initLocations(): Location[] {
     const continents = instance_stats.stats.instance_details
@@ -662,6 +664,25 @@ export class Instances extends Component<object, State> {
             </label>
           </div>
         </div>
+        <dialog id="my_modal_1" className="modal" ref={this.modalDivRef}>
+          <div className="modal-box">
+            <h3 className="text-lg font-bold">Show NSFW</h3>
+            <p className="py-4">
+              Please confirm that you are 18 years or older.
+            </p>
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="btn me-2">Cancel</button>
+                <button
+                  className="btn btn-primary"
+                  onclick={_ => acceptNsfw(this)}
+                >
+                  Confirm
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     );
   }
@@ -716,9 +737,19 @@ function handleNsfwChange(
   i: Instances,
   event: InfernoMouseEvent<HTMLInputElement>,
 ) {
-  // TODO: show dialog with age confirmation
   const target = event.target as HTMLInputElement;
-  i.updateUrl({ show_nsfw: target.checked });
+  const checked = target.checked;
+  if (checked) {
+    if (i.modalDivRef.current) {
+      i.modalDivRef.current.showModal();
+    }
+  } else {
+    i.updateUrl({ show_nsfw: false });
+  }
+}
+
+function acceptNsfw(i: Instances) {
+  i.updateUrl({ show_nsfw: true });
 }
 
 function handleSeeAll(i: Instances) {
