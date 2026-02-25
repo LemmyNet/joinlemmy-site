@@ -23,7 +23,7 @@ import {
 } from "../data/instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
-import { instance_stats } from "shared/data/instance_stats";
+import { instance_stats } from "../data/instance_stats";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">

@@ -53,7 +53,7 @@ export function suggested_instances(req: Request, res: Response): void {
   // TODO: can also pick a suggested instance by language here
   json = sortRandom(suggested["fallback"])[0];
 
-  res.contentType("application/json").send([json]);
+  res.json([json]);
 }
 
 export function all_instances(_req: Request, res: Response): void {
@@ -77,7 +77,7 @@ export function all_instances(_req: Request, res: Response): void {
   }
 
   // TODO: during logging this is fine, but actual http response is empty???
-  res.contentType("application/json").send("test");
+  res.json(combined);
 }
 
 function clientIp(req: Request): string | undefined {
