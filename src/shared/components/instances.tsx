@@ -660,24 +660,22 @@ export class Instances extends Component<object, State> {
                 className="toggle mr-2"
                 onClick={e => handleNsfwChange(this, e)}
               />
-              Show NSFW
+              {i18n.t("show_nsfw")}
             </label>
           </div>
         </div>
         <dialog id="my_modal_1" className="modal" ref={this.modalDivRef}>
           <div className="modal-box">
-            <h3 className="text-lg font-bold">Show NSFW</h3>
-            <p className="py-4">
-              Please confirm that you are 18 years or older.
-            </p>
+            <h3 className="text-lg font-bold">{i18n.t("show_nsfw")}</h3>
+            <p className="py-4">{i18n.t("show_nsfw_confirm")}</p>
             <div className="modal-action">
               <form method="dialog">
-                <button className="btn me-2">Cancel</button>
+                <button className="btn me-2">{i18n.t("cancel")}</button>
                 <button
                   className="btn btn-primary"
                   onclick={_ => acceptNsfw(this)}
                 >
-                  Confirm
+                  {i18n.t("confirm")}
                 </button>
               </form>
             </div>
