@@ -5,6 +5,7 @@ import { i18n } from "../i18next";
 import { T } from "inferno-i18next-dess";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
+import { isBrowser } from "../utils";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -289,20 +290,27 @@ const MoreFeaturesCard = ({ icons, text }) => (
 );
 
 interface State {
-  suggested_instance: Promise<string>;
+  suggested_instance: string;
 }
 
 export class Main extends Component<object, State> {
   state: State = {
-    suggested_instance: this.initSuggestedInstance(),
+    suggested_instance: "",
   };
 
-  async initSuggestedInstance(): Promise<string> {
-    const res = await fetch("/api/v1/instances/suggested");
-    return await res.json()[0];
+  async componentDidMount() {
+    // TODO: also handle for SSR
+    if (isBrowser()) {
+      const res = await fetch(
+        `${window.location.hostname}/api/v1/instances/suggested`,
+      );
+      this.setState({
+        suggested_instance: res.json[0],
+      });
+    }
   }
 
-  async render() {
+  render() {
     const title = i18n.t("lemmy_title");
     return (
       <div>
@@ -323,7 +331,7 @@ export class Main extends Component<object, State> {
         <div className="container mx-auto px-4">
           <TitleBlock />
           <FollowCommunitiesBlock
-            suggested_instance={await this.state.suggested_instance}
+            suggested_instance={this.state.suggested_instance}
           />
         </div>
         <div className="container mx-auto px-4">
