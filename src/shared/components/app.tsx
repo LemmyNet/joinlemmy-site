@@ -7,11 +7,7 @@ import { NoMatch } from "./no-match";
 import { Symbols } from "./symbols";
 import { Footer, Navbar } from "./navbar";
 
-interface Props {
-  ip?: string;
-}
-
-export class App extends Component<Props, object> {
+export class App extends Component<object, object> {
   render() {
     return (
       <div className="background-gradient-1">
@@ -25,9 +21,7 @@ export class App extends Component<Props, object> {
                     key={path}
                     path={path}
                     exact={exact}
-                    render={props =>
-                      C && <C {...this.props} {...props} {...rest} />
-                    }
+                    render={props => C && <C {...props} {...rest} />}
                   />
                 ))}
                 <Route render={props => <NoMatch {...props} />} />
