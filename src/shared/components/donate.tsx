@@ -4,7 +4,7 @@ import { i18n } from "../i18next";
 import { isBrowser } from "../utils";
 import { BottomSpacer } from "./common";
 import { Link } from "inferno-router";
-import { T } from "inferno-i18next";
+import { T } from "inferno-i18next-dess";
 import {
   FUNDED_DEVS,
   FUNDED_DEV_GOAL,

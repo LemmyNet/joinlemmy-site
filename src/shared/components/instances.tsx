@@ -1,8 +1,7 @@
 import { Component, InfernoEventHandler, linkEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
-import { T } from "inferno-i18next";
-import { instance_stats } from "../data/instance_stats";
+import { T } from "inferno-i18next-dess";
 import {
   getQueryParams,
   getQueryString,
@@ -24,6 +23,7 @@ import {
 } from "../data/instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
+import { instance_stats } from "shared/data/instance_stats";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
