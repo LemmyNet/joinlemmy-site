@@ -29,7 +29,6 @@ export const instance_stats = {
               last_refreshed_at: "2022-07-09T17:56:21.988295Z",
               inbox_url: "https://lemmy.ml/inbox",
               public_key: "",
-              content_warning: "test warning",
               instance_id: 394,
             },
             local_site: {
@@ -149,6 +148,7 @@ export const instance_stats = {
               last_refreshed_at: "2024-06-21T09:03:05.273496Z",
               inbox_url: "https://feddit.org/inbox",
               public_key: "",
+              content_warning: "test warning",
               instance_id: 1,
             },
             local_site: {

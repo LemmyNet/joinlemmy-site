@@ -1,4 +1,9 @@
-import { Component, InfernoEventHandler, linkEvent } from "inferno";
+import {
+  Component,
+  InfernoEventHandler,
+  InfernoMouseEvent,
+  linkEvent,
+} from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next";
@@ -435,9 +440,12 @@ export class Instances extends Component<object, State> {
     if (lang) {
       return lang;
     } else {
-      const allLanguages = uniqueEntries(
-        INSTANCE_METADATA.flatMap(i => i.languages),
+      // Dont use instances which are down for default languages.
+      const instances = INSTANCE_METADATA.filter(i =>
+        instance_stats.stats.instance_details.find(i2 => i.domain == i2.domain),
       );
+
+      const allLanguages = uniqueEntries(instances.flatMap(i => i.languages));
 
       if (isBrowser()) {
         window.scrollTo(0, 0);
@@ -480,9 +488,15 @@ export class Instances extends Component<object, State> {
       return active_users_percent < 0.3;
     });
 
-    if (!this.state.show_nsfw) {
+    // If NSFW enabled show only nsfw instances (because they would be hard to find among
+    // all the other instances).
+    if (this.state.show_nsfw) {
       instances = instances.filter(
-        i => i.site_info.site_view.site.content_warning !== null,
+        i => i.site_info.site_view.site.content_warning !== undefined,
+      );
+    } else {
+      instances = instances.filter(
+        i => i.site_info.site_view.site.content_warning === undefined,
       );
     }
 
@@ -665,7 +679,7 @@ export class Instances extends Component<object, State> {
       language: this.state.language,
       topic: this.state.topic?.name,
       sort: this.state.sort?.name,
-      show_nsfw: this.state.show_nsfw ? "true" : "false",
+      show_nsfw: this.state.show_nsfw ? "true" : undefined,
     };
 
     window.history.replaceState(
@@ -698,9 +712,13 @@ function handleLanguageChange(i: Instances, event: any) {
   i.updateUrl({ language: event.target.value });
 }
 
-function handleNsfwChange(i: Instances, event: Event) {
+function handleNsfwChange(
+  i: Instances,
+  event: InfernoMouseEvent<HTMLInputElement>,
+) {
   // TODO: show dialog with age confirmation
-  i.updateUrl({ show_nsfw: event.target?.checked });
+  const target = event.target as HTMLInputElement;
+  i.updateUrl({ show_nsfw: target.checked });
 }
 
 function handleSeeAll(i: Instances) {
@@ -709,6 +727,7 @@ function handleSeeAll(i: Instances) {
     language: "all",
     topic: ALL_TOPIC,
     location: undefined,
+    show_nsfw: false,
   });
 }
 
