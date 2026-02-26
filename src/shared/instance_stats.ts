@@ -148,6 +148,7 @@ export const instance_stats = {
               last_refreshed_at: "2024-06-21T09:03:05.273496Z",
               inbox_url: "https://feddit.org/inbox",
               public_key: "",
+              content_warning: "test warning",
               instance_id: 1,
             },
             local_site: {

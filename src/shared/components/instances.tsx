@@ -1,4 +1,9 @@
-import { Component, InfernoEventHandler, linkEvent } from "inferno";
+import {
+  Component,
+  InfernoEventHandler,
+  InfernoMouseEvent,
+  linkEvent,
+} from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next-dess";
@@ -24,6 +29,7 @@ import {
 } from "./instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
+import { createRef } from "inferno";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
@@ -377,6 +383,7 @@ interface State {
   language: string;
   topic: Topic;
   location?: Location;
+  show_nsfw: boolean;
 }
 
 function initTopic(): Topic {
@@ -389,6 +396,11 @@ function initSort(): Sort {
   return sort ? (SORTS.find(c => c.name === sort) ?? RANDOM_SORT) : RANDOM_SORT;
 }
 
+function initShowNsfw(): boolean {
+  const show_nsfw = getQueryParams().get("show_nsfw");
+  return show_nsfw === "true";
+}
+
 export class Instances extends Component<object, State> {
   state: State = {
     instances: [],
@@ -397,7 +409,9 @@ export class Instances extends Component<object, State> {
     language: this.initLanguage(),
     topic: initTopic(),
     location: undefined,
+    show_nsfw: initShowNsfw(),
   };
+  modalDivRef = createRef<HTMLDialogElement>();
 
   initLocations(): Location[] {
     const continents = instance_stats.stats.instance_details
@@ -428,9 +442,12 @@ export class Instances extends Component<object, State> {
     if (lang) {
       return lang;
     } else {
-      const allLanguages = uniqueEntries(
-        INSTANCE_METADATA.flatMap(i => i.languages),
+      // Dont use instances which are down for default languages.
+      const instances = INSTANCE_METADATA.filter(i =>
+        instance_stats.stats.instance_details.find(i2 => i.domain == i2.domain),
       );
+
+      const allLanguages = uniqueEntries(instances.flatMap(i => i.languages));
 
       if (isBrowser()) {
         window.scrollTo(0, 0);
@@ -472,6 +489,14 @@ export class Instances extends Component<object, State> {
         instance_stats.stats.users_active_month;
       return active_users_percent < 0.3;
     });
+
+    // If NSFW enabled show only nsfw instances (because they would be hard to find among
+    // all the other instances).
+    instances = instances.filter(i =>
+      this.state.show_nsfw
+        ? i.site_info.site_view.site.content_warning
+        : !i.site_info.site_view.site.content_warning,
+    );
 
     // Language Filter
     if (this.state.language !== "all") {
@@ -557,75 +582,98 @@ export class Instances extends Component<object, State> {
   filterAndTitleBlock() {
     return (
       <div id="search" className="mt-16">
-        <div className="flex flex-row flex-wrap gap-4">
-          <div className="flex-none">
-            <SectionTitle title={i18n.t("join_title")} />
-          </div>
-          <div className="grow"></div>
-          <div>
-            <select
-              className="lemmy-select mr-2"
-              value={this.state.location?.name ?? "All"}
-              onChange={e => handleHostedInChange(this, e)}
-              name="hosted_in_select"
-            >
-              <option disabled selected>
-                {i18n.t("hosted_in_select")}
-              </option>
-              <option key="all" value="all">
-                {i18n.t("all_locations")}
-              </option>
-              {this.state.allLocations.map(c => (
-                <option key={c.code} value={c.code}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
-            <select
-              className="lemmy-select mr-2"
-              value={this.state.topic?.name}
-              onChange={linkEvent(this, handleTopicChange)}
-              name="topic_select"
-            >
-              <option disabled selected>
-                {i18n.t("topic")}
-              </option>
-              {TOPICS.map(c => (
-                <option key={c.name} value={c.name}>
-                  {i18n.t(c.name as I18nKeys)}
-                </option>
-              ))}
-            </select>
-            <select
-              value={this.state.language}
-              onChange={linkEvent(this, handleLanguageChange)}
-              className="lemmy-select mr-2"
-            >
-              <option disabled>Languages</option>
-              <option key="all" value="all">
-                {i18n.t("all_languages")}
-              </option>
-              {availableLanguages().map(val => (
-                <option key={val.code} value={val.code}>
-                  {val.name}
-                </option>
-              ))}
-            </select>
-            <select
-              value={this.state.sort?.name}
-              name="sort_select"
-              className="lemmy-select mr-2"
-              onChange={linkEvent(this, handleSortChange)}
-            >
-              <option disabled>{i18n.t("sort")}</option>
-              {SORTS.map(s => (
-                <option key={s.name} value={s.name}>
-                  {i18n.t(s.name as I18nKeys)}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div>
+          <SectionTitle title={i18n.t("join_title")} />
         </div>
+        <div className="mt-4 flex flex-row flex-wrap gap-4 items-center">
+          <select
+            className="lemmy-select mr-2"
+            value={this.state.location?.name ?? "All"}
+            onChange={e => handleHostedInChange(this, e)}
+            name="hosted_in_select"
+          >
+            <option disabled selected>
+              {i18n.t("hosted_in_select")}
+            </option>
+            <option key="all" value="all">
+              {i18n.t("all_locations")}
+            </option>
+            {this.state.allLocations.map(c => (
+              <option key={c.code} value={c.code}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+          <select
+            className="lemmy-select mr-2"
+            value={this.state.topic?.name}
+            onChange={linkEvent(this, handleTopicChange)}
+            name="topic_select"
+          >
+            <option disabled selected>
+              {i18n.t("topic")}
+            </option>
+            {TOPICS.map(c => (
+              <option key={c.name} value={c.name}>
+                {i18n.t(c.name as I18nKeys)}
+              </option>
+            ))}
+          </select>
+          <select
+            value={this.state.language}
+            onChange={linkEvent(this, handleLanguageChange)}
+            className="lemmy-select mr-2"
+          >
+            <option disabled>Languages</option>
+            <option key="all" value="all">
+              {i18n.t("all_languages")}
+            </option>
+            {availableLanguages().map(val => (
+              <option key={val.code} value={val.code}>
+                {val.name}
+              </option>
+            ))}
+          </select>
+          <select
+            value={this.state.sort?.name}
+            name="sort_select"
+            className="lemmy-select mr-2"
+            onChange={linkEvent(this, handleSortChange)}
+          >
+            <option disabled>{i18n.t("sort")}</option>
+            {SORTS.map(s => (
+              <option key={s.name} value={s.name}>
+                {i18n.t(s.name as I18nKeys)}
+              </option>
+            ))}
+          </select>
+          <label className="label">
+            <input
+              checked={this.state.show_nsfw}
+              type="checkbox"
+              className="toggle mr-2"
+              onClick={e => handleNsfwChange(this, e)}
+            />
+            {i18n.t("show_nsfw")}
+          </label>
+        </div>
+        <dialog id="my_modal_1" className="modal" ref={this.modalDivRef}>
+          <div className="modal-box">
+            <h3 className="text-lg font-bold">{i18n.t("show_nsfw")}</h3>
+            <p className="py-4">{i18n.t("show_nsfw_confirm")}</p>
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="btn me-2">{i18n.t("cancel")}</button>
+                <button
+                  className="btn btn-primary"
+                  onclick={_ => acceptNsfw(this)}
+                >
+                  {i18n.t("confirm")}
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     );
   }
@@ -643,6 +691,7 @@ export class Instances extends Component<object, State> {
       language: this.state.language,
       topic: this.state.topic?.name,
       sort: this.state.sort?.name,
+      show_nsfw: this.state.show_nsfw ? "true" : undefined,
     };
 
     window.history.replaceState(
@@ -675,12 +724,31 @@ function handleLanguageChange(i: Instances, event: any) {
   i.updateUrl({ language: event.target.value });
 }
 
+function handleNsfwChange(
+  i: Instances,
+  event: InfernoMouseEvent<HTMLInputElement>,
+) {
+  const checked = event.currentTarget.checked;
+  if (checked) {
+    if (i.modalDivRef.current) {
+      i.modalDivRef.current.showModal();
+    }
+  } else {
+    i.updateUrl({ show_nsfw: false });
+  }
+}
+
+function acceptNsfw(i: Instances) {
+  i.updateUrl({ show_nsfw: true });
+}
+
 function handleSeeAll(i: Instances) {
   i.updateUrl({
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
     location: undefined,
+    show_nsfw: false,
   });
 }
 
