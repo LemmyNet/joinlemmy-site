@@ -383,7 +383,7 @@ interface State {
   language: string;
   topic: Topic;
   location?: Location;
-  show_nsfw: boolean;
+  showNsfw: boolean;
 }
 
 function initTopic(): Topic {
@@ -397,8 +397,8 @@ function initSort(): Sort {
 }
 
 function initShowNsfw(): boolean {
-  const show_nsfw = getQueryParams().get("show_nsfw");
-  return show_nsfw === "true";
+  const showNsfw = getQueryParams().get("show_nsfw");
+  return showNsfw === "true";
 }
 
 export class Instances extends Component<object, State> {
@@ -409,7 +409,7 @@ export class Instances extends Component<object, State> {
     language: this.initLanguage(),
     topic: initTopic(),
     location: undefined,
-    show_nsfw: initShowNsfw(),
+    showNsfw: initShowNsfw(),
   };
   modalDivRef = createRef<HTMLDialogElement>();
 
@@ -492,7 +492,7 @@ export class Instances extends Component<object, State> {
 
     // If NSFW enabled show only nsfw instances (because they would be hard to find among
     // all the other instances).
-    if (this.state.show_nsfw) {
+    if (this.state.showNsfw) {
       instances = instances.filter(
         i => i.site_info.site_view.site.content_warning !== undefined,
       );
@@ -653,7 +653,7 @@ export class Instances extends Component<object, State> {
           </select>
           <label className="label">
             <input
-              checked={this.state.show_nsfw}
+              checked={this.state.showNsfw}
               type="checkbox"
               className="toggle mr-2"
               onClick={e => handleNsfwChange(this, e)}
@@ -695,7 +695,7 @@ export class Instances extends Component<object, State> {
       language: this.state.language,
       topic: this.state.topic?.name,
       sort: this.state.sort?.name,
-      show_nsfw: this.state.show_nsfw ? "true" : undefined,
+      showNsfw: this.state.showNsfw ? "true" : undefined,
     };
 
     window.history.replaceState(
@@ -739,12 +739,12 @@ function handleNsfwChange(
       i.modalDivRef.current.showModal();
     }
   } else {
-    i.updateUrl({ show_nsfw: false });
+    i.updateUrl({ showNsfw: false });
   }
 }
 
 function acceptNsfw(i: Instances) {
-  i.updateUrl({ show_nsfw: true });
+  i.updateUrl({ showNsfw: true });
 }
 
 function handleSeeAll(i: Instances) {
@@ -753,7 +753,7 @@ function handleSeeAll(i: Instances) {
     language: "all",
     topic: ALL_TOPIC,
     location: undefined,
-    show_nsfw: false,
+    showNsfw: false,
   });
 }
 
