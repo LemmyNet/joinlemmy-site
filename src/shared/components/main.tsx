@@ -300,15 +300,23 @@ interface Props {
 export class Main extends Component<Props, State> {
   state: State = { suggested_instance: "" };
 
-  async componentDidMount() {
+  componentDidMount() {
     // TODO: Should be able to initialize this during SSR by passing in client ip, but
     //       complicated to get it working.
     if (isBrowser()) {
       const url = `${window.location.href}api/v1/instances/suggested`;
-      const res = await fetch(url);
-      this.setState({
-        suggested_instance: await res.json(),
-      });
+      fetch(url)
+        .then(res => {
+          res
+            .json()
+            .then(json => this.setState({ suggested_instance: json }))
+            .catch(error => {
+              console.error(error);
+            });
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   }
 
