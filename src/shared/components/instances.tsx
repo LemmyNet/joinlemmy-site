@@ -492,15 +492,11 @@ export class Instances extends Component<object, State> {
 
     // If NSFW enabled show only nsfw instances (because they would be hard to find among
     // all the other instances).
-    if (this.state.show_nsfw) {
-      instances = instances.filter(
-        i => i.site_info.site_view.site.content_warning !== undefined,
-      );
-    } else {
-      instances = instances.filter(
-        i => i.site_info.site_view.site.content_warning === undefined,
-      );
-    }
+    instances = instances.filter(i =>
+      this.state.show_nsfw
+        ? i.site_info.site_view.site.content_warning
+        : !i.site_info.site_view.site.content_warning,
+    );
 
     // Language Filter
     if (this.state.language !== "all") {
