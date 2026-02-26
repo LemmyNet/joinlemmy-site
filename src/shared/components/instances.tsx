@@ -728,8 +728,7 @@ function handleNsfwChange(
   i: Instances,
   event: InfernoMouseEvent<HTMLInputElement>,
 ) {
-  const target = event.target as HTMLInputElement;
-  const checked = target.checked;
+  const checked = event.currentTarget.checked;
   if (checked) {
     if (i.modalDivRef.current) {
       i.modalDivRef.current.showModal();
