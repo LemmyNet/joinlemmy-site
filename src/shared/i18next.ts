@@ -1,7 +1,9 @@
-import i18next, { i18nTyped, Resource } from "i18next";
+import i18next, { InitOptions, Resource } from "i18next";
 
 // Languages
 import { bg } from "./translations/bg";
+import { bs } from "./translations/bs";
+import { ca } from "./translations/ca";
 import { da } from "./translations/da";
 import { de } from "./translations/de";
 import { el } from "./translations/el";
@@ -13,21 +15,26 @@ import { fa } from "./translations/fa";
 import { fi } from "./translations/fi";
 import { fr } from "./translations/fr";
 import { gl } from "./translations/gl";
+import { hu } from "./translations/hu";
 import { id } from "./translations/id";
 import { it } from "./translations/it";
 import { ja } from "./translations/ja";
 import { ko } from "./translations/ko";
 import { nb_NO } from "./translations/nb_NO";
-import { nn } from "./translations/nn";
 import { nl } from "./translations/nl";
+import { nn } from "./translations/nn";
 import { pl } from "./translations/pl";
 import { pt } from "./translations/pt";
 import { pt_BR } from "./translations/pt_BR";
 import { ru } from "./translations/ru";
+import { tr } from "./translations/tr";
+import { uk } from "./translations/uk";
 import { zh } from "./translations/zh";
 
 export const LANGUAGES = [
   { resource: bg, code: "bg", name: "Български" },
+  { resource: bs, code: "bs", name: "Bosanski" },
+  { resource: ca, code: "ca", name: "Català" },
   { resource: da, code: "da", name: "Dansk" },
   { resource: de, code: "de", name: "Deutsch" },
   { resource: el, code: "el", name: "Ελληνικά" },
@@ -39,17 +46,20 @@ export const LANGUAGES = [
   { resource: fi, code: "fi", name: "Suomi" },
   { resource: fr, code: "fr", name: "Français" },
   { resource: gl, code: "gl", name: "Galego" },
+  { resource: hu, code: "hu", name: "Magyar" },
   { resource: id, code: "id", name: "Bahasa Indonesia" },
   { resource: it, code: "it", name: "Italiano" },
   { resource: ja, code: "ja", name: "日本語" },
   { resource: ko, code: "ko", name: "한국어" },
   { resource: nb_NO, code: "nb-NO", name: "Norsk (bokmål)" },
-  { resource: nn, code: "nn", name: "nynorsk" },
   { resource: nl, code: "nl", name: "Nederlands" },
+  { resource: nn, code: "nn", name: "nynorsk" },
   { resource: pl, code: "pl", name: "Polski" },
   { resource: pt, code: "pt", name: "Português" },
   { resource: pt_BR, code: "pt-BR", name: "Português (Brasil)" },
   { resource: ru, code: "ru", name: "Русский" },
+  { resource: tr, code: "tr", name: "Türkçe" },
+  { resource: uk, code: "uk", name: "Українська" },
   { resource: zh, code: "zh", name: "中文" },
 ];
 
@@ -60,18 +70,27 @@ function format(value: string, format: string): string {
   return format === "uppercase" ? value.toUpperCase() : value;
 }
 
-await i18next.init({
-  debug: false,
-  // load: 'languageOnly',
-  // initImmediate: false,
-  fallbackLng: "en",
-  resources,
-  interpolation: { format },
-});
-
-export const i18n = i18next as i18nTyped;
+export let i18n = i18next;
 
 export { resources };
+
+export async function initI18n() {
+  const options: InitOptions = {
+    debug: false,
+    // load: 'languageOnly',
+    // initImmediate: false,
+    fallbackLng: "en",
+    resources,
+    interpolation: { format },
+    showSupportNotice: false,
+  };
+
+  const i18nI = i18next.createInstance(options);
+  await i18nI.init();
+  i18n = i18nI;
+
+  return i18nI;
+}
 
 // https://gist.github.com/hunan-rostomyan/28e8702c1cecff41f7fe64345b76f2ca
 export function getLanguageFromCookie(cookies?: string): string | undefined {
