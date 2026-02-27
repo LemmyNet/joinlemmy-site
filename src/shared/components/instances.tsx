@@ -546,7 +546,8 @@ export class Instances extends Component<object, State> {
     const isFiltered =
       this.state.location ||
       this.state.topic !== ALL_TOPIC ||
-      this.state.language !== "all";
+      this.state.language !== "all" ||
+      this.state.show_nsfw;
     return (
       <div className="container mx-auto px-4">
         <Helmet title={title}>
@@ -739,7 +740,14 @@ function handleNsfwChange(
 }
 
 function acceptNsfw(i: Instances) {
-  i.updateUrl({ show_nsfw: true });
+  // Disable all other selections as there are currently no nsfw instances for different
+  // languages or countries.
+  i.updateUrl({
+    show_nsfw: true,
+    language: "all",
+    topic: ALL_TOPIC,
+    location: undefined,
+  });
 }
 
 function handleSeeAll(i: Instances) {
