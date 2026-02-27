@@ -1,12 +1,35 @@
 import { LANGUAGES } from "../i18next";
-import { instance_stats } from "../instance_stats";
+import { instance_stats } from "./instance_stats";
 
 export interface InstanceHelper {
   name: string;
   link: string;
 }
 
-export const SUGGESTED_INSTANCES = ["thelemmy.club", "lemmus.org", "lemmy.org"];
+export type SuggestedInstancesType = { [key: string]: string[] };
+export const SUGGESTED_INSTANCES: SuggestedInstancesType = {
+  EU: ["europe.pub"],
+  SA: ["feddit.cl"],
+  uk: ["feddit.uk"],
+  it: ["feddit.it"],
+  ca: ["lemmy.ca"],
+  fi: ["sopuli.xyz"],
+  dk: ["feddit.dk"],
+  fr: ["jlai.lu"],
+  au: ["aussie.zone"],
+  pl: ["szmer.info"],
+  nz: ["lemmy.nz"],
+  br: ["lemmy.eco.br"],
+  se: ["feddit.nu"],
+  cl: ["feddit.cl"],
+  pt: ["lemmy.pt"],
+  mx: ["mujico.org"],
+  cn: ["fasheng.ing"],
+  nl: ["lemy.nl"],
+  es: ["chachara.club"],
+  lt: ["group.lt"],
+  fallback: ["thelemmy.club", "lemmus.org", "lemmy.org"],
+};
 
 export const INSTANCE_HELPERS: InstanceHelper[] = [
   {

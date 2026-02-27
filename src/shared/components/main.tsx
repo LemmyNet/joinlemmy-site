@@ -3,11 +3,9 @@ import { Link } from "inferno-router";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next-dess";
-import { sortRandom } from "../utils";
 import { Icon } from "./icon";
 import { BottomSpacer } from "./common";
-import { SUGGESTED_INSTANCES } from "./instances-definitions";
-import { instance_stats } from "../instance_stats";
+import { isBrowser } from "../utils";
 
 const TitleBlock = () => (
   <div className="py-16 flex flex-col items-center">
@@ -32,7 +30,7 @@ function FollowCommunitiesBlock({
           </p>
           <p className="grid items-center md:grid-cols-2 gap-2">
             <a
-              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 w-full"
+              className="btn btn-primary text-white bg-linear-to-r w-full"
               href={`https://${suggested_instance}/signup`}
             >
               {i18n.t("join_instance", { domain: suggested_instance })}
@@ -295,20 +293,31 @@ interface State {
   suggested_instance: string;
 }
 
-export class Main extends Component<object, State> {
-  state: State = {
-    suggested_instance: this.initSuggested(),
-  };
+interface Props {
+  ip?: string;
+}
 
-  initSuggested(): string {
-    // Check crawl results to exclude instances which are down
-    const crawledInstances = instance_stats.stats.instance_details.map(
-      i => i.domain,
-    );
-    const defaults = SUGGESTED_INSTANCES.filter(i =>
-      crawledInstances.includes(i),
-    );
-    return sortRandom(defaults)[0];
+export class Main extends Component<Props, State> {
+  state: State = { suggested_instance: "" };
+
+  componentDidMount() {
+    // TODO: Should be able to initialize this during SSR by passing in client ip, but
+    //       complicated to get it working.
+    if (isBrowser()) {
+      const url = `${window.location.href}api/v1/instances/suggested`;
+      fetch(url)
+        .then(res => {
+          res
+            .json()
+            .then(json => this.setState({ suggested_instance: json }))
+            .catch(error => {
+              console.error(error);
+            });
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
   }
 
   render() {
@@ -326,7 +335,7 @@ export class Main extends Component<object, State> {
         </Helmet>
         <img
           src="/static/assets/images/world_background.svg"
-          className="bg-top bg-no-repeat bg-contain opacity-20 absolute"
+          className="bg-top bg-no-repeat bg-contain opacity-10 absolute"
           alt=""
         />
         <div className="container mx-auto px-4">

@@ -13,6 +13,7 @@ import { App } from "../shared/components/app";
 import process from "process";
 import { Helmet } from "inferno-helmet";
 import { getLanguageFromCookie, initI18n } from "../shared/i18next";
+import { all_instances, suggested_instances } from "./api";
 
 const server = express();
 const port = 1234;
@@ -52,6 +53,8 @@ server.use(
   express.static(path.resolve("./dist/assets/lemmy_federation_context.json")),
 );
 server.use("/feed.xml", express.static(path.resolve("./dist/feed.xml")));
+server.use("/api/v1/instances/suggested", suggested_instances);
+server.use("/api/v1/instances/all", all_instances);
 
 function erudaInit(): string {
   if (process.env["NODE_ENV"] === "development") {
@@ -64,7 +67,7 @@ function erudaInit(): string {
   }
 }
 
-interface Query {
+export interface Query {
   lang?: string;
 }
 
