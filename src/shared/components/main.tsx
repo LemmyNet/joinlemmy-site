@@ -32,7 +32,7 @@ function FollowCommunitiesBlock({
           </p>
           <p className="grid items-center md:grid-cols-2 gap-2">
             <a
-              className="btn btn-primary text-white bg-linear-to-r green-400 to-green-600 w-full"
+              className="btn btn-primary text-white bg-linear-to-r w-full"
               href={`https://${suggested_instance}/signup`}
             >
               {i18n.t("join_instance", { domain: suggested_instance })}
@@ -326,7 +326,7 @@ export class Main extends Component<object, State> {
         </Helmet>
         <img
           src="/static/assets/images/world_background.svg"
-          className="bg-top bg-no-repeat bg-contain opacity-20 absolute"
+          className="bg-top bg-no-repeat bg-contain opacity-10 absolute"
           alt=""
         />
         <div className="container mx-auto px-4">
