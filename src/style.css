@@ -5,8 +5,8 @@
 @plugin "daisyui/theme" {
   name: "halloween";
   default: true;
-  --color-primary: oklch(0.65 0.2181 142.48);
-  --color-secondary: oklch(0.69 0.1195 211.28);
+  --color-primary: #0cad09;
+  --color-secondary: #03aec5;
   --color-base-content: white;
 }
 
@@ -15,9 +15,9 @@
   --font-sans:
     Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --color-gradient-start: oklch(0.77 0.1736 143.14);
-  --color-gradient-end: oklch(0.65 0.2181 142.48);
-  --color-background-gradient: oklch(0.75 0.2504 142.47);
+  --color-gradient-start: #69d066;
+  --color-gradient-end: #0cad09;
+  --color-background-gradient: #15d211;
   --depth: 0;
   --noise: 0;
 }
