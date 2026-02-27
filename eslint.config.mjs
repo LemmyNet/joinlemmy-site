@@ -49,7 +49,7 @@ export default [
       "dist/*",
       ".yalc/*",
       "lemmy-docs",
-      "src/shared/instance_definitions.test.ts",
+      "**/*.test.ts",
     ],
   },
   {

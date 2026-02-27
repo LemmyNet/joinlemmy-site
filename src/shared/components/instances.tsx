@@ -7,7 +7,6 @@ import {
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next-dess";
-import { instance_stats } from "../instance_stats";
 import {
   getQueryParams,
   getQueryString,
@@ -26,9 +25,10 @@ import {
   ALL_TOPIC,
   TOPICS,
   availableLanguages,
-} from "./instances-definitions";
+} from "../data/instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
+import { instance_stats } from "../data/instance_stats";
 import { createRef } from "inferno";
 
 const TitleBlock = () => (

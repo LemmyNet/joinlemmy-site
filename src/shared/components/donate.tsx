@@ -11,7 +11,7 @@ import {
   MEDIAN_DEV_SALARY,
   TOTAL_RECURRING_MONTHLY_EUR,
   TOTAL_SUPPORTERS,
-} from "./donate-definitions";
+} from "../data/donate-definitions";
 import { NUMBER_FORMAT } from "../utils";
 import { Icon } from "./icon";
 
