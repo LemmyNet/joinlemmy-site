@@ -7,6 +7,9 @@ export interface InstanceHelper {
 }
 
 export type SuggestedInstancesType = { [key: string]: string[] };
+
+/// Uppercase code for continents, lowercase for countries (to avoid conflicts in case
+/// of identical code).
 export const SUGGESTED_INSTANCES: SuggestedInstancesType = {
   EU: ["europe.pub"],
   SA: ["feddit.cl"],

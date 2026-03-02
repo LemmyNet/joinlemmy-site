@@ -32,10 +32,10 @@ export function suggested_instances(req: Request, res: Response): void {
     return result;
   }, {});
 
-  let json: string;
+  let json: string | undefined = undefined;
   if (ip) {
     const lookup = GeoDbReader.get(ip);
-    const country = lookup?.country?.iso_code;
+    const country = lookup?.country?.iso_code.toLowerCase();
     const continent = lookup?.continent?.code;
 
     if (country) {
@@ -51,8 +51,10 @@ export function suggested_instances(req: Request, res: Response): void {
     }
   }
 
-  // TODO: can also pick a suggested instance by language here
-  json = sortRandom(suggested["fallback"])[0];
+  if (!json) {
+    // TODO: can also pick a suggested instance by language here
+    json = sortRandom(suggested["fallback"])[0];
+  }
 
   res.json([json]);
 }
