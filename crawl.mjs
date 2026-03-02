@@ -3,7 +3,7 @@ import { spawnSync } from "child_process";
 
 const outDir = "src/shared/translations/";
 const recommendationsFile = "recommended-instances.json";
-const instanceStatsFile = "src/shared/instance_stats.ts";
+const instanceStatsFile = "src/shared/data/instance_stats.ts";
 
 mkdirSync(outDir, { recursive: true });
 
@@ -26,7 +26,7 @@ try {
     [
       "-c",
       `cargo run --release -- --start-instances ${all_recommended} --out-path ../crawl-results \
-      --exclude-instances ${recommended_instances.exclude}`,
+      --exclude-instances ${recommended_instances.exclude} --max-crawl-distance 0`,
     ],
     {
       cwd: "lemmy-stats-crawler",

@@ -11,7 +11,7 @@ import {
   AppLinks,
   Platform,
   MODERATION_TOOLS,
-} from "./app-definitions";
+} from "../data/app-definitions";
 import { Icon } from "./icon";
 import { I18nKeys } from "i18next";
 import { isBrowser, sortRandom } from "../utils";

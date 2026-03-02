@@ -1,7 +1,7 @@
 import fs from "fs";
 import fetch from "node-fetch";
 
-const donationStatsFile = "src/shared/donation_stats.ts";
+const donationStatsFile = "src/shared/data/donation_stats.ts";
 
 const USDtoEURUrl =
   "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json";
