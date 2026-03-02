@@ -30,6 +30,7 @@ import { ru } from "./translations/ru";
 import { tr } from "./translations/tr";
 import { uk } from "./translations/uk";
 import { zh } from "./translations/zh";
+import { zh_Hant } from "./translations/zh_Hant";
 
 export const LANGUAGES = [
   { resource: bg, code: "bg", name: "Български" },
@@ -60,7 +61,8 @@ export const LANGUAGES = [
   { resource: ru, code: "ru", name: "Русский" },
   { resource: tr, code: "tr", name: "Türkçe" },
   { resource: uk, code: "uk", name: "Українська" },
-  { resource: zh, code: "zh", name: "中文" },
+  { resource: zh, code: "zh", name: "汉语" },
+  { resource: zh_Hant, code: "zh-TW", name: "漢語" },
 ];
 
 const resources: Resource = {};
