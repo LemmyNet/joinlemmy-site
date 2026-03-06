@@ -30,6 +30,7 @@ import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
 import { instance_stats } from "../data/instance_stats";
 import { createRef } from "inferno";
+import { FilterChipDropdown, FilterOption } from "./filter-chip-dropdown";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-16">
@@ -382,7 +383,7 @@ interface State {
   sort: Sort;
   language: string;
   topic: Topic;
-  location?: Location;
+  location: Location;
   show_nsfw: boolean;
 }
 
@@ -401,6 +402,8 @@ function initShowNsfw(): boolean {
   return show_nsfw === "true";
 }
 
+const ALL_LOCATION: Location = { name: "All", code: "all" };
+
 export class Instances extends Component<object, State> {
   state: State = {
     instances: [],
@@ -408,7 +411,7 @@ export class Instances extends Component<object, State> {
     sort: initSort(),
     language: this.initLanguage(),
     topic: initTopic(),
-    location: undefined,
+    location: ALL_LOCATION,
     show_nsfw: initShowNsfw(),
   };
   modalDivRef = createRef<HTMLDialogElement>();
@@ -428,13 +431,15 @@ export class Instances extends Component<object, State> {
       .map((i): Location => ({ code: i.iso_code, name: i.names.en }));
 
     // for some reason this doesnt work with uniqueEntries()
-    return continents.concat(countries).reduce((acc, obj) => {
+    const concat = continents.concat(countries).reduce((acc, obj) => {
       const exist = acc.find(i => obj.code === i.code);
       if (!exist) {
         acc.push(obj);
       }
       return acc;
     }, [] as Location[]);
+    concat.unshift(ALL_LOCATION);
+    return concat;
   }
 
   initLanguage() {
@@ -470,13 +475,16 @@ export class Instances extends Component<object, State> {
     }, 0);
   }
 
-  initSelectedLocation(): Location | undefined {
+  initSelectedLocation(): Location {
     const location = getQueryParams().get("location");
     if (location != null) {
-      return this.state.allLocations.find(l => l.code === location);
-    } else {
-      return undefined;
+      const find = this.state.allLocations.find(l => l.code === location);
+      if (find) {
+        return find;
+      }
     }
+
+    return ALL_LOCATION;
   }
 
   buildInstanceList() {
@@ -509,7 +517,7 @@ export class Instances extends Component<object, State> {
     }
 
     // Hosted in filter
-    if (this.state.location) {
+    if (this.state.location.code != "all") {
       const code = this.state.location?.code;
       instances = instances.filter(
         i =>
@@ -587,24 +595,15 @@ export class Instances extends Component<object, State> {
           <SectionTitle title={i18n.t("join_title")} />
         </div>
         <div className="mt-4 flex flex-row flex-wrap gap-4 items-center">
-          <select
+          <FilterChipDropdown
+            label="hosted_in_select"
+            allOptions={this.state.allLocations.map(location_to_option)}
+            currentOption={
+              this.state.location && location_to_option(this.state.location)
+            }
+            onSelect={e => handleHostedInChange(this, e)}
             className="lemmy-select mr-2"
-            value={this.state.location?.name ?? "All"}
-            onChange={e => handleHostedInChange(this, e)}
-            name="hosted_in_select"
-          >
-            <option disabled selected>
-              {i18n.t("hosted_in_select")}
-            </option>
-            <option key="all" value="all">
-              {i18n.t("all_locations")}
-            </option>
-            {this.state.allLocations.map(c => (
-              <option key={c.code} value={c.code}>
-                {c.name}
-              </option>
-            ))}
-          </select>
+          />
           <select
             className="lemmy-select mr-2"
             value={this.state.topic?.name}
@@ -715,9 +714,9 @@ function handleTopicChange(i: Instances, event: any) {
   });
 }
 
-function handleHostedInChange(i: Instances, event: any) {
+function handleHostedInChange(i: Instances, event: string) {
   i.updateUrl({
-    location: i.state.allLocations.find(c => c.code === event.target.value),
+    location: i.state.allLocations.find(c => c.code === event),
   });
 }
 
@@ -746,7 +745,7 @@ function acceptNsfw(i: Instances) {
     show_nsfw: true,
     language: "all",
     topic: ALL_TOPIC,
-    location: undefined,
+    location: ALL_LOCATION,
   });
 }
 
@@ -755,7 +754,7 @@ function handleSeeAll(i: Instances) {
     sort: RANDOM_SORT,
     language: "all",
     topic: ALL_TOPIC,
-    location: undefined,
+    location: ALL_LOCATION,
     show_nsfw: false,
   });
 }
@@ -772,4 +771,11 @@ function sortSemiRandom(list: any[]): any[] {
     })
     .sort((a, b) => b.sort - a.sort)
     .map(({ instance }) => instance);
+}
+
+function location_to_option(l: Location): FilterOption<string> {
+  return {
+    value: l.code,
+    i18n: l.name,
+  };
 }
