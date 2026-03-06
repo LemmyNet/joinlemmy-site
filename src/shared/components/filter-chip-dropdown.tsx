@@ -55,7 +55,10 @@ export function FilterChipDropdown<T extends string>({
                 role="option"
                 aria-selected={currentOption?.value === opt.value}
                 onClick={() => {
-                  document.activeElement?.blur();
+                  // hide the dropdown
+                  const e = document.activeElement as HTMLElement;
+                  e.blur();
+
                   onSelect(opt.value);
                 }}
               >

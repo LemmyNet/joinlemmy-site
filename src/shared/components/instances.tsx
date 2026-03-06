@@ -517,7 +517,7 @@ export class Instances extends Component<object, State> {
     }
 
     // Hosted in filter
-    if (this.state.location.code != "all") {
+    if (this.state.location !== ALL_LOCATION) {
       const code = this.state.location?.code;
       instances = instances.filter(
         i =>
@@ -552,7 +552,7 @@ export class Instances extends Component<object, State> {
     const title = i18n.t("join_title");
 
     const isFiltered =
-      this.state.location ||
+      this.state.location !== ALL_LOCATION ||
       this.state.topic !== ALL_TOPIC ||
       this.state.language !== "all" ||
       this.state.show_nsfw;
