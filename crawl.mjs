@@ -40,7 +40,14 @@ try {
 
   // Convert stats to json to be compiled directly into the code. Not using JSON.parse here as it
   // uses too much memory and crashes.
-  spawnSync("gunzip", ["crawl-results/instances/joinlemmy.json.gz"]);
+  const gunzip = spawnSync("gunzip", [
+    "crawl-results/instances/joinlemmy.json.gz",
+    "-f",
+  ]);
+  if (gunzip.stderr) {
+    process.stdout.write(gunzip.stderr);
+  }
+
   let crawlOutput = readFileSync("crawl-results/instances/joinlemmy.json");
   let data = `export const instance_stats = {stats: ${crawlOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
   writeFileSync(instanceStatsFile, data);

@@ -16,7 +16,7 @@ const TitleBlock = () => (
   </div>
 );
 
-type FollowCommunitiesBlockProps = { suggested_instance: string };
+type FollowCommunitiesBlockProps = { suggested_instance?: string };
 
 function FollowCommunitiesBlock({
   suggested_instance,
@@ -31,9 +31,18 @@ function FollowCommunitiesBlock({
           <p className="grid items-center md:grid-cols-2 gap-2">
             <a
               className="btn btn-primary text-white bg-linear-to-r w-full"
-              href={`https://${suggested_instance}/signup`}
+              href={
+                suggested_instance && `https://${suggested_instance}/signup`
+              }
             >
-              {i18n.t("join_instance", { domain: suggested_instance })}
+              {suggested_instance ? (
+                i18n.t("join_instance", { domain: suggested_instance })
+              ) : (
+                <>
+                  <Icon icon="refresh" classes="animate-spin" />
+                  Loading
+                </>
+              )}
             </a>
             <Link
               to="/instances"
@@ -290,7 +299,7 @@ const MoreFeaturesCard = ({ icons, text }) => (
 );
 
 interface State {
-  suggested_instance: string;
+  suggested_instance?: string;
 }
 
 interface Props {
@@ -298,7 +307,7 @@ interface Props {
 }
 
 export class Main extends Component<Props, State> {
-  state: State = { suggested_instance: "" };
+  state: State = {};
 
   componentDidMount() {
     // TODO: Should be able to initialize this during SSR by passing in client ip, but
