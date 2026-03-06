@@ -10,7 +10,7 @@ export enum SourceType {
 }
 
 export enum Platform {
-  All = "all_platforms",
+  All = "all",
   Web = "web",
   IOS = "ios",
   Android = "android",

@@ -22,12 +22,12 @@ import {
   INSTANCE_HELPERS,
   Topic,
   INSTANCE_METADATA,
-  ALL_TOPIC,
+  ALL_TOPIC as TOPIC_ALL,
   TOPICS,
   availableLanguages,
+  Language,
 } from "../data/instances-definitions";
 import { Icon, IconSize } from "./icon";
-import { I18nKeys } from "i18next";
 import { instance_stats } from "../data/instance_stats";
 import { createRef } from "inferno";
 import { FilterChipDropdown, FilterOption } from "./filter-chip-dropdown";
@@ -381,7 +381,7 @@ interface State {
   instances: any[];
   allLocations: Location[];
   sort: Sort;
-  language: string;
+  language: Language;
   topic: Topic;
   location: Location;
   show_nsfw: boolean;
@@ -389,7 +389,7 @@ interface State {
 
 function initTopic(): Topic {
   const topic = getQueryParams().get("topic");
-  return topic ? (TOPICS.find(c => c.name === topic) ?? ALL_TOPIC) : ALL_TOPIC;
+  return topic ? (TOPICS.find(c => c.name === topic) ?? TOPIC_ALL) : TOPIC_ALL;
 }
 
 function initSort(): Sort {
@@ -402,7 +402,9 @@ function initShowNsfw(): boolean {
   return show_nsfw === "true";
 }
 
-const ALL_LOCATION: Location = { name: "All", code: "all" };
+const LOCATION_ALL: Location = { name: "all", code: "all" };
+
+const LANGUAGE_ALL: Language = { code: "all", name: "all" };
 
 export class Instances extends Component<object, State> {
   state: State = {
@@ -411,7 +413,7 @@ export class Instances extends Component<object, State> {
     sort: initSort(),
     language: this.initLanguage(),
     topic: initTopic(),
-    location: ALL_LOCATION,
+    location: LOCATION_ALL,
     show_nsfw: initShowNsfw(),
   };
   modalDivRef = createRef<HTMLDialogElement>();
@@ -438,14 +440,14 @@ export class Instances extends Component<object, State> {
       }
       return acc;
     }, [] as Location[]);
-    concat.unshift(ALL_LOCATION);
+    concat.unshift(LOCATION_ALL);
     return concat;
   }
 
-  initLanguage() {
+  initLanguage(): Language {
     const lang = getQueryParams().get("language");
     if (lang) {
-      return lang;
+      return availableLanguages().find(l => l.code === lang) ?? LANGUAGE_ALL;
     } else {
       // Dont use instances which are down for default languages.
       const instances = INSTANCE_METADATA.filter(i =>
@@ -458,10 +460,14 @@ export class Instances extends Component<object, State> {
         window.scrollTo(0, 0);
 
         // TODO: consider using `navigator.languages` which has an array of all enabled langs
-        const lang = navigator.language.split("-")[0];
-        return allLanguages.find(l => l === lang) ?? "all";
+        const browserLang = navigator.language.split("-")[0];
+        const availableBrowserLang = allLanguages.find(l => l === browserLang);
+        return (
+          availableLanguages().find(l => l.code === availableBrowserLang) ??
+          LANGUAGE_ALL
+        );
       } else {
-        return "all";
+        return LANGUAGE_ALL;
       }
     }
   }
@@ -484,7 +490,7 @@ export class Instances extends Component<object, State> {
       }
     }
 
-    return ALL_LOCATION;
+    return LOCATION_ALL;
   }
 
   buildInstanceList() {
@@ -507,9 +513,9 @@ export class Instances extends Component<object, State> {
     );
 
     // Language Filter
-    if (this.state.language !== "all") {
+    if (this.state.language !== LANGUAGE_ALL) {
       const languageRecs = metadata.filter(r =>
-        r.languages.includes(this.state.language),
+        r.languages.includes(this.state.language.code),
       );
       instances = instances.filter(i =>
         languageRecs.map(r => r.domain).includes(i.domain),
@@ -517,7 +523,7 @@ export class Instances extends Component<object, State> {
     }
 
     // Hosted in filter
-    if (this.state.location !== ALL_LOCATION) {
+    if (this.state.location !== LOCATION_ALL) {
       const code = this.state.location?.code;
       instances = instances.filter(
         i =>
@@ -527,7 +533,7 @@ export class Instances extends Component<object, State> {
     }
 
     // Topic filter
-    if (this.state.topic !== ALL_TOPIC) {
+    if (this.state.topic !== TOPIC_ALL) {
       const topicRecs = metadata.filter(r =>
         r.topics.includes(this.state.topic),
       );
@@ -552,9 +558,9 @@ export class Instances extends Component<object, State> {
     const title = i18n.t("join_title");
 
     const isFiltered =
-      this.state.location !== ALL_LOCATION ||
-      this.state.topic !== ALL_TOPIC ||
-      this.state.language !== "all" ||
+      this.state.location !== LOCATION_ALL ||
+      this.state.topic !== TOPIC_ALL ||
+      this.state.language !== LANGUAGE_ALL ||
       this.state.show_nsfw;
     return (
       <div className="container mx-auto px-4">
@@ -598,55 +604,31 @@ export class Instances extends Component<object, State> {
           <FilterChipDropdown
             label="hosted_in_select"
             allOptions={this.state.allLocations.map(location_to_option)}
-            currentOption={
-              this.state.location && location_to_option(this.state.location)
-            }
+            currentOption={location_to_option(this.state.location)}
             onSelect={e => handleHostedInChange(this, e)}
             className="lemmy-select mr-2"
           />
-          <select
+          <FilterChipDropdown
+            label="topic"
+            allOptions={TOPICS.map(topic_to_option)}
+            currentOption={topic_to_option(this.state.topic)}
+            onSelect={e => handleTopicChange(this, e)}
             className="lemmy-select mr-2"
-            value={this.state.topic?.name}
-            onChange={linkEvent(this, handleTopicChange)}
-            name="topic_select"
-          >
-            <option disabled selected>
-              {i18n.t("topic")}
-            </option>
-            {TOPICS.map(c => (
-              <option key={c.name} value={c.name}>
-                {i18n.t(c.name as I18nKeys)}
-              </option>
-            ))}
-          </select>
-          <select
-            value={this.state.language}
-            onChange={linkEvent(this, handleLanguageChange)}
+          />
+          <FilterChipDropdown
+            label="language"
+            allOptions={availableLanguages().map(language_to_option)}
+            currentOption={language_to_option(this.state.language)}
+            onSelect={e => handleLanguageChange(this, e)}
             className="lemmy-select mr-2"
-          >
-            <option disabled>Languages</option>
-            <option key="all" value="all">
-              {i18n.t("all_languages")}
-            </option>
-            {availableLanguages().map(val => (
-              <option key={val.code} value={val.code}>
-                {val.name}
-              </option>
-            ))}
-          </select>
-          <select
-            value={this.state.sort?.name}
-            name="sort_select"
+          />
+          <FilterChipDropdown
+            label="sort"
+            allOptions={SORTS.map(sort_to_option)}
+            currentOption={sort_to_option(this.state.sort)}
+            onSelect={e => handleSortChange(this, e)}
             className="lemmy-select mr-2"
-            onChange={linkEvent(this, handleSortChange)}
-          >
-            <option disabled>{i18n.t("sort")}</option>
-            {SORTS.map(s => (
-              <option key={s.name} value={s.name}>
-                {i18n.t(s.name as I18nKeys)}
-              </option>
-            ))}
-          </select>
+          />
           <label className="label">
             <input
               checked={this.state.show_nsfw}
@@ -688,7 +670,7 @@ export class Instances extends Component<object, State> {
 
     const queryParams: QueryParams<State> = {
       location: this.state.location?.code,
-      language: this.state.language,
+      language: this.state.language.code,
       topic: this.state.topic?.name,
       sort: this.state.sort?.name,
       show_nsfw: this.state.show_nsfw ? "true" : undefined,
@@ -702,26 +684,28 @@ export class Instances extends Component<object, State> {
   }
 }
 
-function handleSortChange(i: Instances, event: any) {
+function handleSortChange(i: Instances, sort: string) {
   i.updateUrl({
-    sort: SORTS.find(s => s.name === event.target.value) ?? RANDOM_SORT,
+    sort: SORTS.find(s => s.name === sort) ?? RANDOM_SORT,
   });
 }
 
-function handleTopicChange(i: Instances, event: any) {
+function handleTopicChange(i: Instances, topic: string) {
   i.updateUrl({
-    topic: TOPICS.find(c => c.name === event.target.value) ?? ALL_TOPIC,
+    topic: TOPICS.find(c => c.name === topic) ?? TOPIC_ALL,
   });
 }
 
-function handleHostedInChange(i: Instances, event: string) {
+function handleHostedInChange(i: Instances, hosted_in: string) {
   i.updateUrl({
-    location: i.state.allLocations.find(c => c.code === event),
+    location: i.state.allLocations.find(c => c.code === hosted_in),
   });
 }
 
-function handleLanguageChange(i: Instances, event: any) {
-  i.updateUrl({ language: event.target.value });
+function handleLanguageChange(i: Instances, language: any) {
+  i.updateUrl({
+    language: availableLanguages().find(l => l.code === language),
+  });
 }
 
 function handleNsfwChange(
@@ -743,18 +727,18 @@ function acceptNsfw(i: Instances) {
   // languages or countries.
   i.updateUrl({
     show_nsfw: true,
-    language: "all",
-    topic: ALL_TOPIC,
-    location: ALL_LOCATION,
+    language: LANGUAGE_ALL,
+    topic: TOPIC_ALL,
+    location: LOCATION_ALL,
   });
 }
 
 function handleSeeAll(i: Instances) {
   i.updateUrl({
     sort: RANDOM_SORT,
-    language: "all",
-    topic: ALL_TOPIC,
-    location: ALL_LOCATION,
+    language: LANGUAGE_ALL,
+    topic: TOPIC_ALL,
+    location: LOCATION_ALL,
     show_nsfw: false,
   });
 }
@@ -777,5 +761,26 @@ function location_to_option(l: Location): FilterOption<string> {
   return {
     value: l.code,
     i18n: l.name,
+  };
+}
+
+function topic_to_option(t: Topic): FilterOption<string> {
+  return {
+    value: t.name,
+    i18n: t.name,
+  };
+}
+
+function language_to_option(l: Language): FilterOption<string> {
+  return {
+    value: l.code,
+    i18n: l.name,
+  };
+}
+
+function sort_to_option(s: Sort): FilterOption<string> {
+  return {
+    value: s.name,
+    i18n: s.name,
   };
 }

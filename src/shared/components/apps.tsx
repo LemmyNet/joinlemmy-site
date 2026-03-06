@@ -1,4 +1,4 @@
-import { Component, InfernoNode, linkEvent } from "inferno";
+import { Component, InfernoNode } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next-dess";
@@ -13,11 +13,10 @@ import {
   MODERATION_TOOLS,
 } from "../data/app-definitions";
 import { Icon } from "./icon";
-import { I18nKeys } from "i18next";
 import { isBrowser, sortRandom } from "../utils";
 import classNames from "classnames";
 import { UAParser } from "ua-parser-js";
-import { FormEvent } from "inferno";
+import { FilterChipDropdown, FilterOption } from "./filter-chip-dropdown";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-4">
@@ -285,18 +284,15 @@ export class Apps extends Component<any, State> {
           <div className="flex-none"></div>
           <div className="grow"></div>
           <div>
-            <select
+            <FilterChipDropdown
+              label="platform"
+              allOptions={Object.entries(Platform)
+                .map(([_, p]) => p)
+                .map(platform_to_option)}
+              currentOption={platform_to_option(this.state.platform)}
+              onSelect={e => handlePlatformChange(this, e)}
               className="lemmy-select mr-2"
-              value={this.state.platform}
-              onChange={linkEvent(this, handlePlatformChange)}
-              name="platform_select"
-            >
-              {Object.entries(Platform).map(([name, platform]) => (
-                <option key={name} value={platform}>
-                  {i18n.t(platform as string as I18nKeys)}
-                </option>
-              ))}
-            </select>
+            />
           </div>
         </div>
       </div>
@@ -304,8 +300,8 @@ export class Apps extends Component<any, State> {
   }
 }
 
-function handlePlatformChange(i: Apps, event: FormEvent<HTMLSelectElement>) {
-  const platform: Platform = (event.target.value as Platform) ?? Platform.All;
+function handlePlatformChange(i: Apps, p: string) {
+  const platform: Platform = (p as Platform) ?? Platform.All;
   i.setState({
     platform,
   });
@@ -317,4 +313,11 @@ function handleSeeAll(i: Apps) {
     platform: Platform.All,
   });
   i.buildAppList();
+}
+
+function platform_to_option(p: Platform): FilterOption<string> {
+  return {
+    value: p,
+    i18n: p,
+  };
 }
