@@ -70,7 +70,7 @@ const NavLinks = () => (
 );
 
 function closeNavbarDropdown() {
-  (document.activeElement as any).blur();
+  (document.activeElement as HTMLElement).blur();
 }
 
 function handleLanguageChange(_: any, event: ChangeEvent<HTMLSelectElement>) {

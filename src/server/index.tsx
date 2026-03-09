@@ -96,33 +96,38 @@ function setLanguage(
 server.get(
   "/*",
   async (req: Request<object, object, object, Query>, res: Response) => {
-    // const activeRoute = routes.find(route => matchPath(req.path, route)) || {};
-    const context = {} as any;
-
     const language = setLanguage(req, res);
     const i18n = await initI18n();
     await i18n.changeLanguage(language);
 
     const wrapper = (
-      <StaticRouter location={req.url} context={context}>
+      <StaticRouter location={req.url} context={{}}>
         <App i18n={i18n} />
       </StaticRouter>
     );
-    if (context.url) {
-      return res.redirect(context.url);
-    }
 
     const root = renderToString(wrapper);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const helmet = Helmet.renderStatic();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const helmetAttr = helmet.htmlAttributes.toString();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const helmetTitle = helmet.title.toString();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const helmetMeta = helmet.meta.toString();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const helmetLink = helmet.link.toString();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const helmetBodyAttr = helmet.bodyAttributes.toString();
 
     res.send(`
            <!DOCTYPE html>
-           <html ${helmet.htmlAttributes.toString()} lang="en" class="scroll-smooth" data-theme="halloween">
+           <html ${helmetAttr} lang="en" class="scroll-smooth" data-theme="halloween">
            <head>
            ${erudaInit()}
 
-           ${helmet.title.toString()}
-           ${helmet.meta.toString()}
+           ${helmetTitle}
+           ${helmetMeta}
 
            <!-- Required meta tags -->
            <meta name="Description" content="Lemmy">
@@ -136,9 +141,9 @@ server.get(
            <!-- Styles -->
            <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
 
-           ${helmet.link.toString()}
+           ${helmetLink}
            </head>
-           <body ${helmet.bodyAttributes.toString()}>
+           <body ${helmetBodyAttr}>
              <div id='root'>${root}</div>
              <script defer src='/static/js/client.js'></script>
            </body>

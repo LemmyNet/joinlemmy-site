@@ -24,8 +24,8 @@ export interface InstanceStats {
 export interface InstanceDetails {
   domain: string;
   site_info: GetSiteResponse;
-  geo_ip?: any; // Add this if it's used, or remove if not needed
-  communities?: any[]; // Add this if it's used, or remove if not needed
+  geo_ip?: any;
+  communities?: any[];
 }
 
 export interface RecommendedInstances {

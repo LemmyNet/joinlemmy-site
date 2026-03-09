@@ -25,6 +25,7 @@ import {
   ALL_TOPIC,
   TOPICS,
   availableLanguages,
+  InstanceDetails,
 } from "../data/instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
@@ -116,7 +117,7 @@ function buildUrl(domain: string): string {
 }
 
 interface InstanceCardProps {
-  instance: any;
+  instance: InstanceDetails;
 }
 
 interface InstanceCardState {
@@ -205,13 +206,13 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
 function handleModalClick(i: InstanceCard) {
   const modalId = `modal_${i.props.instance.domain}`;
   i.setState({ showModal: true });
-  (document.getElementById(modalId) as any).showModal();
+  (document.getElementById(modalId) as HTMLDialogElement).showModal();
 }
 
 const imgError =
   "this.onError=null;this.src='/static/assets/images/lemmy.svg';" as unknown as InfernoEventHandler<HTMLImageElement>;
 
-const InstanceIcon = ({ domain, icon }) => (
+const InstanceIcon = ({ domain, icon }: { domain: string, icon: string }) => (
   <a className="rounded-xl bg-neutral-800 p-4" href={buildUrl(domain)}>
     <img className="w-24 h-24" src={icon} onError={imgError} alt="" />
   </a>
@@ -227,7 +228,15 @@ const InstanceStats = ({ geoIp, emailRequired, monthlyUsers }) => (
   </div>
 );
 
-export const StatsBadges = ({ monthlyUsers, emailRequired, geoIp }) => (
+export const StatsBadges = ({
+  monthlyUsers,
+  emailRequired,
+  geoIp,
+}: {
+  monthlyUsers: number;
+  emailRequired: boolean;
+  geoIp: any;
+}) => (
   <>
     <Badge
       content={
@@ -291,6 +300,14 @@ export const DetailsModal = ({
   sidebar,
   registrationMode,
   emailRequired,
+}: {
+  id: string, domain: string, icon: string,
+  banner?: string,
+  geoIp,
+  monthlyUsers: number,
+  sidebar?: string,
+  registrationMode: string,
+  emailRequired: boolean,
 }) => (
   <dialog id={id} className="modal">
     <form method="dialog" className="modal-backdrop">
