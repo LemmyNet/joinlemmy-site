@@ -13,7 +13,10 @@ const GeoDbReader = await Geolite_open(GeoIpDbName.Country, path =>
   maxmind.open<CountryResponse>(path),
 );
 
-export function suggested_instances(req: Request<object, object, object, object, object>, res: Response): void {
+export function suggested_instances(
+  req: Request<object, object, object, object, object>,
+  res: Response,
+): void {
   const ip = clientIp(req);
   // Check crawl results to exclude instances which are down
   const crawledInstances = instance_stats.stats.instance_details.map(

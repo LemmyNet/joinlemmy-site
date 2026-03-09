@@ -212,7 +212,7 @@ function handleModalClick(i: InstanceCard) {
 const imgError =
   "this.onError=null;this.src='/static/assets/images/lemmy.svg';" as unknown as InfernoEventHandler<HTMLImageElement>;
 
-const InstanceIcon = ({ domain, icon }: { domain: string, icon: string }) => (
+const InstanceIcon = ({ domain, icon }: { domain: string; icon: string }) => (
   <a className="rounded-xl bg-neutral-800 p-4" href={buildUrl(domain)}>
     <img className="w-24 h-24" src={icon} onError={imgError} alt="" />
   </a>
@@ -301,13 +301,15 @@ export const DetailsModal = ({
   registrationMode,
   emailRequired,
 }: {
-  id: string, domain: string, icon: string,
-  banner?: string,
-  geoIp,
-  monthlyUsers: number,
-  sidebar?: string,
-  registrationMode: string,
-  emailRequired: boolean,
+  id: string;
+  domain: string;
+  icon: string;
+  banner?: string;
+  geoIp;
+  monthlyUsers: number;
+  sidebar?: string;
+  registrationMode: string;
+  emailRequired: boolean;
 }) => (
   <dialog id={id} className="modal">
     <form method="dialog" className="modal-backdrop">
@@ -435,14 +437,16 @@ export class Instances extends Component<object, State> {
       .filter(i => Object.keys(i.geo_ip.continent).length !== 0)
       .map(i => i.geo_ip.continent)
       // filter nulls
-      .flatMap(i => (i.code && i.names.en ? i : []))
-      .map((i): Location => ({ code: i.code, name: i.names.en }));
+      .flatMap(i => (i.code && i.names?.en ? i : []))
+      .map(i => ({ code: i.code, name: i.names?.en }))
+      .flatMap(i => i as Location);
     const countries = instance_stats.stats.instance_details
       .filter(i => Object.keys(i.geo_ip.country).length !== 0)
       .map(i => i.geo_ip.country)
       // filter nulls
-      .flatMap(i => (i.iso_code && i.names.en ? i : []))
-      .map((i): Location => ({ code: i.iso_code, name: i.names.en }));
+      .flatMap(i => (i.iso_code && i.names?.en ? i : []))
+      .map(i => ({ code: i.iso_code, name: i.names?.en }))
+      .flatMap(i => i as Location);
 
     // for some reason this doesnt work with uniqueEntries()
     return continents.concat(countries).reduce((acc, obj) => {

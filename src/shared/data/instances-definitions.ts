@@ -24,13 +24,37 @@ export interface InstanceStats {
 export interface InstanceDetails {
   domain: string;
   site_info: GetSiteResponse;
-  geo_ip?: any;
-  communities?: any[];
+  geo_ip: GeoIp;
+  communities?: object[];
 }
 
 export interface RecommendedInstances {
   start_scan_instances: string[];
   exclude: string[];
+}
+
+export interface GeoIpCity {
+  geoname_id?: number;
+  names?: Record<string, string>;
+}
+
+export interface GeoIpCountry {
+  geoname_id?: number;
+  is_in_european_union?: boolean;
+  iso_code?: string;
+  names?: Record<string, string>;
+}
+
+export interface GeoIpContinent {
+  code?: string;
+  geoname_id?: number;
+  names?: Record<string, string>;
+}
+
+export interface GeoIp {
+  city: GeoIpCity;
+  country: GeoIpCountry;
+  continent: GeoIpContinent;
 }
 
 export interface InstanceHelper {
