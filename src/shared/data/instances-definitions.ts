@@ -87,7 +87,7 @@ export const SUGGESTED_INSTANCES: SuggestedInstancesType = {
   nl: ["lemy.nl"],
   es: ["chachara.club"],
   lt: ["group.lt"],
-  fallback: ["thelemmy.club", "lemmus.org", "lemmy.org"],
+  fallback: ["thelemmy.club", "lemmus.org"],
 };
 
 export const INSTANCE_HELPERS: InstanceHelper[] = [

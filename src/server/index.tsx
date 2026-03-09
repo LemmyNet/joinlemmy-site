@@ -4,7 +4,7 @@ import express, {
   Response,
   NextFunction,
 } from "express";
-import { StaticRouter } from "inferno-router";
+import { matchPath, StaticRouter } from "inferno-router";
 import { renderToString } from "inferno-server";
 // import { matchPath } from "inferno-router";
 import path from "path";
@@ -14,6 +14,7 @@ import process from "process";
 import { Helmet } from "inferno-helmet";
 import { getLanguageFromCookie, initI18n } from "../shared/i18next";
 import { all_instances, suggested_instances } from "./api";
+import { routes } from "../shared/routes";
 
 const server = express();
 const port = 1234;
@@ -96,6 +97,11 @@ function setLanguage(
 server.get(
   "/*",
   async (req: Request<object, object, object, Query>, res: Response) => {
+    const activeRoute = routes.find(route => matchPath(req.path, route));
+    if (!activeRoute) {
+      res.status(404);
+    }
+
     const language = setLanguage(req, res);
     const i18n = await initI18n();
     await i18n.changeLanguage(language);
