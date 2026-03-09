@@ -61,8 +61,7 @@ const PlatformButton = ({
   buttonType,
 }: PlatformButtonProps) => {
   const isActive =
-    buttonType &&
-    (activePlatform === buttonType || activePlatform === Platform.All);
+    buttonType && (activePlatform === buttonType || activePlatform === "all");
   const classes = classNames("btn btn-sm btn-primary text-white normal-case", {
     "btn-outline": !isActive,
   });
@@ -90,31 +89,31 @@ const AppDetailsButtons = ({
         icon="globe"
         activePlatform={activePlatform}
         link={links.web}
-        buttonType={Platform.Web}
+        buttonType="web"
       />
       <PlatformButton
         icon="appleinc"
         activePlatform={activePlatform}
         link={links.appleinc}
-        buttonType={Platform.IOS}
+        buttonType="ios"
       />
       <PlatformButton
         icon="googleplay"
         activePlatform={activePlatform}
         link={links.googleplay}
-        buttonType={Platform.Android}
+        buttonType="android"
       />
       <PlatformButton
         icon="f-droid"
         activePlatform={activePlatform}
         link={links.fdroid}
-        buttonType={Platform.Android}
+        buttonType="android"
       />
       <PlatformButton
         icon="desktop"
         activePlatform={activePlatform}
         link={links.desktop}
-        buttonType={Platform.Desktop}
+        buttonType="desktop"
       />
       <PlatformButton
         icon="github"
@@ -139,7 +138,7 @@ const AppDetailsCard = ({ app, activePlatform }: AppDetailsCardProps) => (
       <p className="text-gray-300 mb-2">{app.description}</p>
       <AppDetailsButtons
         links={app.links}
-        activePlatform={activePlatform ?? Platform.All}
+        activePlatform={activePlatform ?? "all"}
       />
     </div>
   </div>
@@ -196,7 +195,7 @@ export class Apps extends Component<any, State> {
 
   initialPlatform(): Platform {
     if (!isBrowser()) {
-      return Platform.All;
+      return "all";
     }
 
     const parser = new UAParser(navigator.userAgent);
@@ -207,17 +206,17 @@ export class Apps extends Component<any, State> {
       parser.getOS().toString() + parser.getDevice().toString()
     ).toLowerCase();
     if (info.includes("ios")) {
-      return Platform.IOS;
+      return "ios";
     } else if (info.includes("android") || info.includes("mobile")) {
-      return Platform.Android;
+      return "android";
     } else if (
       info.includes("linux") ||
       info.includes("windows") ||
       info.includes("macos")
     ) {
-      return Platform.Desktop;
+      return "desktop";
     } else {
-      return Platform.Web;
+      return "web";
     }
   }
 
@@ -225,7 +224,7 @@ export class Apps extends Component<any, State> {
     let apps = APP_LIST;
 
     // Platform filter
-    if (this.state.platform !== Platform.All) {
+    if (this.state.platform !== "all") {
       apps = apps.filter(a => a.platforms.includes(this.state.platform));
     }
 
@@ -286,11 +285,11 @@ export class Apps extends Component<any, State> {
           <div>
             <FilterChipDropdown
               label="platform"
-              allOptions={Object.entries(Platform)
-                .map(([_, p]) => p)
+              allOptions={["all", "web", "ios", "android", "desktop"]
+                .map(p => p)
                 .map(platform_to_option)}
               currentOption={platform_to_option(this.state.platform)}
-              onSelect={e => handlePlatformChange(this, e)}
+              onSelect={e => handlePlatformChange(this, e as Platform)}
               className="lemmy-select mr-2"
             />
           </div>
@@ -300,8 +299,7 @@ export class Apps extends Component<any, State> {
   }
 }
 
-function handlePlatformChange(i: Apps, p: string) {
-  const platform: Platform = (p as Platform) ?? Platform.All;
+function handlePlatformChange(i: Apps, platform: Platform) {
   i.setState({
     platform,
   });
@@ -310,7 +308,7 @@ function handlePlatformChange(i: Apps, p: string) {
 
 function handleSeeAll(i: Apps) {
   i.setState({
-    platform: Platform.All,
+    platform: "all",
   });
   i.buildAppList();
 }
