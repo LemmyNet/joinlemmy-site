@@ -1,9 +1,4 @@
-import {
-  Component,
-  InfernoEventHandler,
-  InfernoMouseEvent,
-  linkEvent,
-} from "inferno";
+import { Component, InfernoEventHandler, InfernoMouseEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next-dess";
@@ -192,7 +187,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
             </div>
             <button
               className="btn btn-secondary btn-outline text-white btn-block my-2"
-              onClick={linkEvent(this, handleModalClick)}
+              onClick={_ => handleModalClick(this)}
             >
               {i18n.t("more_information")}
             </button>
@@ -593,7 +588,7 @@ export class Instances extends Component<object, State> {
       <div className="flex justify-center p-8">
         <button
           className="btn btn-secondary text-white normal-case"
-          onClick={linkEvent(this, handleSeeAll)}
+          onClick={_ => handleSeeAll(this)}
         >
           {i18n.t("see_all_servers")}
         </button>
@@ -629,7 +624,7 @@ export class Instances extends Component<object, State> {
           <select
             className="lemmy-select mr-2"
             value={this.state.topic?.name}
-            onChange={linkEvent(this, handleTopicChange)}
+            onChange={e => handleTopicChange(this, e)}
             name="topic_select"
           >
             <option disabled selected>
@@ -643,7 +638,7 @@ export class Instances extends Component<object, State> {
           </select>
           <select
             value={this.state.language}
-            onChange={linkEvent(this, handleLanguageChange)}
+            onChange={e => handleLanguageChange(this, e)}
             className="lemmy-select mr-2"
           >
             <option disabled>Languages</option>
@@ -660,7 +655,7 @@ export class Instances extends Component<object, State> {
             value={this.state.sort?.name}
             name="sort_select"
             className="lemmy-select mr-2"
-            onChange={linkEvent(this, handleSortChange)}
+            onChange={e => handleSortChange(this, e)}
           >
             <option disabled>{i18n.t("sort")}</option>
             {SORTS.map(s => (

@@ -73,7 +73,7 @@ function closeNavbarDropdown() {
   (document.activeElement as HTMLElement).blur();
 }
 
-function handleLanguageChange(_: any, event: ChangeEvent<HTMLSelectElement>) {
+function handleLanguageChange(event: ChangeEvent<HTMLSelectElement>) {
   const new_location = location.href.split("?")[0];
   location.href = new_location + `?lang=${event.target.value}`;
 }
@@ -103,7 +103,7 @@ export const Navbar = ({ footer = false }) => (
     <div className="navbar-end">
       {!footer && (
         <select
-          onChange={e => handleLanguageChange(this, e)}
+          onChange={e => handleLanguageChange(e)}
           className="lemmy-select"
         >
           {LANGUAGES.map((l, i) => (

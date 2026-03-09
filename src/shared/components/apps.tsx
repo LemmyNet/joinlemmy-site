@@ -1,4 +1,4 @@
-import { Component, InfernoNode, linkEvent } from "inferno";
+import { Component, InfernoNode } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next-dess";
@@ -184,7 +184,7 @@ interface State {
   platform: Platform;
 }
 
-export class Apps extends Component<any, State> {
+export class Apps extends Component<object, State> {
   state: State = {
     apps: [],
     platform: this.initialPlatform(),
@@ -288,7 +288,7 @@ export class Apps extends Component<any, State> {
             <select
               className="lemmy-select mr-2"
               value={this.state.platform}
-              onChange={linkEvent(this, handlePlatformChange)}
+              onChange={e => handlePlatformChange(this, e)}
               name="platform_select"
             >
               {Object.entries(Platform).map(([name, platform]) => (
