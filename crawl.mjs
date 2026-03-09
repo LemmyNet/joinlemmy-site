@@ -49,7 +49,7 @@ try {
   }
 
   let crawlOutput = readFileSync("crawl-results/instances/joinlemmy.json");
-  let data = `export const instance_stats = {stats: ${crawlOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
+  let data = `import { Instances } from "./instances-definitions";\n\nexport const instance_stats: Instances = {stats: ${crawlOutput}, recommended : ${JSON.stringify(recommended_instances)}};\n `;
   writeFileSync(instanceStatsFile, data);
 } catch (err) {
   console.error(err);

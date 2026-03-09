@@ -1,5 +1,37 @@
 import { LANGUAGES } from "../i18next";
 import { instance_stats } from "./instance_stats";
+import { GetSiteResponse } from "lemmy-js-client";
+
+export interface Instances {
+  stats: InstanceStats;
+  recommended?: RecommendedInstances;
+}
+
+export interface InstanceStats {
+  crawled_instances: number;
+  total_users: number;
+  users_active_day: number;
+  users_active_week: number;
+  users_active_month: number;
+  users_active_halfyear: number;
+  posts: number;
+  comments: number;
+  start_time: string;
+  end_time: string;
+  instance_details: InstanceDetails[];
+}
+
+export interface InstanceDetails {
+  domain: string;
+  site_info: GetSiteResponse;
+  geo_ip?: any; // Add this if it's used, or remove if not needed
+  communities?: any[]; // Add this if it's used, or remove if not needed
+}
+
+export interface RecommendedInstances {
+  start_scan_instances: string[];
+  exclude: string[];
+}
 
 export interface InstanceHelper {
   name: string;
