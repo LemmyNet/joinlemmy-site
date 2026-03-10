@@ -21,6 +21,7 @@ import {
   TOPICS,
   availableLanguages,
   InstanceDetails,
+  GeoIp,
 } from "../data/instances-definitions";
 import { Icon, IconSize } from "./icon";
 import { I18nKeys } from "i18next";
@@ -230,7 +231,7 @@ export const StatsBadges = ({
 }: {
   monthlyUsers: number;
   emailRequired: boolean;
-  geoIp: any;
+  geoIp: GeoIp;
 }) => (
   <>
     <Badge
@@ -431,26 +432,34 @@ export class Instances extends Component<object, State> {
     const continents = instance_stats.stats.instance_details
       .filter(i => Object.keys(i.geo_ip.continent).length !== 0)
       .map(i => i.geo_ip.continent)
-      // filter nulls
-      .flatMap(i => (i.code && i.names?.en ? i : []))
-      .map(i => ({ code: i.code, name: i.names?.en }))
-      .flatMap(i => i as Location);
+      // Extract code and name
+      .map(i => [i.code, i.names?.en]);
     const countries = instance_stats.stats.instance_details
       .filter(i => Object.keys(i.geo_ip.country).length !== 0)
       .map(i => i.geo_ip.country)
-      // filter nulls
-      .flatMap(i => (i.iso_code && i.names?.en ? i : []))
-      .map(i => ({ code: i.iso_code, name: i.names?.en }))
-      .flatMap(i => i as Location);
+      // Extract code and name
+      .map(i => [i.iso_code, i.names?.en]);
 
-    // for some reason this doesnt work with uniqueEntries()
-    return continents.concat(countries).reduce((acc, obj) => {
-      const exist = acc.find(i => obj.code === i.code);
-      if (!exist) {
-        acc.push(obj);
-      }
-      return acc;
-    }, [] as Location[]);
+    // Merge countries and continents, remove those with undefined
+    return (
+      continents
+        .concat(countries)
+        .flatMap(([code, name]): Location[] => {
+          if (code && name) {
+            return [{ code, name }];
+          } else {
+            return [];
+          }
+        })
+        // for some reason this doesnt work with uniqueEntries()
+        .reduce((acc, obj) => {
+          const exist = acc.find(i => obj.code === i.code);
+          if (!exist) {
+            acc.push(obj);
+          }
+          return acc;
+        }, [] as Location[])
+    );
   }
 
   initLanguage() {
