@@ -289,7 +289,7 @@ export class Apps extends Component<any, State> {
                 .map(p => p)
                 .map(platform_to_option)}
               currentOption={platform_to_option(this.state.platform)}
-              onSelect={e => handlePlatformChange(this, e as Platform)}
+              onSelect={e => handlePlatformChange(this, e)}
               className="lemmy-select mr-2"
             />
           </div>
@@ -313,7 +313,7 @@ function handleSeeAll(i: Apps) {
   i.buildAppList();
 }
 
-function platform_to_option(p: Platform): FilterOption<string> {
+function platform_to_option(p: Platform): FilterOption<Platform> {
   return {
     value: p,
     i18n: p,
