@@ -9,13 +9,8 @@ export enum SourceType {
   Open,
 }
 
-export enum Platform {
-  All = "all_platforms",
-  Web = "web",
-  IOS = "ios",
-  Android = "android",
-  Desktop = "desktop",
-}
+// When changing any of these, make sure to adjust apps.tsx too (FilterChipDropdown allOptions)
+export type Platform = "all" | "web" | "ios" | "android" | "desktop";
 
 export interface AppDetails {
   name: string;
@@ -113,7 +108,7 @@ const BLORP: AppDetails = {
     web: "https://blorpblorp.xyz",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Desktop, Platform.IOS, Platform.Web],
+  platforms: ["desktop", "ios", "web"],
 };
 
 const ECHO: AppDetails = {
@@ -126,7 +121,7 @@ const ECHO: AppDetails = {
     appleinc: "https://apps.apple.com/us/app/echo-for-lemmy/id6450902296",
   },
   sourceType: SourceType.Closed,
-  platforms: [Platform.IOS],
+  platforms: ["ios"],
 };
 
 const VOYAGER: AppDetails = {
@@ -145,7 +140,7 @@ const VOYAGER: AppDetails = {
     web: "https://vger.app/",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Android, Platform.IOS, Platform.Web],
+  platforms: ["android", "ios", "web"],
 };
 
 const THUNDER: AppDetails = {
@@ -163,7 +158,7 @@ const THUNDER: AppDetails = {
     github: "https://github.com/thunder-app/thunder",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Android, Platform.IOS],
+  platforms: ["android", "ios"],
 };
 
 const JERBOA: AppDetails = {
@@ -178,7 +173,7 @@ const JERBOA: AppDetails = {
     github: "https://github.com/LemmyNet/jerboa",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Android],
+  platforms: ["android"],
 };
 
 const ETERNITY: AppDetails = {
@@ -195,7 +190,7 @@ const ETERNITY: AppDetails = {
   },
 
   sourceType: SourceType.Open,
-  platforms: [Platform.Android],
+  platforms: ["android"],
 };
 
 const BOOST: AppDetails = {
@@ -209,7 +204,7 @@ const BOOST: AppDetails = {
       "https://play.google.com/store/apps/details?id=com.rubenmayayo.lemmy",
   },
   sourceType: SourceType.Closed,
-  platforms: [Platform.Android],
+  platforms: ["android"],
 };
 
 const SYNC: AppDetails = {
@@ -223,7 +218,7 @@ const SYNC: AppDetails = {
       "https://play.google.com/store/apps/details?id=io.syncapps.lemmy_sync",
   },
   sourceType: SourceType.Closed,
-  platforms: [Platform.Android],
+  platforms: ["android"],
 };
 
 const MLEM: AppDetails = {
@@ -237,7 +232,7 @@ const MLEM: AppDetails = {
     github: "https://github.com/mlemgroup/mlem",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.IOS],
+  platforms: ["ios"],
 };
 
 const LEMMY_UI: AppDetails = {
@@ -249,7 +244,7 @@ const LEMMY_UI: AppDetails = {
     github: "https://github.com/LemmyNet/lemmy-ui",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Web],
+  platforms: ["web"],
 };
 
 const PHOTON: AppDetails = {
@@ -263,7 +258,7 @@ const PHOTON: AppDetails = {
     github: "https://github.com/Xyphyn/photon",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Web],
+  platforms: ["web"],
 };
 
 const ALEXANDRITE: AppDetails = {
@@ -278,7 +273,7 @@ const ALEXANDRITE: AppDetails = {
     web: "https://a.lemmy.world/lemmy.world",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Web],
+  platforms: ["web"],
 };
 
 const MLMYM: AppDetails = {
@@ -291,7 +286,7 @@ const MLMYM: AppDetails = {
     web: "https://old.lemmy.world/",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Web],
+  platforms: ["web"],
 };
 
 const NEONMODEM: AppDetails = {
@@ -303,7 +298,7 @@ const NEONMODEM: AppDetails = {
     github: "https://github.com/mrusme/neonmodem",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Desktop],
+  platforms: ["desktop"],
 };
 
 const SUMMIT: AppDetails = {
@@ -319,7 +314,7 @@ const SUMMIT: AppDetails = {
     github: "https://github.com/idunnololz/summit",
   },
   sourceType: SourceType.Open,
-  platforms: [Platform.Android],
+  platforms: ["android"],
 };
 
 const ARCTIC: AppDetails = {
@@ -332,7 +327,7 @@ const ARCTIC: AppDetails = {
     appleinc: "https://apps.apple.com/us/app/arctic-for-lemmy/id6457925837",
   },
   sourceType: SourceType.Closed,
-  platforms: [Platform.IOS],
+  platforms: ["ios"],
 };
 
 export const APP_LIST: AppDetails[] = [
