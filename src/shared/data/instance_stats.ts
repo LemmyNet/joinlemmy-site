@@ -1,4 +1,6 @@
-export const instance_stats = {
+import { Instances } from "./instances-definitions";
+
+export const instance_stats: Instances = {
   stats: {
     crawled_instances: 12,
     total_users: 131240,

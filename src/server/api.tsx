@@ -8,13 +8,15 @@ import { sortRandom } from "../shared/utils";
 import { open as Geolite_open, GeoIpDbName } from "geolite2-redist";
 import maxmind, { CountryResponse } from "maxmind";
 import { Request, Response } from "express";
-import { Query } from "server";
 
 const GeoDbReader = await Geolite_open(GeoIpDbName.Country, path =>
   maxmind.open<CountryResponse>(path),
 );
 
-export function suggested_instances(req: Request, res: Response): void {
+export function suggested_instances(
+  req: Request<object, object, object, object, object>,
+  res: Response,
+): void {
   const ip = clientIp(req);
   // Check crawl results to exclude instances which are down
   const crawledInstances = instance_stats.stats.instance_details.map(
@@ -82,8 +84,8 @@ export function all_instances(_req: Request, res: Response): void {
   res.json(combined);
 }
 
-function clientIp(
-  req: Request<object, object, object, Query>,
+function clientIp<T>(
+  req: Request<object, object, object, T>,
 ): string | undefined {
   const f = req.headers["x-forwarded-for"] as string;
   const s = req.socket.remoteAddress;

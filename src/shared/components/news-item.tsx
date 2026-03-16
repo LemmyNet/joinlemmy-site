@@ -12,7 +12,7 @@ export class NewsItem extends Component<any, object> {
   }
 
   get title(): string {
-    let title = decodeURIComponent(this.props.match.params.title);
+    let title = decodeURIComponent(this.props.match.params.title as string);
     title = title.replace(/_/g, " ");
     return title;
   }

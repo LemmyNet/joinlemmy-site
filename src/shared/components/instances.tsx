@@ -1,9 +1,4 @@
-import {
-  Component,
-  InfernoEventHandler,
-  InfernoMouseEvent,
-  linkEvent,
-} from "inferno";
+import { Component, InfernoEventHandler, InfernoMouseEvent } from "inferno";
 import { Helmet } from "inferno-helmet";
 import { i18n } from "../i18next";
 import { T } from "inferno-i18next-dess";
@@ -25,6 +20,8 @@ import {
   ALL_TOPIC as TOPIC_ALL,
   TOPICS,
   availableLanguages,
+  InstanceDetails,
+  GeoIp,
   Language,
 } from "../data/instances-definitions";
 import { Icon, IconSize } from "./icon";
@@ -117,7 +114,7 @@ function buildUrl(domain: string): string {
 }
 
 interface InstanceCardProps {
-  instance: any;
+  instance: InstanceDetails;
 }
 
 interface InstanceCardState {
@@ -192,7 +189,7 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
             </div>
             <button
               className="btn btn-secondary btn-outline text-white btn-block my-2"
-              onClick={linkEvent(this, handleModalClick)}
+              onClick={_ => handleModalClick(this)}
             >
               {i18n.t("more_information")}
             </button>
@@ -206,13 +203,13 @@ class InstanceCard extends Component<InstanceCardProps, InstanceCardState> {
 function handleModalClick(i: InstanceCard) {
   const modalId = `modal_${i.props.instance.domain}`;
   i.setState({ showModal: true });
-  (document.getElementById(modalId) as any).showModal();
+  (document.getElementById(modalId) as HTMLDialogElement).showModal();
 }
 
 const imgError =
   "this.onError=null;this.src='/static/assets/images/lemmy.svg';" as unknown as InfernoEventHandler<HTMLImageElement>;
 
-const InstanceIcon = ({ domain, icon }) => (
+const InstanceIcon = ({ domain, icon }: { domain: string; icon: string }) => (
   <a className="rounded-xl bg-neutral-800 p-4" href={buildUrl(domain)}>
     <img className="w-24 h-24" src={icon} onError={imgError} alt="" />
   </a>
@@ -228,7 +225,15 @@ const InstanceStats = ({ geoIp, emailRequired, monthlyUsers }) => (
   </div>
 );
 
-export const StatsBadges = ({ monthlyUsers, emailRequired, geoIp }) => (
+export const StatsBadges = ({
+  monthlyUsers,
+  emailRequired,
+  geoIp,
+}: {
+  monthlyUsers: number;
+  emailRequired: boolean;
+  geoIp: GeoIp;
+}) => (
   <>
     <Badge
       content={
@@ -292,6 +297,16 @@ export const DetailsModal = ({
   sidebar,
   registrationMode,
   emailRequired,
+}: {
+  id: string;
+  domain: string;
+  icon: string;
+  banner?: string;
+  geoIp;
+  monthlyUsers: number;
+  sidebar?: string;
+  registrationMode: string;
+  emailRequired: boolean;
 }) => (
   <dialog id={id} className="modal">
     <form method="dialog" className="modal-backdrop">
@@ -422,24 +437,32 @@ export class Instances extends Component<object, State> {
     const continents = instance_stats.stats.instance_details
       .filter(i => Object.keys(i.geo_ip.continent).length !== 0)
       .map(i => i.geo_ip.continent)
-      // filter nulls
-      .flatMap(i => (i.code && i.names.en ? i : []))
-      .map((i): Location => ({ code: i.code, name: i.names.en }));
+      // Extract code and name
+      .map(i => [i.code, i.names?.en]);
     const countries = instance_stats.stats.instance_details
       .filter(i => Object.keys(i.geo_ip.country).length !== 0)
       .map(i => i.geo_ip.country)
-      // filter nulls
-      .flatMap(i => (i.iso_code && i.names.en ? i : []))
-      .map((i): Location => ({ code: i.iso_code, name: i.names.en }));
+      // Extract code and name
+      .map(i => [i.iso_code, i.names?.en]);
 
-    // for some reason this doesnt work with uniqueEntries()
-    const concat = continents.concat(countries).reduce((acc, obj) => {
-      const exist = acc.find(i => obj.code === i.code);
-      if (!exist) {
-        acc.push(obj);
-      }
-      return acc;
-    }, [] as Location[]);
+    // Merge countries and continents, remove those with undefined
+    const concat = continents
+      .concat(countries)
+      .flatMap(([code, name]): Location[] => {
+        if (code && name) {
+          return [{ code, name }];
+        } else {
+          return [];
+        }
+      })
+      // for some reason this doesnt work with uniqueEntries()
+      .reduce((acc, obj) => {
+        const exist = acc.find(i => obj.code === i.code);
+        if (!exist) {
+          acc.push(obj);
+        }
+        return acc;
+      }, [] as Location[]);
     concat.unshift(LOCATION_ALL);
     return concat;
   }
@@ -586,7 +609,7 @@ export class Instances extends Component<object, State> {
       <div className="flex justify-center p-8">
         <button
           className="btn btn-secondary text-white normal-case"
-          onClick={linkEvent(this, handleSeeAll)}
+          onClick={_ => handleSeeAll(this)}
         >
           {i18n.t("see_all_servers")}
         </button>

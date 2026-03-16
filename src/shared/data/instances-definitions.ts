@@ -1,5 +1,61 @@
 import { LANGUAGES } from "../i18next";
 import { instance_stats } from "./instance_stats";
+import { GetSiteResponse } from "lemmy-js-client";
+
+export interface Instances {
+  stats: InstanceStats;
+  recommended?: RecommendedInstances;
+}
+
+export interface InstanceStats {
+  crawled_instances: number;
+  total_users: number;
+  users_active_day: number;
+  users_active_week: number;
+  users_active_month: number;
+  users_active_halfyear: number;
+  posts: number;
+  comments: number;
+  start_time: string;
+  end_time: string;
+  instance_details: InstanceDetails[];
+}
+
+export interface InstanceDetails {
+  domain: string;
+  site_info: GetSiteResponse;
+  geo_ip: GeoIp;
+  communities?: object[];
+}
+
+export interface RecommendedInstances {
+  start_scan_instances: string[];
+  exclude: string[];
+}
+
+export interface GeoIpCity {
+  geoname_id?: number;
+  names?: Record<string, string>;
+}
+
+export interface GeoIpCountry {
+  geoname_id?: number;
+  is_in_european_union?: boolean;
+  iso_code?: string;
+  names?: Record<string, string>;
+}
+
+export interface GeoIpContinent {
+  code?: string;
+  geoname_id?: number;
+  names?: Record<string, string>;
+}
+
+export interface GeoIp {
+  city: GeoIpCity;
+  country: GeoIpCountry;
+  continent: GeoIpContinent;
+}
 
 export interface InstanceHelper {
   name: string;

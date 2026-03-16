@@ -182,7 +182,7 @@ interface State {
   platform: Platform;
 }
 
-export class Apps extends Component<any, State> {
+export class Apps extends Component<object, State> {
   state: State = {
     apps: [],
     platform: this.initialPlatform(),
