@@ -115,7 +115,7 @@ export interface GeoIpCountryNames {
 }
 
 export const ALL_TOPIC: Topic = {
-  name: "all_topics",
+  name: "all",
   icon: "folder",
 };
 
@@ -200,7 +200,11 @@ function uniqueFilter(value: string, index: number, self: string[]) {
   return self.indexOf(value) === index;
 }
 
-export function availableLanguages() {
+export interface Language {
+  code: string;
+  name: string;
+}
+export function availableLanguages(): Language[] {
   // domains of crawled instances
   const domains = instance_stats.stats.instance_details.map(i => i.domain);
   // language names from translations

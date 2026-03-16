@@ -128,3 +128,17 @@ export function getQueryString<T extends Record<string, string | undefined>>(
   }
   return "";
 }
+
+export function randomStr(idDesiredLength = 20): string {
+  const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  /**
+   * Create n-long array and map it to random chars from given alphabet.
+   * Then join individual chars as string
+   */
+  return Array.from({ length: idDesiredLength })
+    .map(() => {
+      return ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
+    })
+    .join("");
+}

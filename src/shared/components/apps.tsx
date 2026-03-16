@@ -13,11 +13,10 @@ import {
   MODERATION_TOOLS,
 } from "../data/app-definitions";
 import { Icon } from "./icon";
-import { I18nKeys } from "i18next";
 import { isBrowser, sortRandom } from "../utils";
 import classNames from "classnames";
 import { UAParser } from "ua-parser-js";
-import { FormEvent } from "inferno";
+import { FilterChipDropdown, FilterOption } from "./filter-chip-dropdown";
 
 const TitleBlock = () => (
   <div className="flex flex-col items-center pt-16 mb-4">
@@ -62,8 +61,7 @@ const PlatformButton = ({
   buttonType,
 }: PlatformButtonProps) => {
   const isActive =
-    buttonType &&
-    (activePlatform === buttonType || activePlatform === Platform.All);
+    buttonType && (activePlatform === buttonType || activePlatform === "all");
   const classes = classNames("btn btn-sm btn-primary text-white normal-case", {
     "btn-outline": !isActive,
   });
@@ -91,31 +89,31 @@ const AppDetailsButtons = ({
         icon="globe"
         activePlatform={activePlatform}
         link={links.web}
-        buttonType={Platform.Web}
+        buttonType="web"
       />
       <PlatformButton
         icon="appleinc"
         activePlatform={activePlatform}
         link={links.appleinc}
-        buttonType={Platform.IOS}
+        buttonType="ios"
       />
       <PlatformButton
         icon="googleplay"
         activePlatform={activePlatform}
         link={links.googleplay}
-        buttonType={Platform.Android}
+        buttonType="android"
       />
       <PlatformButton
         icon="f-droid"
         activePlatform={activePlatform}
         link={links.fdroid}
-        buttonType={Platform.Android}
+        buttonType="android"
       />
       <PlatformButton
         icon="desktop"
         activePlatform={activePlatform}
         link={links.desktop}
-        buttonType={Platform.Desktop}
+        buttonType="desktop"
       />
       <PlatformButton
         icon="github"
@@ -140,7 +138,7 @@ const AppDetailsCard = ({ app, activePlatform }: AppDetailsCardProps) => (
       <p className="text-gray-300 mb-2">{app.description}</p>
       <AppDetailsButtons
         links={app.links}
-        activePlatform={activePlatform ?? Platform.All}
+        activePlatform={activePlatform ?? "all"}
       />
     </div>
   </div>
@@ -197,7 +195,7 @@ export class Apps extends Component<object, State> {
 
   initialPlatform(): Platform {
     if (!isBrowser()) {
-      return Platform.All;
+      return "all";
     }
 
     const parser = new UAParser(navigator.userAgent);
@@ -208,17 +206,17 @@ export class Apps extends Component<object, State> {
       parser.getOS().toString() + parser.getDevice().toString()
     ).toLowerCase();
     if (info.includes("ios")) {
-      return Platform.IOS;
+      return "ios";
     } else if (info.includes("android") || info.includes("mobile")) {
-      return Platform.Android;
+      return "android";
     } else if (
       info.includes("linux") ||
       info.includes("windows") ||
       info.includes("macos")
     ) {
-      return Platform.Desktop;
+      return "desktop";
     } else {
-      return Platform.Web;
+      return "web";
     }
   }
 
@@ -226,7 +224,7 @@ export class Apps extends Component<object, State> {
     let apps = APP_LIST;
 
     // Platform filter
-    if (this.state.platform !== Platform.All) {
+    if (this.state.platform !== "all") {
       apps = apps.filter(a => a.platforms.includes(this.state.platform));
     }
 
@@ -285,18 +283,15 @@ export class Apps extends Component<object, State> {
           <div className="flex-none"></div>
           <div className="grow"></div>
           <div>
-            <select
+            <FilterChipDropdown
+              label="platform"
+              allOptions={["all", "web", "ios", "android", "desktop"]
+                .map(p => p)
+                .map(platform_to_option)}
+              currentOption={platform_to_option(this.state.platform)}
+              onSelect={e => handlePlatformChange(this, e)}
               className="lemmy-select mr-2"
-              value={this.state.platform}
-              onChange={e => handlePlatformChange(this, e)}
-              name="platform_select"
-            >
-              {Object.entries(Platform).map(([name, platform]) => (
-                <option key={name} value={platform}>
-                  {i18n.t(platform as string as I18nKeys)}
-                </option>
-              ))}
-            </select>
+            />
           </div>
         </div>
       </div>
@@ -304,8 +299,7 @@ export class Apps extends Component<object, State> {
   }
 }
 
-function handlePlatformChange(i: Apps, event: FormEvent<HTMLSelectElement>) {
-  const platform: Platform = (event.target.value as Platform) ?? Platform.All;
+function handlePlatformChange(i: Apps, platform: Platform) {
   i.setState({
     platform,
   });
@@ -314,7 +308,14 @@ function handlePlatformChange(i: Apps, event: FormEvent<HTMLSelectElement>) {
 
 function handleSeeAll(i: Apps) {
   i.setState({
-    platform: Platform.All,
+    platform: "all",
   });
   i.buildAppList();
+}
+
+function platform_to_option(p: Platform): FilterOption<Platform> {
+  return {
+    value: p,
+    i18n: p,
+  };
 }
