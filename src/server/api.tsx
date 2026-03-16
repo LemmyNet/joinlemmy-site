@@ -81,8 +81,12 @@ export function all_instances(_req: Request, res: Response): void {
       combined[key] = value;
     }
   }
+  const json = {
+    suggested: SUGGESTED,
+    instances: combined,
+  };
 
-  res.json(combined);
+  res.json(json);
 }
 
 function clientIp<T>(
