@@ -59,6 +59,7 @@ export function suggested_instances(
     json = sortRandom(SUGGESTED["fallback"])[0];
   }
 
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.json([json]);
 }
 
@@ -86,6 +87,7 @@ export function all_instances(_req: Request, res: Response): void {
     instances: combined,
   };
 
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.json(json);
 }
 
