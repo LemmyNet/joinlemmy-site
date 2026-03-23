@@ -13,26 +13,27 @@ const GeoDbReader = await Geolite_open(GeoIpDbName.Country, path =>
   maxmind.open<CountryResponse>(path),
 );
 
+// Check crawl results to exclude instances which are down
+const SUGGESTED: SuggestedInstancesType = Object.keys(
+  SUGGESTED_INSTANCES,
+).reduce((result, key) => {
+  const filtered = SUGGESTED_INSTANCES[key].filter(i => {
+    const crawledInstances = instance_stats.stats.instance_details.map(
+      i => i.domain,
+    );
+    return crawledInstances.includes(i);
+  });
+  if (filtered.length) {
+    result[key] = filtered;
+  }
+  return result;
+}, {});
+
 export function suggested_instances(
   req: Request<object, object, object, object, object>,
   res: Response,
 ): void {
   const ip = clientIp(req);
-  // Check crawl results to exclude instances which are down
-  const crawledInstances = instance_stats.stats.instance_details.map(
-    i => i.domain,
-  );
-  const suggested: SuggestedInstancesType = Object.keys(
-    SUGGESTED_INSTANCES,
-  ).reduce((result, key) => {
-    const filtered = SUGGESTED_INSTANCES[key].filter(i =>
-      crawledInstances.includes(i),
-    );
-    if (filtered.length) {
-      result[key] = filtered;
-    }
-    return result;
-  }, {});
 
   let json: string | undefined = undefined;
   if (ip) {
@@ -41,12 +42,12 @@ export function suggested_instances(
     const continent = lookup?.continent?.code;
 
     if (country) {
-      const forCountry: string[] = suggested[country];
+      const forCountry: string[] = SUGGESTED[country];
       if (forCountry) {
         json = sortRandom(forCountry)[0];
       }
     } else if (continent) {
-      const forContinent: string[] = suggested[continent];
+      const forContinent: string[] = SUGGESTED[continent];
       if (forContinent) {
         json = sortRandom(forContinent)[0];
       }
@@ -55,7 +56,7 @@ export function suggested_instances(
 
   if (!json) {
     // TODO: can also pick a suggested instance by language here
-    json = sortRandom(suggested["fallback"])[0];
+    json = sortRandom(SUGGESTED["fallback"])[0];
   }
 
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -81,9 +82,13 @@ export function all_instances(_req: Request, res: Response): void {
       combined[key] = value;
     }
   }
+  const json = {
+    suggested: SUGGESTED,
+    instances: combined,
+  };
 
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.json(combined);
+  res.json(json);
 }
 
 function clientIp<T>(
