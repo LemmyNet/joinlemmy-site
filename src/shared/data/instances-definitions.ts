@@ -556,6 +556,11 @@ export const INSTANCE_METADATA: InstanceMetadata[] = [
     languages: ["pl", "en"],
     topics: [GENERAL, REGIONAL],
   },
+  {
+    domain: "diggita.com",
+    languages: ["it"],
+    topics: [GENERAL, TECHNOLOGY, POLITICS],
+  },
   { domain: "chachara.club", languages: ["es"], topics: [REGIONAL] },
   { domain: "fasheng.ing", languages: ["zh"], topics: [REGIONAL] },
   { domain: "europe.pub", languages: ["en"], topics: [REGIONAL] },
