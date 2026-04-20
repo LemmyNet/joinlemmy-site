@@ -6,10 +6,10 @@ Lemmy is a self-hosted social link aggregation and discussion platform. It is co
 
 ## Changes
 
-With this version user badges are always shown next to usernames. There are also various bug fixes, and again security fixes ([first]( https://github.com/LemmyNet/lemmy/security/advisories/GHSA-3jvj-v6w2-h948), [second](https://github.com/LemmyNet/lemmy/security/advisories/GHSA-h6hf-9846-xwrq)).
+With this version user badges are always shown next to usernames. There are also various bug fixes, and again security fixes ([first](https://github.com/LemmyNet/lemmy/security/advisories/GHSA-3jvj-v6w2-h948), [second](https://github.com/LemmyNet/lemmy/security/advisories/GHSA-h6hf-9846-xwrq)).
 
 - Display UserBadges for Bot, Banned and Deleted users in all PersonListings by @MrKaplan-lw
- in [#4035](https://github.com/LemmyNet/lemmy-ui/pull/4035)
+  in [#4035](https://github.com/LemmyNet/lemmy-ui/pull/4035)
 - Increase timeouts for db pool by @nutomic in [#6441](https://github.com/LemmyNet/lemmy/pull/6441)
 - Add private IP check for webmention by @nutomic in [#6444](https://github.com/LemmyNet/lemmy/pull/6444)
 - Proper fix for nested comment fetch by @nutomic in [#6451](https://github.com/LemmyNet/lemmy/pull/6451)
@@ -24,7 +24,7 @@ If you need help with the upgrade, you can ask in our [support forum](https://le
 
 ## Thanks to everyone
 
-We'd like to thank our many contributors and users of Lemmy for coding, translating, testing, and helping find and fix bugs. We're glad many people find it useful and enjoyable enough to contribute. 
+We'd like to thank our many contributors and users of Lemmy for coding, translating, testing, and helping find and fix bugs. We're glad many people find it useful and enjoyable enough to contribute.
 
 ## Support development
 
