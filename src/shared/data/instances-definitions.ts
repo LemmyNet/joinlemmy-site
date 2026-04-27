@@ -561,6 +561,11 @@ export const INSTANCE_METADATA: InstanceMetadata[] = [
     languages: ["it"],
     topics: [GENERAL, TECHNOLOGY, POLITICS],
   },
+  {
+    domain: "lemy.nl",
+    languages: ["nl"],
+    topics: [GENERAL, REGIONAL, TECHNOLOGY, POLITICS],
+  },
   { domain: "chachara.club", languages: ["es"], topics: [REGIONAL] },
   { domain: "fasheng.ing", languages: ["zh"], topics: [REGIONAL] },
   { domain: "europe.pub", languages: ["en"], topics: [REGIONAL] },
