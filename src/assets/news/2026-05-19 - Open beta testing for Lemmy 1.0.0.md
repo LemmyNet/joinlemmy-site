@@ -47,6 +47,8 @@ For developers of Lemmy apps and clients, now is the time to start updating your
 
 Over the next months we will focus on testing and bug fixing. Afterwards, when when all major problems are fixed we will go to the release candidate phase. Then lemmy.ml will be upgraded to version 1.0.0-rc.0 to find remaining problems in production. When these are also resolved we will publish the final 1.0 release.
 
+Thanks to everyone who contributed to the new release so far!
+
 ---
 
 An open source project the size of Lemmy needs constant work to manage the project, implement new features and fix bugs. Dessalines and Nutomic work full-time on these tasks and more. As there is no advertising or tracking, all of our work is funded through donations. Even so there is barely enough time in the day, and no time for a second job. The only available option are user donations.
