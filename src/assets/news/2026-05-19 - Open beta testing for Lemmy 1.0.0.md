@@ -1,3 +1,5 @@
+# Open beta testing for Lemmy 1.0.0
+
 ## What is lemmy
 
 Lemmy is a self-hosted social link aggregation and discussion platform. It is completely free and open, and not controlled by any company. This means that there is no advertising, tracking, or secret algorithms. Content is organized into communities, so it is easy to subscribe to topics that you are interested in, and ignore others. Voting is used to bring the most interesting items to the top.
