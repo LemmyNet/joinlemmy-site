@@ -313,7 +313,7 @@ export class Main extends Component<Props, State> {
     // TODO: Should be able to initialize this during SSR by passing in client ip, but
     //       complicated to get it working.
     if (isBrowser()) {
-      const url = `${window.location.href}api/v1/instances/suggested`;
+      const url = `/api/v1/instances/suggested`;
       fetch(url)
         .then(res => {
           res
