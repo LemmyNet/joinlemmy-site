@@ -209,12 +209,6 @@ export class Apps extends Component<object, State> {
       return "ios";
     } else if (info.includes("android") || info.includes("mobile")) {
       return "android";
-    } else if (
-      info.includes("linux") ||
-      info.includes("windows") ||
-      info.includes("macos")
-    ) {
-      return "desktop";
     } else {
       return "web";
     }
