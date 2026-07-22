@@ -18,7 +18,9 @@ interface NewsInfo {
 
 function buildNewsInfoArray(): Array<NewsInfo> {
   return news_reversed.map(n => {
-    const split = n.title.split(" - ");
+    // split only once
+    const i = n.title.indexOf(" - ");
+    const split = [n.title.slice(0, i), n.title.slice(i + 3)];
 
     return {
       dateStr: split[0],
