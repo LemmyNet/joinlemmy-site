@@ -74,6 +74,11 @@ export const MODERATION_TOOLS: ToolDetails[] = [
       "This service provides an REST API which can be used to retrieve various information about Fediverse instances, particularly focused on detecting and countering bad actors.",
   },
   {
+    name: "lemmy-bot",
+    link: "https://github.com/SleeplessOne1917/lemmy-bot",
+    description: "A bot library for Lemmy in typescript",
+  },
+  {
     name: "LemmyAutomod",
     link: "https://github.com/RikudouSage/LemmyAutomod",
     description:
