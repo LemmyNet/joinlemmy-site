@@ -96,12 +96,8 @@ export const INSTANCE_HELPERS: InstanceHelper[] = [
     link: "https://lemmyverse.net",
   },
   {
-    name: "fediverse.observer (List)",
-    link: "https://lemmy.fediverse.observer/list",
-  },
-  {
-    name: "fediverse.observer (Map)",
-    link: "https://lemmy.fediverse.observer/map",
+    name: "FediDB",
+    link: "https://fedidb.com/software/lemmy",
   },
 ];
 
