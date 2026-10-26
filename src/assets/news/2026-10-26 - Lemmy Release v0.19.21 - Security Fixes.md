@@ -1,4 +1,4 @@
-# Lemmy Release v0.19.20 - Reduced Memory Usage
+# Lemmy Release v0.19.21 - Security Fixes
 
 ## What is Lemmy?
 
