@@ -6,7 +6,7 @@ Lemmy is a self-hosted social link aggregation and discussion platform. It is co
 
 ## Changes
 
-This release again includes numerous security fixes. Some of them are severe so admins should update as soon as possible. There are no database migrations, which means you can easily revert the upgrade if needed.
+This release again includes numerous security fixes. Some of them are severe so admins should update as soon as possible. There are no database migrations, which means you can easily revert the upgrade if needed. In the frontend a long-standing bug with wrong link previews is fixed, plus Youtube links and .avif image embeds work now.
 
 The most severe problem is a wrong permission check in the federation code, which allowed write actions from any instance (details will be provided later). It also fixes the [emudhra CA failure](https://emudhra.we-have-a-problem.com/) by relying on sytem `ca-certificates` instead of builtin ones. To make this work it was necessary to remove the unmaintained `webmention` crate. And when connecting to the [PostgreSQL database over TLS, Lemmy didn't actually verify the certificate](https://github.com/LemmyNet/lemmy/security/advisories/GHSA-pf8v-frhx-f6rx).
 
@@ -16,26 +16,30 @@ The markdown-it library had various problems with [quadratic complexity that cou
 
 Finally there is some missing validation added, like when [importing user settings](https://github.com/LemmyNet/lemmy/security/advisories/GHSA-rg64-mpqh-4j78). The [nodeinfo endpoint was missing a rate limit](https://github.com/LemmyNet/lemmy/security/advisories/GHSA-rg2m-4j8v-7888). And [junior community moderator could seize top-mod rank by re-adding a senior mod](https://github.com/LemmyNet/lemmy/security/advisories/GHSA-q5vj-w32q-m868).
 
-Full changelog:
+## Full changelog:
 
-- 3fd5b2466 Add check for federation undo_delete
-- 43642f2b6 Use system `ca-certificates` to mitigate emudhra CA failure (#6712)
-- dcf726e69 [0.19] Improve IP validation
-- 2870bf150 [0.19] Fix verification for delete user over federation
-- 4d958d942 [0.19] Prevent caching of private RSS feeds (#6702)
-- 51b337cb1 [0.19] Higher mod / admin check (#6694)
-- 23dc1e3bc [0.19] Use root certs for tls DB connections (#6688)
-- c52f079cd [0.19] Validate IPs of markdown image links before inserting (#6676)
-- a28f4447f [0.19] Adding rate_limit to feeds route. (#6665)
-- 26dd0a0b8 [0.19] Add missing validations for settings import (#6633)
-- 0b5100a05 [0.19] Upgrade dependencies (#6632)
+Backend:
 
-- 3005858d Update markdown-it (#4339)
-- 533dfda0 [0.19] Fixing avif support. (#4338)
-- 346edebe [0.19] Add `referrerpolicy` to video iframe (#4307)
-- 06d424e8 [0.19] Fix for wrong link previews (#4299)
-- a4b5b3e0 [0.19] Upgrade dependencies (#4288)
-- 17c901bc Update dependency markdown-it to v14.2.0 (#4287)
+- [Add check for federation undo_delete](https://github.com/LemmyNet/lemmy/commit/3fd5b2466)
+- [Use system `ca-certificates` to mitigate emudhra CA failure](https://github.com/LemmyNet/lemmy/pull/6712)
+- [Improve IP validation](https://github.com/LemmyNet/lemmy)
+- [Fix verification for delete user over federation](https://github.com/LemmyNet/lemmy/commit/2870bf150)
+- [Prevent caching of private RSS feeds](https://github.com/LemmyNet/lemmy/pull/6702)
+- [Higher mod / admin check](https://github.com/LemmyNet/lemmy/pull/6694)
+- [Use root certs for tls DB connections](https://github.com/LemmyNet/lemmy/pull/6688)
+- [Validate IPs of markdown image links before inserting](https://github.com/LemmyNet/lemmy/pull/6676)
+- [Adding rate_limit to feeds route.](https://github.com/LemmyNet/lemmy/pull/6665)
+- [Add missing validations for settings import](https://github.com/LemmyNet/lemmy/pull/6633)
+- [Upgrade dependencies](https://github.com/LemmyNet/lemmy/pull/6632)
+
+Frontend:
+
+- [Update markdown-it](https://github.com/LemmyNet/lemmy-ui/pull/4339)
+- [Fixing avif support.](https://github.com/LemmyNet/lemmy-ui/pull/4338)
+- [Add `referrerpolicy` to video iframe](https://github.com/LemmyNet/lemmy-ui/pull/4307)
+- [Fix for wrong link previews](https://github.com/LemmyNet/lemmy-ui/pull/4299)
+- [Upgrade dependencies](https://github.com/LemmyNet/lemmy-ui/pull/4288)
+- [Update dependency markdown-it to v14.2.0](https://github.com/LemmyNet/lemmy-ui/pull/4287)
 
 ## Upgrade instructions
 
