@@ -453,6 +453,11 @@ export const INSTANCE_METADATA: InstanceMetadata[] = [
     topics: [GENERAL, REGIONAL],
   },
   {
+    domain: "roadhouse.social",
+    languages: ["en"],
+    topics: [GENERAL, REGIONAL],
+  },
+  {
     domain: "lemmy.pt",
     languages: ["pt", "pt-BR"],
     topics: [GENERAL, REGIONAL],
