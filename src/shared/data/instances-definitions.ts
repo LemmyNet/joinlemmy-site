@@ -95,10 +95,6 @@ export const INSTANCE_HELPERS: InstanceHelper[] = [
     name: "lemmyverse.net",
     link: "https://lemmyverse.net",
   },
-  {
-    name: "FediDB",
-    link: "https://fedidb.com/software/lemmy",
-  },
 ];
 
 export interface Topic {
